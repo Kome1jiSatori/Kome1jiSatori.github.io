@@ -218,7 +218,7 @@
   <entry>
     <title>操作系统实验课作业一——进程同步</title>
     <url>/2021/04/11/%E8%BF%9B%E7%A8%8B%E5%90%8C%E6%AD%A5/</url>
-    <content><![CDATA[<p>#前言<br>&ensp;&ensp;&ensp;&ensp;linux模拟进程同步问题。</p>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>&ensp;&ensp;&ensp;&ensp;linux模拟进程同步问题。</p>
 <span id="more"></span>
 <h1 id="一、实验概述"><a href="#一、实验概述" class="headerlink" title="一、实验概述"></a>一、实验概述</h1><h2 id="1、实验目的及要求"><a href="#1、实验目的及要求" class="headerlink" title="1、实验目的及要求"></a>1、实验目的及要求</h2><p>（1）了解进程同步和互斥的含义<br>（2）掌握操作系统进程同步的基本原理<br>（3）理解基本进程同步模型，学会使用进程同步机制<br>（4）能够编码实现进程同步问题  </p>
 <h2 id="2、实验内容"><a href="#2、实验内容" class="headerlink" title="2、实验内容"></a>2、实验内容</h2><p>&ensp;&ensp;&ensp;&ensp;阅览室读书问题：假定一个阅览室最多可容纳10人，读者进入和离开阅览室时都必须在阅览室门口的一个登记表上进行登记，而且每次只允许一人进行登记操作。请用信号量实现上述进程的同步问题。（假设读者有20个每个读者阅读时间是随机的）。<br>(在ubuntu/windows环境下，编码实现）</p>
