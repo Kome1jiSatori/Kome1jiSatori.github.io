@@ -191,7 +191,7 @@
       </tags>
   </entry>
   <entry>
-    <title>操作系统笔记——第四章（绝赞更新中）</title>
+    <title>操作系统笔记——第四章（绝赞完结）</title>
     <url>/2021/05/10/os-4/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>个人操作系统笔记整理，欢迎参考，时不时更新。  </p>
 <span id="more"></span>
@@ -490,8 +490,79 @@
 <p>&ensp;&ensp;&ensp;&ensp;无快表的分页管理系统<br>&ensp;&ensp;&ensp;&ensp;EAT=t+t=2t</p>
 <p>&ensp;&ensp;&ensp;&ensp;有快表的分页管理系统<br><img src="/2021/05/10/os-4/%E5%9B%BE%E7%89%8727.png">  </p>
 <p>（t为访问一次内存的时间，a为访问快表的命中率，λ为访问一次快表的时间）  </p>
-<h3 id="4-5-4-两级页表和多级页表"><a href="#4-5-4-两级页表和多级页表" class="headerlink" title="4.5.4 两级页表和多级页表"></a>4.5.4 两级页表和多级页表</h3><p>&ensp;&ensp;&ensp;&ensp;现代计算机系统都支持非常大的逻辑地址空间，致使页表很大，用连续空间存放页表显然不现实。<br>&ensp;&ensp;&ensp;&ensp;如逻辑地址32位，页面大小4KB，则页表项为1M，若每个页表项占4字节，则页表共需要4MB的连续内存空间。<br>&ensp;&ensp;&ensp;&ensp;解决方案：<br>&ensp;&ensp;&ensp;&ensp;用离散方式存储页表<br>&ensp;&ensp;&ensp;&ensp;仅将当前需要的部分页表项放在内存，其余放在磁盘上，需要时调入（请求调入）。  </p>
-<h2 id="4-6-分段存储管理方式"><a href="#4-6-分段存储管理方式" class="headerlink" title="4.6 分段存储管理方式"></a>4.6 分段存储管理方式</h2>]]></content>
+<h3 id="4-5-4-两级页表和多级页表"><a href="#4-5-4-两级页表和多级页表" class="headerlink" title="4.5.4 两级页表和多级页表"></a>4.5.4 两级页表和多级页表</h3><p>&ensp;&ensp;&ensp;&ensp;<strong>1. 两级页表</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;现代计算机系统都支持非常大的逻辑地址空间，致使页表很大，用连续空间存放页表显然不现实。<br>&ensp;&ensp;&ensp;&ensp;如逻辑地址32位，页面大小4KB，则页表项为1M，若每个页表项占4字节，则页表共需要4MB的连续内存空间。<br>&ensp;&ensp;&ensp;&ensp;解决方案：<br>&ensp;&ensp;&ensp;&ensp;用离散方式存储页表<br>&ensp;&ensp;&ensp;&ensp;仅将当前需要的部分页表项放在内存，其余放在磁盘上，需要时调入（请求调入）。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;逻辑地址结构：<br><img src="/2021/05/10/os-4/%E5%9B%BE%E7%89%8728.png">  </p>
+<p>&ensp;&ensp;&ensp;&ensp;两级页表系统将32位逻辑地址空间的地址分成三段：其中，页表目录号和页号各占10位，页内地址d占12位。每页的大小为4KB。由于物理块号和页表的物理地址都占4个字节，使每页中包含1024个页表项，所以页表目录和页表页面的大小也都是4KB，即一页。<br><img src="/2021/05/10/os-4/%E5%9B%BE%E7%89%8729.png">   </p>
+<p>&ensp;&ensp;&ensp;&ensp;在地址变换机构中，增设一个外层页表寄存器，用于存放外层页表的始址。使用外层页号，作为外层页表的索引，从中找到指定页表分页的始址，再利用p2作为指定页表分页的索引，找到指定的页表项，其中有该页在内存的物理块号，用该块号和页内地址既可构成访问的内存物理地址。<br><img src="/2021/05/10/os-4/%E5%9B%BE%E7%89%8730.png">   </p>
+<p>&ensp;&ensp;&ensp;&ensp;上述对页表施行离散分配的方法，虽然解决了对于大页表无需大片连续存储空间的问题，但并未解决用较少的内存空间去存放大页表的问题。<br>&ensp;&ensp;&ensp;&ensp;能够用较少的内存空间存放页表的唯一方法是，仅把当前需要的一批页表项调入内存，以后再根据所需要陆续调入。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>2. 多级页表</strong>    </p>
+<p>&ensp;&ensp;&ensp;&ensp;对两级页表进行扩充，便可得到三级、四级或更多级的页表。<br>&ensp;&ensp;&ensp;&ensp;多级页表的实现方式与两级页表类似。<br>&ensp;&ensp;&ensp;&ensp;64位机器页表一般&gt;3级，最外层页表常驻内存。  </p>
+<h3 id="4-5-5-反置页表"><a href="#4-5-5-反置页表" class="headerlink" title="4.5.5 反置页表"></a>4.5.5 反置页表</h3><p>&ensp;&ensp;&ensp;&ensp;<strong>1. 多级页表</strong>   </p>
+<p>&ensp;&ensp;&ensp;&ensp;为了减少页表所占用的内存空间，引入了反置页表。<br>&ensp;&ensp;&ensp;&ensp;反置页表是为每一个物理块设置一个页表项，并将它们按物理块的编号排序，其中的内容则是页号和其所隶属进程的标识符。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>2. 地址变换</strong>   </p>
+<p>&ensp;&ensp;&ensp;&ensp;根据进程标识符和页号，检索反置页表，如果检索到与之匹配的页表项，则该页表项的序号即为该页所在的物理块号。反之则说明该页尚未装入内存。<br><img src="/2021/05/10/os-4/%E5%9B%BE%E7%89%8731.png"></p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>基本的分页存储管理优点</strong>：<br>&ensp;&ensp;&ensp;&ensp;1）没有外碎片，每个内碎片不超过页大小。<br>&ensp;&ensp;&ensp;&ensp;2）一个程序不必连续存放。<br>&ensp;&ensp;&ensp;&ensp;3）便于内存扩充，随着程序运行而动态生成的数据增多，地址空间可相应增长。<br>&ensp;&ensp;&ensp;&ensp;<strong>缺点</strong>：<br>&ensp;&ensp;&ensp;&ensp;程序需全部装入内存。  </p>
+<h2 id="4-6-分段存储管理方式"><a href="#4-6-分段存储管理方式" class="headerlink" title="4.6 分段存储管理方式"></a>4.6 分段存储管理方式</h2><h3 id="4-6-1-分段存储管理方式的引入"><a href="#4-6-1-分段存储管理方式的引入" class="headerlink" title="4.6.1 分段存储管理方式的引入"></a>4.6.1 分段存储管理方式的引入</h3><p>&ensp;&ensp;&ensp;&ensp;段式存储方式的引入<br>&ensp;&ensp;&ensp;&ensp;1）分页通常不是一个完整的程序或数据逻辑段。<br>&ensp;&ensp;&ensp;&ensp;2）分区和页式管理只能采用静态链接，花费大量cpu时间。<br>&ensp;&ensp;&ensp;&ensp;3）用户的作业可以按逻辑上完整的段来划分。<br>&ensp;&ensp;&ensp;&ensp;4）段式存储管理利用动态链接的方式有效节省时间和空间。<br>&ensp;&ensp;&ensp;&ensp;故可以将用户作业地址空间,按逻辑意义分段，以段作为内外存交换的单位。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>1. 方便编程</strong>  </p>
+<p>若将逻辑地址分为段名和段内偏移量，则有：  </p>
+<pre><code>LOAD 1, [A]|&lt;D&gt;
+STORE 1, [B]|&lt;C&gt;
+</code></pre>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>2. 信息共享</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;在实现对程序和数据共享时，是以信息的逻辑单位为基础的。比如共享某个过程，函数或文件。而分页系统中的“页”只是存放信息的单位，并无完整的逻辑意义，因而实现共享比较困难。</p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>3. 信息保护</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;信息保护是以信息的逻辑单位为基础的，而且通常是以一个过程，函数或文件为基本单位进行保护的。而在分页中，一个函数可能占用多个页，而第一页和最后一页还会装入其他内容。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>4. 动态增长</strong>   </p>
+<p>&ensp;&ensp;&ensp;&ensp;实际应用中，有些段，尤其是数据段，在它们的使用过程中，会不断的增加，相应的所需存储空间也会动态增加。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>5. 动态链接</strong>   </p>
+<p>&ensp;&ensp;&ensp;&ensp;在程序运行时，先将主程序和立即需要用到的目标程序装入内存，即启动运行。在程序运行过程中，需要调用某个目标程序时，才将该段调入内存并进行链接。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;作业的地址空间分为多段，每段都从0开始编址，故地址是二维的。<br><img src="/2021/05/10/os-4/%E5%9B%BE%E7%89%8732.png">  </p>
+<h3 id="4-6-2-分段系统的基本原理"><a href="#4-6-2-分段系统的基本原理" class="headerlink" title="4.6.2 分段系统的基本原理"></a>4.6.2 分段系统的基本原理</h3><p>&ensp;&ensp;&ensp;&ensp;<strong>1. 分段</strong>   </p>
+<p>&ensp;&ensp;&ensp;&ensp;分段系统的逻辑地址结构<br><img src="/2021/05/10/os-4/%E5%9B%BE%E7%89%8733.png">   </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>2. 段表</strong>   </p>
+<p>&ensp;&ensp;&ensp;&ensp;在分段存储管理中，系统为每个分段分配一个连续的分区，进程的各个段可以离散地移入内存的不同分区中。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;每个进程建立一个段表，用来记录每段在内存的起始地址及相关信息。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;其中每个表项描述一个分段的信息，至少包含：<br>&ensp;&ensp;&ensp;&ensp;段号，段长，段在内存的起始地址，其他信息<br>&ensp;&ensp;&ensp;&ensp;段表一般存放在内存。<br><img src="/2021/05/10/os-4/%E5%9B%BE%E7%89%8734.png">   </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>3. 地址变换机构</strong>    </p>
+<p>&ensp;&ensp;&ensp;&ensp;为了实现从逻辑地址到物理地址的变换功能，系统中设置了段表寄存器，用于存放段表始址和段表长度。在进行地址变换时，系统将逻辑地址中的段号S与段表长度TL进行比较。  </p>
+<ul>
+<li>若 S≥TL，表示段号太大，访问越界，于是产生越界中断信号；  </li>
+<li>若未越界，则根据段表的始址和该段的段号，计算出该段对应段表项的位置，从中读出该段在内存中的起始址。  </li>
+</ul>
+<p>&ensp;&ensp;&ensp;&ensp;然后再检查段内地址d是否超过该段的段长SL。  </p>
+<ul>
+<li>若超过，即 d≥SL，同样发出越界中断信号；</li>
+<li>若未越界，则将该段的基址与段内地址d相加，得要访问的内存物理地址。<br><img src="/2021/05/10/os-4/%E5%9B%BE%E7%89%8735.png">  </li>
+</ul>
+<p>&ensp;&ensp;&ensp;&ensp;和分页系统一样，当段表放在内存时，每访问一个数据，需要访问两次内存，从而降低了计算机的速率。解决的方法和分页类似，也增设一个联想存储器，用于保存最近的分段表项。一般，由于段比页大，因而段表项数据比页表项数目少，所需联想存储器相当较小，所以可以显著减少存取数据的时间。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>4. 分页和分段的主要区别</strong>   </p>
+<p>&ensp;&ensp;&ensp;&ensp;1）页是信息的物理单位，段是信息的逻辑单位。<br>&ensp;&ensp;&ensp;&ensp;2）页大小是系统固定的，而段大小则通常不固定。<br>&ensp;&ensp;&ensp;&ensp;3）逻辑地址表示：<br>&ensp;&ensp;&ensp;&ensp;分页的程序地址空间是一维的，各个模块在链接时必须组织成同一个地址空间；<br>&ensp;&ensp;&ensp;&ensp;分段的程序地址空间是二维的，各个模块在链接时可以每个段组织成一个地址空间。  </p>
+<h3 id="4-6-3-信息共享"><a href="#4-6-3-信息共享" class="headerlink" title="4.6.3 信息共享"></a>4.6.3 信息共享</h3><p>&ensp;&ensp;&ensp;&ensp;段是信息的逻辑单位,因此分段系统的一个突出的优点是易于实现段的共享。即允许若干个进程共享一个或多个段，而且对段的保护也十分简单。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>1. 分页系统中对程序和数据的共享</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;在分页系统中，虽然也能实现对程序和数据的共享，但远不如分段系统来得方便。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;可重入代码：又称为“纯代码”(Pure Code),在实现共享时，需要用到可重入代码(Reentrant Code) 。它是一种允许多个进程同时访问的代码，是一种不允许任何进程对其进行修改的代码。<br>&ensp;&ensp;&ensp;&ensp;在每个进程中，配以局部数据区，将在执行中可能改变的部分，拷贝到该数据区，这样，程序在执行时，只对该数据区(属于该进程私有)中的内容进行修改，而不去改变共享的代码，这时的可共享代码即成为可重入代码。   </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>2. 分段系统中对程序和数据的共享</strong>  </p>
+<p><img src="/2021/05/10/os-4/%E5%9B%BE%E7%89%8736.png">   </p>
+<p>&ensp;&ensp;&ensp;&ensp;在分页存储管理系统中，信息的共享是通过使多个进程页表项指向同一个物理块来实现的。<br>&ensp;&ensp;&ensp;&ensp;分段是信息的逻辑单位，因而实现共享比分页系统方便。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;分段保护方法有：  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>地址越界保护</strong>：段号与段表长度的比较，段内位移与段长的比较,利用界限寄存器。<br>&ensp;&ensp;&ensp;&ensp;<strong>存取控制保护</strong>：设置存取权限，访问段时判断访问类型与存取权限是否相符  </p>
+<h3 id="4-6-4-段页式存储方式"><a href="#4-6-4-段页式存储方式" class="headerlink" title="4.6.4 段页式存储方式"></a>4.6.4 段页式存储方式</h3><p>&ensp;&ensp;&ensp;&ensp;分页优点：提高内存利用率<br>&ensp;&ensp;&ensp;&ensp;分段优点：方便用户，易共享保护，动态链接  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>1. 段页式存储管理的引入</strong>   </p>
+<p>&ensp;&ensp;&ensp;&ensp;分页式存储管理对存储空间（内存）的利用率较高，但需要静态链接。<br>&ensp;&ensp;&ensp;&ensp;分段存储管理的分段须占用主存的连续区域，内存空间利用率不高，易产生碎片（外零头）。<br>&ensp;&ensp;&ensp;&ensp;段页式存储管理将分页管理和分段管理结合起来，发挥各自优点。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>2. 基本原理</strong>   </p>
+<p>&ensp;&ensp;&ensp;&ensp;作业的地址空间首先被分成若干个逻辑分段，然后再将每一段分成若干个大小固定的页面，并为每个段赋予一个段名。<br>&ensp;&ensp;&ensp;&ensp;将主存空间分成若干个和页面大小相同的物理块，对主存的分配以物理块为单位。<br>&ensp;&ensp;&ensp;&ensp;逻辑地址结构：<br>&ensp;&ensp;&ensp;&ensp;V=(s,p,d)=(段号，页号，页内地址)  </p>
+<p>&ensp;&ensp;&ensp;&ensp;作业的逻辑地址结构:<br><img src="/2021/05/10/os-4/%E5%9B%BE%E7%89%8737.png">  </p>
+<p>&ensp;&ensp;&ensp;&ensp;1、在段页式存储管理系统中，页表不再属于进程而是属于某个段，因此段表中应有专项指出该段对应页表的页表始地址和页表长度。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;2、段页式管理中、段表、页表及内存的关系如下图所示：为了实现地址变换，系统中需要设立段表及页表。<br><img src="/2021/05/10/os-4/%E5%9B%BE%E7%89%8738.png">  </p>
+<p>&ensp;&ensp;&ensp;&ensp;3、段表：每个作业一个段表，段表项为页表地址。<br>&ensp;&ensp;&ensp;&ensp;页表：每段一张页表，页表项为块号。<br>&ensp;&ensp;&ensp;&ensp;段表控制寄存器：存放正运行的作业的段表始址及大小。<br><img src="/2021/05/10/os-4/%E5%9B%BE%E7%89%8739.png">  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>3. 地址变换过程</strong>   </p>
+<p>&ensp;&ensp;&ensp;&ensp;先将段号S与段表寄存器中的段表长度进行比较，若小于段表长度则表示未越界；<br>&ensp;&ensp;&ensp;&ensp;利用段表始址和段号求出该段对应段表项的位置，从中得到该段的页表始址；<br>&ensp;&ensp;&ensp;&ensp;再利用逻辑地址中的段内页号P获得对应页表项的位置，从中读出该页所在的物理块号，再与页内地址拼接成物理地址。<br><img src="/2021/05/10/os-4/%E5%9B%BE%E7%89%8740.png">  </p>
+<p>&ensp;&ensp;&ensp;&ensp;在段页式系统中，为了获得一条指令或数据，需三次访问内存<br>&ensp;&ensp;&ensp;&ensp;第一次访问内存中的段表，从中取得页表始址；  </p>
+<p>&ensp;&ensp;&ensp;&ensp;第二次访问内存中的页表，从中取出该页所在的物理块号，并将该块号与页内地址一起形成指令或数据的物理  地址；  </p>
+<p>&ensp;&ensp;&ensp;&ensp;第三次访问是真正根据所得的物理地址取出指令或数据。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;显然，这使访问内存的次数增加了近两倍。为了提高执行的速度，在地址变换机构中增设一高速缓冲寄存器。每次访问它时，都同时利用段号和页号去检索高速缓存。</p>
+]]></content>
       <categories>
         <category>OS</category>
       </categories>
