@@ -647,7 +647,7 @@ STORE 1, [B]|&lt;C&gt;
   <entry>
     <title>操作系统实验课作业四——动态分区内存管理</title>
     <url>/2021/05/22/%E5%8A%A8%E6%80%81%E5%88%86%E5%8C%BA%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>&ensp;&ensp;&ensp;&ensp;用C语言模拟动态分区分配算法。个人实验报告使用，如果想参考，不得保留原文40%以上，谢谢配合。</p>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>&ensp;&ensp;&ensp;&ensp;用C语言模拟动态分区分配算法。本篇实验报告用于上交期末课程作业，图文请勿抄袭，谢谢配合。一经发现，必定追究。</p>
 <span id="more"></span>
 
 <h1 id="一、实验目的及要求"><a href="#一、实验目的及要求" class="headerlink" title="一、实验目的及要求"></a>一、实验目的及要求</h1><p>&ensp;&ensp;&ensp;&ensp;本实验要求用高级语言编写模拟内存的动态分区分配和回收算法（不考虑紧凑），以便加深理解。<br>&ensp;&ensp;&ensp;&ensp;1.分配：实现首次适应算法（FF）、循环首次适应算法(NF)、最佳适应算法（BF），最坏适应算法(WF)的具体实现。<br>&ensp;&ensp;&ensp;&ensp;2.空闲分区的回收，需考虑合并问题。  </p>
