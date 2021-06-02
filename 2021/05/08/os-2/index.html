@@ -27,11 +27,19 @@
 <meta property="og:site_name" content="KomeijiSatoriのblog">
 <meta property="og:description" content="前言个人操作系统笔记整理，欢迎参考，时不时更新。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/05/08/os-2/%E5%9B%BE%E7%89%871.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/05/08/os-2/%E5%9B%BE%E7%89%872.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/05/08/os-2/%E5%9B%BE%E7%89%873.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/05/08/os-2/%E5%9B%BE%E7%89%874.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/05/08/os-2/%E5%9B%BE%E7%89%875.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/05/08/os-2/%E5%9B%BE%E7%89%876.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/05/08/os-2/%E5%9B%BE%E7%89%877.png">
 <meta property="article:published_time" content="2021-05-08T22:02:49.000Z">
-<meta property="article:modified_time" content="2021-05-24T13:51:14.171Z">
+<meta property="article:modified_time" content="2021-06-02T13:42:24.246Z">
 <meta property="article:author" content="Komeiji Satori">
 <meta property="article:tag" content="课堂笔记">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kome1jisatori.github.io/2021/05/08/os-2/%E5%9B%BE%E7%89%871.png">
 
 <link rel="canonical" href="https://kome1jisatori.github.io/2021/05/08/os-2/">
 
@@ -187,7 +195,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-05-24 21:51:14" itemprop="dateModified" datetime="2021-05-24T21:51:14+08:00">2021-05-24</time>
+                <time title="修改时间：2021-06-02 21:42:24" itemprop="dateModified" datetime="2021-06-02T21:42:24+08:00">2021-06-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -226,14 +234,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>24</span>
+              <span>3.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>3 分钟</span>
             </span>
 
         </div>
@@ -247,6 +255,35 @@
       
         <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>个人操作系统笔记整理，欢迎参考，时不时更新。  </p>
 <span id="more"></span>
+
+<h1 id="第二章-进程管理"><a href="#第二章-进程管理" class="headerlink" title="第二章 进程管理"></a>第二章 进程管理</h1><h2 id="2-1-前趋图和程序执行"><a href="#2-1-前趋图和程序执行" class="headerlink" title="2.1 前趋图和程序执行"></a>2.1 前趋图和程序执行</h2><h3 id="2-1-1-前趋图"><a href="#2-1-1-前趋图" class="headerlink" title="2.1.1 前趋图"></a>2.1.1 前趋图</h3><p>&ensp;&ensp;&ensp;&ensp;前趋图定义<br>&ensp;&ensp;&ensp;&ensp;定义：前趋图是一个有向无循环图,记为 DAG(Directed Acyclic Graph) ，用于描述进程之间执行的前后顺序。<br>&ensp;&ensp;&ensp;&ensp;表示方式：<br>&ensp;&ensp;&ensp;&ensp;（1）p1–&gt;p2<br>&ensp;&ensp;&ensp;&ensp;（2）–&gt;={(p1,p2)| p1 必须在p2开始前完成}<br>&ensp;&ensp;&ensp;&ensp;节点表示：一条语句，一个程序段，一个进程，节点上的权重表示该进程的程序量或执行时间。<br><img src="/2021/05/08/os-2/%E5%9B%BE%E7%89%871.png">  </p>
+<p>&ensp;&ensp;&ensp;&ensp;下图就不是前趋图，<strong>前趋图中不应出现循环</strong><br><img src="/2021/05/08/os-2/%E5%9B%BE%E7%89%872.png">  </p>
+<p>&ensp;&ensp;&ensp;&ensp;因为存在前趋关系: S2→S3 和 S3 →S2  </p>
+<h3 id="2-1-2-程序的顺序执行及其特征"><a href="#2-1-2-程序的顺序执行及其特征" class="headerlink" title="2.1.2 程序的顺序执行及其特征"></a>2.1.2 程序的顺序执行及其特征</h3><p>&ensp;&ensp;&ensp;&ensp;单道程序环境下，程序段执行有固定的时序，仅当前一操作完成后，才能执行后继操作。<br>&ensp;&ensp;&ensp;&ensp;例如，进行计算时，总需要首先输入数据，然后进行计算，最后才能打印计算结果。假如用I表示输入，C表示计算，P表示打印，并且用箭头表示操作的先后次序。则输入数据，计算数据，打印计算结果这样一段程序。<br><img src="/2021/05/08/os-2/%E5%9B%BE%E7%89%873.png">   </p>
+<p>&ensp;&ensp;&ensp;&ensp;对于程序段中的多条语句来说，也有一个执行顺序问题，如对于包含下述三条语句的程序段：<br><img src="/2021/05/08/os-2/%E5%9B%BE%E7%89%874.png">   </p>
+<p>&ensp;&ensp;&ensp;&ensp;一切顺序执行的程序都具有下列特性：<br>&ensp;&ensp;&ensp;&ensp;（1）顺序性。即每一操作都必须在上一个操作结束之后开始。<br>&ensp;&ensp;&ensp;&ensp;（2）封闭性。程序运行时独占全机资源；资源的状态（除初始状态外）只有本程序才能改变它。程序一旦开始运行，其执行结果不受外界因素影响。<br>&ensp;&ensp;&ensp;&ensp;（3）可再现性。只要执行时的环境和初始条件相同，程序不论是连续执行还是“走走停停”地执行，都将获得相同的结果。  </p>
+<h3 id="2-1-3-程序的并发执行及其特征"><a href="#2-1-3-程序的并发执行及其特征" class="headerlink" title="2.1.3 程序的并发执行及其特征"></a>2.1.3 程序的并发执行及其特征</h3><p>&ensp;&ensp;&ensp;&ensp;程序的两种执行方式：顺序执行、并发执行。<br>&ensp;&ensp;&ensp;&ensp;现在的操作系统多为并发执行（多道处理系统），具有许多新的特征。<br>&ensp;&ensp;&ensp;&ensp;引入并发执行的目的是为了<strong>提高资源利用率</strong>。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>并发</strong>与<strong>并行</strong>概念的区别：<br>&ensp;&ensp;&ensp;&ensp;concurrency,parallel</p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>1.程序的并发执行</strong><br><img src="/2021/05/08/os-2/%E5%9B%BE%E7%89%875.png">  </p>
+<p>&ensp;&ensp;&ensp;&ensp;该例中存在下述前趋关系：<br>&ensp;&ensp;&ensp;&ensp;Ii→Ci ，Ii→Ii+1 ， Ci→Pi， Ci→Ci+1， Pi→Pi+1<br>&ensp;&ensp;&ensp;&ensp;而Ii+1和Ci及Pi-1是重迭的，亦即Ii+1和Ci及Pi-1可以并发执行。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>2.并发程序的特征</strong>   </p>
+<p>&ensp;&ensp;&ensp;&ensp;（1）间断性：进程“时走时停”<br>&ensp;&ensp;&ensp;&ensp;（2）非封闭性：多个程序共享资源<br>&ensp;&ensp;&ensp;&ensp;（3）不可再现性：由于失去了封闭性，也失去了可在现性  </p>
+<p>&ensp;&ensp;&ensp;&ensp;例：有2个循环程序A和B，它们共享变量N；<br>&ensp;&ensp;&ensp;&ensp;程序A：N=N+1；程序B: Print(N)；N=0<br>&ensp;&ensp;&ensp;&ensp;若程序A,B以不同的速度运行有以下三种不同的结果（假定某时刻变量Ｎ的值为ｎ）  </p>
+<p>&ensp;&ensp;&ensp;&ensp;N:=N+1在Print(N)和N=0之前，得到的N值分别为：n+1, n+1, 0<br>&ensp;&ensp;&ensp;&ensp;N:=N+1在Print(N)和N=0之后，得到的N值分别为：n, 0, 1<br>&ensp;&ensp;&ensp;&ensp;N:=N+1在Print(N)和N=0之间，得到的N值分别为：n, n+1, 0  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>3.顺序执行与并发执行特征对比</strong><br><img src="/2021/05/08/os-2/%E5%9B%BE%E7%89%876.png">   </p>
+<p>&ensp;&ensp;&ensp;&ensp;程序的并发执行引发的问题  </p>
+<ul>
+<li>如何协调各程序的执行顺序？</li>
+<li>多个执行程序共享系统资源，程序之间可能会相互影响，甚至影响输出结果。</li>
+<li>选择哪些、多少个程序进入内存执行？</li>
+<li>内存中的执行程序谁先执行？</li>
+<li>内存如何有效分配？           </li>
+</ul>
+<h2 id="2-2-进程的描述"><a href="#2-2-进程的描述" class="headerlink" title="2.2 进程的描述"></a>2.2 进程的描述</h2><h3 id="2-2-1-进程的定义和特征"><a href="#2-2-1-进程的定义和特征" class="headerlink" title="2.2.1 进程的定义和特征"></a>2.2.1 进程的定义和特征</h3><p>&ensp;&ensp;&ensp;&ensp;<strong>1.进程的定义</strong>   </p>
+<p>&ensp;&ensp;&ensp;&ensp;通常的<strong>程序</strong>不能参与并发执行，为了让程序能并发执行，人们引入<strong>进程</strong>的概念对并发执行的程序加以描述和控制。<br>&ensp;&ensp;&ensp;&ensp;比较典型的进程定义有：<br>&ensp;&ensp;&ensp;&ensp;⑴进程是程序的一次执行。<br>&ensp;&ensp;&ensp;&ensp;⑵进程是一个程序及其数据在处理机上顺序执行时所发生的活动。<br>&ensp;&ensp;&ensp;&ensp;⑶进程是程序在一个数据集合上运行的过程，它是系统进行资源分配和调度的一个独立单位。<br>&ensp;&ensp;&ensp;&ensp;本教材定义进程为：<strong>进程是进程实体的运行过程，是系统进行资源分配和调度的一个独立单位。</strong><br>&ensp;&ensp;&ensp;&ensp;资源分配：获得除了处理机以外的资源<br>&ensp;&ensp;&ensp;&ensp;资源调度：获得处理机资源  </p>
+<p>&ensp;&ensp;&ensp;&ensp;进程与程序<br>&ensp;&ensp;&ensp;&ensp;程序：静态概念，是指令和数据的集合，可长期存储。<br>&ensp;&ensp;&ensp;&ensp;进程与程序对应关系：<br>&ensp;&ensp;&ensp;&ensp;一个程序可以对应一个进程或多个进程。<br>&ensp;&ensp;&ensp;&ensp;一个进程可以对应一个程序，或者一段程序。<br><img src="/2021/05/08/os-2/%E5%9B%BE%E7%89%877.png">  </p>
+<p>&ensp;&ensp;&ensp;&ensp;引入进程带来的问题<br>&ensp;&ensp;&ensp;&ensp;1）增加了空间开销：为进程建立数据结构<br>&ensp;&ensp;&ensp;&ensp;2）额外的时间开销：管理和协调、跟踪、填写和更新有关数据结构、切换进程、保护现场。<br>&ensp;&ensp;&ensp;&ensp;3）更难控制：<br>&ensp;&ensp;&ensp;&ensp;①协调多个进程竞争和共享资源。<br>&ensp;&ensp;&ensp;&ensp;②预防解决多个进程因为竞争资源而出现故障。<br>&ensp;&ensp;&ensp;&ensp;③处理机的竞争尤为突出。  </p>
+<h2 id="2-3-进程控制"><a href="#2-3-进程控制" class="headerlink" title="2.3 进程控制"></a>2.3 进程控制</h2><h2 id="2-4-进程同步"><a href="#2-4-进程同步" class="headerlink" title="2.4 进程同步"></a>2.4 进程同步</h2><h2 id="2-5-经典进程的同步问题"><a href="#2-5-经典进程的同步问题" class="headerlink" title="2.5 经典进程的同步问题"></a>2.5 经典进程的同步问题</h2><h2 id="2-6-进程通信"><a href="#2-6-进程通信" class="headerlink" title="2.6 进程通信"></a>2.6 进程通信</h2><h2 id="2-7-线程（THREAD）的基本概念"><a href="#2-7-线程（THREAD）的基本概念" class="headerlink" title="2.7 线程（THREAD）的基本概念"></a>2.7 线程（THREAD）的基本概念</h2><h2 id="2-8-线程的实现"><a href="#2-8-线程的实现" class="headerlink" title="2.8 线程的实现"></a>2.8 线程的实现</h2>
     </div>
 
     
@@ -357,7 +394,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86"><span class="nav-text">第二章 进程管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-%E5%89%8D%E8%B6%8B%E5%9B%BE%E5%92%8C%E7%A8%8B%E5%BA%8F%E6%89%A7%E8%A1%8C"><span class="nav-text">2.1 前趋图和程序执行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-1-%E5%89%8D%E8%B6%8B%E5%9B%BE"><span class="nav-text">2.1.1 前趋图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-2-%E7%A8%8B%E5%BA%8F%E7%9A%84%E9%A1%BA%E5%BA%8F%E6%89%A7%E8%A1%8C%E5%8F%8A%E5%85%B6%E7%89%B9%E5%BE%81"><span class="nav-text">2.1.2 程序的顺序执行及其特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-3-%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%B9%B6%E5%8F%91%E6%89%A7%E8%A1%8C%E5%8F%8A%E5%85%B6%E7%89%B9%E5%BE%81"><span class="nav-text">2.1.3 程序的并发执行及其特征</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%8F%8F%E8%BF%B0"><span class="nav-text">2.2 进程的描述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-1-%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%AE%9A%E4%B9%89%E5%92%8C%E7%89%B9%E5%BE%81"><span class="nav-text">2.2.1 进程的定义和特征</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6"><span class="nav-text">2.3 进程控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-%E8%BF%9B%E7%A8%8B%E5%90%8C%E6%AD%A5"><span class="nav-text">2.4 进程同步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-%E7%BB%8F%E5%85%B8%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%90%8C%E6%AD%A5%E9%97%AE%E9%A2%98"><span class="nav-text">2.5 经典进程的同步问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6-%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1"><span class="nav-text">2.6 进程通信</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-7-%E7%BA%BF%E7%A8%8B%EF%BC%88THREAD%EF%BC%89%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-text">2.7 线程（THREAD）的基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-8-%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-text">2.8 线程的实现</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -448,13 +485,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">82k</span>
+    <span title="站点总字数">85k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:15</span>
+    <span title="站点阅读时长">1:18</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>

@@ -624,7 +624,36 @@ STORE 1, [B]|&lt;C&gt;
     <title>操作系统笔记——第二章（绝赞更新中）</title>
     <url>/2021/05/08/os-2/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>个人操作系统笔记整理，欢迎参考，时不时更新。  </p>
-<span id="more"></span>]]></content>
+<span id="more"></span>
+
+<h1 id="第二章-进程管理"><a href="#第二章-进程管理" class="headerlink" title="第二章 进程管理"></a>第二章 进程管理</h1><h2 id="2-1-前趋图和程序执行"><a href="#2-1-前趋图和程序执行" class="headerlink" title="2.1 前趋图和程序执行"></a>2.1 前趋图和程序执行</h2><h3 id="2-1-1-前趋图"><a href="#2-1-1-前趋图" class="headerlink" title="2.1.1 前趋图"></a>2.1.1 前趋图</h3><p>&ensp;&ensp;&ensp;&ensp;前趋图定义<br>&ensp;&ensp;&ensp;&ensp;定义：前趋图是一个有向无循环图,记为 DAG(Directed Acyclic Graph) ，用于描述进程之间执行的前后顺序。<br>&ensp;&ensp;&ensp;&ensp;表示方式：<br>&ensp;&ensp;&ensp;&ensp;（1）p1–&gt;p2<br>&ensp;&ensp;&ensp;&ensp;（2）–&gt;={(p1,p2)| p1 必须在p2开始前完成}<br>&ensp;&ensp;&ensp;&ensp;节点表示：一条语句，一个程序段，一个进程，节点上的权重表示该进程的程序量或执行时间。<br><img src="/2021/05/08/os-2/%E5%9B%BE%E7%89%871.png">  </p>
+<p>&ensp;&ensp;&ensp;&ensp;下图就不是前趋图，<strong>前趋图中不应出现循环</strong><br><img src="/2021/05/08/os-2/%E5%9B%BE%E7%89%872.png">  </p>
+<p>&ensp;&ensp;&ensp;&ensp;因为存在前趋关系: S2→S3 和 S3 →S2  </p>
+<h3 id="2-1-2-程序的顺序执行及其特征"><a href="#2-1-2-程序的顺序执行及其特征" class="headerlink" title="2.1.2 程序的顺序执行及其特征"></a>2.1.2 程序的顺序执行及其特征</h3><p>&ensp;&ensp;&ensp;&ensp;单道程序环境下，程序段执行有固定的时序，仅当前一操作完成后，才能执行后继操作。<br>&ensp;&ensp;&ensp;&ensp;例如，进行计算时，总需要首先输入数据，然后进行计算，最后才能打印计算结果。假如用I表示输入，C表示计算，P表示打印，并且用箭头表示操作的先后次序。则输入数据，计算数据，打印计算结果这样一段程序。<br><img src="/2021/05/08/os-2/%E5%9B%BE%E7%89%873.png">   </p>
+<p>&ensp;&ensp;&ensp;&ensp;对于程序段中的多条语句来说，也有一个执行顺序问题，如对于包含下述三条语句的程序段：<br><img src="/2021/05/08/os-2/%E5%9B%BE%E7%89%874.png">   </p>
+<p>&ensp;&ensp;&ensp;&ensp;一切顺序执行的程序都具有下列特性：<br>&ensp;&ensp;&ensp;&ensp;（1）顺序性。即每一操作都必须在上一个操作结束之后开始。<br>&ensp;&ensp;&ensp;&ensp;（2）封闭性。程序运行时独占全机资源；资源的状态（除初始状态外）只有本程序才能改变它。程序一旦开始运行，其执行结果不受外界因素影响。<br>&ensp;&ensp;&ensp;&ensp;（3）可再现性。只要执行时的环境和初始条件相同，程序不论是连续执行还是“走走停停”地执行，都将获得相同的结果。  </p>
+<h3 id="2-1-3-程序的并发执行及其特征"><a href="#2-1-3-程序的并发执行及其特征" class="headerlink" title="2.1.3 程序的并发执行及其特征"></a>2.1.3 程序的并发执行及其特征</h3><p>&ensp;&ensp;&ensp;&ensp;程序的两种执行方式：顺序执行、并发执行。<br>&ensp;&ensp;&ensp;&ensp;现在的操作系统多为并发执行（多道处理系统），具有许多新的特征。<br>&ensp;&ensp;&ensp;&ensp;引入并发执行的目的是为了<strong>提高资源利用率</strong>。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>并发</strong>与<strong>并行</strong>概念的区别：<br>&ensp;&ensp;&ensp;&ensp;concurrency,parallel</p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>1.程序的并发执行</strong><br><img src="/2021/05/08/os-2/%E5%9B%BE%E7%89%875.png">  </p>
+<p>&ensp;&ensp;&ensp;&ensp;该例中存在下述前趋关系：<br>&ensp;&ensp;&ensp;&ensp;Ii→Ci ，Ii→Ii+1 ， Ci→Pi， Ci→Ci+1， Pi→Pi+1<br>&ensp;&ensp;&ensp;&ensp;而Ii+1和Ci及Pi-1是重迭的，亦即Ii+1和Ci及Pi-1可以并发执行。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>2.并发程序的特征</strong>   </p>
+<p>&ensp;&ensp;&ensp;&ensp;（1）间断性：进程“时走时停”<br>&ensp;&ensp;&ensp;&ensp;（2）非封闭性：多个程序共享资源<br>&ensp;&ensp;&ensp;&ensp;（3）不可再现性：由于失去了封闭性，也失去了可在现性  </p>
+<p>&ensp;&ensp;&ensp;&ensp;例：有2个循环程序A和B，它们共享变量N；<br>&ensp;&ensp;&ensp;&ensp;程序A：N=N+1；程序B: Print(N)；N=0<br>&ensp;&ensp;&ensp;&ensp;若程序A,B以不同的速度运行有以下三种不同的结果（假定某时刻变量Ｎ的值为ｎ）  </p>
+<p>&ensp;&ensp;&ensp;&ensp;N:=N+1在Print(N)和N=0之前，得到的N值分别为：n+1, n+1, 0<br>&ensp;&ensp;&ensp;&ensp;N:=N+1在Print(N)和N=0之后，得到的N值分别为：n, 0, 1<br>&ensp;&ensp;&ensp;&ensp;N:=N+1在Print(N)和N=0之间，得到的N值分别为：n, n+1, 0  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>3.顺序执行与并发执行特征对比</strong><br><img src="/2021/05/08/os-2/%E5%9B%BE%E7%89%876.png">   </p>
+<p>&ensp;&ensp;&ensp;&ensp;程序的并发执行引发的问题  </p>
+<ul>
+<li>如何协调各程序的执行顺序？</li>
+<li>多个执行程序共享系统资源，程序之间可能会相互影响，甚至影响输出结果。</li>
+<li>选择哪些、多少个程序进入内存执行？</li>
+<li>内存中的执行程序谁先执行？</li>
+<li>内存如何有效分配？           </li>
+</ul>
+<h2 id="2-2-进程的描述"><a href="#2-2-进程的描述" class="headerlink" title="2.2 进程的描述"></a>2.2 进程的描述</h2><h3 id="2-2-1-进程的定义和特征"><a href="#2-2-1-进程的定义和特征" class="headerlink" title="2.2.1 进程的定义和特征"></a>2.2.1 进程的定义和特征</h3><p>&ensp;&ensp;&ensp;&ensp;<strong>1.进程的定义</strong>   </p>
+<p>&ensp;&ensp;&ensp;&ensp;通常的<strong>程序</strong>不能参与并发执行，为了让程序能并发执行，人们引入<strong>进程</strong>的概念对并发执行的程序加以描述和控制。<br>&ensp;&ensp;&ensp;&ensp;比较典型的进程定义有：<br>&ensp;&ensp;&ensp;&ensp;⑴进程是程序的一次执行。<br>&ensp;&ensp;&ensp;&ensp;⑵进程是一个程序及其数据在处理机上顺序执行时所发生的活动。<br>&ensp;&ensp;&ensp;&ensp;⑶进程是程序在一个数据集合上运行的过程，它是系统进行资源分配和调度的一个独立单位。<br>&ensp;&ensp;&ensp;&ensp;本教材定义进程为：<strong>进程是进程实体的运行过程，是系统进行资源分配和调度的一个独立单位。</strong><br>&ensp;&ensp;&ensp;&ensp;资源分配：获得除了处理机以外的资源<br>&ensp;&ensp;&ensp;&ensp;资源调度：获得处理机资源  </p>
+<p>&ensp;&ensp;&ensp;&ensp;进程与程序<br>&ensp;&ensp;&ensp;&ensp;程序：静态概念，是指令和数据的集合，可长期存储。<br>&ensp;&ensp;&ensp;&ensp;进程与程序对应关系：<br>&ensp;&ensp;&ensp;&ensp;一个程序可以对应一个进程或多个进程。<br>&ensp;&ensp;&ensp;&ensp;一个进程可以对应一个程序，或者一段程序。<br><img src="/2021/05/08/os-2/%E5%9B%BE%E7%89%877.png">  </p>
+<p>&ensp;&ensp;&ensp;&ensp;引入进程带来的问题<br>&ensp;&ensp;&ensp;&ensp;1）增加了空间开销：为进程建立数据结构<br>&ensp;&ensp;&ensp;&ensp;2）额外的时间开销：管理和协调、跟踪、填写和更新有关数据结构、切换进程、保护现场。<br>&ensp;&ensp;&ensp;&ensp;3）更难控制：<br>&ensp;&ensp;&ensp;&ensp;①协调多个进程竞争和共享资源。<br>&ensp;&ensp;&ensp;&ensp;②预防解决多个进程因为竞争资源而出现故障。<br>&ensp;&ensp;&ensp;&ensp;③处理机的竞争尤为突出。  </p>
+<h2 id="2-3-进程控制"><a href="#2-3-进程控制" class="headerlink" title="2.3 进程控制"></a>2.3 进程控制</h2><h2 id="2-4-进程同步"><a href="#2-4-进程同步" class="headerlink" title="2.4 进程同步"></a>2.4 进程同步</h2><h2 id="2-5-经典进程的同步问题"><a href="#2-5-经典进程的同步问题" class="headerlink" title="2.5 经典进程的同步问题"></a>2.5 经典进程的同步问题</h2><h2 id="2-6-进程通信"><a href="#2-6-进程通信" class="headerlink" title="2.6 进程通信"></a>2.6 进程通信</h2><h2 id="2-7-线程（THREAD）的基本概念"><a href="#2-7-线程（THREAD）的基本概念" class="headerlink" title="2.7 线程（THREAD）的基本概念"></a>2.7 线程（THREAD）的基本概念</h2><h2 id="2-8-线程的实现"><a href="#2-8-线程的实现" class="headerlink" title="2.8 线程的实现"></a>2.8 线程的实现</h2>]]></content>
       <categories>
         <category>OS</category>
       </categories>
