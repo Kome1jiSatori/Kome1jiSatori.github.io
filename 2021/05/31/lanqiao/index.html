@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://kome1jisatori.github.io/2021/05/31/lanqiao/f3.png">
 <meta property="og:image" content="https://kome1jisatori.github.io/2021/05/31/lanqiao/i.png">
 <meta property="article:published_time" content="2021-05-31T16:15:39.000Z">
-<meta property="article:modified_time" content="2021-06-02T05:04:42.869Z">
+<meta property="article:modified_time" content="2021-06-02T05:59:30.701Z">
 <meta property="article:author" content="Komeiji Satori">
 <meta property="article:tag" content="算法练习">
 <meta name="twitter:card" content="summary">
@@ -193,7 +193,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-06-02 13:04:42" itemprop="dateModified" datetime="2021-06-02T13:04:42+08:00">2021-06-02</time>
+                <time title="修改时间：2021-06-02 13:59:30" itemprop="dateModified" datetime="2021-06-02T13:59:30+08:00">2021-06-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -307,7 +307,7 @@
 <p><strong>代码实现：</strong>  </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">呜呜呜不会</span><br></pre></td></tr></table></figure>
 
-<h1 id="试题-G-游园安排"><a href="#试题-G-游园安排" class="headerlink" title="试题 G: 游园安排"></a>试题 G: 游园安排</h1><p><strong>【问题描述】</strong><br>L 星球游乐园非常有趣，吸引着各个星球的游客前来游玩。小蓝是 L 星球游乐园的管理员。<br>为了更好的管理游乐园，游乐园要求所有的游客提前预约，小蓝能看到系<br>统上所有预约游客的名字。每个游客的名字由一个大写英文字母开始，后面跟0 个或多个小写英文字母。游客可能重名。<br>小蓝特别喜欢递增的事物。今天，他决定在所有预约的游客中，选择一部<br>分游客在上午游玩，其他的游客都在下午游玩，在上午游玩的游客要求按照预约的顺序排列后，名字是单调递增的，即排在前面的名字严格小于排在后面的名字。<br>一个名字 A 小于另一个名字 B 是指：存在一个整数 i，使得 A 的前 i 个字母与 B 的前 i 个字母相同，且 A 的第 i+1 个字母小于 B 的第 i+1 个字母。（如果 A 不存在第 i + 1 个字母且 B 存在第 i + 1 个字母，也视为 A 的第 i + 1 个字母小于 B 的第 i + 1 个字母）<br>作为小蓝的助手，你要按照小蓝的想法安排游客，同时你又希望上午有尽量多的游客游玩，请告诉小蓝让哪些游客上午游玩。如果方案有多种，请输出上午游玩的第一个游客名字最小的方案。如果此时还有多种方案，请输出第一个游客名字最小的前提下第二个游客名字最小的方案。如果仍然有多种，依此类推选择第三个、第四个……游客名字最小的方案。  </p>
+<h1 id="试题-G-游园安排"><a href="#试题-G-游园安排" class="headerlink" title="试题 G: 游园安排"></a>试题 G: 游园安排</h1><p><strong>【问题描述】</strong><br>L 星球游乐园非常有趣，吸引着各个星球的游客前来游玩。小蓝是 L 星球游乐园的管理员。<br>为了更好的管理游乐园，游乐园要求所有的游客提前预约，小蓝能看到系<br>统上所有预约游客的名字。每个游客的名字由一个大写英文字母开始，后面跟0 个或多个小写英文字母。游客可能重名。<br>小蓝特别喜欢递增的事物。今天，他决定在所有预约的游客中，选择一部分游客在上午游玩，其他的游客都在下午游玩，在上午游玩的游客要求按照预约的顺序排列后，名字是单调递增的，即排在前面的名字严格小于排在后面的名字。<br>一个名字 A 小于另一个名字 B 是指：存在一个整数 i，使得 A 的前 i 个字母与 B 的前 i 个字母相同，且 A 的第 i+1 个字母小于 B 的第 i+1 个字母。（如果 A 不存在第 i + 1 个字母且 B 存在第 i + 1 个字母，也视为 A 的第 i + 1 个字母小于 B 的第 i + 1 个字母）<br>作为小蓝的助手，你要按照小蓝的想法安排游客，同时你又希望上午有尽量多的游客游玩，请告诉小蓝让哪些游客上午游玩。如果方案有多种，请输出上午游玩的第一个游客名字最小的方案。如果此时还有多种方案，请输出第一个游客名字最小的前提下第二个游客名字最小的方案。如果仍然有多种，依此类推选择第三个、第四个……游客名字最小的方案。  </p>
 <p><strong>输入格式</strong><br>输入包含一个字符串，按预约的顺序给出所有游客的名字，相邻的游客名<br>字之间没有字符分隔。  </p>
 <p><strong>输出格式</strong><br>按预约顺序输出上午游玩的游客名单，中间不加任何分隔字符。  </p>
 <p><strong>输入样例：</strong>  </p>
