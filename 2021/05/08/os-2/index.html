@@ -38,8 +38,13 @@
 <meta property="og:image" content="https://kome1jisatori.github.io/2021/05/08/os-2/%E5%9B%BE%E7%89%879.png">
 <meta property="og:image" content="https://kome1jisatori.github.io/2021/05/08/os-2/%E5%9B%BE%E7%89%8710.png">
 <meta property="og:image" content="https://kome1jisatori.github.io/2021/05/08/os-2/%E5%9B%BE%E7%89%8711.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/05/08/os-2/%E5%9B%BE%E7%89%8712.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/05/08/os-2/%E5%9B%BE%E7%89%8713.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/05/08/os-2/%E5%9B%BE%E7%89%8714.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/05/08/os-2/%E5%9B%BE%E7%89%8715.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/05/08/os-2/%E5%9B%BE%E7%89%8716.png">
 <meta property="article:published_time" content="2021-05-08T22:02:49.000Z">
-<meta property="article:modified_time" content="2021-06-03T13:49:00.185Z">
+<meta property="article:modified_time" content="2021-06-10T13:56:13.009Z">
 <meta property="article:author" content="Komeiji Satori">
 <meta property="article:tag" content="课堂笔记">
 <meta name="twitter:card" content="summary">
@@ -199,7 +204,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-06-03 21:49:00" itemprop="dateModified" datetime="2021-06-03T21:49:00+08:00">2021-06-03</time>
+                <time title="修改时间：2021-06-10 21:56:13" itemprop="dateModified" datetime="2021-06-10T21:56:13+08:00">2021-06-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -238,14 +243,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>8k</span>
+              <span>16k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>7 分钟</span>
+              <span>14 分钟</span>
             </span>
 
         </div>
@@ -329,7 +334,89 @@
 <p>&ensp;&ensp;&ensp;&ensp;为了能对系统中多个PCB有效的管理，应该用适当的方式将这些PCB组织起来。目前常用的方式有三种：  </p>
 <p>&ensp;&ensp;&ensp;&ensp;（1）线性方式，即将所有的PCB组织在一张线性表中，将该表的首地址放在内存的一个专用区域中。<br>&ensp;&ensp;&ensp;&ensp;（2）链接方式，把具有相同状态进程的PCB链接成一个队列，诸如就绪队列，阻塞队列等。<br>&ensp;&ensp;&ensp;&ensp;（3）索引方式，根据所有进程状态的不同，建立几张索引表，例如就绪索引表，阻塞索引表等，并把各个索引表在内存的首地址记录在内存的一些专用单元中。在每个索引表的表项中，记录具有相应状态的某个PCB在PCB表中的地址。</p>
 <h2 id="2-3-进程控制"><a href="#2-3-进程控制" class="headerlink" title="2.3 进程控制"></a>2.3 进程控制</h2><p>&ensp;&ensp;&ensp;&ensp;进程控制是进程管理中最基本的功能。它用于创建一个新进程，终止一个进程，还有负责进程运行中的状态转换。进程控制一般由OS的内核来完成。<br>&ensp;&ensp;&ensp;&ensp;进程控制一般由OS的内核中的原语来实现。<br>&ensp;&ensp;&ensp;&ensp;原语（Primitive）：是由若干条指令组成的，用于完成一定功能的一个过程。它是原子操作（Action Operation），指一个操作中的所有动作要么全做，要么全不做。是一个不可分割的基本单位，执行过程中不允许中断。原子操作需要常驻内存。  </p>
-<h3 id="2-3-1-操作系统内核"><a href="#2-3-1-操作系统内核" class="headerlink" title="2.3.1 操作系统内核"></a>2.3.1 操作系统内核</h3><h2 id="2-4-进程同步"><a href="#2-4-进程同步" class="headerlink" title="2.4 进程同步"></a>2.4 进程同步</h2><h2 id="2-5-经典进程的同步问题"><a href="#2-5-经典进程的同步问题" class="headerlink" title="2.5 经典进程的同步问题"></a>2.5 经典进程的同步问题</h2><h2 id="2-6-进程通信"><a href="#2-6-进程通信" class="headerlink" title="2.6 进程通信"></a>2.6 进程通信</h2><h2 id="2-7-线程（THREAD）的基本概念"><a href="#2-7-线程（THREAD）的基本概念" class="headerlink" title="2.7 线程（THREAD）的基本概念"></a>2.7 线程（THREAD）的基本概念</h2><h2 id="2-8-线程的实现"><a href="#2-8-线程的实现" class="headerlink" title="2.8 线程的实现"></a>2.8 线程的实现</h2>
+<h3 id="2-3-1-操作系统内核"><a href="#2-3-1-操作系统内核" class="headerlink" title="2.3.1 操作系统内核"></a>2.3.1 操作系统内核</h3><p>&ensp;&ensp;&ensp;&ensp;现代操作系统一般分为若干层次，通常将与硬件关系紧密的模块，各种常用设备的驱动以及运行频率较高的模块安排在紧靠硬件的软件层次中，将它们常驻内存，即所谓的OS内核。<br>&ensp;&ensp;&ensp;&ensp;安排原因：<br>&ensp;&ensp;&ensp;&ensp;对这些软件进行保护，防止遭受其它应用程序的破坏<br>&ensp;&ensp;&ensp;&ensp;可以提高OS的运行效率  </p>
+<p>&ensp;&ensp;&ensp;&ensp;对应内核，处理机的执行状态分为系统态和用户态。<br>&ensp;&ensp;&ensp;&ensp;系统态：又称为管态，也称为内核态。它具有较高的特权，能执行一切指令，访问所有寄存器和存储区，传统的OS都在系统态运行。<br>&ensp;&ensp;&ensp;&ensp;用户态：又称为目态。它具有较低的特权，仅能执行规定的指令，访问指定的寄存器和存储区。<br>&ensp;&ensp;&ensp;&ensp;一般情况下，应用程序只能在<strong>用户态</strong>运行。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;OS内核功能：<br>&ensp;&ensp;&ensp;&ensp;1）支撑功能：提供给OS其它众多模块所需的一些基本功能，以便支撑这些模块工作。三种最基本的支撑功能是：①中断处理，②时钟管理和③原语操作。<br>&ensp;&ensp;&ensp;&ensp;2）资源管理功能：包含①进程管理，存储器管理和设备管理。  </p>
+<h3 id="2-3-2-进程的创建"><a href="#2-3-2-进程的创建" class="headerlink" title="2.3.2 进程的创建"></a>2.3.2 进程的创建</h3><p>&ensp;&ensp;&ensp;&ensp;<strong>1.进程的层次结构</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;在OS中，允许一个进程创建子进程，通常把创建进程的进程称为父进程，而被创建的进程称为子进程。子进程可以继续创建更多的孙进程，由此形成进程的层次结构。（Unix系统）<br>&ensp;&ensp;&ensp;&ensp;在windows中不存在进程的层次结构概念，所有的进程具有相同地位。一个进程创建另外进程时获得了一个句柄用来控制被创建的进程。但句柄是可以传递的。</p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>2.进程图</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;进程图：进程图是一个有向树，用来描述进程的家族关系<br><img src="/2021/05/08/os-2/%E5%9B%BE%E7%89%8712.png"><br>&ensp;&ensp;&ensp;&ensp;子进程可继承父进程所分配到的资源；<br>&ensp;&ensp;&ensp;&ensp;子进程运行完毕后，将资源归还给父进程；<br>&ensp;&ensp;&ensp;&ensp;撤销父进程时，其所有的子进程也随之撤销。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>3.引起进程创建的事件</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;1）用户登录 在分时系统中，用户在终端键入登录命令后，如果是合法用户，系统将为该终端建立一个进程，并把它插入到就绪队列中。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;2）作业调度 在批处理系统中，当作业调度程序按一定的算法调度到某作业时，便将该作业装入内存，为它分配必要的资源，并立即为它创建进程，再插入到就绪队列中。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;3）提供服务 当运行中的用户程序提出某种请求后，系统将专门创建一个进程来提供用户所需要的服务。例如，运行过程中要求打印，系统会创建一个打印进程与该用户进程并发执行。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;4）应用请求 指的是基于应用程序的需求，为它创建一个新进程，以便使新进程以并发运行方式完成特定任务。通过这种方式可以使得几个操作并发执行，以加速任务的完成。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>4.进程创建</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;一旦操作系统发现了要求创建进程的事件后，便调用进程创建原语Creat( )来创建进程。进程的创建需要经历以下步骤：<br>&ensp;&ensp;&ensp;&ensp;①申请空白PCB：为新进程分配一个唯一的进程ID,并申请一个空白的PCB。<br>&ensp;&ensp;&ensp;&ensp;②为新进程分配资源：为进程的程序代码、数据用户栈分配内存空间。<br>&ensp;&ensp;&ensp;&ensp;③初始化进程控制块：<br>&ensp;&ensp;&ensp;&ensp;（1）初始化标识信息，将系统分配的进程ID、父进程ID写入PCB。<br>&ensp;&ensp;&ensp;&ensp;（2）初始化处理机状态信息，将程序计数器指向程序的入口地址、栈指针指向栈顶。<br>&ensp;&ensp;&ensp;&ensp;（3）初始化处理机控制信息，设置进程状态、优先级等。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;④将新进程插入到就绪队列<br><img src="/2021/05/08/os-2/%E5%9B%BE%E7%89%8713.png">   </p>
+<h3 id="2-3-3-进程的终止"><a href="#2-3-3-进程的终止" class="headerlink" title="2.3.3 进程的终止"></a>2.3.3 进程的终止</h3><p>&ensp;&ensp;&ensp;&ensp;<strong>1.引起进程终止的事件</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;1）正常结束<br>&ensp;&ensp;&ensp;&ensp;2）异常结束 指的是出现某些错误和故障而迫使进程终止。常见的异常有：越界错误；保护错；非法指令；特权指令错；运行超时；等待超时；算术运算错和I/O故障。<br>&ensp;&ensp;&ensp;&ensp;3）外界干预   指的是进程应外界的请求而终止执行。常见的干预包括：操作员或操作系统干预；父进程请求；父进程终止等。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>2.进程终止过程</strong>    </p>
+<p>&ensp;&ensp;&ensp;&ensp;1）根据被终止进程的标识符，从PCB集合中检索出该进程的PCB，从中读出该进程的状态；  </p>
+<p>&ensp;&ensp;&ensp;&ensp;2）若被终止进程正处于执行状态，应立即终止该进程的执行，并置调度标志为真，用于指示该进程被终止后应重新进行调度；  </p>
+<p>&ensp;&ensp;&ensp;&ensp;3）若该进程还有子孙进程，还应将其所有子孙进程予以终止，以防他们成为不可控制的进程；  </p>
+<p>&ensp;&ensp;&ensp;&ensp;4）将被终止进程所拥有的全部资源，或者归还给父进程，或者归还给系统；  </p>
+<p>&ensp;&ensp;&ensp;&ensp;5）将被终止进程（它的PCB）从所在队列（或链表）中移出，等待其他程序来搜集信息。  </p>
+<h3 id="2-3-4-进程的阻塞与唤醒"><a href="#2-3-4-进程的阻塞与唤醒" class="headerlink" title="2.3.4 进程的阻塞与唤醒"></a>2.3.4 进程的阻塞与唤醒</h3><p>&ensp;&ensp;&ensp;&ensp;<strong>1.引起进程阻塞和唤醒的事件</strong>    </p>
+<p>&ensp;&ensp;&ensp;&ensp;1）请求共享资源失败 由于操作系统不能马上满足进程的请求，导致进程只能转变为阻塞状态等待；<br>&ensp;&ensp;&ensp;&ensp;2）等待某种操作的完成 如果某进程必须在一个已启动的操作完成后才能继续执行，则必须先将该进程阻塞，以等待该操作的完成；<br>&ensp;&ensp;&ensp;&ensp;3）新数据尚未到达；<br>&ensp;&ensp;&ensp;&ensp;4）等待新任务的到达 系统往往设置一些具有某种特定功能的系统进程，每当这种进程完成任务后，便把自己阻塞起来以等待新任务到来  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>2.进程阻塞过程</strong>    </p>
+<p>&ensp;&ensp;&ensp;&ensp;进程可通过调用阻塞原语block把自己阻塞。阻塞过程为：<br>&ensp;&ensp;&ensp;&ensp;1）调用block原语；<br>&ensp;&ensp;&ensp;&ensp;2）停止当前进程的执行；把PCB中的状态由“执行”改为“阻塞”；<br>&ensp;&ensp;&ensp;&ensp;3）将PCB插入到阻塞队列；<br>&ensp;&ensp;&ensp;&ensp;4）转调度程序进行重新调度，保留被阻塞进程的处理机状态<br><img src="/2021/05/08/os-2/%E5%9B%BE%E7%89%8714.png">  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>3.进程唤醒过程</strong>    </p>
+<p>&ensp;&ensp;&ensp;&ensp;当被阻塞进程所期待的事件出现时，如I/O完成或其所期待的数据已经到达，则由有关进程（比如，用完并释放了该I/O设备的进程）调用唤醒原语wakeup( )，将等待该事件的进程唤醒。其执行过程为：  </p>
+<p>&ensp;&ensp;&ensp;&ensp;1）把被阻塞进程从等待该事件的阻塞队列中移出，将其PCB中的现行状态由阻塞改为就绪；<br>&ensp;&ensp;&ensp;&ensp;2）将该PCB插入到就绪队列中。  </p>
+<h3 id="2-3-5-进程的挂起与激活"><a href="#2-3-5-进程的挂起与激活" class="headerlink" title="2.3.5 进程的挂起与激活"></a>2.3.5 进程的挂起与激活</h3><p>&ensp;&ensp;&ensp;&ensp;<strong>1.进程的挂起</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;当出现了引起进程挂起的事件时，系统将利用挂起原语suspend( )将指定进程或处于阻塞状态的进程挂起。其执行过程为：  </p>
+<p>&ensp;&ensp;&ensp;&ensp;1）检查被挂起进程的状态，若处于活动就绪状态，则将其改为静止就绪；对于活动阻塞状态的进程，则将其改为静止阻塞。<br>&ensp;&ensp;&ensp;&ensp;2)把该进程的PCB复制到某指定的内存区域；<br>&ensp;&ensp;&ensp;&ensp;3)若被挂起的进程正在执行，则转向调度程序重新调度。<br><img src="/2021/05/08/os-2/%E5%9B%BE%E7%89%8715.png">   </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>2.进程的激活</strong>    </p>
+<p>&ensp;&ensp;&ensp;&ensp;当发生激活进程的事件时，则可将在外存上处于静止就绪状态的进程换入内存。系统利用激活原语active( )将指定进程激活。其激活过程如下：  </p>
+<p>&ensp;&ensp;&ensp;&ensp;1）将进程从外存调入内存；<br>&ensp;&ensp;&ensp;&ensp;2）检查该进程的现行状态，若是静止就绪，便将之改为活动就绪；若为静止阻塞，则将其改为活动阻塞。<br><img src="/2021/05/08/os-2/%E5%9B%BE%E7%89%8716.png">     </p>
+<h2 id="2-4-进程同步"><a href="#2-4-进程同步" class="headerlink" title="2.4 进程同步"></a>2.4 进程同步</h2><p>&ensp;&ensp;&ensp;&ensp;同步：并发进程在执行次序上的协调，以达到有效的资源共享和相互合作，使程序执行有可再现性。  </p>
+<h3 id="2-4-1-进程同步的基本概念"><a href="#2-4-1-进程同步的基本概念" class="headerlink" title="2.4.1 进程同步的基本概念"></a>2.4.1 进程同步的基本概念</h3><p>&ensp;&ensp;&ensp;&ensp;<strong>1.两种形式的制约关系</strong>   </p>
+<p>&ensp;&ensp;&ensp;&ensp;在多道程序环境下，当程序并发执行时，可能存在以下两种形式的制约关系：</p>
+<p>&ensp;&ensp;&ensp;&ensp;①间接制约关系：同处于一个系统的进程，必然共享着某种系统资源，如CPU, I/O等。间接制约关系源于这种资源共享。</p>
+<p>&ensp;&ensp;&ensp;&ensp;②直接制约关系：这种制约关系主要源于进程间的合作。</p>
+<p>&ensp;&ensp;&ensp;&ensp;间接制约：进行竞争－－独占分配到的部分或全部的共享资源，“互斥”<br>&ensp;&ensp;&ensp;&ensp;直接制约：进行协作－－等待来自其他进程的信息，“同步”  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>2.临界资源(Critical Resouce)</strong> </p>
+<p>&ensp;&ensp;&ensp;&ensp;在一段时间内只允许一个进程访问的资源，即仅当一个进程访问完并释放该资源后，才允许另一个进程访问的资源，称为临界资源或独占资源。如：打印机、磁带机、共享变量、队列等。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;生产者－消费者问题：<br>&ensp;&ensp;&ensp;&ensp;生产者投放一个产品后，输入指针in加1：in = ( in + 1 ) % n （n是缓冲区个数，整型常量），in初值为0； 消费者每取出一个产品，输出指针out加1：out = ( out + 1 ) % n，out初值为0；<br>&ensp;&ensp;&ensp;&ensp;引入一个共享变量counter,初值为0。<br>&ensp;&ensp;&ensp;&ensp;▲生产者投放一个产品，counter加1，counter = n时不能再投放产品<br>&ensp;&ensp;&ensp;&ensp;▲消费者每取一个产品，counter减1，counter = 0时不能再取出产品   </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Var n： integer;   缓冲区的个数</span><br><span class="line">Type item=…;</span><br><span class="line">var buffer:<span class="built_in">array</span>[<span class="number">0</span>,<span class="number">1</span>,…,n<span class="number">-1</span>] of item;</span><br><span class="line">in, out: <span class="number">0</span>,<span class="number">1</span>, …, n<span class="number">-1</span>;</span><br><span class="line">counter: <span class="number">0</span>,<span class="number">1</span>,…,n; </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">producer()&#123;</span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">		produce an item in nextp;</span><br><span class="line">              …</span><br><span class="line">		<span class="keyword">while</span>(counter==n) no-op;</span><br><span class="line">		buffer[in]=nextp;</span><br><span class="line">		in:=(in+<span class="number">1</span>)% n;</span><br><span class="line">		counter++;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">consumer()&#123;</span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">		<span class="keyword">while</span>(counter==<span class="number">0</span>) no-op;</span><br><span class="line">		nextc=buffer[out];</span><br><span class="line">		out=(out+<span class="number">1</span>) % n;</span><br><span class="line">		counter--;</span><br><span class="line">		consumer the item in nextc;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>&ensp;&ensp;&ensp;&ensp;<strong>3.临界区(Critical Section)</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;Critical section:把每个进程中访问临界资源的那段<strong>代码</strong>叫临界区(Critical Section)。只要每个进程互斥进入临界区、便可以实现对临界资源的互斥访问。<br>算法:  </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">	entry section; <span class="comment">//进入区：用于检查临界资源是否空闲，有无进程进入</span></span><br><span class="line">	critical section;</span><br><span class="line">	<span class="built_in">exit</span> section; <span class="comment">//退出区：用于释放临界资源，将访问标志复位</span></span><br><span class="line">	remainder section;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&ensp;&ensp;&ensp;&ensp;<strong>4.同步机制遵循的规则（进入临界区的准则）</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;1）空闲让进：当临界资源空闲时，允许一个进程进入临界区。<br>&ensp;&ensp;&ensp;&ensp;2）忙则等待：临界资源正被访问时，其它进程必须等待，以保证对临界资源的互斥访问。<br>&ensp;&ensp;&ensp;&ensp;3）有限等待：应保证进程能在有限时间内能进入自己的临界区，以免陷入“死等”。<br>&ensp;&ensp;&ensp;&ensp;4）让权等待：如果进程不能进入自己的临界区、应立即释放处理机，以免陷入“忙等”。  </p>
+<h3 id="2-4-2-硬件同步机制"><a href="#2-4-2-硬件同步机制" class="headerlink" title="2.4.2 硬件同步机制"></a>2.4.2 硬件同步机制</h3><p>&ensp;&ensp;&ensp;&ensp;虽然可以利用软件方法解决诸进程互斥进入临界区的问题，但有一定难度，并且存在很大的局限性，因而现在已很少采用。相应地，目前许多计算机已提供了一些特殊的硬件指令，允许对一个字中的内容进行检测和修正，或者是对两个字的内容进行交换等。可利用这些特殊的指令来解决临界区问题。实际上，在对临界区进行管理时，可以将标志看作一个锁，“锁开”进入，“锁关”等待，初始时锁是打开的。每个要进入临界区的进程必须先对锁进行测试，当锁未开时，则必须等待，直至锁被打开。反之，当锁是打开的时候，则应立即把其锁上，以阻止其它进程进入临界区。显然，为防止多个进程同时测试到锁为打开的情况，测试和关锁操作必须是连续的，不允许分开进行。</p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>1.关中断</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;实现方法：<br>&ensp;&ensp;&ensp;&ensp;在单处理机环境下，在进入临界区之后，关闭中断，直到离开临界区再打开中断。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;优点：<br>&ensp;&ensp;&ensp;&ensp;①进程在临界区执行期间，计算机不响应中断，不会引发调度，不会发生进程切换或线程切换。<br>&ensp;&ensp;&ensp;&ensp;②保证了对锁的测试和关锁操作的连续性和完整性，有效地保证了互斥。<br>&ensp;&ensp;&ensp;&ensp;缺点：<br>&ensp;&ensp;&ensp;&ensp;①滥用关中断权力可能导致严重后果；<br>&ensp;&ensp;&ensp;&ensp;②关中断时间过长，会影响系统效率，限制了处理器交叉执行程序的能力；<br>&ensp;&ensp;&ensp;&ensp;③关中断方法也不适用于多CPU系统，因为，在一个处理器上关中断，并不能防止进程在其它处理器上执行相同临界段代码。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>2.利用Test-and-Set指令实现互斥</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;方法：<br>&ensp;&ensp;&ensp;&ensp;借助一条硬件指令“测试并建立”指令TS（Test-and-Set），该指令看作为一条原语。为每个临界资源设置一个布尔变量lock，lock初值为false，表示该临界资源空闲。TS指令的一般性描述：  </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">boolean <span class="title">TS</span><span class="params">(boolean *lock)</span></span>&#123;</span><br><span class="line">    boolean old;</span><br><span class="line">    old = *lock;</span><br><span class="line">    *lock = TRUE;</span><br><span class="line">    <span class="keyword">return</span> old;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&ensp;&ensp;&ensp;&ensp;如果不能进入临界区，进行循环测试，TS指令实现互斥的循环结构描述：  </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">do</span>&#123;</span><br><span class="line">    …</span><br><span class="line">    <span class="function"><span class="keyword">while</span> <span class="title">TS</span><span class="params">(&amp;lock)</span></span>;</span><br><span class="line">    cirtical section;</span><br><span class="line">    lock=FALSE;</span><br><span class="line">…</span><br><span class="line">&#125;<span class="keyword">while</span>(TRUE)</span><br></pre></td></tr></table></figure>
+
+<p>&ensp;&ensp;&ensp;&ensp;<strong>3. 利用Swap指令实现进程互斥</strong>   </p>
+<p>&ensp;&ensp;&ensp;&ensp;含义:对换指令，在Intel 80x86又称为XCHG指令，用于交换两个字的内容。其处理过程描述如下：  </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(boolean *a, boolean *b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	boolean temp;</span><br><span class="line">	temp = *a;</span><br><span class="line">	*a = *b;</span><br><span class="line">	*b = temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&ensp;&ensp;&ensp;&ensp;互斥访问临界资源的方法:<br>&ensp;&ensp;&ensp;&ensp;为每个临界资源设置一个全局的布尔变量lock，其初值为false，在每个进程中再利用一个局部布尔变量key。利用Swap指令实现进程互斥的循环进程:</p>
+<pre><code class="c">do&#123;
+    key=TRUE;
+    do&#123;
+        swap(&amp;lock, &amp;key);
+       &#125; while (key!=FALSE)
+   critical section;
+   lock=FALSE;
+   …
+&#125;while(TRUE)
+</code></pre>
+<p>&ensp;&ensp;&ensp;&ensp;利用硬件指令的出现的问题:<br>&ensp;&ensp;&ensp;&ensp;“忙等”，即进程在进入不了临界区时，不放弃处理器，而不断地进行测试。<br>&ensp;&ensp;&ensp;&ensp;结果:<br>&ensp;&ensp;&ensp;&ensp;不符合“让权等待”，造成处理机浪费<br>&ensp;&ensp;&ensp;&ensp;解决方法:<br>&ensp;&ensp;&ensp;&ensp;信号量机制    </p>
+<h3 id="2-4-3-信号量机制"><a href="#2-4-3-信号量机制" class="headerlink" title="2.4.3 信号量机制"></a>2.4.3 信号量机制</h3><h2 id="2-5-经典进程的同步问题"><a href="#2-5-经典进程的同步问题" class="headerlink" title="2.5 经典进程的同步问题"></a>2.5 经典进程的同步问题</h2><h2 id="2-6-进程通信"><a href="#2-6-进程通信" class="headerlink" title="2.6 进程通信"></a>2.6 进程通信</h2><h2 id="2-7-线程（THREAD）的基本概念"><a href="#2-7-线程（THREAD）的基本概念" class="headerlink" title="2.7 线程（THREAD）的基本概念"></a>2.7 线程（THREAD）的基本概念</h2><h2 id="2-8-线程的实现"><a href="#2-8-线程的实现" class="headerlink" title="2.8 线程的实现"></a>2.8 线程的实现</h2>
     </div>
 
     
@@ -440,7 +527,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86"><span class="nav-text">第二章 进程管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-%E5%89%8D%E8%B6%8B%E5%9B%BE%E5%92%8C%E7%A8%8B%E5%BA%8F%E6%89%A7%E8%A1%8C"><span class="nav-text">2.1 前趋图和程序执行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-1-%E5%89%8D%E8%B6%8B%E5%9B%BE"><span class="nav-text">2.1.1 前趋图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-2-%E7%A8%8B%E5%BA%8F%E7%9A%84%E9%A1%BA%E5%BA%8F%E6%89%A7%E8%A1%8C%E5%8F%8A%E5%85%B6%E7%89%B9%E5%BE%81"><span class="nav-text">2.1.2 程序的顺序执行及其特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-3-%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%B9%B6%E5%8F%91%E6%89%A7%E8%A1%8C%E5%8F%8A%E5%85%B6%E7%89%B9%E5%BE%81"><span class="nav-text">2.1.3 程序的并发执行及其特征</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%8F%8F%E8%BF%B0"><span class="nav-text">2.2 进程的描述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-1-%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%AE%9A%E4%B9%89%E5%92%8C%E7%89%B9%E5%BE%81"><span class="nav-text">2.2.1 进程的定义和特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-2-%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%8A%B6%E6%80%81%E5%8F%8A%E5%85%B6%E8%BD%AC%E6%8D%A2"><span class="nav-text">2.2.2 进程的基本状态及其转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-3-%E6%8C%82%E8%B5%B7%E6%93%8D%E4%BD%9C%E5%92%8C%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81%E7%9A%84%E8%BD%AC%E6%8D%A2"><span class="nav-text">2.2.3 挂起操作和进程状态的转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-4-%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-text">2.2.4 进程管理中的数据结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6"><span class="nav-text">2.3 进程控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-1-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%86%85%E6%A0%B8"><span class="nav-text">2.3.1 操作系统内核</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-%E8%BF%9B%E7%A8%8B%E5%90%8C%E6%AD%A5"><span class="nav-text">2.4 进程同步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-%E7%BB%8F%E5%85%B8%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%90%8C%E6%AD%A5%E9%97%AE%E9%A2%98"><span class="nav-text">2.5 经典进程的同步问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6-%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1"><span class="nav-text">2.6 进程通信</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-7-%E7%BA%BF%E7%A8%8B%EF%BC%88THREAD%EF%BC%89%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-text">2.7 线程（THREAD）的基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-8-%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-text">2.8 线程的实现</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86"><span class="nav-text">第二章 进程管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-%E5%89%8D%E8%B6%8B%E5%9B%BE%E5%92%8C%E7%A8%8B%E5%BA%8F%E6%89%A7%E8%A1%8C"><span class="nav-text">2.1 前趋图和程序执行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-1-%E5%89%8D%E8%B6%8B%E5%9B%BE"><span class="nav-text">2.1.1 前趋图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-2-%E7%A8%8B%E5%BA%8F%E7%9A%84%E9%A1%BA%E5%BA%8F%E6%89%A7%E8%A1%8C%E5%8F%8A%E5%85%B6%E7%89%B9%E5%BE%81"><span class="nav-text">2.1.2 程序的顺序执行及其特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-3-%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%B9%B6%E5%8F%91%E6%89%A7%E8%A1%8C%E5%8F%8A%E5%85%B6%E7%89%B9%E5%BE%81"><span class="nav-text">2.1.3 程序的并发执行及其特征</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%8F%8F%E8%BF%B0"><span class="nav-text">2.2 进程的描述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-1-%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%AE%9A%E4%B9%89%E5%92%8C%E7%89%B9%E5%BE%81"><span class="nav-text">2.2.1 进程的定义和特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-2-%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%8A%B6%E6%80%81%E5%8F%8A%E5%85%B6%E8%BD%AC%E6%8D%A2"><span class="nav-text">2.2.2 进程的基本状态及其转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-3-%E6%8C%82%E8%B5%B7%E6%93%8D%E4%BD%9C%E5%92%8C%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81%E7%9A%84%E8%BD%AC%E6%8D%A2"><span class="nav-text">2.2.3 挂起操作和进程状态的转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-4-%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-text">2.2.4 进程管理中的数据结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6"><span class="nav-text">2.3 进程控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-1-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%86%85%E6%A0%B8"><span class="nav-text">2.3.1 操作系统内核</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-2-%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%88%9B%E5%BB%BA"><span class="nav-text">2.3.2 进程的创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-3-%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%BB%88%E6%AD%A2"><span class="nav-text">2.3.3 进程的终止</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-4-%E8%BF%9B%E7%A8%8B%E7%9A%84%E9%98%BB%E5%A1%9E%E4%B8%8E%E5%94%A4%E9%86%92"><span class="nav-text">2.3.4 进程的阻塞与唤醒</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-5-%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%8C%82%E8%B5%B7%E4%B8%8E%E6%BF%80%E6%B4%BB"><span class="nav-text">2.3.5 进程的挂起与激活</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-%E8%BF%9B%E7%A8%8B%E5%90%8C%E6%AD%A5"><span class="nav-text">2.4 进程同步</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-1-%E8%BF%9B%E7%A8%8B%E5%90%8C%E6%AD%A5%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-text">2.4.1 进程同步的基本概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-2-%E7%A1%AC%E4%BB%B6%E5%90%8C%E6%AD%A5%E6%9C%BA%E5%88%B6"><span class="nav-text">2.4.2 硬件同步机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-3-%E4%BF%A1%E5%8F%B7%E9%87%8F%E6%9C%BA%E5%88%B6"><span class="nav-text">2.4.3 信号量机制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-%E7%BB%8F%E5%85%B8%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%90%8C%E6%AD%A5%E9%97%AE%E9%A2%98"><span class="nav-text">2.5 经典进程的同步问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6-%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1"><span class="nav-text">2.6 进程通信</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-7-%E7%BA%BF%E7%A8%8B%EF%BC%88THREAD%EF%BC%89%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-text">2.7 线程（THREAD）的基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-8-%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-text">2.8 线程的实现</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -531,13 +618,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">93k</span>
+    <span title="站点总字数">101k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:25</span>
+    <span title="站点阅读时长">1:32</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
