@@ -1543,4 +1543,95 @@ STORE 1, [B]|&lt;C&gt;
         <tag>课堂笔记</tag>
       </tags>
   </entry>
+  <entry>
+    <title>操作系统笔记——第六章（绝赞更新中）</title>
+    <url>/2021/06/16/os-6/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>个人操作系统笔记整理，欢迎参考，时不时更新。  </p>
+<span id="more"></span> 
+
+<h1 id="第六章-输入输出系统"><a href="#第六章-输入输出系统" class="headerlink" title="第六章 输入输出系统"></a>第六章 输入输出系统</h1><h2 id="6-1-I-O系统的功能、模型和接口"><a href="#6-1-I-O系统的功能、模型和接口" class="headerlink" title="6.1 I/O系统的功能、模型和接口"></a>6.1 I/O系统的功能、模型和接口</h2><h3 id="6-1-1-I-O系统的基本功能"><a href="#6-1-1-I-O系统的基本功能" class="headerlink" title="6.1.1 I/O系统的基本功能"></a>6.1.1 I/O系统的基本功能</h3><p>&ensp;&ensp;&ensp;&ensp;I/O系统管理的主要对象：I/O设备和相应的设备控制器    </p>
+<p>&ensp;&ensp;&ensp;&ensp;主要的任务<br>&ensp;&ensp;&ensp;&ensp;①完成用户提出的I/O请求<br>&ensp;&ensp;&ensp;&ensp;②提高I/O速率<br>&ensp;&ensp;&ensp;&ensp;③提高设备的利用率<br>&ensp;&ensp;&ensp;&ensp;④为更高层的进程方便地使用这些设备提供手段。<br><img src="/2021/06/16/os-6/%E5%9B%BE%E7%89%871.png">  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>1.隐藏物理设备的细节</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;原因：I/O设备种类繁多，互有差异<br>&ensp;&ensp;&ensp;&ensp;方法：使用设备控制器控制设备，用户仅使用抽象的I/O命令就可以使用设备。<br>&ensp;&ensp;&ensp;&ensp;设备控制器主要职责是控制一个或多个I/O设备，实现I/O与CPU之间的数据交换。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>2.与设备的无关性（独立性）</strong>   </p>
+<p>&ensp;&ensp;&ensp;&ensp;目的：隐藏物理设备的细节，方便用户使用特定设备<br>&ensp;&ensp;&ensp;&ensp;方法：使用抽象的逻辑设备名来使用设备  /dev/printer<br>&ensp;&ensp;&ensp;&ensp;设备独立性是指操作系统把所有外部设备统一当作成文件来看待，任何用户都可以象使用文件一样，操纵、使用这些设备，而不必知道它们的具体存在形式。OS不必知道具体的使用哪台打印机，也不必知道打印机的型号。方便用户使用，并且有效地提高OS的可移植性和易适应性，OS允许在不需要重新编译的情况下，增添新的设备驱动，方便新的I/O设备的安装，做到即插即用  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>3.提高处理机和I/O的利用率</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;原因：<br>&ensp;&ensp;&ensp;&ensp;I/O设备之间能够并行<br>&ensp;&ensp;&ensp;&ensp;CPU与I/O设备也能并行<br>&ensp;&ensp;&ensp;&ensp;方法：<br> &ensp;&ensp;&ensp;&ensp;一方面要求CPU能尽快响应用户请求使I/O设备尽快的运行起来<br>&ensp;&ensp;&ensp;&ensp;另一方面，尽量减少在I/O设备运行时，处理机的干预时间。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>4.对I/O设备进行控制</strong> </p>
+<p>&ensp;&ensp;&ensp;&ensp;方式：<br>&ensp;&ensp;&ensp;&ensp;1）轮询的可编程I/O方式<br>&ensp;&ensp;&ensp;&ensp;利用I/O测试指令测试设备的闲忙，极大地浪费CPU<br>&ensp;&ensp;&ensp;&ensp;2）中断的可编程的I/O方式<br>&ensp;&ensp;&ensp;&ensp;当设备完成I/O操作，便以中断请求方式通知CPU，然后进行相应处理，浪费CPU<br>&ensp;&ensp;&ensp;&ensp;3）直接存储器访问方式<br>&ensp;&ensp;&ensp;&ensp;由DMA控制器送出内存地址和发出内存读、设备写或者设备读、内存写的控制信号完成内存与设备之间的直接数据传送，而不用CPU干预<br>&ensp;&ensp;&ensp;&ensp;4）I/O通道方式<br>&ensp;&ensp;&ensp;&ensp;通道是独立于CPU的、专门负责数据的输入输出传输工作的处理器，它对外部设备实统一管理，代替CPU对I/O操作进行控制，从而使I/O操作可以与CPU并行工作。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>5.确保对设备的正确共享</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;设备分类：<br>&ensp;&ensp;&ensp;&ensp;1）独占设备，互斥访问，打印机<br>&ensp;&ensp;&ensp;&ensp;2）共享设备，一段时间内运行多个进程同时访问的设备，磁盘  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>6.错误处理</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;故障分类：<br>&ensp;&ensp;&ensp;&ensp;1）临时性错误<br>&ensp;&ensp;&ensp;&ensp;2）持久性错误<br>&ensp;&ensp;&ensp;&ensp;对于错误的处理尽可能的在接近硬件的层面上解决，让上层用户感知不到错误的存在。       </p>
+<h3 id="6-1-2-I-O系统的层次结构和模型"><a href="#6-1-2-I-O系统的层次结构和模型" class="headerlink" title="6.1.2 I/O系统的层次结构和模型"></a>6.1.2 I/O系统的层次结构和模型</h3><p>&ensp;&ensp;&ensp;&ensp;I/O软件下与硬件关系密切，上与文件系统，虚拟存储器系统和用户直接交互。为使复杂的I/O软件具有清晰的结构，更好的可移植性和易用性，目前普遍采用层次式的I/O系统。<br>&ensp;&ensp;&ensp;&ensp;目前I/O系统普遍采用层次结构，它将系统中的设备管理模块，分为若干个层次，每一层都是利用其下层提供的服务，完成输入输出功能中的某些子功能，并屏蔽这些功能实现的细节，向高层提供服务。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>1.I/O软件的层次结构</strong>  </p>
+<p><img src="/2021/06/16/os-6/%E5%9B%BE%E7%89%872.png">   </p>
+<p>&ensp;&ensp;&ensp;&ensp;（1）用户层软件<br>&ensp;&ensp;&ensp;&ensp;实现与用户交互的接口，用户可直接调用在用户层提供的、与I/O操作有关的库函数，对设备进行操作。<br>&ensp;&ensp;&ensp;&ensp;（2）设备独立软件<br>&ensp;&ensp;&ensp;&ensp;用于实现用户程序与设备驱动器的统一接口、设备命名、设备的保护以及设备的分配与释放等，同时为设备管理和数据传送提供必要的存储空间。<br>&ensp;&ensp;&ensp;&ensp;应用程序独立于具体使用的物理设备（逻辑设备名）<br>&ensp;&ensp;&ensp;&ensp;（3）设备驱动程序<br>&ensp;&ensp;&ensp;&ensp;处于次底层，是进程和控制器之间的通信程序<br>&ensp;&ensp;&ensp;&ensp;功能：与硬件直接相关，用于具体实现系统对设备发出的操作指令，驱动I/O设备工作的驱动程序。<br>&ensp;&ensp;&ensp;&ensp;（4）中断处理程序<br>&ensp;&ensp;&ensp;&ensp;处于I/O系统的底层，直接与硬件进行交互<br>&ensp;&ensp;&ensp;&ensp;用于保存被中断进程的CPU环境，转入相应的中断处理程序进行处理，处理完后再恢复被中断进程的现场后，返回到被中断进程。</p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>2.I/O系统中各种模块之间的层次视图</strong>  </p>
+<p><img src="/2021/06/16/os-6/%E5%9B%BE%E7%89%873.png">    </p>
+<h3 id="6-1-3-I-O系统接口"><a href="#6-1-3-I-O系统接口" class="headerlink" title="6.1.3 I/O系统接口"></a>6.1.3 I/O系统接口</h3><p>&ensp;&ensp;&ensp;&ensp;<strong>1.块设备接口</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;1）块设备：数据的存取和传输都是以数据块为单位的设备，如磁盘。基本特征是<strong>传输速率较高、可寻址</strong>。磁盘设备的I/O常采用<strong>DMA</strong>方式。<br>&ensp;&ensp;&ensp;&ensp;2）隐藏了磁盘的二维结构：块设备接口隐藏了磁盘地址是二维结构的情况：每个扇区的地址需要用磁道号和扇区号来表示。<br>&ensp;&ensp;&ensp;&ensp;3）将抽象命令映射为低层操作：块设备接口将上层发来的抽象命令，映射为设备能识别的较低层具体操作。  </p>
+<p>&ensp;&ensp;&ensp;虚拟存储器系统也要用到块设备接口  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>2.流（字符）设备接口</strong>   </p>
+<p>&ensp;&ensp;&ensp;1）字符设备：数据的存取和传输是以字符为单位的设备。如键盘、打印机等。基本特征是传<strong>输速率较低、不可寻址</strong>，常采用<strong>中断驱动方式</strong>。<br>&ensp;&ensp;&ensp;2）get和put操作：由于字符设备是不可寻址的，因而对它只能采取<strong>顺序存取</strong>方式。（用户程序）获取或输出字符的方法是采用get和put操作，get操作用于从字符缓冲区取得一个字符到内存，而put操作则用于把一个新字符输出到字符缓冲区。<br>&ensp;&ensp;&ensp;3） in-control指令：因字符设备的类型非常多，且差异甚大，系统以统一的方式提供了一种通用的in-control指令来处理它们（包含了许多参数，每个参数表示一个与具体设备相关的特定功能）。</p>
+<p>&ensp;&ensp;&ensp;大多数流设备都属于独占设备，必须采用互斥方式实现贡献。   </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>3.网络通信接口</strong>   </p>
+<p>&ensp;&ensp;&ensp;&ensp;在现代OS中，都提供了面向网络的功能。<br>&ensp;&ensp;&ensp;&ensp;还需要通过某种方式，把计算机连接到网络上。<br>&ensp;&ensp;&ensp;&ensp;操作系统也必须提供相应的网络软件和网络通信接口，使计算机能通过网络与网络上的其它计算机进行通信，或上网浏览。  </p>
+<h2 id="6-2-I-O设备和设备控制器"><a href="#6-2-I-O设备和设备控制器" class="headerlink" title="6.2 I/O设备和设备控制器"></a>6.2 I/O设备和设备控制器</h2><h3 id="6-2-1-I-O设备"><a href="#6-2-1-I-O设备" class="headerlink" title="6.2.1 I/O设备"></a>6.2.1 I/O设备</h3><p>&ensp;&ensp;&ensp;&ensp;<strong>1.I/O设备类型</strong>    </p>
+<p>&ensp;&ensp;&ensp;&ensp;1）按使用特性分类<br>&ensp;&ensp;&ensp;&ensp;①存储设备：也称外存、辅存。<br>&ensp;&ensp;&ensp;&ensp;②I/O设备：分为输入设备、输出设备和交互式设备。<br>&ensp;&ensp;&ensp;&ensp;2）按传输速率分类<br>&ensp;&ensp;&ensp;&ensp;①低速设备：其传输速率仅为每秒钟几个字节至数百个字节的一类设备，如键盘、鼠标器。<br>&ensp;&ensp;&ensp;&ensp;②中速设备：传输速率在每秒钟数千个字节至数十万个字节的一类设备，如行式打印机、激光打印机等。<br>&ensp;&ensp;&ensp;&ensp;③高速设备：传输速率在数十万字节至千兆字节的一类设备，如磁带机、磁盘机、光盘机等  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>2.设备与控制器之间的接口</strong>  </p>
+<p>通常，设备并不直接与CPU进行通信，而是与设备控制器进行通信，因此，在I/O设备中应还有与设备控制器之间的接口。<br><img src="/2021/06/16/os-6/%E5%9B%BE%E7%89%874.png">    </p>
+<p>&ensp;&ensp;&ensp;&ensp;1）数据信号线：<br>&ensp;&ensp;&ensp;&ensp;用于在设备和设备控制器之间传送数据信号。<br>&ensp;&ensp;&ensp;&ensp;2）控制信号线：<br>&ensp;&ensp;&ensp;&ensp;①设备控制器向I/O设备发送控制信号时的通路。<br>&ensp;&ensp;&ensp;&ensp;②规定了设备将要执行的操作，比如：读、写、执行磁头移动等。<br>&ensp;&ensp;&ensp;&ensp;3）状态信号线：<br>&ensp;&ensp;&ensp;&ensp;①用于传送指示设备当前状态的信号。<br>&ensp;&ensp;&ensp;&ensp;②设备当前状态有：正在读（或写），设备已读（或写）完成，并准备好新的数据传送。  </p>
+<h3 id="6-2-2-设备控制器"><a href="#6-2-2-设备控制器" class="headerlink" title="6.2.2 设备控制器"></a>6.2.2 设备控制器</h3><p>&ensp;&ensp;&ensp;&ensp;设备控制器的主要功能是，控制一个或多个I/O设备,以实现I/O设备和计算机之间的数据交换.它是CPU与I/O设备之间的接口,它接收从CPU发来的命令,并去控制I/O设备工作,以使处理机从繁忙的设备控制事务中解脱出来。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>1.设备控制器的基本功能</strong> </p>
+<p>&ensp;&ensp;&ensp;&ensp;(1) 接收和识别命令<br>&ensp;&ensp;&ensp;&ensp;设备控制器能接收并识别处理机发来的多种命令，并对所接收的命令进行译码。<br>&ensp;&ensp;&ensp;&ensp;例如：磁盘控制器可以接收CPU发来的read、write、format等15条命令，相应地磁盘控制器中有多个寄存器和命令译码器。<br>&ensp;&ensp;&ensp;&ensp;(2) 数据交换<br>&ensp;&ensp;&ensp;&ensp;实现CPU与控制器之间、控制器与设备之间的数据交换。前者通过数据总线，由CPU并行地把数据写入控制器，或从控制器中并行地读出数据，后者则是设备将数据输入到控制器中，或从控制器传送给设备。为此，在控制器中必须设置数据寄存器。<br>&ensp;&ensp;&ensp;&ensp;(3) 标识和报告<br>&ensp;&ensp;&ensp;&ensp;设备的状态控制器应记下设备的状态供CPU了解。<br>&ensp;&ensp;&ensp;&ensp;例如：仅当该设备处于发送就绪状态时，CPU才能启动控制器从设备中读出数据，为此，要在设备控制器中设置一个状态寄存器<br>&ensp;&ensp;&ensp;&ensp;(4) 地址识别<br>&ensp;&ensp;&ensp;&ensp;能够识别其所控制的每个设备的地址。系统中的每一个设备都有一个地址，控制器能识别他所控制的每一个设备的地址设备控制器其中配置地址译码器<br>&ensp;&ensp;&ensp;&ensp;(5) 数据缓冲区<br>&ensp;&ensp;&ensp;&ensp;缓和CPU、内存与I/O设备的速度差异的矛盾故在控制器中必须设置一缓冲区。<br> &ensp;&ensp;&ensp;&ensp;(6) 差错控制<br>&ensp;&ensp;&ensp;&ensp;兼管对由I/O设备传送来的数据，进行差错检测，保证数据输入的正确性。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>2.设备控制器的组成</strong><br><img src="/2021/06/16/os-6/%E5%9B%BE%E7%89%875.png">   </p>
+<p>&ensp;&ensp;&ensp;&ensp;设备控制器由以下三部分组成：</p>
+<p>&ensp;&ensp;&ensp;&ensp;1) 设备控制器与处理机的接口<br>&ensp;&ensp;&ensp;&ensp;用于实现CPU与设备控制器之间的通信，接口中共有三类信号线：数据线、地址线和控制线。数据线通常与数据、控制/状态两类寄存器相连接<br><img src="/2021/06/16/os-6/%E5%9B%BE%E7%89%876.png">    </p>
+<p>&ensp;&ensp;&ensp;&ensp;2) 设备控制器与设备的接口<br>&ensp;&ensp;&ensp;&ensp;控制器中有一个或多个设备接口。在每个接口中都存在数据、控制和状态三种类型的信号。<br><img src="/2021/06/16/os-6/%E5%9B%BE%E7%89%877.png">    </p>
+<p>&ensp;&ensp;&ensp;&ensp;3) I/O逻辑：<br>&ensp;&ensp;&ensp;&ensp;I/O逻辑用于实现对设备的控制，接收CPU命令和地址译码。<br><img src="/2021/06/16/os-6/%E5%9B%BE%E7%89%878.png">    </p>
+<h3 id="6-2-3-内存映像I-O"><a href="#6-2-3-内存映像I-O" class="headerlink" title="6.2.3 内存映像I/O"></a>6.2.3 内存映像I/O</h3><p>&ensp;&ensp;&ensp;&ensp;驱动程序将抽象I/O命令，转换出的一系列具体的命令、参数等数据，装入设备控制器的相应寄存器，由控制器来执行这些命令，具体实施对I/O设备的控制。<br>&ensp;&ensp;&ensp;&ensp;两种方法：利用特定的I/O指令和内存映像I/O  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>1.利用特定的I/O指令</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;访问内存和访问设备需要两种不同的指令，也是该方法的主要缺点。<br>&ensp;&ensp;&ensp;&ensp;例如，为了将CPU寄存器中的内容，复制到控制器寄存器中：<br> &ensp;&ensp;&ensp;&ensp;io-store  cpu-reg, dev-no, dev-reg<br>&ensp;&ensp;&ensp;&ensp;如果是将CPU寄存器中的内容，存入内存的某个单元（k）中：<br>&ensp;&ensp;&ensp;&ensp;Store  cpu-reg, k<br><img src="/2021/06/16/os-6/%E5%9B%BE%E7%89%879.png">   </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>2.内存映像I/O</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;该方式统一了对内存和对控制器的访问的方法，简化了I/O的编程。<br>&ensp;&ensp;&ensp;&ensp;在编址上不再区分内存单元地址和设备控制器中的寄存器地址，都采用k。当k值处于0—n-1范围时，被认为是内存地址，若k大于等于n时，被认为是某个控制器的寄存器地址。<br><img src="/2021/06/16/os-6/%E5%9B%BE%E7%89%8710.png">   </p>
+<p>&ensp;&ensp;&ensp;&ensp;由图所示，当k=n时，是表示设备控制器0的第1个寄存器opcode的地址。因此，如果要想将CPU寄存器中内容，传送到控制器0的第1个寄存器opcode，只需要用下面的一般的存储指令。<br>&ensp;&ensp;&ensp;&ensp;Store  cpu-reg, n  </p>
+<h3 id="6-2-4-I-O通道"><a href="#6-2-4-I-O通道" class="headerlink" title="6.2.4 I/O通道"></a>6.2.4 I/O通道</h3><p>&ensp;&ensp;&ensp;&ensp;<strong>1.I/O通道的引入</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;引入目的：解脱CPU对I/O的组织、管理。<br>&ensp;&ensp;&ensp;&ensp;CPU只需发送I/O命令给通道，通道通过调用内存中的相应通道程序完成任务。<br>&ensp;&ensp;&ensp;&ensp;通道：一种特殊的执行I/O指令的处理机，但指令类型单一，硬件较简单，与CPU共享内存，可以有自己的总线。<br>&ensp;&ensp;&ensp;&ensp;四级连接方式：主机-通道-设备控制器-I/O设备  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>2.通道类型</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;根据信息交换方式，分成三类：<br>&ensp;&ensp;&ensp;&ensp;（1）字节多路通道<br>&ensp;&ensp;&ensp;&ensp;按字节交叉方式工作，含有多个非分配型子通道，每个子通道连接一台I/O设备，子通道采用<strong>时间片轮转</strong>的方式共享主通道。<strong>不适于高速设备</strong>。<br><img src="/2021/06/16/os-6/%E5%9B%BE%E7%89%8711.png">   </p>
+<p>&ensp;&ensp;&ensp;&ensp;（2）数组选择通道<br>&ensp;&ensp;&ensp;&ensp;可以连接多台<strong>高速设备</strong>，只含有一个分配型子通道，一段时间内执行一道通道程序。<br>&ensp;&ensp;&ensp;&ensp;当某台设备占用通道后，便一直由它独占，直到该设备传输完毕释放通道。通道利用率低。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;（3）数组多路通道<br>&ensp;&ensp;&ensp;&ensp;结合数组选择通道的高速和字节多路通道的分时并行结合起来的一种新通道。<br>&ensp;&ensp;&ensp;&ensp;多子通道不是以时间片的方式，而是按需分配，数据成组传输。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>3.“瓶颈”问题</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;通道价格昂贵，数量较少，多个I/O设备共享一个通道，造成“瓶颈”。<br><img src="/2021/06/16/os-6/%E5%9B%BE%E7%89%8712.png">   </p>
+<p>&ensp;&ensp;&ensp;&ensp;解决“瓶颈”方法：增加设备到主机间的通路而不是增加通道  </p>
+<h2 id="6-3-中断机构和中断处理程序"><a href="#6-3-中断机构和中断处理程序" class="headerlink" title="6.3 中断机构和中断处理程序"></a>6.3 中断机构和中断处理程序</h2><p>&ensp;&ensp;&ensp;&ensp;中断在操作系统中有着特殊重要的地位，它是多道程序得以实现的基础，因为<strong>进程之间的切换是通过中断来完成的</strong><br>&ensp;&ensp;&ensp;&ensp;另一方面，中断也是设备管理的基础，为了提高处理机的利用率和实现CPU与I/O设备并行执行，也必须有中断的支持。它是整个I/O系统的基础。</p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>1.中断和陷入</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;(1) 中断：CPU对I/O设备发来的中断信号的一种响应，中断是由外部设备引起的，又称外中断。<br>&ensp;&ensp;&ensp;&ensp;(2) 陷入：由CPU内部事件所引起的中断，通常把这类中断称为内中断或陷入（trap）。如地址越界、非法指令、电源故障等<br>&ensp;&ensp;&ensp;&ensp;中断和陷入的主要区别：信号的来源不同，CPU外部还是内部  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>2.中断向量表和中断优先级</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;(1) 中断向量表：为<strong>每种设备配以相应的中断处理程序</strong>，并把该程序的入口地址，放在中断向量表的一个表项中，并为每一个设备的中断请求，规定一个中断号，它直接对应于中断向量表的一个表项中。<br>&ensp;&ensp;&ensp;&ensp;(2) 中断优先级：系统根据不同中断信号源，对服务要求的紧急程度的不同，它们分别规定不同的优先级。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>3.对多中断源的处理方式</strong>   </p>
+<p>&ensp;&ensp;&ensp;&ensp;1) 屏蔽（禁止）中断<br>&ensp;&ensp;&ensp;&ensp;所有中断都将按顺序依次处理。<br>&ensp;&ensp;&ensp;&ensp;当处理机正在处理一个中断时，将屏蔽掉所有新到的中断，让它们等待，直到处理机已完成本次中断的处理后，处理机再去检查并处理。<br>&ensp;&ensp;&ensp;&ensp;优点是简单，但不能用于对实时性要求较高的中断请求。<br><img src="/2021/06/16/os-6/%E5%9B%BE%E7%89%8713.png">   </p>
+<p>&ensp;&ensp;&ensp;&ensp;2) 嵌套中断：在设置了中断优先级的系统中，通常按这样的规则来进行优先级控制<br>&ensp;&ensp;&ensp;&ensp;当同时有多个不同优先级的中断请求时，CPU优先响应最高优先级的中断请求；<br>&ensp;&ensp;&ensp;&ensp;高优先级的中断请求，可以抢占正在运行低优先级中断的处理机，该方式类似于基于优先级的抢占式进程调度。<br><img src="/2021/06/16/os-6/%E5%9B%BE%E7%89%8714.png">  </p>
+<h3 id="6-3-2-中断处理程序"><a href="#6-3-2-中断处理程序" class="headerlink" title="6.3.2 中断处理程序"></a>6.3.2 中断处理程序</h3><p>&ensp;&ensp;&ensp;&ensp;中断处理程序的处理过程：<br>&ensp;&ensp;&ensp;&ensp;（1）测定是否有未响应的中断信号<br>&ensp;&ensp;&ensp;&ensp;每当设备完成一个字符（或数据块）的读入（输出），设备控制器便向处理机发送一个中断请求信号。请求处理机将设备已读入的数据传送到内存的缓冲区中，或请求处理机将要输出的数据传送给设备控制器。<br>&ensp;&ensp;&ensp;&ensp;程序每当<strong>执行完当前指令后</strong>，处理机都要测试是否有未响应的中断信号。<br>&ensp;&ensp;&ensp;&ensp;（2）保护被中断进程的CPU环境<br>&ensp;&ensp;&ensp;&ensp;从中断现场恢复到当前进程运行所需要的信息。通常由硬件将处理机状态字（PSW）和保存在程序计数器（PC）中下一条指令的地址保存在中断栈中。<br>&ensp;&ensp;&ensp;&ensp;把中断进程的CPU现场信息，即将包括所有CPU寄存器的内容压入中断栈。<br><img src="/2021/06/16/os-6/%E5%9B%BE%E7%89%8715.png">  </p>
+<p>&ensp;&ensp;&ensp;&ensp;（3）转入相应的设备处理程序<br>&ensp;&ensp;&ensp;&ensp;处理机测试中断源，确定引起中断的I/O设备，将相应的设备中断处理程序的入口地址装入到PC中，使处理机转向中断处理程序。<br>&ensp;&ensp;&ensp;&ensp;（4）中断处理<br>&ensp;&ensp;&ensp;&ensp;首先从设备控制器中读出设备状态，以判别本次中断是正常完成或异常中断，视情况处理。<br>&ensp;&ensp;&ensp;&ensp;（5）恢复CPU现场并退出中断<br>&ensp;&ensp;&ensp;&ensp;当中断处理完成以后，需要恢复CPU的现场，退出中断。但是，此刻是否返回到被中断的进程，取决于：<br>&ensp;&ensp;&ensp;&ensp;1）本中断是否采用了屏蔽（禁止）中断方式，若是，则返回被中断的进程。<br>&ensp;&ensp;&ensp;&ensp;2）若采用的是嵌套方式，如果没有更高级的中断请求I/O，则返回中断的进程；反之，系统将处理优先级更高的中断请求。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;中断处理流程<br>&ensp;&ensp;&ensp;&ensp;①测定是否有未响应的中断信号<br>&ensp;&ensp;&ensp;&ensp;②保护被中断进程的CPU环境<br>&ensp;&ensp;&ensp;&ensp;③转入相应的设备处理程序<br>&ensp;&ensp;&ensp;&ensp;④中断处理<br>&ensp;&ensp;&ensp;&ensp;⑤恢复CPU的现场<br><img src="/2021/06/16/os-6/%E5%9B%BE%E7%89%8716.png">  </p>
+<h2 id="6-4-设备驱动程序"><a href="#6-4-设备驱动程序" class="headerlink" title="6.4 设备驱动程序"></a>6.4 设备驱动程序</h2><p>&ensp;&ensp;&ensp;&ensp;设备驱动程序是I/O系统的高层与设备控制器之间的通信程序，其主要任务：<br>&ensp;&ensp;&ensp;&ensp;①接收上层软件发来的抽象I/O要求，如read、write等命令；<br>&ensp;&ensp;&ensp;&ensp;②再把它转化为具体要求，发送给设备控制器，启动设备去执行。<br>&ensp;&ensp;&ensp;&ensp;③反之，它也将由设备控制器发来的信号，传送给上层软件。  </p>
+<h3 id="6-4-1-设备驱动程序概述"><a href="#6-4-1-设备驱动程序概述" class="headerlink" title="6.4.1 设备驱动程序概述"></a>6.4.1 设备驱动程序概述</h3><p>&ensp;&ensp;&ensp;&ensp;<strong>1.设备驱动程序的功能</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;（1）接收由与设备无关的软件发来的命令和参数，并将命令中的抽象要求，转换为与设备相关的低层操作序列；<br>&ensp;&ensp;&ensp;&ensp;（2）检查用户I/O请求的合法性，了解I/O设备的工作状态，传递与I/O设备操作有关的参数，设置设备的工作方式；<br>&ensp;&ensp;&ensp;&ensp;（3）发出I/O命令，如果设备空闲，便立即启动I/O设备，完成指定的I/O操作；如果设备忙碌，则将请求者挂在设备队列上等待；<br>&ensp;&ensp;&ensp;&ensp;（4）及时响应由设备控制器发来的中断请求，并根据其中断类型，调用相应的中断处理程序进行处理。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>2.设备驱动程序的特点</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;(1)驱动程序是与设备无关的软件和设备控制器之间通信和转换的程序。<br>&ensp;&ensp;&ensp;&ensp;(2)驱动程序，与设备控制器和I/O设备的硬件特性，紧密相关。<br>&ensp;&ensp;&ensp;&ensp;(3)驱动程序与I/O设备所采用的I/O控制方式紧密相关。<br>&ensp;&ensp;&ensp;&ensp;(4)由于驱动程序与硬件紧密相关，因而其中的一部分必须用汇编语言编写。<br>&ensp;&ensp;&ensp;&ensp;(5)驱动程序应允许可重入，一个正在运行的驱动程序常会在一次调用完成前被再次调用。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>3.设备处理方式</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;(1)为每一类设备设置一个进程，专门用于执行这类设备的I/O操作。这种方式比较适合于较大的系统；<br>&ensp;&ensp;&ensp;&ensp;(2)在整个系统中设置一个I/O进程，专门用于执行系统中所有各类设备的I/O操作。也可以设置一个输入进程和一个输出进程，分别处理系统中的输入或输出操作；<br>&ensp;&ensp;&ensp;&ensp;(3)不设置专门的设备处理进程，而只为各类设备设置相应的设备驱动程序，供用户或系统进程调用。这种方式目前用得较多。  </p>
+<h3 id="6-4-2-设备驱动程序的处理过程"><a href="#6-4-2-设备驱动程序的处理过程" class="headerlink" title="6.4.2 设备驱动程序的处理过程"></a>6.4.2 设备驱动程序的处理过程</h3><p>&ensp;&ensp;&ensp;&ensp;(1)将抽象要求转换为具体要求<br>&ensp;&ensp;&ensp;&ensp;如：将抽象要求中的盘块号转换为磁盘的盘面、 磁道号及扇区。<br>&ensp;&ensp;&ensp;&ensp;(2)对服务请求进行校验<br>&ensp;&ensp;&ensp;&ensp;如：用户试图请求从打印机输入数据，系统应予以拒绝。<br>&ensp;&ensp;&ensp;&ensp;(3)检查设备的状态<br>&ensp;&ensp;&ensp;&ensp;如：为了向某设备写入数据，应先检查该设备是否处于接收就绪状态。<br>&ensp;&ensp;&ensp;&ensp;(4)传送必要的参数<br>&ensp;&ensp;&ensp;&ensp;在确定设备处于就绪状态后，还需传送必要的参数。<br>&ensp;&ensp;&ensp;&ensp;(5)启动I/O设备<br>完成准备工作之后，驱动程序可以向控制器中的命令寄存器传送相应的控制命令。驱动程序阻塞，在设备控制器的控制下进行I/O操作，直到中断到来时才将它唤醒。   </p>
+<h3 id="6-4-3-对I-O设备的控制方式"><a href="#6-4-3-对I-O设备的控制方式" class="headerlink" title="6.4.3 对I/O设备的控制方式"></a>6.4.3 对I/O设备的控制方式</h3><p>&ensp;&ensp;&ensp;&ensp;I/O控制方式的宗旨：尽量减少主机对I/O控制的干预，把主机从繁杂的I/O控制事务中解脱出来，以便更多地去完成数据处理任务。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;1）轮询的可编程I/O<br>&ensp;&ensp;&ensp;&ensp;利用I/O测试指令测试设备的闲忙，极大地浪费CPU<br><img src="/2021/06/16/os-6/%E5%9B%BE%E7%89%8717.png"><br>&ensp;&ensp;&ensp;&ensp;2）中断的可编程的I/O<br>&ensp;&ensp;&ensp;&ensp;当设备完成I/O操作，便以中断请求方式通知CPU，然后进行相应处理，浪费CPU<br><img src="/2021/06/16/os-6/%E5%9B%BE%E7%89%8718.png"><br>&ensp;&ensp;&ensp;&ensp;3）直接存储器访问<br>&ensp;&ensp;&ensp;&ensp;由DMA控制器送出内存地址和发出内存读、设备写或者设备读、内存写的控制信号完成内存与设备之间的直接数据传送，而不用CPU干预。仅在传送一个或多个数据块的开始和结束时，才需CPU干预，整块数据的传送是在控制器的控制下完成的。数据传输的基本单位是数据块。<br><img src="/2021/06/16/os-6/%E5%9B%BE%E7%89%8719.png"><br>&ensp;&ensp;&ensp;&ensp;4）I/O通道<br>&ensp;&ensp;&ensp;&ensp;通道是独立于CPU的、专门负责数据的输入输出传输工作的处理器，它对外部设备实统一管理，代替CPU对I/O操作进行控制，从而使I/O操作可以与CPU并行工作。  </p>
+<h2 id="6-5-与设备无关的I-O软件"><a href="#6-5-与设备无关的I-O软件" class="headerlink" title="6.5 与设备无关的I/O软件"></a>6.5 与设备无关的I/O软件</h2><h2 id="6-6-用户层的I-O软件"><a href="#6-6-用户层的I-O软件" class="headerlink" title="6.6 用户层的I/O软件"></a>6.6 用户层的I/O软件</h2><h2 id="6-7-缓冲区管理"><a href="#6-7-缓冲区管理" class="headerlink" title="6.7 缓冲区管理"></a>6.7 缓冲区管理</h2><h2 id="6-8-磁盘存储器的性能和调度"><a href="#6-8-磁盘存储器的性能和调度" class="headerlink" title="6.8 磁盘存储器的性能和调度"></a>6.8 磁盘存储器的性能和调度</h2>]]></content>
+      <categories>
+        <category>OS</category>
+      </categories>
+      <tags>
+        <tag>课堂笔记</tag>
+      </tags>
+  </entry>
 </search>
