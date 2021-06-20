@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kome1jisatori.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="前言个人操作系统笔记整理，欢迎参考，时不时更新。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作系统笔记——第七章">
+<meta property="og:url" content="https://kome1jisatori.github.io/2021/06/19/os-7/index.html">
+<meta property="og:site_name" content="KomeijiSatoriのblog">
+<meta property="og:description" content="前言个人操作系统笔记整理，欢迎参考，时不时更新。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/06/19/os-7/%E5%9B%BE%E7%89%871.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/06/19/os-7/%E5%9B%BE%E7%89%872.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/06/19/os-7/%E5%9B%BE%E7%89%873.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/06/19/os-7/%E5%9B%BE%E7%89%874.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/06/19/os-7/%E5%9B%BE%E7%89%875.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/06/19/os-7/%E5%9B%BE%E7%89%876.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/06/19/os-7/%E5%9B%BE%E7%89%877.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/06/19/os-7/%E5%9B%BE%E7%89%878.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/06/19/os-7/%E5%9B%BE%E7%89%879.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/06/19/os-7/%E5%9B%BE%E7%89%8710.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/06/19/os-7/%E5%9B%BE%E7%89%8711.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/06/19/os-7/%E5%9B%BE%E7%89%8712.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/06/19/os-7/%E5%9B%BE%E7%89%8713.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/06/19/os-7/%E5%9B%BE%E7%89%8714.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/06/19/os-7/%E5%9B%BE%E7%89%8715.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/06/19/os-7/%E5%9B%BE%E7%89%8716.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/06/19/os-7/%E5%9B%BE%E7%89%8717.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/06/19/os-7/%E5%9B%BE%E7%89%8718.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/06/19/os-7/%E5%9B%BE%E7%89%8719.png">
+<meta property="article:published_time" content="2021-06-19T18:44:09.000Z">
+<meta property="article:modified_time" content="2021-06-20T13:49:17.893Z">
+<meta property="article:author" content="Komeiji Satori">
+<meta property="article:tag" content="课堂笔记">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kome1jisatori.github.io/2021/06/19/os-7/%E5%9B%BE%E7%89%871.png">
+
+<link rel="canonical" href="https://kome1jisatori.github.io/2021/06/19/os-7/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>操作系统笔记——第七章 | KomeijiSatoriのblog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">KomeijiSatoriのblog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">地灵殿从零开始的学习生活</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">3</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">15</span></a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kome1jisatori.github.io/2021/06/19/os-7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Komeiji Satori">
+      <meta itemprop="description" content="记录些有的没的的学习心得">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KomeijiSatoriのblog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          操作系统笔记——第七章
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-06-20 02:44:09 / 修改时间：21:49:17" itemprop="dateCreated datePublished" datetime="2021-06-20T02:44:09+08:00">2021-06-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/OS/" itemprop="url" rel="index"><span itemprop="name">OS</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2021/06/19/os-7/" class="post-meta-item leancloud_visitors" data-flag-title="操作系统笔记——第七章" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/06/19/os-7/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/06/19/os-7/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>16k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>14 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+     
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>个人操作系统笔记整理，欢迎参考，时不时更新。  </p>
+<span id="more"></span> 
+
+<h1 id="第七章-文件管理"><a href="#第七章-文件管理" class="headerlink" title="第七章 文件管理"></a>第七章 文件管理</h1><h2 id="7-1-文件和文件系统"><a href="#7-1-文件和文件系统" class="headerlink" title="7.1 文件和文件系统"></a>7.1 文件和文件系统</h2><p>&ensp;&ensp;&ensp;&ensp;文件系统的管理功能是将其管理的程序和数据通过组织为一系列文件的方式实现的。<br>&ensp;&ensp;&ensp;&ensp;文件：具有文件名的若干相关元素的集合。<br>&ensp;&ensp;&ensp;&ensp;元素通常是记录，而记录又是一组有意义的数据项的集合。<br>&ensp;&ensp;&ensp;&ensp;数据项 -&gt; 记录 -&gt; 文件    </p>
+<h3 id="7-1-1-数据项、记录和文件"><a href="#7-1-1-数据项、记录和文件" class="headerlink" title="7.1.1 数据项、记录和文件"></a>7.1.1 数据项、记录和文件</h3><p>&ensp;&ensp;&ensp;&ensp;<strong>1.数据项</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;1）基本数据项：描述一个对象的某种属性的字符集，是可以命名的最小逻辑数据单位，又称为数据元素或字段。<br>&ensp;&ensp;&ensp;&ensp;2）组合数据项。由若干个基本数据项组成的，简称组项。例如，工资是个组项，它可由基本工资、工龄工资和奖励工资等基本项所组成。<br>&ensp;&ensp;&ensp;&ensp;3）基本数据项的类型和数据<br>&ensp;&ensp;&ensp;&ensp;例如：在描述学生的学号时，应使用整数； 描述学生的姓名则应使用字符串(含汉字)；描述性别时，可用逻辑变量或汉字。<br>&ensp;&ensp;&ensp;&ensp;可见，由数据项的名字和类型两者共同定义了一个数据项的“型”。 而表征一个实体在数据项上的数据则称为“值”。<br>&ensp;&ensp;&ensp;&ensp;例如：学号/30211、姓名/王有年、性别/男等。   </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>2.记录</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;一组相关数据项的集合，用于描述一个<strong>对象</strong>在某方面的属性。一个记录应包含哪些数据项，取决于需要描述对象的哪个方面。<br>&ensp;&ensp;&ensp;&ensp;关键字：能唯一的标识出记录的基本/组合数据项。   </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>3.文件</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;文件是指由创建者所定义的、具有文件名的一组相关元素的集合，可分为有结构文件(记录式文件)和无结构文件(流式文件)两种。在有结构的文件中，文件由若干个相关记录组成；而无结构文件则被看成是一个字符流。<br>&ensp;&ensp;&ensp;&ensp;文件在文件系统中是一个最大的数据单位，它描述了一个对象集。<br>&ensp;&ensp;&ensp;&ensp;例如：可以将一个班的学生记录作为一个文件。一个文件必须要有一个文件名， 它通常是由一串ASCII码或(和)汉字构成，名字的长度因系统不同而异<br>&ensp;&ensp;&ensp;&ensp;文件属性：<br>&ensp;&ensp;&ensp;&ensp;1）文件类型。可以从不同的角度来规定文件的类型，如源文件、目标文件和可执行文件等。<br>&ensp;&ensp;&ensp;&ensp;2）文件长度。指文件的当前长度，单位可以是字节，字或数据块。<br>&ensp;&ensp;&ensp;&ensp;3）文件的物理位置。指示文件所在的设备以及所在设备中地址的指针。<br>&ensp;&ensp;&ensp;&ensp;4）文件的建立时间。指最后一次的修改时间。<br><img src="/2021/06/19/os-7/%E5%9B%BE%E7%89%871.png">  </p>
+<h3 id="7-1-2-文件名和类型"><a href="#7-1-2-文件名和类型" class="headerlink" title="7.1.2 文件名和类型"></a>7.1.2 文件名和类型</h3><p>&ensp;&ensp;&ensp;&ensp;<strong>1.文件名和扩展名</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;文件名：不同的系统，对文件名的规定不同<br>&ensp;&ensp;&ensp;&ensp;MS-DOS、WINDOWS95不区分大小写<br>&ensp;&ensp;&ensp;&ensp;Unix、linux系统区分大小写<br>&ensp;&ensp;&ensp;&ensp;扩展名：添加在文件名后面的若干附加字符，又称为后缀名，用于指示文件的类型，方便系统和用户了解文件的类型。扩展名的长度一般为1～4个字符。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>2.文件类型</strong>   </p>
+<p><img src="/2021/06/19/os-7/%E5%9B%BE%E7%89%872.png"><br><img src="/2021/06/19/os-7/%E5%9B%BE%E7%89%873.png">  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>3.文件系统的功能</strong>   </p>
+<p>&ensp;&ensp;&ensp;&ensp;文件系统的功能<br>&ensp;&ensp;&ensp;&ensp;(1)统一管理文件的存储空间，实施存储空间的分配与回收<br>&ensp;&ensp;&ensp;&ensp;(2)实现文件的按名存取<br>   &ensp;&ensp;&ensp;&ensp;名字空间映射到存储空间<br>&ensp;&ensp;&ensp;&ensp;(3)实现文件信息的共享，并提供文件的保护和保密措施<br>&ensp;&ensp;&ensp;&ensp;(4)向用户提供一个方便使用的接口（命令接口、程序接口）（提供对文件系统操作命令，以及提供对文件的操作命令：信息存取、加工等）<br>&ensp;&ensp;&ensp;&ensp;(5)系统维护及向用户提供有关信息<br>&ensp;&ensp;&ensp;&ensp;(6)文件系统的执行效率<br>&ensp;&ensp;&ensp;&ensp;文件系统在操作系统接口中占的比例最大,用户使用操作系统的感觉在很大程度上取决于对文件系统的使用效果。<br>&ensp;&ensp;&ensp;&ensp;(7)提供与I/O的统一接口  </p>
+<h3 id="7-1-3-文件系统的层次结构"><a href="#7-1-3-文件系统的层次结构" class="headerlink" title="7.1.3 文件系统的层次结构"></a>7.1.3 文件系统的层次结构</h3><p>&ensp;&ensp;&ensp;&ensp;三个层：文件(对象及属性)-&gt;文件操作-&gt;文件访问接口<br><img src="/2021/06/19/os-7/%E5%9B%BE%E7%89%874.png">   </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>1.对象及其属性</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;文件管理系统管理的对象有：<br>&ensp;&ensp;&ensp;&ensp;① 文件：文件管理的直接对象。<br>&ensp;&ensp;&ensp;&ensp;② 目录：为了方便用户对文件的存取和检索，在文件系统中必须配置目录。对目录的组织和管理是方便用户和提高对文件存取速度的关键。<br>&ensp;&ensp;&ensp;&ensp;③ 磁盘(磁带)存储空间：文件和目录必定占用存储空间对这部分空间的有效管理，不仅能提高外存的利用率，而且能提高对文件的存取速度。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>2.对对象操纵和管理的软件集合</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>这是文件管理系统的核心部分</strong>。文件系统的功能大多是在这一层实现的，其中包括：对文件存储空间的管理、对文件目录的管理、用于将文件的逻辑地址转换为物理地址的机制、对文件<strong>读和写</strong>的管理，以及对文件的共享与保护等功能。    </p>
+<p>&ensp;&ensp;&ensp;&ensp;一般的，把与文件系统有关的软件分为四个层次：<br>&ensp;&ensp;&ensp;&ensp;1）I/O 控制层，是文件系统的最底层，主要由磁盘驱动程序等组成，也可称为设备驱动程序层。<br>&ensp;&ensp;&ensp;&ensp;2）基本文件系统层，主要用于处理内存和磁盘之间数据块的交换。<br>&ensp;&ensp;&ensp;&ensp;3）基本I/O管理程序，用于完成与磁盘I/O有关的事务。<br>&ensp;&ensp;&ensp;&ensp;4）逻辑文件系统，用于处理与记录和文件相关的操作。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>3.文件系统接口</strong>   </p>
+<p>&ensp;&ensp;&ensp;&ensp;为方便用户使用文件系统，文件系统通常向用户提供两种类型的接口：<br>&ensp;&ensp;&ensp;&ensp;(1) 命令接口。这是指作为用户与文件系统交互的接口。 用户可通过键盘终端键入命令，取得文件系统的服务。<br>&ensp;&ensp;&ensp;&ensp;(2) 程序接口。这是指作为用户程序与文件系统的接口。 用户程序可通过系统调用来取得文件系统的服务。   </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>4.文件系统的优点</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;（1）使用方便：用户按名存取文件，不需要考虑具体的物理地址。<br>&ensp;&ensp;&ensp;&ensp;（2）安全性：文件系统对文件提供各种保护措施。<br>&ensp;&ensp;&ensp;&ensp;（3）统一性：用户可以用统一的方式存取在不同存储媒体上的文件。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>5.文件系统必须解决的几个问题</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;（1）如何有效的分配文件存储器的存储空间<br>&ensp;&ensp;&ensp;&ensp;（2）提供合适的存取方法<br>&ensp;&ensp;&ensp;&ensp;（3）命名的冲突和文件的共享  </p>
+<h3 id="7-1-4-文件操作"><a href="#7-1-4-文件操作" class="headerlink" title="7.1.4 文件操作"></a>7.1.4 文件操作</h3><p>&ensp;&ensp;&ensp;&ensp;<strong>1.最基本的文件操作</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;1）创建文件<br>&ensp;&ensp;&ensp;&ensp;在创建一个新文件时，要为新文件分配必要的外存空间，并在文件目录中为之建立一个目录项，目录项中应记录新文件的文件名及其外存地址<br>&ensp;&ensp;&ensp;&ensp;目的：建立系统与文件的联系<br>&ensp;&ensp;&ensp;&ensp;2）删除文件<br>&ensp;&ensp;&ensp;&ensp;删除时，首先从目录中删除目录项，并回收该文件所占的存储空间<br>&ensp;&ensp;&ensp;&ensp;3）读文件<br>&ensp;&ensp;&ensp;&ensp;4）写文件<br>&ensp;&ensp;&ensp;&ensp;5）设置文件的读写位置：通过设置文件读写指针，更改顺序存取为随机存取。    </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>2.文件的“打开”和“关闭”操作</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;OS对文件的一般操作步骤：1、检索文件目录，找到指定文件的属性及在外存上的位置；2、对文件施加相应的读、写操作。<br>&ensp;&ensp;&ensp;&ensp;打开(Open)：指系统将指定文件的属性从外存拷贝到内存打开文件表的一个表目中，并将表目的编号返回给用户。<br>&ensp;&ensp;&ensp;&ensp;关闭（Close）：将把相应的文件从打开文件表中的表目上删除掉。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;1）打开文件<br>&ensp;&ensp;&ensp;&ensp;避免用户在对一个文件实施多次读写操作时，重复执行检索、打开等操作，在OS中引入打开文件(open)系统调用<br>&ensp;&ensp;&ensp;&ensp;将指定文件从外存拷贝到内存打开文件的表的一个表目中，并将该表目的编号返回给用户</p>
+<p>&ensp;&ensp;&ensp;&ensp;2）关闭文件<br>&ensp;&ensp;&ensp;&ensp;OS把该文件从打开表中删除该文件对应的表目  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>2.其他文件操作</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;1）更改文件属性<br>&ensp;&ensp;&ensp;&ensp;更改文件名、改变文件所有者、改变文件访问权限<br>&ensp;&ensp;&ensp;&ensp;2）有关目录的操作<br>&ensp;&ensp;&ensp;&ensp;创建目录、删除目录、改变当前目录、更改工作目录  </p>
+<h2 id="7-2-文件的逻辑结构"><a href="#7-2-文件的逻辑结构" class="headerlink" title="7.2 文件的逻辑结构"></a>7.2 文件的逻辑结构</h2><p><img src="/2021/06/19/os-7/%E5%9B%BE%E7%89%875.png">  </p>
+<p>&ensp;&ensp;&ensp;&ensp;对于任何一个文件，都存在着以下两种形式的结构<br>&ensp;&ensp;&ensp;&ensp;（1）文件的逻辑结构（文件系统高层设计）<br>&ensp;&ensp;&ensp;&ensp;从用户角度观察到的文件的组织形式，又称为文件组织。<br>&ensp;&ensp;&ensp;&ensp;（2）文件的物理结构（文件系统底层设计）<br>&ensp;&ensp;&ensp;&ensp;又称为文件的存储结构，是指文件在外存上的存储组织形式。   </p>
+<h3 id="7-2-1-文件逻辑结构的类型"><a href="#7-2-1-文件逻辑结构的类型" class="headerlink" title="7.2.1 文件逻辑结构的类型"></a>7.2.1 文件逻辑结构的类型</h3><p>&ensp;&ensp;&ensp;&ensp;<strong>1.系统对文件逻辑结构的基本要求</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;1）有助于提高对文件检索的速度<br>&ensp;&ensp;&ensp;&ensp;2）方便对文件进行修改，即在便于在文件中增加，删除和修改一个或多个记录<br>&ensp;&ensp;&ensp;&ensp;3）降低文件存放在外存上的存储费用，即尽量减少文件占用的空间，不要求大片的连续存储空间，合理的利用外存，提高外存利用率  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>2.按文件是否有结构分类</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;1）有结构文件（记录式文件）<br>&ensp;&ensp;&ensp;&ensp;文件是由若干个记录组成，每个记录有一个键，可按键进行查找。其中的每个记录描述实体集中的一个实体，各记录有着相同或不同数目的数据项。记录的长度可分为：<br>&ensp;&ensp;&ensp;&ensp;定长记录：文件中的所有记录长度都是相同的<br>&ensp;&ensp;&ensp;&ensp;变长记录：文件中各记录的长度不相同<br>&ensp;&ensp;&ensp;&ensp;不论是哪一种，在处理前，每个记录的长度都是可知的。<br>&ensp;&ensp;&ensp;&ensp;2）无结构文件（流式文件）<br>&ensp;&ensp;&ensp;&ensp;大量的源程序、可执行文件、库函数等， 所采用的就是无结构的文件形式，即流式文件。<br>&ensp;&ensp;&ensp;&ensp;其长度以字节为单位。对流式文件的访问，则是采用读写指针来指出下一个要访问的字符。可以把流式文件看作是记录式文件的一个特例：即一个记录仅有一个字节。<br>&ensp;&ensp;&ensp;&ensp;在UNIX系统中，所有的文件都被看作是流式文件；即使是有结构文件，也被视为流式文件；系统不对文件进行格式处理。   </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>2.按文件的组织形式分类</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;1）顺序文件。由一系列记录按某种顺序进行排列，其中的记录可以是定长也可以是变长的<br>&ensp;&ensp;&ensp;&ensp;2) 索引文件。 为变长记录文件建立一张索引表，并为每个记录建立一个表项，以加速对记录的检索速度<br>&ensp;&ensp;&ensp;&ensp;3) 索引顺序文件。 为文件建立一张索引表时，并不是为每个记录建立一个表项，而是为每组记录中的第一个记录设置一个表项。    </p>
+<h3 id="7-2-2-顺序文件"><a href="#7-2-2-顺序文件" class="headerlink" title="7.2.2 顺序文件"></a>7.2.2 顺序文件</h3><p>&ensp;&ensp;&ensp;&ensp;<strong>1.顺序文件的排列方式</strong>   </p>
+<p>&ensp;&ensp;&ensp;&ensp;顺序文件中的记录，可按不同顺序进行排列：<br>&ensp;&ensp;&ensp;&ensp;（1）串结构: 按记录生成的先后顺序连续排列的逻辑结构。每次检索都要从头开始，效率低<br>&ensp;&ensp;&ensp;&ensp;（2）顺序结构: 把文件中的键（关键字）按规定的顺序排列起来。采用折半查找等提高检索效率    </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>2.顺序文件的优缺点</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;优点：<br>&ensp;&ensp;&ensp;&ensp;在对文件中的记录进行批量存取时（即每次要读写一大批记录），使用顺序文件的存取效率是最高的对于顺序存储设备（如磁带），只有顺序文件才能被存储并有效工作<br>&ensp;&ensp;&ensp;&ensp;缺点：<br>&ensp;&ensp;&ensp;&ensp;查找或修改单个记录时，顺序文件性能很差<br>&ensp;&ensp;&ensp;&ensp;增加和删除单个记录都比较困难  </p>
+<h3 id="7-2-3-记录寻址"><a href="#7-2-3-记录寻址" class="headerlink" title="7.2.3 记录寻址"></a>7.2.3 记录寻址</h3><p>&ensp;&ensp;&ensp;&ensp;<strong>1.隐式寻址方式</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;对于定长顺序文件，如果已知当前记录的逻辑地址，很容易能确定下一个记录的逻辑地址。<br>&ensp;&ensp;&ensp;&ensp;读一个文件的时候,设置一个读指针Rptr，令其指向下一个记录的首地址，读完一个记录执行一次后移Rptr=Rptr+L;<br>&ensp;&ensp;&ensp;&ensp;写文件操作同上，只是需要设置一个写指针Wptr，令其指向所写记录的首地址，写完一个记录执行一次Wptr=Wptr+L。<br><img src="/2021/06/19/os-7/%E5%9B%BE%E7%89%876.png">   </p>
+<p>&ensp;&ensp;&ensp;&ensp;对于变长顺序文件，与顺序读或写时的情况相似，只是每次从记录中读出该记录的长度。同样需要设置读写指针，但在每次读或写完一个记录后，须将读或写指针加上Li, 它是刚读或刚写完记录的长度。<br>&ensp;&ensp;&ensp;&ensp;问题：访问一个指定记录i, 必须扫描或读取前面第0~i-1个记录，访问速度是比较慢的。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>2.显式寻址方式</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;1）通过文件中记录的位置<br>&ensp;&ensp;&ensp;&ensp;该方式用于对定长顺序文件实现直接或随机访问。<br>&ensp;&ensp;&ensp;&ensp;对于定长记录文件，如果要查找第i个记录，可直接根据下式计算来获得第i个记录相对于第一个记录首址的地址：<br>&ensp;&ensp;&ensp;&ensp;Ai=i×L<br>&ensp;&ensp;&ensp;&ensp;对于可变长度记录的文件，要查找其第i个记录时，须首先计算出该记录的首地址。为此，须顺序地查找每个记录，从中获得相应记录的长度Li，然后才能按下式计算出第i个记录的首址。假定在每个记录前用一个字节指明该记录的长度，则<br> <img src="/2021/06/19/os-7/%E5%9B%BE%E7%89%877.png">   </p>
+<p>&ensp;&ensp;&ensp;&ensp;2）利用关键字<br>&ensp;&ensp;&ensp;&ensp;此时用户需要指定一个字段作为关键字，通过指定的关键字来查找该记录。当用户给出要查找记录的关键字时，系统将利用该关键字顺序的从第一个记录开始，与每一个记录的关键字进行比较，直到找到匹配的记录。  </p>
+<h3 id="7-2-4-索引文件"><a href="#7-2-4-索引文件" class="headerlink" title="7.2.4 索引文件"></a>7.2.4 索引文件</h3><p>&ensp;&ensp;&ensp;&ensp;<strong>1.按关键字建立索引</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;由变长记录组成的顺序文件不容易直接存取，因此，为其建立一有序的索引表。<br>&ensp;&ensp;&ensp;&ensp;索引文件：为文件中所有记录建立一张索引表，每个记录对应一索引表项，用于记录该记录的长度及指向该记录的指针（指向该记录在逻辑地址空间的首址）<br> <img src="/2021/06/19/os-7/%E5%9B%BE%E7%89%878.png">  </p>
+<p>&ensp;&ensp;&ensp;&ensp;优点：实现了随机访问、能够随意修改、增加、删除<br>&ensp;&ensp;&ensp;&ensp;缺点：需要存储空间来存储索引表  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>2.具有多个索引表的索引文件</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;索引文件与顺序文件一样，都只能按关键字进行检索。<br>&ensp;&ensp;&ensp;&ensp;实际中：不同的用户，为了不同的目的，希望能按不同的属性（关键字）来检索一条记录。为此，需要为顺序文件建立多个索引表。<br>&ensp;&ensp;&ensp;&ensp;每个索引表中，按相应的一种属性或关键字进行排序。<br>&ensp;&ensp;&ensp;&ensp;优点：将需要顺序查找的文件改造成一个可随机查找的文件，提高文件的查找速度。同时利用索引文件进行记录的插入和删除也非常方便。  </p>
+<h3 id="7-2-5-索引顺序文件"><a href="#7-2-5-索引顺序文件" class="headerlink" title="7.2.5 索引顺序文件"></a>7.2.5 索引顺序文件</h3><p>&ensp;&ensp;&ensp;&ensp;<strong>1.索引顺序文件的特征</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;1）引入了文件索引表，通过该表可以实现对索引顺序文件的随机访问。<br>&ensp;&ensp;&ensp;&ensp;2）增加了溢出文件，用它来记录新增加的，删除的和修改的记录。<br>&ensp;&ensp;&ensp;&ensp;可见，索引顺序文件是顺序文件和索引文件的结合，能有效克服变长记录文件的缺点，而且所付出的代价也不算太大。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>2.一级索引顺序文件</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;建立方法：首先将变长记录顺序文件中的所有记录分成若干组。然后为顺序文件建立一张索引表，并为每组中的第一个记录在索引表中建立一个索引项，其中含有该记录的关键字和指向该记录的指针。<br>&ensp;&ensp;&ensp;&ensp;检索过程：利用用户程序提供的关键字以及某种查找算法去检索索引表，找到该记录所在记录组中第一个记录的表项，从中得到该记录组第一个记录在主文件中的位置，再顺序查找主文件，从中找到所要求的记录。<br> <img src="/2021/06/19/os-7/%E5%9B%BE%E7%89%879.png">  </p>
+<p>&ensp;&ensp;&ensp;&ensp;查找效率：如果一个顺序文件包含的记录数为N，则为检索到具有指定关键字的记录，平均须要查找N/2次。但对于索引顺序文件，平均只要查找N1/2.<br>&ensp;&ensp;&ensp;&ensp;示例：10000个记录<br>&ensp;&ensp;&ensp;&ensp;顺序文件：平均需要查5000个记录才能查找到。<br>&ensp;&ensp;&ensp;&ensp;索引顺序文件：设100个记录一组，索引表的找法设为顺序法的情况下，则查找次数为50+50=100。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>3.两级索引顺序文件</strong>     </p>
+<p>&ensp;&ensp;&ensp;&ensp;对于一个非常大的文件，为找到一个记录而须查找的记录数目仍然很多，为了进一步提高检索效率，可以为顺序文件建立多级索引，即为索引文件再建立一张索引表，从而形成两级索引表。<br>&ensp;&ensp;&ensp;&ensp;示例：106个记录。先建立一张低级索引表，每100个记录一组，低级索引表含有104个表项。然后为低级索引表建立一张高级索引表，同样是100个索引表项一组，故有102个表项。则查找次数为50+50+50=150。  </p>
+<h3 id="7-2-6-直接文件和哈希文件"><a href="#7-2-6-直接文件和哈希文件" class="headerlink" title="7.2.6 直接文件和哈希文件"></a>7.2.6 直接文件和哈希文件</h3><p>&ensp;&ensp;&ensp;&ensp;<strong>1.直接文件</strong>   </p>
+<p>&ensp;&ensp;&ensp;&ensp;对于直接文件，则可根据给定的记录键值，直接获得指定记录的物理地址。<br>&ensp;&ensp;&ensp;&ensp;换言之，记录键值本身就决定了记录的物理地址。<br>&ensp;&ensp;&ensp;&ensp;这种由记录键值到记录物理地址的转换被称为键值转换(Key to address transformation)。组织直接文件的关键， 在于用什么方法进行从记录值到物理地址的转换。   </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>2.哈希文件</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;目前最为广泛的一种直接文件，它利用Hash函数将记录键值转换为相应记录的地址。<br> <img src="/2021/06/19/os-7/%E5%9B%BE%E7%89%8710.png">   </p>
+<h2 id="7-3-文件目录"><a href="#7-3-文件目录" class="headerlink" title="7.3 文件目录"></a>7.3 文件目录</h2><p>&ensp;&ensp;&ensp;&ensp;系统通过文件目录对文件实现管理，文件目录也是一种数据结构，用户表示系统中的文件及其物理地址，供检索时使用，对目录管理的要求如下：<br>&ensp;&ensp;&ensp;&ensp;1）实现“按名存取”。用户只需要向系统提供所访问文件的名字，便能快速准确的找到指定文件在外存的位置。<br>&ensp;&ensp;&ensp;&ensp;2）提高对目录的检索速度。通过合理组织目录结构加快对目录的检索速度，进而提高对文件的存取速度。<br>&ensp;&ensp;&ensp;&ensp;3）文件共享。应允许多个用户共享一个文件。<br>&ensp;&ensp;&ensp;&ensp;4）允许文件重名。应允许对不同文件采用相同的名字。  </p>
+<h3 id="7-3-1-文件控制块和索引节点"><a href="#7-3-1-文件控制块和索引节点" class="headerlink" title="7.3.1 文件控制块和索引节点"></a>7.3.1 文件控制块和索引节点</h3><p>&ensp;&ensp;&ensp;&ensp;1）文件控制块:描述和控制文件的数据结构。<br>&ensp;&ensp;&ensp;&ensp;（1）文件管理程序借助文件控制块的信息对文件操作<br>&ensp;&ensp;&ensp;&ensp;（2）文件与文件控制块一一对应<br>&ensp;&ensp;&ensp;&ensp;2）文件目录:文件控制块的有序集合；一个文件控制块就是一个文件目录项<br>&ensp;&ensp;&ensp;&ensp;3）目录文件:一个文件目录也被看做一个文件，称为目录文件  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>1.文件控制块FCB</strong>   </p>
+<p>&ensp;&ensp;&ensp;&ensp;文件控制块含有以下三类信息：<br>&ensp;&ensp;&ensp;&ensp; 1）基本信息类<br>&ensp;&ensp;&ensp;&ensp;①文件名：文件的唯一名字，实现“按名存取”<br>&ensp;&ensp;&ensp;&ensp;②文件物理位置：文件在外存上的存储位置，设备名、起始盘块号、盘块数、文件长度<br>&ensp;&ensp;&ensp;&ensp;③文件逻辑结构：流式文件或记录式文件<br>&ensp;&ensp;&ensp;&ensp;④文件物理结构：文件是顺序文件、链式文件、还是索引文件<br>&ensp;&ensp;&ensp;&ensp;2）存储控制信息类<br>&ensp;&ensp;&ensp;&ensp;①文件主的存取权限<br>&ensp;&ensp;&ensp;&ensp;②核准用户的存取权限<br>&ensp;&ensp;&ensp;&ensp;③一般用户的存取<br>&ensp;&ensp;&ensp;&ensp;3）使用信息类<br>&ensp;&ensp;&ensp;&ensp;①文件的建立日期和时间<br>&ensp;&ensp;&ensp;&ensp;②文件上一次修改的日期和时间<br>&ensp;&ensp;&ensp;&ensp;③当前使用信息<br> <img src="/2021/06/19/os-7/%E5%9B%BE%E7%89%8711.png">   </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>2.索引节点</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;1）索引结点的引入<br>&ensp;&ensp;&ensp;&ensp;FCB中含:文件名、描述信息，它们较占空间。<br>&ensp;&ensp;&ensp;&ensp;例：一个FCB为64B，一个盘块为1KB，则每个盘块只能放16个FCB。若一个文件目录中共有640个FCB，则需要40个盘块。故平均查找一个文件须启动磁盘20次。<br>&ensp;&ensp;&ensp;&ensp;解决方法：将FCB分为文件名和描述性信息结点，即i结点、目录项中内容为文件名和i结点指针，查询时只调入文件名部分，找到后才调入相应结点。<br>&ensp;&ensp;&ensp;&ensp;2)磁盘索引结点<br>&ensp;&ensp;&ensp;&ensp;存放在磁盘上的索引结点，每个文件有唯一的一个磁盘索引结点，主要内容：<br>&ensp;&ensp;&ensp;&ensp;文件主标志符、文件类型、文件存取权限、文件物理地址、文件长度、文件连接计数、文件存取时间<br>&ensp;&ensp;&ensp;&ensp;3)内存索引结点<br>&ensp;&ensp;&ensp;&ensp;存放在内存上的索引结点，当文件被打开时，将磁盘索引结点拷贝到内存索引结点<br>&ensp;&ensp;&ensp;&ensp;索引结点编号、状态、访问计数、文件逻辑设备号、链接指针</p>
+<h3 id="7-3-2-简单的文件目录"><a href="#7-3-2-简单的文件目录" class="headerlink" title="7.3.2 简单的文件目录"></a>7.3.2 简单的文件目录</h3><p>&ensp;&ensp;&ensp;&ensp;<strong>1.单级文件目录</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;整个文件系统只建立一张目录表，每个文件占一个目录项<br>&ensp;&ensp;&ensp;&ensp;目录项包括文件名、扩展名、文件长度、文件类型、物理地址、其他文件属性<br>&ensp;&ensp;&ensp;&ensp;优点：简单，实现“按名存取”<br>&ensp;&ensp;&ensp;&ensp;缺点：<br>&ensp;&ensp;&ensp;&ensp;(1) 查找速度慢<br>&ensp;&ensp;&ensp;&ensp;(2) 不允许重命名<br>&ensp;&ensp;&ensp;&ensp;(3) 不便于实现文件共享：每个用户使用不同的名字访问同一文件。<br><img src="/2021/06/19/os-7/%E5%9B%BE%E7%89%8712.png">      </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>2.两级文件目录</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;为每个用户建立一个单独的用户文件目录UFD，系统中建立一个主文件目录MFD，在主文件目录中，每个用户文件目录占一个目录项<br>&ensp;&ensp;&ensp;&ensp;优点：解决了文件的重名问题和文件共享问题<br>&ensp;&ensp;&ensp;&ensp;用户名|文件名<br>&ensp;&ensp;&ensp;&ensp;提高检索速度<br>&ensp;&ensp;&ensp;&ensp;缺点：增加了系统开销<br><img src="/2021/06/19/os-7/%E5%9B%BE%E7%89%8713.png">       </p>
+<p>&ensp;&ensp;&ensp;&ensp;两级文件目录已经基本上能够满足对文件目录的四方面要求，具体说明：<br>&ensp;&ensp;&ensp;&ensp;1）提高了检索的速度。如果主目录中有n个子目录，每个用户目录最多用m个目录项，最多只需检索n+m个目录项。<br>&ensp;&ensp;&ensp;&ensp;2）在不同的用户目录中，可以使用相同的文件名。<br>&ensp;&ensp;&ensp;&ensp;3）不同用户还可以使用不同的文件名访问系统中的同一个共享文件。  </p>
+<h3 id="7-3-3-树形目录结构"><a href="#7-3-3-树形目录结构" class="headerlink" title="7.3.3 树形目录结构"></a>7.3.3 树形目录结构</h3><p>&ensp;&ensp;&ensp;&ensp;<strong>1.树形目录</strong>  </p>
+<p><img src="/2021/06/19/os-7/%E5%9B%BE%E7%89%8714.png">   </p>
+<p>&ensp;&ensp;&ensp;&ensp;优点：<br>&ensp;&ensp;&ensp;&ensp;层次结构清晰，便于管理和保护；有利于文件分类；解决重名问题；提高文件检索速度；能进行存取权限的控制<br>&ensp;&ensp;&ensp;&ensp;缺点：<br>&ensp;&ensp;&ensp;&ensp;查找一个文件按路径名逐层检查，由于每个文件都放在外存，多次访盘影响速度  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>2.路径名和当前目录</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;1）路径名<br>&ensp;&ensp;&ensp;&ensp;在树形目录结构中， 从根目录到任何数据文件， 都只有一条惟一的通路。 在该路径上从树的根(即主目录)开始， 把全部目录文件名与数据文件名，依次地用“/”连接起来，即构成该数据文件的路径名(path name)。 系统中的每一个文件都有惟一的路径名。<br>&ensp;&ensp;&ensp;&ensp;2）当前目录<br>&ensp;&ensp;&ensp;&ensp;当一个文件系统含有许多级时，每访问一个文件，都要使用从树根开始直到树叶(数据文件)为止的、包括各中间结点(目录)名的全路径名。 这是相当麻烦的事，同时由于一个进程运行时所访问的文件，大多仅局限于某个范围，因而非常不便。 基于这一点，可为每个进程设置一个“当前目录”，又称为“工作目录”。<br>&ensp;&ensp;&ensp;&ensp;从当前目录开始直到数据文件为止所构成的路径名，称为相对路径名(relative path name)；而把从树根开始的路径名称为绝对路径名(absolute path name)。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>3.目录操作</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;1）创建目录<br>&ensp;&ensp;&ensp;&ensp;在树形目录结构中，用户可以自己创建UFD，并可继续创建子目录。当用户创建一个新文件时，只需查看自己的UFD及其子目录中有无与新文件相同的文件名，若无，便可在UFD或其某个子目录中增加一个新的目录项。<br>&ensp;&ensp;&ensp;&ensp;2）删除目录<br>&ensp;&ensp;&ensp;&ensp;视情况而定，当该目录不再有任何文件时，直接删除。否则，可采用以下两种方法处理：<br>&ensp;&ensp;&ensp;&ensp;不删除非空目录。当目录(文件)不空时， 不能将其删除，而为了删除一个非空目录，必须先删除目录中的所有文件，使之先成为空目录， 后再予以删除。如果目录中还包含有子目录，还必须采取递归调用方式来将其删除， 在MS-DOS中就是采用这种删除方式。<br>&ensp;&ensp;&ensp;&ensp;可删除非空目录。当要删除一目录时，如果在该目录中还包含有文件，则目录中的所有文件和子目录也同时被删除。<br>&ensp;&ensp;&ensp;&ensp;3）改变目录<br>&ensp;&ensp;&ensp;&ensp;用户可以利用改变目录的命令，通过指定目录的绝对或相对路径名设置当前目录。<br>&ensp;&ensp;&ensp;&ensp;4）移动目录<br>&ensp;&ensp;&ensp;&ensp;到了一个阶段，通常都需要对目录组织进行调整，即将文件或子目录在不同的父目录之间移动。移动后，路径名也随之改变。<br>&ensp;&ensp;&ensp;&ensp;5）链接操作<br>&ensp;&ensp;&ensp;&ensp;对于树形结构目录，每个文件和每个目录只允许一个父目录，这不利于文件共享，可以利用链接操作让指定文件具有多个父目录，从而方便共享。<br>&ensp;&ensp;&ensp;&ensp;6）查找<br>&ensp;&ensp;&ensp;&ensp;文件目录比较庞大时，要查找指定文件是有点困难的。所有OS中都支持以多种方式进行查找。   </p>
+<h3 id="7-3-4-目录查询技术"><a href="#7-3-4-目录查询技术" class="headerlink" title="7.3.4 目录查询技术"></a>7.3.4 目录查询技术</h3><p>&ensp;&ensp;&ensp;&ensp;<strong>1.线性检索法</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;称为顺序检索法。在单级目录中，利用用户提供的文件名，用顺序查找法直接从文件目录中找到指定文件的目录项。在树形目录中，需要对多级目录进行查找。<br>&ensp;&ensp;&ensp;&ensp;假定查找的文件路径名是/usr/ast/mbox,则查找过程如下：<br><img src="/2021/06/19/os-7/%E5%9B%BE%E7%89%8715.png">     </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>2.hash方法</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;建立一张hash索引文件目录，可以利用hash方法进行查询，系统利用用户提供的文件名并将他变换为文件目录的索引值。<br>&ensp;&ensp;&ensp;&ensp;利用该索引值到目录中去查找，将显著提高索引速度。<br>&ensp;&ensp;&ensp;&ensp;注意:如果使用了通配符，则不能够进行hash方式查找。<br>&ensp;&ensp;&ensp;&ensp;hash处理方法会出现多个不同文件名转换为相同的hash值的情况。<br>&ensp;&ensp;&ensp;&ensp;一种处理此“冲突”的有效规则是：<br>&ensp;&ensp;&ensp;&ensp;(1) 在利用Hash法索引查找目录时，如果目录表中相应的目录项是空的，则表示系统中并无指定文件。<br>&ensp;&ensp;&ensp;&ensp;(2) 如果目录项中的文件名与指定文件名相匹配， 则表示该目录项正是所要寻找的文件所对应的目录项，故而可从中找到该文件所在的物理地址。<br>&ensp;&ensp;&ensp;&ensp;(3) 如果在目录表的相应目录项中的文件名与指定文件名并不匹配，则表示发生了“冲突”，此时须将其Hash值再加上一个常数(该常数应与目录的长度值互质)，形成新的索引值， 再返回到第一步重新开始查找。    </p>
+<h2 id="7-4-文件共享"><a href="#7-4-文件共享" class="headerlink" title="7.4 文件共享"></a>7.4 文件共享</h2><h3 id="7-4-1-基于有向无环图实现文件共享"><a href="#7-4-1-基于有向无环图实现文件共享" class="headerlink" title="7.4.1 基于有向无环图实现文件共享"></a>7.4.1 基于有向无环图实现文件共享</h3><p>&ensp;&ensp;&ensp;&ensp;定义：一个文件被多个用户或程序共同使用<br>&ensp;&ensp;&ensp;&ensp;目的：<br>&ensp;&ensp;&ensp;&ensp;1）节省存储空间<br>&ensp;&ensp;&ensp;&ensp;2）减少了用户工作量<br>&ensp;&ensp;&ensp;&ensp;3）进程间通过文件交换信息。<br>&ensp;&ensp;&ensp;&ensp;常用的两种文件共享方法：<br>&ensp;&ensp;&ensp;&ensp;1) 基于有向无环图实现文件共享<br>&ensp;&ensp;&ensp;&ensp;2) 利用符号链接实现文件共享  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>1.有向无环图</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;严格的树目录结构中，每个文件只允许有一个父目录(被一个用户所拥有)，其他用户访问，需通过父目录。<br>&ensp;&ensp;&ensp;&ensp;改进：允许一个文件有多个父目录，方便文件共享<br><img src="/2021/06/19/os-7/%E5%9B%BE%E7%89%8716.png">     </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>2.利用索引节点</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;思想：<br>&ensp;&ensp;&ensp;&ensp;1)目录项设置文件名及指向相应索引结点的指针。<br>&ensp;&ensp;&ensp;&ensp;2)文件的物理地址及相关属性存放在索引结点中。<br>&ensp;&ensp;&ensp;&ensp;3)任何用户对文件盘块的增加将会引起索引结点的变化不涉及用户目录的变更。<br><img src="/2021/06/19/os-7/%E5%9B%BE%E7%89%8717.png">     </p>
+<p><img src="/2021/06/19/os-7/%E5%9B%BE%E7%89%8718.png">   </p>
+<h3 id="7-4-2-利用符号链接实现文件共享"><a href="#7-4-2-利用符号链接实现文件共享" class="headerlink" title="7.4.2 利用符号链接实现文件共享"></a>7.4.2 利用符号链接实现文件共享</h3><p>&ensp;&ensp;&ensp;&ensp;<strong>1.利用符号链接的基本思想</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;思想：<br>&ensp;&ensp;&ensp;&ensp;1)允许一个文件或目录有多个父目录，但其中只有一个作为主父目录。<br>&ensp;&ensp;&ensp;&ensp;2)其他父目录通过符号链接方式与之相链接。<br><img src="/2021/06/19/os-7/%E5%9B%BE%E7%89%8719.png">     </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>2.如何利用符号链接实现共享</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;如何将F8共享到D5目录中？<br>&ensp;&ensp;&ensp;&ensp;1)系统创建一个LINK类型的文件，命名也为F8<br>&ensp;&ensp;&ensp;&ensp;2)这个LINK F8文件中只包含被链接文件F8的路径名(符号链接)<br>&ensp;&ensp;&ensp;&ensp;3)将这个LINK F8文件写入D5的目录<br>&ensp;&ensp;&ensp;&ensp;4)用户访问D5中F8时，OS截获路径名去找文件F8  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>3.利用符号链接实现共享的优点</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;1）只有文件主才拥有指向索引结点的指针，其它共享用户通过路径名访问（可以解决指针悬空的问题）。<br>&ensp;&ensp;&ensp;&ensp;2）当文件主删除共享文件后，其他用户再次访问该文件，发现文件已经删除，系统会将符号链删除。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>4.利用符号链共享方式存在的问题</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;访问速度慢；链接文件也要建立索引结点而由于链本身实际上是一个文件，尽管该文件很简单，却仍要为它配置一个索引结点，所以要耗费一定的磁盘空间；同一文件有不同的文件名。  </p>
+<h2 id="7-5-文件保护（略）"><a href="#7-5-文件保护（略）" class="headerlink" title="7.5 文件保护（略）"></a>7.5 文件保护（略）</h2>
+    </div>
+
+    
+    
+    
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------以上<i class="fa fa-paw"></i>（或许会有不定时更新）-------------</div>
+    
+</div>
+
+  
+</div>
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Komeiji Satori
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://kome1jisatori.github.io/2021/06/19/os-7/" title="操作系统笔记——第七章">https://kome1jisatori.github.io/2021/06/19/os-7/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0/" rel="tag"># 课堂笔记</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/06/16/os-6/" rel="prev" title="操作系统笔记——第六章">
+      <i class="fa fa-chevron-left"></i> 操作系统笔记——第六章
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%B8%83%E7%AB%A0-%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86"><span class="nav-text">第七章 文件管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#7-1-%E6%96%87%E4%BB%B6%E5%92%8C%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="nav-text">7.1 文件和文件系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-1-%E6%95%B0%E6%8D%AE%E9%A1%B9%E3%80%81%E8%AE%B0%E5%BD%95%E5%92%8C%E6%96%87%E4%BB%B6"><span class="nav-text">7.1.1 数据项、记录和文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-2-%E6%96%87%E4%BB%B6%E5%90%8D%E5%92%8C%E7%B1%BB%E5%9E%8B"><span class="nav-text">7.1.2 文件名和类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-3-%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84"><span class="nav-text">7.1.3 文件系统的层次结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-4-%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="nav-text">7.1.4 文件操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-2-%E6%96%87%E4%BB%B6%E7%9A%84%E9%80%BB%E8%BE%91%E7%BB%93%E6%9E%84"><span class="nav-text">7.2 文件的逻辑结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-1-%E6%96%87%E4%BB%B6%E9%80%BB%E8%BE%91%E7%BB%93%E6%9E%84%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="nav-text">7.2.1 文件逻辑结构的类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-2-%E9%A1%BA%E5%BA%8F%E6%96%87%E4%BB%B6"><span class="nav-text">7.2.2 顺序文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-3-%E8%AE%B0%E5%BD%95%E5%AF%BB%E5%9D%80"><span class="nav-text">7.2.3 记录寻址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-4-%E7%B4%A2%E5%BC%95%E6%96%87%E4%BB%B6"><span class="nav-text">7.2.4 索引文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-5-%E7%B4%A2%E5%BC%95%E9%A1%BA%E5%BA%8F%E6%96%87%E4%BB%B6"><span class="nav-text">7.2.5 索引顺序文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-6-%E7%9B%B4%E6%8E%A5%E6%96%87%E4%BB%B6%E5%92%8C%E5%93%88%E5%B8%8C%E6%96%87%E4%BB%B6"><span class="nav-text">7.2.6 直接文件和哈希文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-3-%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95"><span class="nav-text">7.3 文件目录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-1-%E6%96%87%E4%BB%B6%E6%8E%A7%E5%88%B6%E5%9D%97%E5%92%8C%E7%B4%A2%E5%BC%95%E8%8A%82%E7%82%B9"><span class="nav-text">7.3.1 文件控制块和索引节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-2-%E7%AE%80%E5%8D%95%E7%9A%84%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95"><span class="nav-text">7.3.2 简单的文件目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-3-%E6%A0%91%E5%BD%A2%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="nav-text">7.3.3 树形目录结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-4-%E7%9B%AE%E5%BD%95%E6%9F%A5%E8%AF%A2%E6%8A%80%E6%9C%AF"><span class="nav-text">7.3.4 目录查询技术</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-4-%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB"><span class="nav-text">7.4 文件共享</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-4-1-%E5%9F%BA%E4%BA%8E%E6%9C%89%E5%90%91%E6%97%A0%E7%8E%AF%E5%9B%BE%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB"><span class="nav-text">7.4.1 基于有向无环图实现文件共享</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-4-2-%E5%88%A9%E7%94%A8%E7%AC%A6%E5%8F%B7%E9%93%BE%E6%8E%A5%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB"><span class="nav-text">7.4.2 利用符号链接实现文件共享</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-5-%E6%96%87%E4%BB%B6%E4%BF%9D%E6%8A%A4%EF%BC%88%E7%95%A5%EF%BC%89"><span class="nav-text">7.5 文件保护（略）</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Komeiji Satori"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Komeiji Satori</p>
+  <div class="site-description" itemprop="description">记录些有的没的的学习心得</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kome1jisatori" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kome1jisatori" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://wpa.qq.com/msgrd?v=3&uin=740775405&site=qq&menu=yes" title="QQ → http:&#x2F;&#x2F;wpa.qq.com&#x2F;msgrd?v&#x3D;3&amp;uin&#x3D;740775405&amp;site&#x3D;qq&amp;menu&#x3D;yes" rel="noopener" target="_blank"><i class="fab fa-qq fa-fw"></i>QQ</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      膜大佬的链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://sherlockcoder.xyz/" title="http:&#x2F;&#x2F;sherlockcoder.xyz" rel="noopener" target="_blank">不朽之存在的首页</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://datawhalechina.github.io/leeml-notes/#/" title="https:&#x2F;&#x2F;datawhalechina.github.io&#x2F;leeml-notes&#x2F;#&#x2F;" rel="noopener" target="_blank">机器学习笔记(LeeML-Notes)</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">苏ICP备 - 2021020302 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">KomeijiSatori</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">198k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">3:01</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : '8NhM2OcimmX1hgpelhxOhQK8-gzGzoHsz',
+      appKey     : 'bQ1303bPFHzcUrkoBzb39dgO',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+
+
+  <script type="text/javascript" color="0,0,0" opacity='0.5' zIndex="-1" count="150" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":true},"log":false});</script></body>
+</html>
