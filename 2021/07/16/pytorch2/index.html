@@ -20,16 +20,18 @@
     var CONFIG = {"hostname":"kome1jisatori.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="前言手动线性回归">
+  <meta name="description" content="前言手动和api调用线性回归">
 <meta property="og:type" content="article">
-<meta property="og:title" content="pytorch手动线性回归">
+<meta property="og:title" content="pytorch线性回归">
 <meta property="og:url" content="https://kome1jisatori.github.io/2021/07/16/pytorch2/index.html">
 <meta property="og:site_name" content="KomeijiSatoriのblog">
-<meta property="og:description" content="前言手动线性回归">
+<meta property="og:description" content="前言手动和api调用线性回归">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://kome1jisatori.github.io/2021/07/16/pytorch2/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%921.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/07/16/pytorch2/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%922.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/07/16/pytorch2/%E4%BC%98%E5%8C%96%E5%99%A8%E6%96%B9%E6%B3%95.gif">
 <meta property="article:published_time" content="2021-07-16T21:10:14.000Z">
-<meta property="article:modified_time" content="2021-07-18T01:24:40.980Z">
+<meta property="article:modified_time" content="2021-07-18T04:00:03.445Z">
 <meta property="article:author" content="Komeiji Satori">
 <meta property="article:tag" content="机器学习">
 <meta name="twitter:card" content="summary">
@@ -48,7 +50,7 @@
   };
 </script>
 
-  <title>pytorch手动线性回归 | KomeijiSatoriのblog</title>
+  <title>pytorch线性回归 | KomeijiSatoriのblog</title>
   
 
 
@@ -172,7 +174,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          pytorch手动线性回归
+          pytorch线性回归
         </h1>
 
         <div class="post-meta">
@@ -189,7 +191,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-18 09:24:40" itemprop="dateModified" datetime="2021-07-18T09:24:40+08:00">2021-07-18</time>
+                <time title="修改时间：2021-07-18 12:00:03" itemprop="dateModified" datetime="2021-07-18T12:00:03+08:00">2021-07-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -202,7 +204,7 @@
             </span>
 
           
-            <span id="/2021/07/16/pytorch2/" class="post-meta-item leancloud_visitors" data-flag-title="pytorch手动线性回归" title="阅读次数">
+            <span id="/2021/07/16/pytorch2/" class="post-meta-item leancloud_visitors" data-flag-title="pytorch线性回归" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -228,14 +230,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3k</span>
+              <span>9k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
+              <span>8 分钟</span>
             </span>
 
         </div>
@@ -247,9 +249,10 @@
     <div class="post-body" itemprop="articleBody">
      
       
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>手动线性回归</p>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>手动和api调用线性回归</p>
 <span id="more"></span> 
-<h2 id="1-向前计算"><a href="#1-向前计算" class="headerlink" title="1. 向前计算"></a>1. 向前计算</h2><p>对于pytorch中的一个tensor，如果设置它的属性 <code>.requires_grad</code>为<code>True</code>，那么它将会追踪对于该张量的所有操作。或者可以理解为，这个tensor是一个参数，后续会被计算梯度，更新该参数。</p>
+
+<h1 id="一、手动线性回归"><a href="#一、手动线性回归" class="headerlink" title="一、手动线性回归"></a>一、手动线性回归</h1><h2 id="1-向前计算"><a href="#1-向前计算" class="headerlink" title="1. 向前计算"></a>1. 向前计算</h2><p>对于pytorch中的一个tensor，如果设置它的属性 <code>.requires_grad</code>为<code>True</code>，那么它将会追踪对于该张量的所有操作。或者可以理解为，这个tensor是一个参数，后续会被计算梯度，更新该参数。</p>
 <h3 id="1-1-计算过程"><a href="#1-1-计算过程" class="headerlink" title="1.1 计算过程"></a>1.1 计算过程</h3><p>假设有以下条件（1/4表示求均值，xi中有4个数），使用torch完成其向前计算的过程<br>$$<br>\begin{align*}<br>&amp;o = \frac{1}{4}\sum_iz_i \<br>&amp;z_i = 3(x_i+2)^2\<br>其中:&amp;\<br>&amp;z_i|_{x_i=1}=27\<br>\end{align*}<br>$$<br>如果x为参数，需要对其进行梯度的计算和更新</p>
 <p>那么，在最开始随机设置x的值的过程中，需要设置他的requires_grad属性为True，其<strong>默认值为False</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line">x = torch.ones(<span class="number">2</span>, <span class="number">2</span>, requires_grad=<span class="literal">True</span>)  <span class="comment">#初始化参数x并设置requires_grad=True用来追踪其计算历史</span></span><br><span class="line"><span class="built_in">print</span>(x)</span><br><span class="line"><span class="comment">#tensor([[1., 1.],</span></span><br><span class="line"><span class="comment">#        [1., 1.]], requires_grad=True)</span></span><br><span class="line"></span><br><span class="line">y = x+<span class="number">2</span></span><br><span class="line"><span class="built_in">print</span>(y)</span><br><span class="line"><span class="comment">#tensor([[3., 3.],</span></span><br><span class="line"><span class="comment">#        [3., 3.]], grad_fn=&lt;AddBackward0&gt;)</span></span><br><span class="line"></span><br><span class="line">z = y*y*<span class="number">3</span>  <span class="comment">#平方x3</span></span><br><span class="line"><span class="built_in">print</span>(x)</span><br><span class="line"><span class="comment">#tensor([[27., 27.],</span></span><br><span class="line"><span class="comment">#        [27., 27.]], grad_fn=&lt;MulBackward0&gt;) </span></span><br><span class="line"></span><br><span class="line">out = z.mean() <span class="comment">#求均值</span></span><br><span class="line"><span class="built_in">print</span>(out)</span><br><span class="line"><span class="comment">#tensor(27., grad_fn=&lt;MeanBackward0&gt;)</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
@@ -309,6 +312,91 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">w tensor([<span class="number">2.9280</span>], requires_grad=<span class="literal">True</span>)</span><br><span class="line">b tensor([<span class="number">0.8372</span>], requires_grad=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
 
 <p>可知，w和b已经非常接近原来的预设的3和0.8</p>
+<h1 id="二、调用API线性回归"><a href="#二、调用API线性回归" class="headerlink" title="二、调用API线性回归"></a>二、调用API线性回归</h1><h2 id="1-Pytorch完成模型常用API"><a href="#1-Pytorch完成模型常用API" class="headerlink" title="1. Pytorch完成模型常用API"></a>1. Pytorch完成模型常用API</h2><p>在前一部分，我们自己实现了通过torch的相关方法完成反向传播和参数更新，在pytorch中预设了一些更加灵活简单的对象，让我们来构造模型、定义损失，优化损失等</p>
+<p>那么接下来，我们一起来了解一下其中常用的API</p>
+<h3 id="1-1-nn-Module"><a href="#1-1-nn-Module" class="headerlink" title="1.1 nn.Module"></a>1.1 <code>nn.Module</code></h3><p><code>nn.Modul</code> 是<code>torch.nn</code>提供的一个类，是pytorch中我们<code>自定义网络</code>的一个基类，在这个类中定义了很多有用的方法，让我们在继承这个类定义网络的时候非常简单</p>
+<p>当我们自定义网络的时候，有两个方法需要特别注意：</p>
+<ol>
+<li><code>__init__</code>需要调用<code>super</code>方法，继承父类的属性和方法</li>
+<li><code>farward</code>方法必须实现，用来定义我们的网络的向前计算的过程</li>
+</ol>
+<p>用前面的<code>y = wx+b</code>的模型举例如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> nn</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Lr</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">super</span>(Lr, self).__init__()  <span class="comment">#继承父类init的参数</span></span><br><span class="line">        self.linear = nn.Linear(<span class="number">1</span>, <span class="number">1</span>) </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        out = self.linear(x)</span><br><span class="line">        <span class="keyword">return</span> out</span><br></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<ol>
+<li><code>nn.Linear</code>为torch预定义好的线性模型，也被称为<strong>全链接层</strong>，传入的参数为输入的数量，输出的数量(in_features, out_features),是不算(batch_size的列数)</li>
+<li><code>nn.Module</code>定义了<code>__call__</code>方法，实现的就是调用<code>forward</code>方法，即<code>Lr</code>的实例，能够直接被传入参数调用，实际上调用的是<code>forward</code>方法并传入参数</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 实例化模型</span></span><br><span class="line">model = Lr()</span><br><span class="line"><span class="comment"># 传入数据，计算结果</span></span><br><span class="line">predict = model(x)</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-2-优化器类"><a href="#1-2-优化器类" class="headerlink" title="1.2 优化器类"></a>1.2 优化器类</h3><p>优化器(<code>optimizer</code>)，可以理解为torch为我们封装的用来进行更新参数的方法，比如常见的随机梯度下降(<code>stochastic gradient descent,SGD</code>)</p>
+<p>优化器类都是由<code>torch.optim</code>提供的，例如</p>
+<ol>
+<li><code>torch.optim.SGD(参数，学习率)</code></li>
+<li><code>torch.optim.Adam(参数，学习率)</code></li>
+</ol>
+<p>注意：</p>
+<ol>
+<li>参数可以使用<code>model.parameters()</code>来获取，获取模型中所有<code>requires_grad=True</code>的参数</li>
+<li>优化类的使用方法<ol>
+<li>实例化</li>
+<li>所有参数的梯度，将其值置为0</li>
+<li>反向传播计算梯度</li>
+<li>更新参数值</li>
+</ol>
+</li>
+</ol>
+<p>示例如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">optimizer = optim.SGD(model.parameters(), lr=<span class="number">1e-3</span>) <span class="comment">#1. 实例化</span></span><br><span class="line">optimizer.zero_grad() <span class="comment">#2. 梯度置为0</span></span><br><span class="line">loss.backward() <span class="comment">#3. 计算梯度</span></span><br><span class="line">optimizer.step()  <span class="comment">#4. 更新参数的值</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="1-3-损失函数"><a href="#1-3-损失函数" class="headerlink" title="1.3 损失函数"></a>1.3 损失函数</h3><p>前面的例子是一个回归问题，torch中也预测了很多损失函数</p>
+<ol>
+<li>均方误差:<code>nn.MSELoss()</code>,常用于回归问题</li>
+<li>交叉熵损失：<code>nn.CrossEntropyLoss()</code>，常用于分类问题</li>
+</ol>
+<p>使用方法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">model = Lr() <span class="comment">#1. 实例化模型</span></span><br><span class="line">criterion = nn.MSELoss() <span class="comment">#2. 实例化损失函数</span></span><br><span class="line">optimizer = optim.SGD(model.parameters(), lr=<span class="number">1e-3</span>) <span class="comment">#3. 实例化优化器类</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">100</span>):</span><br><span class="line">    y_predict = model(x_true) <span class="comment">#4. 向前计算预测值</span></span><br><span class="line">    loss = criterion(y_true,y_predict) <span class="comment">#5. 调用损失函数传入真实值和预测值，得到损失结果</span></span><br><span class="line">    optimizer.zero_grad() <span class="comment">#5. 当前循环参数梯度置为0</span></span><br><span class="line">    loss.backward() <span class="comment">#6. 计算梯度</span></span><br><span class="line">    optimizer.step()  <span class="comment">#7. 更新参数的值</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="1-4-把线性回归完整代码"><a href="#1-4-把线性回归完整代码" class="headerlink" title="1.4 把线性回归完整代码"></a>1.4 把线性回归完整代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> nn</span><br><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> optim</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. 定义数据</span></span><br><span class="line">x = torch.rand([<span class="number">50</span>,<span class="number">1</span>])</span><br><span class="line">y = x*<span class="number">3</span> + <span class="number">0.8</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#2 .定义模型</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Lr</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">super</span>(Lr,self).__init__()</span><br><span class="line">        self.linear = nn.Linear(<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line">		</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        out = self.linear(x)</span><br><span class="line">        <span class="keyword">return</span> out</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 实例化模型，loss，和优化器</span></span><br><span class="line">model = Lr()</span><br><span class="line">criterion = nn.MSELoss()</span><br><span class="line">optimizer = optim.SGD(model.parameters(), lr=<span class="number">1e-3</span>)</span><br><span class="line"><span class="comment">#3. 训练模型</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">30000</span>):</span><br><span class="line">    out = model(x) <span class="comment">#3.1 获取预测值</span></span><br><span class="line">    loss = criterion(y,out) <span class="comment">#3.2 计算损失</span></span><br><span class="line">    optimizer.zero_grad()  <span class="comment">#3.3 梯度归零</span></span><br><span class="line">    loss.backward() <span class="comment">#3.4 计算梯度</span></span><br><span class="line">    optimizer.step()  <span class="comment"># 3.5 更新梯度</span></span><br><span class="line">    <span class="keyword">if</span> (i+<span class="number">1</span>) % <span class="number">20</span> == <span class="number">0</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;Epoch[&#123;&#125;/&#123;&#125;], loss: &#123;:.6f&#125;&#x27;</span>.<span class="built_in">format</span>(i,<span class="number">30000</span>,loss.data))</span><br><span class="line"></span><br><span class="line"><span class="comment">#4. 模型评估</span></span><br><span class="line">model.<span class="built_in">eval</span>() <span class="comment">#设置模型为评估模式，即预测模式</span></span><br><span class="line">predict = model(x)</span><br><span class="line">predict = predict.data.numpy()</span><br><span class="line">plt.scatter(x.data.numpy(),y.data.numpy(),c=<span class="string">&quot;r&quot;</span>)</span><br><span class="line">plt.plot(x.data.numpy(),predict)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p>输出如下：</p>
+<p><img src="/2021/07/16/pytorch2/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%922.png"></p>
+<p>注意：</p>
+<p><code>model.eval()</code>表示设置模型为评估模式，即预测模式</p>
+<p><code>model.train(mode=True)</code> 表示设置模型为训练模式</p>
+<p>在当前的线性回归中，上述并无区别</p>
+<p>但是在其他的一些模型中，<strong>训练的参数和预测的参数会不相同</strong>，到时候就需要具体告诉程序我们是在进行训练还是预测，比如模型中存在<strong>Dropout</strong>，<strong>BatchNorm</strong>的时候</p>
+<h2 id="2-在GPU上运行代码"><a href="#2-在GPU上运行代码" class="headerlink" title="2. 在GPU上运行代码"></a>2. 在GPU上运行代码</h2><p>当模型太大，或者参数太多的情况下，为了加快训练速度，经常会使用GPU来进行训练</p>
+<p>此时我们的代码需要稍作调整：</p>
+<ol>
+<li><p>判断GPU是否可用<code>torch.cuda.is_available()</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">torch.device(<span class="string">&quot;cuda:0&quot;</span> <span class="keyword">if</span> torch.cuda.is_available() <span class="keyword">else</span> <span class="string">&quot;cpu&quot;</span>)</span><br><span class="line">&gt;&gt;device(<span class="built_in">type</span>=<span class="string">&#x27;cuda&#x27;</span>, index=<span class="number">0</span>)  <span class="comment">#使用gpu</span></span><br><span class="line">&gt;&gt;device(<span class="built_in">type</span>=<span class="string">&#x27;cpu&#x27;</span>) <span class="comment">#使用cpu</span></span><br></pre></td></tr></table></figure></li>
+<li><p>把模型参数和input数据转化为cuda的支持类型</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">model.to(device)</span><br><span class="line">x_true.to(device)</span><br></pre></td></tr></table></figure></li>
+<li><p>在GPU上计算结果也为cuda的数据类型，需要转化为numpy或者torch的cpu的tensor类型</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">predict = predict.cpu().detach().numpy() </span><br></pre></td></tr></table></figure>
+
+<p><code>detach()</code>的效果和data的相似，但是<code>detach()</code>是深拷贝，data是取值，是浅拷贝</p>
+</li>
+</ol>
+<p>修改之后的代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> nn</span><br><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> optim</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. 定义数据</span></span><br><span class="line">x = torch.rand([<span class="number">50</span>,<span class="number">1</span>])</span><br><span class="line">y = x*<span class="number">3</span> + <span class="number">0.8</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#2 .定义模型</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Lr</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">super</span>(Lr,self).__init__()</span><br><span class="line">        self.linear = nn.Linear(<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        out = self.linear(x)</span><br><span class="line">        <span class="keyword">return</span> out</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 实例化模型，loss，和优化器</span></span><br><span class="line"></span><br><span class="line">device = torch.device(<span class="string">&quot;cuda:0&quot;</span> <span class="keyword">if</span> torch.cuda.is_available() <span class="keyword">else</span> <span class="string">&quot;cpu&quot;</span>)</span><br><span class="line">x,y = x.to(device),y.to(device)</span><br><span class="line"></span><br><span class="line">model = Lr().to(device)</span><br><span class="line">criterion = nn.MSELoss()</span><br><span class="line">optimizer = optim.SGD(model.parameters(), lr=<span class="number">1e-3</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#3. 训练模型</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">300</span>):</span><br><span class="line">    out = model(x)</span><br><span class="line">    loss = criterion(y,out)</span><br><span class="line"></span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    loss.backward()</span><br><span class="line">    optimizer.step()</span><br><span class="line">    <span class="keyword">if</span> (i+<span class="number">1</span>) % <span class="number">20</span> == <span class="number">0</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;Epoch[&#123;&#125;/&#123;&#125;], loss: &#123;:.6f&#125;&#x27;</span>.<span class="built_in">format</span>(i,<span class="number">30000</span>,loss.data))</span><br><span class="line"></span><br><span class="line"><span class="comment">#4. 模型评估</span></span><br><span class="line">model.<span class="built_in">eval</span>() <span class="comment">#</span></span><br><span class="line">predict = model(x)</span><br><span class="line">predict = predict.cpu().detach().numpy() <span class="comment">#转化为numpy数组</span></span><br><span class="line">plt.scatter(x.cpu().data.numpy(),y.cpu().data.numpy(),c=<span class="string">&quot;r&quot;</span>)</span><br><span class="line">plt.plot(x.cpu().data.numpy(),predict,)</span><br><span class="line">plt.show()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="3-常见的优化算法介绍"><a href="#3-常见的优化算法介绍" class="headerlink" title="3. 常见的优化算法介绍"></a>3. 常见的优化算法介绍</h2><h3 id="3-1-梯度下降算法（batch-gradient-descent-BGD）"><a href="#3-1-梯度下降算法（batch-gradient-descent-BGD）" class="headerlink" title="3.1 梯度下降算法（batch gradient descent BGD）"></a>3.1 梯度下降算法（batch gradient descent BGD）</h3><p>每次迭代都需要把所有样本都送入，这样的好处是每次迭代都顾及了全部的样本，做的是全局最优化,但是有可能达到局部最优。</p>
+<h3 id="3-2-随机梯度下降法-Stochastic-gradient-descent-SGD"><a href="#3-2-随机梯度下降法-Stochastic-gradient-descent-SGD" class="headerlink" title="3.2 随机梯度下降法 (Stochastic gradient descent SGD)"></a>3.2 随机梯度下降法 (Stochastic gradient descent SGD)</h3><p>针对梯度下降算法训练速度过慢的缺点，提出了随机梯度下降算法，随机梯度下降算法算法是从样本中随机抽出一组，训练后按梯度更新一次，然后再抽取一组，再更新一次，在样本量及其大的情况下，可能不用训练完所有的样本就可以获得一个损失值在可接受范围之内的模型了。</p>
+<p>torch中的api为：<code>torch.optim.SGD()</code></p>
+<h3 id="3-3-小批量梯度下降-Mini-batch-gradient-descent-MBGD）"><a href="#3-3-小批量梯度下降-Mini-batch-gradient-descent-MBGD）" class="headerlink" title="3.3 小批量梯度下降 (Mini-batch gradient descent MBGD）"></a>3.3 小批量梯度下降 (Mini-batch gradient descent MBGD）</h3><p>SGD相对来说要快很多，但是也有存在问题，由于单个样本的训练可能会带来很多噪声，使得SGD并不是每次迭代都向着整体最优化方向，因此在刚开始训练时可能收敛得很快，但是训练一段时间后就会变得很慢。在此基础上又提出了小批量梯度下降法，它是每次从样本中随机抽取一小批进行训练，而不是一组，这样即保证了效果又保证的速度。</p>
+<h3 id="3-4-动量法"><a href="#3-4-动量法" class="headerlink" title="3.4 动量法"></a>3.4 动量法</h3><p>mini-batch SGD算法虽然这种算法能够带来很好的训练速度，但是在到达最优点的时候并不能够总是真正到达最优点，而是在最优点附近徘徊。</p>
+<p>另一个缺点就是mini-batch SGD需要我们挑选一个合适的学习率，当我们采用小的学习率的时候，会导致网络在训练的时候收敛太慢；当我们采用大的学习率的时候，会导致在训练过程中优化的幅度跳过函数的范围，也就是可能跳过最优点。我们所希望的仅仅是网络在优化的时候网络的损失函数有一个很好的收敛速度同时又不至于摆动幅度太大。</p>
+<p>所以Momentum优化器刚好可以解决我们所面临的问题，它主要是基于梯度的移动指数加权平均，对网络的梯度进行平滑处理的，让梯度的摆动幅度变得更小。<br>$$<br>\begin{align*}<br>&amp;gradent = 0.8\nabla w + 0.2 history_gradent  &amp;，\nabla w 表示当前一次的梯度\<br>&amp;w = w - \alpha* gradent &amp;，\alpha表示学习率<br>\end{align*}<br>$$</p>
+<p>（注：t+1的的histroy_gradent 为第t次的gradent）</p>
+<h3 id="3-5-AdaGrad"><a href="#3-5-AdaGrad" class="headerlink" title="3.5 AdaGrad"></a>3.5 AdaGrad</h3><p>AdaGrad算法就是将每一个参数的每一次迭代的梯度取平方累加后在开方，用全局学习率除以这个数，作为学习率的动态更新，从而达到<strong>自适应学习率</strong>的效果<br>$$<br>\begin{align*}<br>&amp;gradent = history_gradent + (\nabla w)^2 \<br>&amp;w = w - \frac{\alpha}{\sqrt{gradent}+\delta} \nabla w ,&amp;\delta为小常数，为了数值稳定大约设置为10^{-7}<br>\end{align*}<br>$$</p>
+<h3 id="3-6-RMSProp"><a href="#3-6-RMSProp" class="headerlink" title="3.6 RMSProp"></a>3.6 RMSProp</h3><p>Momentum优化算法中，虽然初步解决了优化中摆动幅度大的问题,为了进一步优化损失函数在更新中存在摆动幅度过大的问题，并且进一步加快函数的收敛速度，RMSProp算法对参数的梯度使用了平方加权平均数。<br>$$<br>\begin{align*}<br>&amp; gradent = 0.8<em>history_gradent + 0.2</em>(\nabla w)^2 \<br>&amp; w = w - \frac{\alpha}{\sqrt{gradent}+\delta} \nabla w<br>\end{align*}<br>$$</p>
+<h3 id="3-7-Adam"><a href="#3-7-Adam" class="headerlink" title="3.7 Adam"></a>3.7 Adam</h3><p>Adam（Adaptive Moment Estimation）算法是将Momentum算法和RMSProp算法结合起来使用的一种算法,能够达到防止梯度的摆幅多大，同时还能够加开收敛速度<br>$$<br>\begin{align*}<br>&amp; 1. 需要初始化梯度的累积量和平方累积量 \<br>&amp; v_w = 0,s_w = 0 \<br>&amp; 2. 第 t 轮训练中，我们首先可以计算得到Momentum和RMSProp的参数更新：\<br>&amp; v_w = 0.8v  + 0.2 \nabla w \qquad,Momentum计算的梯度\<br>&amp; s_w = 0.8<em>s + 0.2</em>(\nabla w)^2 \qquad,RMSProp计算的梯度\<br>&amp; 3. 对其中的值进行处理后，得到：\<br>&amp; w = w - \frac{\alpha}{\sqrt{s_w}+\delta} v_w<br>\end{align*}<br>$$<br>torch中的api为：<code>torch.optim.Adam()</code></p>
+<h3 id="3-8-效果演示："><a href="#3-8-效果演示：" class="headerlink" title="3.8 效果演示："></a>3.8 效果演示：</h3><p><img src="/2021/07/16/pytorch2/%E4%BC%98%E5%8C%96%E5%99%A8%E6%96%B9%E6%B3%95.gif"></p>
 
     </div>
 
@@ -334,7 +422,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://kome1jisatori.github.io/2021/07/16/pytorch2/" title="pytorch手动线性回归">https://kome1jisatori.github.io/2021/07/16/pytorch2/</a>
+    <a href="https://kome1jisatori.github.io/2021/07/16/pytorch2/" title="pytorch线性回归">https://kome1jisatori.github.io/2021/07/16/pytorch2/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -417,7 +505,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%90%91%E5%89%8D%E8%AE%A1%E7%AE%97"><span class="nav-text">1. 向前计算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E8%AE%A1%E7%AE%97%E8%BF%87%E7%A8%8B"><span class="nav-text">1.1 计算过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-requires-grad%E5%92%8Cgrad-fn"><span class="nav-text">1.2 requires_grad和grad_fn</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%A2%AF%E5%BA%A6%E8%AE%A1%E7%AE%97"><span class="nav-text">2. 梯度计算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E5%AE%9E%E7%8E%B0"><span class="nav-text">3. 线性回归实现</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%89%8B%E5%8A%A8%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92"><span class="nav-text">一、手动线性回归</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%90%91%E5%89%8D%E8%AE%A1%E7%AE%97"><span class="nav-text">1. 向前计算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E8%AE%A1%E7%AE%97%E8%BF%87%E7%A8%8B"><span class="nav-text">1.1 计算过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-requires-grad%E5%92%8Cgrad-fn"><span class="nav-text">1.2 requires_grad和grad_fn</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%A2%AF%E5%BA%A6%E8%AE%A1%E7%AE%97"><span class="nav-text">2. 梯度计算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E5%AE%9E%E7%8E%B0"><span class="nav-text">3. 线性回归实现</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E8%B0%83%E7%94%A8API%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92"><span class="nav-text">二、调用API线性回归</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Pytorch%E5%AE%8C%E6%88%90%E6%A8%A1%E5%9E%8B%E5%B8%B8%E7%94%A8API"><span class="nav-text">1. Pytorch完成模型常用API</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-nn-Module"><span class="nav-text">1.1 nn.Module</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E4%BC%98%E5%8C%96%E5%99%A8%E7%B1%BB"><span class="nav-text">1.2 优化器类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="nav-text">1.3 损失函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-%E6%8A%8A%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81"><span class="nav-text">1.4 把线性回归完整代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%9C%A8GPU%E4%B8%8A%E8%BF%90%E8%A1%8C%E4%BB%A3%E7%A0%81"><span class="nav-text">2. 在GPU上运行代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%B8%B8%E8%A7%81%E7%9A%84%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95%E4%BB%8B%E7%BB%8D"><span class="nav-text">3. 常见的优化算法介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95%EF%BC%88batch-gradient-descent-BGD%EF%BC%89"><span class="nav-text">3.1 梯度下降算法（batch gradient descent BGD）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E9%9A%8F%E6%9C%BA%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95-Stochastic-gradient-descent-SGD"><span class="nav-text">3.2 随机梯度下降法 (Stochastic gradient descent SGD)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-%E5%B0%8F%E6%89%B9%E9%87%8F%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D-Mini-batch-gradient-descent-MBGD%EF%BC%89"><span class="nav-text">3.3 小批量梯度下降 (Mini-batch gradient descent MBGD）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-%E5%8A%A8%E9%87%8F%E6%B3%95"><span class="nav-text">3.4 动量法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-AdaGrad"><span class="nav-text">3.5 AdaGrad</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-RMSProp"><span class="nav-text">3.6 RMSProp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-7-Adam"><span class="nav-text">3.7 Adam</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-8-%E6%95%88%E6%9E%9C%E6%BC%94%E7%A4%BA%EF%BC%9A"><span class="nav-text">3.8 效果演示：</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -508,13 +596,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">205k</span>
+    <span title="站点总字数">211k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">3:06</span>
+    <span title="站点阅读时长">3:11</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
