@@ -1729,8 +1729,7 @@ STORE 1, [B]|&lt;C&gt;
   <entry>
     <title>Tensor性质和用法</title>
     <url>/2021/07/16/pytorch/</url>
-    <content><![CDATA[<p>#前言</p>
-<p>记录pytorch的一些函数用法——tensor</p>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>记录pytorch的一些函数用法——tensor</p>
 <span id="more"></span> 
 
 <h2 id="1-张量Tensor"><a href="#1-张量Tensor" class="headerlink" title="1. 张量Tensor"></a>1. 张量Tensor</h2><p>张量是一个统称，其中包含很多类型：</p>
@@ -1953,7 +1952,7 @@ STORE 1, [B]|&lt;C&gt;
   <entry>
     <title>pytorch手动线性回归</title>
     <url>/2021/07/16/pytorch2/</url>
-    <content><![CDATA[<p>#前言<br>手动线性回归</p>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>手动线性回归</p>
 <span id="more"></span> 
 <h2 id="1-向前计算"><a href="#1-向前计算" class="headerlink" title="1. 向前计算"></a>1. 向前计算</h2><p>对于pytorch中的一个tensor，如果设置它的属性 <code>.requires_grad</code>为<code>True</code>，那么它将会追踪对于该张量的所有操作。或者可以理解为，这个tensor是一个参数，后续会被计算梯度，更新该参数。</p>
 <h3 id="1-1-计算过程"><a href="#1-1-计算过程" class="headerlink" title="1.1 计算过程"></a>1.1 计算过程</h3><p>假设有以下条件（1/4表示求均值，xi中有4个数），使用torch完成其向前计算的过程<br>$$<br>\begin{align*}<br>&amp;o = \frac{1}{4}\sum_iz_i \<br>&amp;z_i = 3(x_i+2)^2\<br>其中:&amp;\<br>&amp;z_i|_{x_i=1}=27\<br>\end{align*}<br>$$<br>如果x为参数，需要对其进行梯度的计算和更新</p>
