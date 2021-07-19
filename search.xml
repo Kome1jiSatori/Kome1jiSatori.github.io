@@ -1930,7 +1930,7 @@ STORE 1, [B]|&lt;C&gt;
 <p>可知，w和b已经非常接近原来的预设的3和0.8</p>
 <h1 id="二、调用API线性回归"><a href="#二、调用API线性回归" class="headerlink" title="二、调用API线性回归"></a>二、调用API线性回归</h1><h2 id="1-Pytorch完成模型常用API"><a href="#1-Pytorch完成模型常用API" class="headerlink" title="1. Pytorch完成模型常用API"></a>1. Pytorch完成模型常用API</h2><p>在前一部分，我们自己实现了通过torch的相关方法完成反向传播和参数更新，在pytorch中预设了一些更加灵活简单的对象，让我们来构造模型、定义损失，优化损失等</p>
 <p>那么接下来，我们一起来了解一下其中常用的API</p>
-<h3 id="1-1-nn-Module"><a href="#1-1-nn-Module" class="headerlink" title="1.1 nn.Module"></a>1.1 <code>nn.Module</code></h3><p><code>nn.Modul</code> 是<code>torch.nn</code>提供的一个类，是pytorch中我们<code>自定义网络</code>的一个基类，在这个类中定义了很多有用的方法，让我们在继承这个类定义网络的时候非常简单</p>
+<h3 id="1-1-nn-Module"><a href="#1-1-nn-Module" class="headerlink" title="1.1 nn.Module"></a>1.1 <code>nn.Module</code></h3><p><code>nn.Module</code> 是<code>torch.nn</code>提供的一个类，是pytorch中我们<code>自定义网络</code>的一个基类，在这个类中定义了很多有用的方法，让我们在继承这个类定义网络的时候非常简单</p>
 <p>当我们自定义网络的时候，有两个方法需要特别注意：</p>
 <ol>
 <li><code>__init__</code>需要调用<code>super</code>方法，继承父类的属性和方法</li>
@@ -2009,7 +2009,7 @@ STORE 1, [B]|&lt;C&gt;
 <p>另一个缺点就是mini-batch SGD需要我们挑选一个合适的学习率，当我们采用小的学习率的时候，会导致网络在训练的时候收敛太慢；当我们采用大的学习率的时候，会导致在训练过程中优化的幅度跳过函数的范围，也就是可能跳过最优点。我们所希望的仅仅是网络在优化的时候网络的损失函数有一个很好的收敛速度同时又不至于摆动幅度太大。</p>
 <p>所以Momentum优化器刚好可以解决我们所面临的问题，它主要是基于梯度的移动指数加权平均，对网络的梯度进行平滑处理的，让梯度的摆动幅度变得更小。<br>$$<br>\begin{align*}<br>&amp;gradent = 0.8\nabla w + 0.2 history_gradent  &amp;，\nabla w 表示当前一次的梯度\<br>&amp;w = w - \alpha* gradent &amp;，\alpha表示学习率<br>\end{align*}<br>$$</p>
 <p>（注：t+1的的histroy_gradent 为第t次的gradent）</p>
-<h3 id="3-5-AdaGrad"><a href="#3-5-AdaGrad" class="headerlink" title="3.5 AdaGrad"></a>3.5 AdaGrad</h3><p>AdaGrad算法就是将每一个参数的每一次迭代的梯度取平方累加后在开方，用全局学习率除以这个数，作为学习率的动态更新，从而达到<strong>自适应学习率</strong>的效果<br>$$<br>\begin{align*}<br>&amp;gradent = history_gradent + (\nabla w)^2 \<br>&amp;w = w - \frac{\alpha}{\sqrt{gradent}+\delta} \nabla w ,&amp;\delta为小常数，为了数值稳定大约设置为10^{-7}<br>\end{align*}<br>$$</p>
+<h3 id="3-5-AdaGrad"><a href="#3-5-AdaGrad" class="headerlink" title="3.5 AdaGrad"></a>3.5 AdaGrad</h3><p>AdaGrad算法就是将每一个参数的每一次迭代的梯度取平方累加后在开方，用全局学习率除以这个数，作为学习率的动态更新，从而达到<strong>自适应学习率</strong>的效果<br>$$<br>\begin{align*}<br>&amp;gradent = history_gradent + (\nabla w)^2 \<br>&amp;w = w - \frac{\alpha}{\sqrt{gradent}+\delta} \nabla w &amp;，\delta为小常数，为了数值稳定大约设置为10^{-7}<br>\end{align*}<br>$$</p>
 <h3 id="3-6-RMSProp"><a href="#3-6-RMSProp" class="headerlink" title="3.6 RMSProp"></a>3.6 RMSProp</h3><p>Momentum优化算法中，虽然初步解决了优化中摆动幅度大的问题,为了进一步优化损失函数在更新中存在摆动幅度过大的问题，并且进一步加快函数的收敛速度，RMSProp算法对参数的梯度使用了平方加权平均数。<br>$$<br>\begin{align*}<br>&amp; gradent = 0.8<em>history_gradent + 0.2</em>(\nabla w)^2 \<br>&amp; w = w - \frac{\alpha}{\sqrt{gradent}+\delta} \nabla w<br>\end{align*}<br>$$</p>
 <h3 id="3-7-Adam"><a href="#3-7-Adam" class="headerlink" title="3.7 Adam"></a>3.7 Adam</h3><p>Adam（Adaptive Moment Estimation）算法是将Momentum算法和RMSProp算法结合起来使用的一种算法,能够达到防止梯度的摆幅多大，同时还能够加开收敛速度<br>$$<br>\begin{align*}<br>&amp; 1. 需要初始化梯度的累积量和平方累积量 \<br>&amp; v_w = 0,s_w = 0 \<br>&amp; 2. 第 t 轮训练中，我们首先可以计算得到Momentum和RMSProp的参数更新：\<br>&amp; v_w = 0.8v  + 0.2 \nabla w \qquad,Momentum计算的梯度\<br>&amp; s_w = 0.8<em>s + 0.2</em>(\nabla w)^2 \qquad,RMSProp计算的梯度\<br>&amp; 3. 对其中的值进行处理后，得到：\<br>&amp; w = w - \frac{\alpha}{\sqrt{s_w}+\delta} v_w<br>\end{align*}<br>$$<br>torch中的api为：<code>torch.optim.Adam()</code></p>
 <h3 id="3-8-效果演示："><a href="#3-8-效果演示：" class="headerlink" title="3.8 效果演示："></a>3.8 效果演示：</h3><p><img src="/2021/07/16/pytorch2/%E4%BC%98%E5%8C%96%E5%99%A8%E6%96%B9%E6%B3%95.gif"></p>
@@ -2101,5 +2101,119 @@ STORE 1, [B]|&lt;C&gt;
 <p><strong>评测用例规模与约定</strong><br>1≤T≤100</p>
 <p><strong>代码实现：</strong>  </p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">110</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> s[<span class="number">3</span>][N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> t;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;t);</span><br><span class="line">    <span class="keyword">while</span>(t --)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i ++)  <span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>, s[i]);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">bool</span> flag = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; <span class="number">4</span>; k ++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> y = <span class="number">0</span>, r = <span class="number">0</span>, g = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i ++)</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> j = k; s[i][j]; j += <span class="number">4</span>)</span><br><span class="line">                    <span class="keyword">if</span>(s[i][j] == <span class="string">&#x27;Y&#x27;</span>)  y ++;</span><br><span class="line">                    <span class="keyword">else</span> <span class="keyword">if</span>(s[i][j] == <span class="string">&#x27;R&#x27;</span>)  r ++;</span><br><span class="line">                    <span class="keyword">else</span>  g ++;</span><br><span class="line">            <span class="keyword">if</span>(!(y == <span class="number">1</span> <span class="keyword">and</span> r == <span class="number">2</span> <span class="keyword">and</span> g == <span class="number">3</span>))  flag = <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(flag)  <span class="built_in">puts</span>(<span class="string">&quot;YES&quot;</span>);</span><br><span class="line">        <span class="keyword">else</span>  <span class="built_in">puts</span>(<span class="string">&quot;NO&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+  </entry>
+  <entry>
+    <title>pytorch数据集加载</title>
+    <url>/2021/07/18/pytorch3/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>记录下pytorch数据集加载方法  </p>
+<span id="more"></span> 
+
+<h1 id="Pytorch中的数据加载"><a href="#Pytorch中的数据加载" class="headerlink" title="Pytorch中的数据加载"></a>Pytorch中的数据加载</h1><h2 id="1-模型中使用数据加载器的目的"><a href="#1-模型中使用数据加载器的目的" class="headerlink" title="1. 模型中使用数据加载器的目的"></a>1. 模型中使用数据加载器的目的</h2><p>在前面的线性回归模型中，我们使用的数据很少，所以直接把全部数据放到模型中去使用。</p>
+<p>但是在深度学习中，数据量通常是都非常多，非常大的，如此大量的数据，不可能一次性的在模型中进行向前的计算和反向传播，经常我们会对整个数据进行随机的打乱顺序，把数据处理成一个个的batch，同时还会对数据进行预处理。</p>
+<p>所以，接下来我们来学习pytorch中的数据加载的方法</p>
+<h2 id="2-数据集类"><a href="#2-数据集类" class="headerlink" title="2. 数据集类"></a>2. 数据集类</h2><h3 id="2-1-Dataset基类介绍"><a href="#2-1-Dataset基类介绍" class="headerlink" title="2.1 Dataset基类介绍"></a>2.1 Dataset基类介绍</h3><p>在torch中提供了数据集的基类<code>torch.utils.data.Dataset</code>，继承这个基类，我们能够非常快速的实现对数据的加载。</p>
+<p><code>torch.utils.data.Dataset</code>的源码如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dataset</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;An abstract class representing a Dataset.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    All other datasets should subclass it. All subclasses should override</span></span><br><span class="line"><span class="string">    ``__len__``, that provides the size of the dataset, and ``__getitem__``,</span></span><br><span class="line"><span class="string">    supporting integer indexing in range from 0 to len(self) exclusive.</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span>(<span class="params">self, index</span>):</span></span><br><span class="line">        <span class="keyword">raise</span> NotImplementedError</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__len__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">raise</span> NotImplementedError</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__add__</span>(<span class="params">self, other</span>):</span></span><br><span class="line">        <span class="keyword">return</span> ConcatDataset([self, other])</span><br></pre></td></tr></table></figure>
+
+<p>可知：我们需要在自定义的数据集类中继承Dataset类，同时还需要实现两个方法：</p>
+<ol>
+<li><code>__len__</code>方法，能够实现通过全局的<code>len()</code>方法获取其中的元素个数</li>
+<li><code>__getitem__</code>方法，能够通过传入索引的方式获取数据，例如通过<code>dataset[i]</code>获取其中的第<code>i</code>条数据</li>
+</ol>
+<h3 id="2-2-数据加载案例"><a href="#2-2-数据加载案例" class="headerlink" title="2.2 数据加载案例"></a>2.2 数据加载案例</h3><p>下面通过一个例子来看看如何使用Dataset来加载数据</p>
+<p>数据来源：<code>http://archive.ics.uci.edu/ml/datasets/SMS+Spam+Collection</code></p>
+<p>数据介绍：SMS Spam Collection是用于骚扰短信识别的经典数据集，完全来自真实短信内容，包括4831条正常短信和747条骚扰短信。正常短信和骚扰短信保存在一个文本文件中。 每行完整记录一条短信内容，每行开头通过ham和spam标识正常短信和骚扰短信</p>
+<p>数据实例：</p>
+<p><img src="/2021/07/18/pytorch3/images/1.2/dataset%E6%95%B0%E6%8D%AE%E7%A4%BA%E4%BE%8B.png"></p>
+<p>实现如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> Dataset,DataLoader</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line">data_path = <span class="string">r&quot;data\SMSSpamCollection&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CifarDataset</span>(<span class="params">Dataset</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        lines = <span class="built_in">open</span>(data_path,<span class="string">&quot;r&quot;</span>)</span><br><span class="line">        <span class="comment">#对数据进行处理，前4个为label，后面的为短信内容</span></span><br><span class="line">        lines = [[i[:<span class="number">4</span>].strip(),i[<span class="number">4</span>:].strip()] <span class="keyword">for</span> i <span class="keyword">in</span> lines]</span><br><span class="line">        <span class="comment">#转化为dataFrame</span></span><br><span class="line">        self.df = pd.DataFrame(lines,columns=[<span class="string">&quot;label&quot;</span>,<span class="string">&quot;sms&quot;</span>])</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span>(<span class="params">self, index</span>):</span></span><br><span class="line">        single_item = self.df.iloc[index,:]</span><br><span class="line">        <span class="keyword">return</span> single_item.values[<span class="number">0</span>],single_item.values[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__len__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self.df.shape[<span class="number">0</span>]</span><br></pre></td></tr></table></figure>
+
+<p>之后对Dataset进行实例化，可以跌倒获取其中的数据</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">d = CifarDataset()</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(d)):</span><br><span class="line">    <span class="built_in">print</span>(i,d[i])</span><br></pre></td></tr></table></figure>
+
+<p>输出如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">....</span><br><span class="line"><span class="number">5571</span> (<span class="string">&#x27;ham&#x27;</span>, <span class="string">&#x27;Pity, * was in mood for that. So...any other suggestions?&#x27;</span>)</span><br><span class="line"><span class="number">5572</span> (<span class="string">&#x27;ham&#x27;</span>, <span class="string">&quot;The guy did some bitching but I acted like i&#x27;d be interested in buying something else next week and he gave it to us for free&quot;</span>)</span><br><span class="line"><span class="number">5573</span> (<span class="string">&#x27;ham&#x27;</span>, <span class="string">&#x27;Rofl. Its true to its name&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-迭代数据集"><a href="#3-迭代数据集" class="headerlink" title="3. 迭代数据集"></a>3. 迭代数据集</h2><p>使用上述的方法能够进行数据的读取，但是其中还有很多内容没有实现：</p>
+<ul>
+<li>批处理数据（Batching the data）</li>
+<li>打乱数据（Shuffling the data）</li>
+<li>使用多线程 <code>multiprocessing</code> 并行加载数据。</li>
+</ul>
+<p>在pytorch中<code>torch.utils.data.DataLoader</code>提供了上述的所用方法</p>
+<p><code>DataLoader</code>的使用方法示例：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> DataLoader</span><br><span class="line"></span><br><span class="line">dataset = CifarDataset()</span><br><span class="line">data_loader = DataLoader(dataset=dataset,batch_size=<span class="number">10</span>,shuffle=<span class="literal">True</span>,num_workers=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#遍历，获取其中的每个batch的结果</span></span><br><span class="line"><span class="keyword">for</span> index, (label, context) <span class="keyword">in</span> <span class="built_in">enumerate</span>(data_loader):</span><br><span class="line">    <span class="built_in">print</span>(index,label,context)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;*&quot;</span>*<span class="number">100</span>)</span><br></pre></td></tr></table></figure>
+
+<p>其中参数含义：</p>
+<ol>
+<li>dataset：提前定义的dataset的实例</li>
+<li>batch_size:传入数据的batch的大小，常用128,256等等</li>
+<li>shuffle：bool类型，表示是否在每次获取数据的时候提前打乱数据</li>
+<li><code>num_workers</code>:加载数据的线程数</li>
+</ol>
+<p>数据迭代器的返回结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">555 (&#39;spam&#39;, &#39;ham&#39;, &#39;spam&#39;, &#39;ham&#39;, &#39;ham&#39;, &#39;ham&#39;, &#39;ham&#39;, &#39;spam&#39;, &#39;ham&#39;, &#39;ham&#39;) (&#39;URGENT! We are trying to contact U. Todays draw shows that you have won a £800 prize GUARANTEED. Call 09050003091 from....&quot;, &#39;swhrt how u dey,hope ur ok, tot about u 2day.love n miss.take care.&#39;)</span><br><span class="line">***********************************************************************************</span><br><span class="line">556 (&#39;ham&#39;, &#39;ham&#39;, &#39;ham&#39;, &#39;ham&#39;, &#39;ham&#39;, &#39;ham&#39;, &#39;ham&#39;, &#39;ham&#39;, &#39;ham&#39;, &#39;spam&#39;) (&#39;He telling not to tell any one. If so treat for me hi hi hi&#39;, &#39;Did u got that persons story&#39;, &quot;Don kn....1000 cash prize or a prize worth £5000&#39;)</span><br></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<ol>
+<li><code>len(dataset) = 数据集的样本数</code></li>
+<li><code>len(dataloader) = math.ceil(样本数/batch_size) 即向上取整</code> </li>
+</ol>
+<h2 id="4-pytorch自带的数据集"><a href="#4-pytorch自带的数据集" class="headerlink" title="4 pytorch自带的数据集"></a>4 pytorch自带的数据集</h2><p>pytorch中自带的数据集由两个上层api提供，分别是<code>torchvision</code>和<code>torchtext</code></p>
+<p>其中：</p>
+<ol>
+<li><code>torchvision</code>提供了对图片数据处理相关的api和数据<ul>
+<li>数据位置：<code>torchvision.datasets</code>，例如：<code>torchvision.datasets.MNIST</code>(手写数字图片数据)</li>
+</ul>
+</li>
+<li><code>torchtext</code>提供了对文本数据处理相关的API和数据<ul>
+<li>数据位置：<code>torchtext.datasets</code>,例如：<code>torchtext.datasets.IMDB（电影</code>评论文本数据）</li>
+</ul>
+</li>
+</ol>
+<p>下面我们以Mnist手写数字为例，来看看pytorch如何加载其中自带的数据集</p>
+<p>使用方法和之前一样：</p>
+<ol>
+<li>准备好Dataset实例</li>
+<li>把dataset交给dataloder 打乱顺序，组成batch</li>
+</ol>
+<h3 id="4-1-torchversion-datasets"><a href="#4-1-torchversion-datasets" class="headerlink" title="4.1 torchversion.datasets"></a>4.1 torchversion.datasets</h3><p><code>torchversoin.datasets</code>中的数据集类（比如<code>torchvision.datasets.MNIST</code>）,都是继承自<code>Dataset</code></p>
+<p>意味着：直接对<code>torchvision.datasets.MNIST</code>进行实例化就可以得到<code>Dataset</code>的实例</p>
+<p>但是MNIST API中的参数需要注意一下：</p>
+<p><code> torchvision.datasets.MNIST(root=&#39;/files/&#39;, train=True, download=True, transform=)</code></p>
+<ol>
+<li><code>root</code>参数表示数据存放的位置</li>
+<li><code>train：</code>bool类型，表示是使用训练集的数据还是测试集的数据</li>
+<li><code>download：</code>bool类型，表示是否需要下载数据到root目录</li>
+<li><code>transform:</code>实现的对图片的处理函数</li>
+</ol>
+<h3 id="4-2-MNIST数据集的介绍"><a href="#4-2-MNIST数据集的介绍" class="headerlink" title="4.2 MNIST数据集的介绍"></a>4.2 MNIST数据集的介绍</h3><p>数据集的原始地址：<code>http://yann.lecun.com/exdb/mnist/</code></p>
+<p>MNIST是由<code>Yann LeCun</code>等人提供的免费的图像识别的数据集，其中包括60000个训练样本和10000个测试样本，其中图拍了的尺寸已经进行的标准化的处理，都是黑白的图像，大小为<code>28X28</code></p>
+<p>执行代码，下载数据，观察数据类型：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> torchvision</span><br><span class="line"></span><br><span class="line">dataset = torchvision.datasets.MNIST(root=<span class="string">&quot;./data&quot;</span>,train=<span class="literal">True</span>,download=<span class="literal">True</span>,transform=<span class="literal">None</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(dataset[<span class="number">0</span>])</span><br></pre></td></tr></table></figure>
+
+<p>下载的数据如下：</p>
+<p><img src="/2021/07/18/pytorch3/dataset.png"></p>
+<p>代码输出结果如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Downloading http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz</span><br><span class="line">Downloading http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz</span><br><span class="line">Downloading http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz</span><br><span class="line">Downloading http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz</span><br><span class="line">Processing...</span><br><span class="line">Done!</span><br><span class="line">(&lt;PIL.Image.Image image mode=L size=28x28 at <span class="number">0x18D303B9C18</span>&gt;, tensor(<span class="number">5</span>))</span><br></pre></td></tr></table></figure>
+
+
+
+<p>可以其中数据集返回了两条数据，可以猜测为图片的数据和目标值</p>
+<p>返回值的第0个为Image类型，可以调用show() 方法打开，发现为手写数字5</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> torchvision</span><br><span class="line"></span><br><span class="line">dataset = torchvision.datasets.MNIST(root=<span class="string">&quot;./data&quot;</span>,train=<span class="literal">True</span>,download=<span class="literal">True</span>,transform=<span class="literal">None</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(dataset[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line">img = dataset[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">img.show() <span class="comment">#打开图片</span></span><br></pre></td></tr></table></figure>
+
+<p>图片如下：</p>
+<p><img src="/2021/07/18/pytorch3/MNIST-dataset-5.png"></p>
+<p>由上可知：返回值为<code>(图片，目标值)</code>,这个结果也可以通过观察源码得到</p>
+]]></content>
+      <categories>
+        <category>Pytorch</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+      </tags>
   </entry>
 </search>
