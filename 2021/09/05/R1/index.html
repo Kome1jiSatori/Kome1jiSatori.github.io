@@ -20,33 +20,20 @@
     var CONFIG = {"hostname":"kome1jisatori.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="前言个人操作系统笔记整理，欢迎参考，时不时更新。">
+  <meta name="description" content="前言R语言笔记——第一节课">
 <meta property="og:type" content="article">
-<meta property="og:title" content="操作系统笔记——第一章（绝赞更新中）">
-<meta property="og:url" content="https://kome1jisatori.github.io/2021/04/18/OS-1/index.html">
+<meta property="og:title" content="R语言笔记（一）">
+<meta property="og:url" content="https://kome1jisatori.github.io/2021/09/05/R1/index.html">
 <meta property="og:site_name" content="KomeijiSatoriのblog">
-<meta property="og:description" content="前言个人操作系统笔记整理，欢迎参考，时不时更新。">
+<meta property="og:description" content="前言R语言笔记——第一节课">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://kome1jisatori.github.io/2021/04/18/OS-1/gainian.jpg">
-<meta property="og:image" content="https://kome1jisatori.github.io/2021/04/18/OS-1/diwei.png">
-<meta property="og:image" content="https://kome1jisatori.github.io/2021/04/18/OS-1/%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84.png">
-<meta property="og:image" content="https://kome1jisatori.github.io/2021/04/18/OS-1/%E6%8E%A5%E5%8F%A3%E7%A4%BA%E6%84%8F%E5%9B%BE.png">
-<meta property="og:image" content="https://kome1jisatori.github.io/2021/04/18/OS-1/%E6%B5%81%E7%A8%8B%E5%9B%BE1.png">
-<meta property="og:image" content="https://kome1jisatori.github.io/2021/04/18/OS-1/detail.png">
-<meta property="og:image" content="https://kome1jisatori.github.io/2021/04/18/OS-1/%E6%89%8B%E5%B7%A5%E6%93%8D%E4%BD%9C.png">
-<meta property="og:image" content="https://kome1jisatori.github.io/2021/04/18/OS-1/%E8%84%B1%E6%9C%BA.png">
-<meta property="og:image" content="https://kome1jisatori.github.io/2021/04/18/OS-1/%E5%8D%95%E9%81%93%E6%89%B9%E5%A4%84%E7%90%86.png">
-<meta property="og:image" content="https://kome1jisatori.github.io/2021/04/18/OS-1/%E8%81%94%E6%9C%BA%E6%89%B9%E5%A4%84%E7%90%86.png">
-<meta property="og:image" content="https://kome1jisatori.github.io/2021/04/18/OS-1/%E8%84%B1%E6%9C%BA%E6%89%B9%E5%A4%84%E7%90%86.png">
-<meta property="og:image" content="https://kome1jisatori.github.io/2021/04/18/OS-1/%E5%A4%9A%E9%81%93%E6%89%B9%E5%A4%84%E7%90%86.jpg">
-<meta property="article:published_time" content="2021-04-18T23:33:48.000Z">
-<meta property="article:modified_time" content="2021-05-11T14:04:03.120Z">
+<meta property="article:published_time" content="2021-09-05T15:14:41.000Z">
+<meta property="article:modified_time" content="2021-09-06T07:21:33.266Z">
 <meta property="article:author" content="Komeiji Satori">
 <meta property="article:tag" content="课堂笔记">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://kome1jisatori.github.io/2021/04/18/OS-1/gainian.jpg">
 
-<link rel="canonical" href="https://kome1jisatori.github.io/2021/04/18/OS-1/">
+<link rel="canonical" href="https://kome1jisatori.github.io/2021/09/05/R1/">
 
 
 <script id="page-configurations">
@@ -59,7 +46,7 @@
   };
 </script>
 
-  <title>操作系统笔记——第一章（绝赞更新中） | KomeijiSatoriのblog</title>
+  <title>R语言笔记（一） | KomeijiSatoriのblog</title>
   
 
 
@@ -170,7 +157,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://kome1jisatori.github.io/2021/04/18/OS-1/">
+    <link itemprop="mainEntityOfPage" href="https://kome1jisatori.github.io/2021/09/05/R1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -183,7 +170,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          操作系统笔记——第一章（绝赞更新中）
+          R语言笔记（一）
         </h1>
 
         <div class="post-meta">
@@ -193,14 +180,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2021-04-19 07:33:48" itemprop="dateCreated datePublished" datetime="2021-04-19T07:33:48+08:00">2021-04-19</time>
+              <time title="创建时间：2021-09-05 23:14:41" itemprop="dateCreated datePublished" datetime="2021-09-05T23:14:41+08:00">2021-09-05</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-05-11 22:04:03" itemprop="dateModified" datetime="2021-05-11T22:04:03+08:00">2021-05-11</time>
+                <time title="修改时间：2021-09-06 15:21:33" itemprop="dateModified" datetime="2021-09-06T15:21:33+08:00">2021-09-06</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -208,12 +195,12 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/OS/" itemprop="url" rel="index"><span itemprop="name">OS</span></a>
+                  <a href="/categories/R/" itemprop="url" rel="index"><span itemprop="name">R</span></a>
                 </span>
             </span>
 
           
-            <span id="/2021/04/18/OS-1/" class="post-meta-item leancloud_visitors" data-flag-title="操作系统笔记——第一章（绝赞更新中）" title="阅读次数">
+            <span id="/2021/09/05/R1/" class="post-meta-item leancloud_visitors" data-flag-title="R语言笔记（一）" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -228,8 +215,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2021/04/18/OS-1/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/18/OS-1/" itemprop="commentCount"></span>
+    <a title="valine" href="/2021/09/05/R1/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/09/05/R1/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -239,14 +226,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.7k</span>
+              <span>1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
+              <span>1 分钟</span>
             </span>
 
         </div>
@@ -258,56 +245,10 @@
     <div class="post-body" itemprop="articleBody">
      
       
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>个人操作系统笔记整理，欢迎参考，时不时更新。  </p>
-<span id="more"></span>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>R语言笔记——第一节课</p>
+<span id="more"></span> 
 
-<h1 id="第一章-操作系统引论"><a href="#第一章-操作系统引论" class="headerlink" title="第一章  操作系统引论"></a>第一章  操作系统引论</h1><h2 id="操作系统的概念"><a href="#操作系统的概念" class="headerlink" title="操作系统的概念"></a>操作系统的概念</h2><h3 id="一、计算机系统的组成"><a href="#一、计算机系统的组成" class="headerlink" title="一、计算机系统的组成"></a>一、计算机系统的组成</h3><p>&ensp;&ensp;&ensp;&ensp;<strong>1．计算机系统是由硬件和软件两部分组成</strong></p>
-<p><img src="/2021/04/18/OS-1/gainian.jpg" alt="计算机系统的组成">  </p>
-<p>&ensp;&ensp;&ensp;&ensp;硬件部分：构成了系统本身和用户作业赖以活动的物质基础和环境。<br>&ensp;&ensp;&ensp;&ensp;系统软件：主要管理计算机系统本身的操作；<br>&ensp;&ensp;&ensp;&ensp;应用软件: 主要解决用户的问题。  </p>
-<p>&ensp;&ensp;&ensp;&ensp;<strong>2．操作系统在计算机系统中的地位和作用</strong> </p>
-<p><img src="/2021/04/18/OS-1/diwei.png" alt="操作系统的地位">  </p>
-<p>&ensp;&ensp;&ensp;&ensp;<strong>计算机的层次结构</strong></p>
-<p><img src="/2021/04/18/OS-1/%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84.png" alt="层次结构">  </p>
-<p>&ensp;&ensp;&ensp;&ensp;操作系统的地位：是系统硬件之上的第一层软件，为其他软件提供单向支撑作用。<br>&ensp;&ensp;&ensp;&ensp;裸机：没有任何软件支持的计算机。</p>
-<p>&ensp;&ensp;&ensp;&ensp;<strong>3．操作系统的定义</strong>  </p>
-<ul>
-<li>计算机系统中的一个大型的<font color="#FF0000">系统软件</font>   </li>
-<li>它用来<font color="#FF0000">管理和控制</font>计算机系统中的全部软、硬件<font color="#FF0000">资源</font>  </li>
-<li>合理地组织计算机的工作流程  </li>
-<li>为用户应用程序的运行提供一个<font color="#FF0000">友好的界面和良好的工作环境。</font>  </li>
-</ul>
-<h2 id="操作系统的目标和作用"><a href="#操作系统的目标和作用" class="headerlink" title="操作系统的目标和作用"></a>操作系统的目标和作用</h2><h3 id="一、操作系统的目标"><a href="#一、操作系统的目标" class="headerlink" title="一、操作系统的目标"></a>一、操作系统的目标</h3><ul>
-<li>有效性(系统管理人员的观点)：合理地组织计算机系统的工作流程，管理和分配各种硬件和软件资源，提高计算机系统资源利用率和系统吞吐量。</li>
-<li>方便性(用户的观点)：提供良好的、一致的用户接口。无需了解许多有关硬件和系统软件的细节。</li>
-<li>可扩充性：指OS应采用层次化、模块化结构，给计算机系统的功能的扩展提供开放式的支撑平台。</li>
-<li>开放性：指系统遵循世界标准规范，特别是遵循开放系统互联0SI国际标准。</li>
-</ul>
-<h3 id="二、操作系统的作用"><a href="#二、操作系统的作用" class="headerlink" title="二、操作系统的作用"></a>二、操作系统的作用</h3><p>&ensp;&ensp;&ensp;&ensp;<strong>1.OS作为用户与计算机硬件系统之间的接口</strong>  </p>
-<p>&ensp;&ensp;&ensp;&ensp;OS处于用户与计算机硬件系统之间，用户通过OS来使用计算机系统。<br><img src="/2021/04/18/OS-1/%E6%8E%A5%E5%8F%A3%E7%A4%BA%E6%84%8F%E5%9B%BE.png" alt="OS作为接口示意图"><br>&ensp;&ensp;&ensp;&ensp;使用方式：<br>&ensp;&ensp;&ensp;&ensp;（1）命令方式。这是指由OS提供了一组联机命令(语言)， 用户可通过键盘输入有关命令，来直接操纵计算机系统<br>&ensp;&ensp;&ensp;&ensp;（2）系统调用方式。OS提供了一组系统调用，用户可在自己的应用程序中通过相应的系统调用，来操纵计算机。<br>&ensp;&ensp;&ensp;&ensp;（3）图形、窗口方式。用户通过屏幕上的窗口和图标来操纵计算机系统和运行自己的程序。<br>&ensp;&ensp;&ensp;&ensp;<strong>2.OS作为计算机系统资源的管理者</strong><br><img src="/2021/04/18/OS-1/%E6%B5%81%E7%A8%8B%E5%9B%BE1.png" alt="资源的管理者">  </p>
-<p>&ensp;&ensp;&ensp;&ensp;<strong>3.OS实现了对计算机资源的抽象</strong></p>
-<ul>
-<li>在裸机上添加：处理机管理(针对CPU)、存储管理(针对内存和外存)、设备管理 、文件管理</li>
-<li>把覆盖了软件的机器称为扩充机或虚拟机器</li>
-<li>合理组织工作流程：作业管理、进程管理  </li>
-</ul>
-<p><img src="/2021/04/18/OS-1/detail.png" alt="细节">  </p>
-<h3 id="三、推动操作系统发展的动力"><a href="#三、推动操作系统发展的动力" class="headerlink" title="三、推动操作系统发展的动力"></a>三、推动操作系统发展的动力</h3><ul>
-<li>不断提高计算机资源利用率</li>
-<li>方便用户</li>
-<li>器件的不断更新换代</li>
-<li>计算机体系结构的不断发展</li>
-<li>不断提出新的应用需求  </li>
-</ul>
-<h2 id="操作系统的发展"><a href="#操作系统的发展" class="headerlink" title="操作系统的发展"></a>操作系统的发展</h2><h3 id="无操作系统的计算机系统"><a href="#无操作系统的计算机系统" class="headerlink" title="无操作系统的计算机系统"></a>无操作系统的计算机系统</h3><p>&ensp;&ensp;&ensp;&ensp;<strong>1、人工操作阶段</strong><br>&ensp;&ensp;&ensp;&ensp;电子管时代，1945-50年代:<br>&ensp;&ensp;&ensp;&ensp;手工操作计算机，用机器语言编写程序，操作繁琐、易出错，效率低，CPU等待人工操作、利用率低<br><img src="/2021/04/18/OS-1/%E6%89%8B%E5%B7%A5%E6%93%8D%E4%BD%9C.png" alt="手工操作计算机"><br>&ensp;&ensp;&ensp;&ensp;手工操作的缺点：<br>&ensp;&ensp;&ensp;&ensp;（1）易出错、操作繁琐、难于掌握<br>&ensp;&ensp;&ensp;&ensp;（2）CPU的利用率低<br>&ensp;&ensp;&ensp;&ensp;提高效率低途径：<br>&ensp;&ensp;&ensp;&ensp;（1）专门的操作员/批量处理<br>&ensp;&ensp;&ensp;&ensp;（2）脱机I/O<br>&ensp;&ensp;&ensp;&ensp;（3）通道技术、中断技术、缓冲技术<br>&ensp;&ensp;&ensp;&ensp;<strong>2. 脱机输入/输出(Off-Line I/O)方式</strong><br>&ensp;&ensp;&ensp;&ensp;这种脱机I/O方式的主要优点如下：<br>&ensp;&ensp;&ensp;&ensp;（1）减少了CPU的空闲时间。<br>&ensp;&ensp;&ensp;&ensp;（2）提高I/O速度。<br><img src="/2021/04/18/OS-1/%E8%84%B1%E6%9C%BA.png" alt="I/O脱机">  </p>
-<h3 id="成批处理阶段"><a href="#成批处理阶段" class="headerlink" title="成批处理阶段"></a>成批处理阶段</h3><p>&ensp;&ensp;&ensp;&ensp;晶体管时代，50年代末-60年代中，随着中央处理机速度的大幅度提高，人工操作的慢速度和中央处理机运算的高速度之间出现了矛盾，即所谓人机矛盾。为解决这一矛盾，只有设法去掉人工操作，实现作业的自动过渡，这样就出现了成批处理。<br>&ensp;&ensp;&ensp;&ensp;监督程序：是一个常驻内存的小的核心代码，用于实现各作业之间的自动转接，提高了系统效率。<br>&ensp;&ensp;&ensp;&ensp;<strong>1.单道批处理:</strong>    </p>
-<ul>
-<li>利用磁带把若干作用分类编成作业执行序列  </li>
-<li>每批作业由一个专门的监督程序自动依次处理  </li>
-<li>可使用汇编语言开发<br><img src="/2021/04/18/OS-1/%E5%8D%95%E9%81%93%E6%89%B9%E5%A4%84%E7%90%86.png" alt="单道批处理"><br>&ensp;&ensp;&ensp;&ensp;单道批处理系统特点：自动性、顺序性、单道性<br>&ensp;&ensp;&ensp;&ensp;成批处理经历了两个阶段：<br>&ensp;&ensp;&ensp;&ensp;联机批处理阶段和脱机批处理阶段。</li>
-</ul>
-<p>&ensp;&ensp;&ensp;&ensp;联机批处理系统：作业的I/O和计算全部由CPU直接控制。<br><img src="/2021/04/18/OS-1/%E8%81%94%E6%9C%BA%E6%89%B9%E5%A4%84%E7%90%86.png" alt="联机批处理">  </p>
-<p>&ensp;&ensp;&ensp;&ensp;脱机批处理系统：由主机和外围计算机（卫星机）组成，外围计算机负责I/O处理，主机和外围计算机可以并行工作。<br><img src="/2021/04/18/OS-1/%E8%84%B1%E6%9C%BA%E6%89%B9%E5%A4%84%E7%90%86.png" alt="脱机批处理"><br> &ensp;&ensp;&ensp;&ensp;<strong>2.多道批处理系统</strong><br>&ensp;&ensp;&ensp;&ensp;多道程序设计技术是指在计算机内存中同时存放多个作业，它们在管理程序控制之下交替执行，共享系统中的各种资源。60年代中-70年代中(集成电路)<br>多道程序运行的特征：<br> &ensp;&ensp;&ensp;&ensp;（1）主存中存放多道程序；<br> &ensp;&ensp;&ensp;&ensp;（2）宏观上并行；<br> &ensp;&ensp;&ensp;&ensp;（3）微观上串行。<br><img src="/2021/04/18/OS-1/%E5%A4%9A%E9%81%93%E6%89%B9%E5%A4%84%E7%90%86.jpg" alt="多道批处理">  </p>
-
+<h1 id="记录一些函数用法"><a href="#记录一些函数用法" class="headerlink" title="记录一些函数用法"></a>记录一些函数用法</h1><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">x &lt;- <span class="built_in">c</span>(<span class="number">1</span>,<span class="number">7</span>,<span class="number">9</span>,<span class="number">4</span>,<span class="number">9</span>,<span class="number">12</span>,<span class="number">0.9</span>,<span class="number">1.2</span>)</span><br><span class="line"><span class="built_in">length</span>(x)</span><br><span class="line"><span class="built_in">sum</span>(x)</span><br><span class="line">y &lt;- 1:<span class="number">10</span></span><br><span class="line">order(x) <span class="comment">## 排序序列在原序列中的下标</span></span><br><span class="line">x[order(x)]</span><br><span class="line">sort(x)</span><br><span class="line">rank(x) <span class="comment">## 原序列在排序序列中的下标</span></span><br><span class="line"><span class="built_in">cumsum</span>(x) <span class="comment">## 前n项求和</span></span><br><span class="line">mean(x)</span><br><span class="line"><span class="built_in">min</span>(x)</span><br><span class="line"><span class="built_in">max</span>(x)</span><br><span class="line"></span><br><span class="line">m &lt;- matrix(<span class="built_in">c</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>),<span class="number">2</span>,<span class="number">2</span>,byrow = <span class="built_in">T</span>)</span><br><span class="line">apply(m,<span class="number">1</span>,<span class="built_in">sum</span>) <span class="comment">## 对数组m按行1求和</span></span><br><span class="line">apply(m,<span class="number">2</span>,<span class="built_in">min</span>) <span class="comment">## 对数组m按行2求最小值</span></span><br><span class="line"><span class="built_in">dim</span>(m)</span><br><span class="line">rownames(m) &lt;- <span class="built_in">c</span>(<span class="string">&quot;诸葛亮&quot;</span>,<span class="string">&quot;孙悟空&quot;</span>)</span><br><span class="line">colnames(m) &lt;- <span class="built_in">c</span>(<span class="string">&quot;太极拳&quot;</span>,<span class="string">&quot;古琴课&quot;</span>)</span><br><span class="line">m[<span class="number">1</span>,<span class="number">1</span>]</span><br><span class="line">m[-<span class="built_in">c</span>(<span class="number">1</span>),<span class="built_in">c</span>(<span class="string">&quot;古琴课&quot;</span>)]</span><br><span class="line">m[,<span class="built_in">c</span>(<span class="string">&quot;古琴课&quot;</span>)]</span><br><span class="line">m[,]</span><br><span class="line">t(m) <span class="comment">#转置</span></span><br><span class="line">solve(m) <span class="comment">#求逆</span></span><br><span class="line">m%*%solve(m) <span class="comment">#求内积</span></span><br><span class="line">A &lt;- matrix(<span class="built_in">c</span>(<span class="number">2</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>), <span class="number">3</span>)</span><br><span class="line">b &lt;- <span class="built_in">c</span>(<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>)</span><br><span class="line">x &lt;- solve(A,b)</span><br><span class="line"></span><br><span class="line">margin.table(m,<span class="number">1</span>)</span><br><span class="line">margin.table(m,<span class="number">2</span>)</span><br><span class="line">m</span><br><span class="line"></span><br><span class="line"><span class="comment">####数据框###</span></span><br><span class="line"></span><br><span class="line">head(iris) <span class="comment"># 1.系统自带数据集</span></span><br><span class="line"><span class="built_in">class</span>(iris)</span><br><span class="line">table(iris$Species) <span class="comment">#一维列联表</span></span><br><span class="line"></span><br><span class="line"><span class="comment">###自己创建数据框###</span></span><br><span class="line"></span><br><span class="line">student &lt;- data.frame(age = numeric(<span class="number">0</span>), gender = character(<span class="number">0</span>))<span class="comment">## 2.自建数据框</span></span><br><span class="line">student &lt;- edit(student) <span class="comment">##键盘输入</span></span><br><span class="line">student</span><br><span class="line"></span><br><span class="line">student &lt;- read.table(<span class="string">&quot;D:\\student.csv&quot;</span>, head = <span class="built_in">T</span>, sep = <span class="string">&quot;,&quot;</span>) <span class="comment">#3.从excel导入</span></span><br><span class="line">student[,<span class="built_in">c</span>(<span class="string">&quot;语文&quot;</span>,<span class="string">&quot;数学&quot;</span>)]</span><br><span class="line">student$语文</span><br><span class="line">score &lt;- student[, <span class="built_in">c</span>(<span class="number">4</span>,<span class="number">5</span>)]</span><br><span class="line">apply(score,<span class="number">1</span> , sd)</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -332,7 +273,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://kome1jisatori.github.io/2021/04/18/OS-1/" title="操作系统笔记——第一章（绝赞更新中）">https://kome1jisatori.github.io/2021/04/18/OS-1/</a>
+    <a href="https://kome1jisatori.github.io/2021/09/05/R1/" title="R语言笔记（一）">https://kome1jisatori.github.io/2021/09/05/R1/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -352,13 +293,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/04/11/%E8%BF%9B%E7%A8%8B%E5%90%8C%E6%AD%A5/" rel="prev" title="操作系统实验课作业一——进程同步">
-      <i class="fa fa-chevron-left"></i> 操作系统实验课作业一——进程同步
+    <a href="/2021/08/05/rnn/" rel="prev" title="记录下没有训练出成果的情感识别模型">
+      <i class="fa fa-chevron-left"></i> 记录下没有训练出成果的情感识别模型
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2021/04/19/processtest/" rel="next" title="操作系统实验课作业二——进程调度">
-      操作系统实验课作业二——进程调度 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -418,7 +356,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%BC%95%E8%AE%BA"><span class="nav-text">第一章  操作系统引论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-text">操作系统的概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%BB%84%E6%88%90"><span class="nav-text">一、计算机系统的组成</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%9B%AE%E6%A0%87%E5%92%8C%E4%BD%9C%E7%94%A8"><span class="nav-text">操作系统的目标和作用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%9B%AE%E6%A0%87"><span class="nav-text">一、操作系统的目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-text">二、操作系统的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%8E%A8%E5%8A%A8%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%8F%91%E5%B1%95%E7%9A%84%E5%8A%A8%E5%8A%9B"><span class="nav-text">三、推动操作系统发展的动力</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8F%91%E5%B1%95"><span class="nav-text">操作系统的发展</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A0%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F"><span class="nav-text">无操作系统的计算机系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%88%90%E6%89%B9%E5%A4%84%E7%90%86%E9%98%B6%E6%AE%B5"><span class="nav-text">成批处理阶段</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%B0%E5%BD%95%E4%B8%80%E4%BA%9B%E5%87%BD%E6%95%B0%E7%94%A8%E6%B3%95"><span class="nav-text">记录一些函数用法</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -592,6 +530,59 @@
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 
