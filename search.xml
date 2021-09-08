@@ -2572,4 +2572,19 @@ tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         <tag>课堂笔记</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Android实验课作业一Kotlin简单应用</title>
+    <url>/2021/09/07/kotlin1/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>&ensp;&ensp;&ensp;&ensp;使用Kotlin完成简单的编程问题</p>
+<span id="more"></span>
+
+<p>先记一下代码</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> score1 = arrayOf(<span class="number">74</span>, <span class="number">71</span>, <span class="number">72</span>, <span class="number">68</span>, <span class="number">76</span>, <span class="number">73</span>, <span class="number">67</span>, <span class="number">70</span>, <span class="number">65</span>, <span class="number">74</span>)</span><br><span class="line">    <span class="keyword">val</span> score2 = arrayOf(<span class="number">76</span>, <span class="number">75</span>, <span class="number">71</span>, <span class="number">70</span>, <span class="number">76</span>, <span class="number">79</span>, <span class="number">65</span>, <span class="number">77</span>, <span class="number">65</span>, <span class="number">72</span>)</span><br><span class="line">    <span class="keyword">val</span> x_mean = mean(score1)</span><br><span class="line">    <span class="keyword">val</span> y_mean = mean(score2)</span><br><span class="line">    <span class="keyword">var</span> mol = <span class="number">0.0</span></span><br><span class="line">    <span class="keyword">var</span> deno = <span class="number">0.0</span></span><br><span class="line">    <span class="keyword">for</span> (i <span class="keyword">in</span> <span class="number">0</span> until <span class="number">10</span>) &#123;</span><br><span class="line">        <span class="keyword">var</span> temp1 = score1[i] - x_mean</span><br><span class="line">        <span class="keyword">var</span> temp2 = score2[i] - y_mean</span><br><span class="line">        mol += temp1 * temp2</span><br><span class="line">        deno += temp1 * temp1</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">val</span> b = mol / deno</span><br><span class="line">    <span class="keyword">val</span> a = y_mean - b * x_mean</span><br><span class="line">    <span class="keyword">val</span> ans = <span class="string">&quot;y = <span class="variable">$b</span> x <span class="variable">$a</span>&quot;</span></span><br><span class="line">    println(ans)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">mean</span><span class="params">(args: <span class="type">Array</span>&lt;<span class="type">Int</span>&gt;)</span></span>: <span class="built_in">Double</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> temp = <span class="number">0.0</span></span><br><span class="line">    <span class="keyword">for</span>(i <span class="keyword">in</span> <span class="number">0</span> until args.size)&#123;</span><br><span class="line">        temp += args[i]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> temp / args.size</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Kotlin</category>
+      </categories>
+      <tags>
+        <tag>实验课作业</tag>
+      </tags>
+  </entry>
 </search>
