@@ -2587,4 +2587,60 @@ tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         <tag>实验课作业</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Activity</title>
+    <url>/2021/09/17/android1/</url>
+    <content><![CDATA[<span id="more"></span>
+
+<h1 id="先记录一下课堂作业"><a href="#先记录一下课堂作业" class="headerlink" title="先记录一下课堂作业"></a>先记录一下课堂作业</h1><figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="comment">//1.比大小函数</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">largerNumber</span><span class="params">(num1: <span class="type">Int</span>, num2: <span class="type">Int</span>)</span></span>:<span class="built_in">Int</span> = <span class="keyword">if</span>(num1 &gt; num2) num1 <span class="keyword">else</span> num2</span><br><span class="line"><span class="comment">//2.写一个给分函数，传入姓名返回分数</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">giveScore</span><span class="params">(stuName:<span class="type">String</span>)</span></span> = <span class="keyword">when</span>&#123;</span><br><span class="line">    stuName.startsWith(<span class="string">&quot;赵&quot;</span>) -&gt; <span class="number">100</span></span><br><span class="line">    stuName.startsWith(<span class="string">&quot;钱&quot;</span>) -&gt; <span class="number">90</span></span><br><span class="line">    stuName == <span class="string">&quot;李四&quot;</span> -&gt; <span class="number">80</span></span><br><span class="line">    <span class="keyword">else</span> -&gt; <span class="number">70</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//3.创建映射集合</span></span><br><span class="line"><span class="keyword">val</span> regionMap = mapOf(<span class="string">&quot;中国&quot;</span> to <span class="number">1</span>,<span class="string">&quot;江苏&quot;</span> to <span class="number">2</span>,<span class="string">&quot;南京&quot;</span> to <span class="number">3</span>, <span class="string">&quot;栖霞&quot;</span> to <span class="number">4</span>, <span class="string">&quot;仙林&quot;</span> to <span class="number">5</span>)</span><br><span class="line"><span class="comment">//4.过滤3中数值大于3的项</span></span><br><span class="line"><span class="keyword">val</span> newMap = regionMap.filter &#123; it.value &lt; <span class="number">3</span> &#125;</span><br><span class="line"><span class="comment">//5.写一个类，2传参实现加减乘</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Calculator</span></span>(<span class="keyword">var</span> num1: <span class="built_in">Int</span> = <span class="number">3</span>, <span class="keyword">var</span> num2: <span class="built_in">Int</span> = <span class="number">4</span>)&#123;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">CalSum</span><span class="params">()</span></span> = num1 + num2</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">CalMulti</span><span class="params">()</span></span> = num1 * num2</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">CalDelta</span><span class="params">()</span></span> = num1 - num2</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>#正片</p>
+]]></content>
+      <tags>
+        <tag>课堂笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>R语言笔记（二）</title>
+    <url>/2021/09/19/R2/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>呜呜开始听不懂了</p>
+<span id="more"></span> 
+
+<p>贴下<a href="https://meeting.tencent.com/user-center/shared-record-info?id=ac2d1896-4877-40a7-947b-b1f58b8cb9b9&from=3">课堂回放</a>地址<br>密码：1Qyvc8ge</p>
+<h1 id="一、课堂一些练习"><a href="#一、课堂一些练习" class="headerlink" title="一、课堂一些练习"></a>一、课堂一些练习</h1><h2 id="1-求a到b之间的最大值函数"><a href="#1-求a到b之间的最大值函数" class="headerlink" title="1.求a到b之间的最大值函数"></a>1.求a到b之间的最大值函数</h2><p>代码如下：</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">x &lt;- 1:<span class="number">10</span></span><br><span class="line">a &lt;- 3</span><br><span class="line">b &lt;- 7</span><br><span class="line">maxstart &lt;- -<span class="number">1</span></span><br><span class="line">maxinfo &lt;- <span class="keyword">function</span>(x,a,b,maxstart=-<span class="number">1</span>)&#123;</span><br><span class="line">  <span class="keyword">for</span> (j <span class="keyword">in</span> a:b)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span>(x[j]&gt;maxstart)</span><br><span class="line">      max.index=j</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> (<span class="built_in">c</span>(maxstart,max.index))</span><br><span class="line">&#125;</span><br><span class="line">maxinfo(<span class="built_in">c</span>(<span class="number">1</span>:<span class="number">10</span>),<span class="number">3</span>,<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+
+<p>得到输出如下：</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">&gt; maxinfo(<span class="built_in">c</span>(<span class="number">1</span>:<span class="number">10</span>),<span class="number">3</span>,<span class="number">5</span>)</span><br><span class="line">[<span class="number">1</span>] -<span class="number">1</span>  <span class="number">5</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="2-求a到b之间最小值的两个值的平均值函数"><a href="#2-求a到b之间最小值的两个值的平均值函数" class="headerlink" title="2.求a到b之间最小值的两个值的平均值函数"></a>2.求a到b之间最小值的两个值的平均值函数</h2><p>法一<br>代码如下：</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">mininfo &lt;- <span class="keyword">function</span>(x,a,b,minstart=<span class="number">10000</span>,minstart2=<span class="number">0</span>)&#123;</span><br><span class="line">  <span class="keyword">for</span>(j <span class="keyword">in</span> a:b)&#123;</span><br><span class="line">    <span class="keyword">if</span>(x[j] &lt; minstart)&#123;</span><br><span class="line">      <span class="keyword">if</span>(minstart!=<span class="number">10000</span>)</span><br><span class="line">        minstart2=minstart</span><br><span class="line">      minstart=x[j]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">    <span class="built_in">return</span>(mean(<span class="built_in">c</span>(minstart,minstart2)))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>法二<br>代码如下：</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">x&lt;-<span class="built_in">c</span>(<span class="number">2</span>,<span class="number">7</span>,<span class="number">4</span>,<span class="number">10</span>,<span class="number">6</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">7</span>,<span class="number">40</span>)</span><br><span class="line">min2&lt;-<span class="keyword">function</span>(x)</span><br><span class="line">min2&lt;-<span class="keyword">function</span>(x)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="built_in">return</span>(mean(x[rank(x)&lt;=<span class="number">2</span>])) <span class="comment">#rank(x)代表原序列在排序序列中的位置（从小到大）</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>得到输出如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&gt; min2(x)</span><br><span class="line">[1] 1.5</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-求一个浮点数组中最大的四个值的和"><a href="#3-求一个浮点数组中最大的四个值的和" class="headerlink" title="3.求一个浮点数组中最大的四个值的和"></a>3.求一个浮点数组中最大的四个值的和</h2><p>代码如下：</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">maxfl &lt;- <span class="keyword">function</span>(x)&#123;</span><br><span class="line">  <span class="built_in">return</span>(<span class="built_in">sum</span>(x[rank(x)&gt;<span class="built_in">length</span>(x)-<span class="number">4</span>]))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>得到输出如下：</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">&gt; x&lt;-<span class="built_in">c</span>(<span class="number">2</span>,<span class="number">7</span>,<span class="number">4</span>,<span class="number">10</span>,<span class="number">6</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">7</span>,<span class="number">40</span>)</span><br><span class="line">&gt; maxfl(x)</span><br><span class="line">[<span class="number">1</span>] <span class="number">64</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="4-对student表求每门课程成绩前四和"><a href="#4-对student表求每门课程成绩前四和" class="headerlink" title="4.对student表求每门课程成绩前四和"></a>4.对student表求每门课程成绩前四和</h2><p>代码如下：</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">student &lt;- read.table(<span class="string">&quot;C:/Users/74077/Documents/Tencent Files/740775405/FileRecv/student.csv&quot;</span>,head=<span class="literal">TRUE</span>,sep=<span class="string">&quot;,&quot;</span>)</span><br><span class="line">apply(student[,<span class="built_in">c</span>(<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>)],<span class="number">2</span>,maxfl)</span><br></pre></td></tr></table></figure>
+
+<p>得到输出如下：</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">&gt; apply(student[,<span class="built_in">c</span>(<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>)],<span class="number">2</span>,maxfl)</span><br><span class="line">数学 语文 外语 </span><br><span class="line"> <span class="number">327</span>  <span class="number">342</span>  <span class="number">357</span> </span><br></pre></td></tr></table></figure>
+
+<p>剩下的明天更新</p>
+]]></content>
+      <categories>
+        <category>R</category>
+      </categories>
+      <tags>
+        <tag>课堂笔记</tag>
+      </tags>
+  </entry>
 </search>
