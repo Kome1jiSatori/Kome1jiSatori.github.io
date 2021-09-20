@@ -2661,7 +2661,7 @@ tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 <figure class="highlight r"><table><tr><td class="code"><pre><span class="line">&gt; library(<span class="string">&quot;swirl&quot;</span>)</span><br><span class="line">&gt; swirl()</span><br></pre></td></tr></table></figure>
 <p>接着就可以根据引导语have fun了。  </p>
 <p>实际使用时的截图，非常好玩  </p>
-<p><img src="/2021/09/19/R2/%E5%9B%BE1"><br>使用交互的方式选择想要学习的内容<br><img src="/2021/09/19/R2/%E5%9B%BE2">  </p>
+<p><img src="/2021/09/19/R2/%E5%9B%BE1.png" alt="引导语"><br>使用交互的方式选择想要学习的内容<br><img src="/2021/09/19/R2/%E5%9B%BE2.png">  </p>
 ]]></content>
       <categories>
         <category>R</category>
