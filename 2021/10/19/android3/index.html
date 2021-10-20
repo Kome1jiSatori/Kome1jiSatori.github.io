@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kome1jisatori.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="前言安卓SQLite实践">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android实验课作业三 数据库实践">
+<meta property="og:url" content="https://kome1jisatori.github.io/2021/10/19/android3/index.html">
+<meta property="og:site_name" content="KomeijiSatoriのblog">
+<meta property="og:description" content="前言安卓SQLite实践">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/10/19/android3/%E5%9B%BE%E7%89%871.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/10/19/android3/%E5%9B%BE%E7%89%872.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/10/19/android3/%E5%9B%BE%E7%89%873.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/10/19/android3/%E5%9B%BE%E7%89%874.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/10/19/android3/%E5%9B%BE%E7%89%875.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/10/19/android3/%E5%9B%BE%E7%89%876.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/10/19/android3/%E5%9B%BE%E7%89%877.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/10/19/android3/%E5%9B%BE%E7%89%878.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/10/19/android3/%E5%9B%BE%E7%89%879.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/10/19/android3/%E5%9B%BE%E7%89%8710.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/10/19/android3/%E5%9B%BE%E7%89%8711.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/10/19/android3/%E5%9B%BE%E7%89%8712.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/10/19/android3/%E5%9B%BE%E7%89%8713.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/10/19/android3/%E5%9B%BE%E7%89%8714.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/10/19/android3/%E5%9B%BE%E7%89%8715.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/10/19/android3/%E5%9B%BE%E7%89%8716.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/10/19/android3/%E5%9B%BE%E7%89%8717.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/10/19/android3/%E5%9B%BE%E7%89%8718.png">
+<meta property="article:published_time" content="2021-10-19T19:11:57.000Z">
+<meta property="article:modified_time" content="2021-10-20T11:28:02.564Z">
+<meta property="article:author" content="Komeiji Satori">
+<meta property="article:tag" content="实验课作业">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kome1jisatori.github.io/2021/10/19/android3/%E5%9B%BE%E7%89%871.png">
+
+<link rel="canonical" href="https://kome1jisatori.github.io/2021/10/19/android3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Android实验课作业三 数据库实践 | KomeijiSatoriのblog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">KomeijiSatoriのblog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">地灵殿从零开始的学习生活</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">4</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">28</span></a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kome1jisatori.github.io/2021/10/19/android3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Komeiji Satori">
+      <meta itemprop="description" content="记录些有的没的的学习心得">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KomeijiSatoriのblog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android实验课作业三 数据库实践
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-10-20 03:11:57 / 修改时间：19:28:02" itemprop="dateCreated datePublished" datetime="2021-10-20T03:11:57+08:00">2021-10-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2021/10/19/android3/" class="post-meta-item leancloud_visitors" data-flag-title="Android实验课作业三 数据库实践" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/10/19/android3/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/10/19/android3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+     
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>安卓SQLite实践</p>
+<span id="more"></span> 
+
+<h1 id="一、实验目的"><a href="#一、实验目的" class="headerlink" title="一、实验目的"></a>一、实验目的</h1><p>使用事务完成以下目标：<br>1）在数据库中新建一个数据表（表名任意）<br>2）添加你和你三位同学的学号、姓名、高数成绩、英语成绩和体育成绩<br>3）升级新的数据库版本，将数据表中你的三位同学的所有成绩全部更新为0  </p>
+<h1 id="二、实验环境"><a href="#二、实验环境" class="headerlink" title="二、实验环境"></a>二、实验环境</h1><p>Android Studio、Kotlin、sqllite  </p>
+<h1 id="三、主要实验步骤"><a href="#三、主要实验步骤" class="headerlink" title="三、主要实验步骤"></a>三、主要实验步骤</h1><p>1）打开打开Android Studio，新建工程Homework，如图所示：<br><img src="/2021/10/19/android3/%E5%9B%BE%E7%89%871.png">   </p>
+<p>2）这里创建一个名为Student.db的数据库，然后在这个数据库中新建一张Book表，表中有id（主键）、姓名、高数成绩、英语成绩、体育成绩等列，Grade表的建表语句如下所示：  </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> Grade （</span><br><span class="line">            id <span class="type">integer</span> <span class="keyword">primary</span> key autoincrement,</span><br><span class="line">            name text,</span><br><span class="line">            hmath <span class="type">integer</span>,</span><br><span class="line">            english <span class="type">integer</span>,</span><br><span class="line">            sport <span class="type">integer</span>)</span><br></pre></td></tr></table></figure>
+<p>然后需要在代码中执行这条SQL语句，才能完成创建表的操作，新建MyDatabaseHelper类继承自SQLiteOpenHelper，如下图所示：<br><img src="/2021/10/19/android3/%E5%9B%BE%E7%89%872.png">   </p>
+<p>3）接着绘制控件Button：createDatabase，点击后用于执行创建数据库的功能，先修改布局文件activity_main.xml中的代码，如下图所示：<br><img src="/2021/10/19/android3/%E5%9B%BE%E7%89%873.png">   </p>
+<p>最后修改MainActivity中的代码，如下图所示：<br><img src="/2021/10/19/android3/%E5%9B%BE%E7%89%874.png">   </p>
+<p>4）尝试运行一下代码，在程序主界面点击Create Database按钮，如下图所示：<br><img src="/2021/10/19/android3/%E5%9B%BE%E7%89%875.png">   </p>
+<p>可以使用Device File Explorer证实数据库确实创建成功了，在其中找到该db文件，如下图所示：<br><img src="/2021/10/19/android3/%E5%9B%BE%E7%89%876.png">   </p>
+<p>可以看到Student.db顺利创建了，接着可以将该文件导出到本地，使用Database Navigator插件查看，如下图所示：<br><img src="/2021/10/19/android3/%E5%9B%BE%E7%89%877.png">   </p>
+<p>用Database Navigator插件看到Grade表成功创建。如下图所示，表中的各列也创建成功。<br><img src="/2021/10/19/android3/%E5%9B%BE%E7%89%878.png">   </p>
+<p>5）接着使用事务功能将所有数据全部添加进Grade表中。首先绘制控件Button：addData，修改布局文件activity_main.xml中的代码，如下图所示：<br><img src="/2021/10/19/android3/%E5%9B%BE%E7%89%879.png">   </p>
+<p>为了能够将数据一次性全部插入进去，防止数据的丢失和错误，这里使用务的方法来插入，如下图所示：<br><img src="/2021/10/19/android3/%E5%9B%BE%E7%89%8710.png">   </p>
+<p>首先调用SQLiteDatabase的beginTransaction()方法开启一个事务，然后在一个异常捕获的代码块中执行具体的数据库操作：先获取了SQLiteDatabase对象，然后使用ContentValues对要添加的数据进行组装。接下来调用了insert()方法将数据添加到表当中。<br>当所有操作都完成后，调用setTransactionSuccessful()表示事务执行成功，最后在finally代码块中调用endTransaction()结束事务。<br>6）为了方便查看数据库表中数据的修改，我们可以先编写一个查询按键，这样就不用每次都将文件导入到本地并通过插件查看了。<br>首先绘制查询数据的控件Button：queryData，如下图所示：<br><img src="/2021/10/19/android3/%E5%9B%BE%E7%89%8711.png">   </p>
+<p>然后修改MainActivity中的代码，添加如下图所示的代码：<br><img src="/2021/10/19/android3/%E5%9B%BE%E7%89%8712.png">   </p>
+<p>首先在查询按钮的点击事件里面调用SQLiteDatabase的query()方法查询数据。查询这张表中的所有数据，查询完之后就得到了一个Cursor对象。<br>接着调用moveToFirst()方法，将数据的指针移动到第一行的位置，进入一个循环当中，去遍历查询到的每一行数据。在这个循环中可以通过Cursor的getColumnIndex()方法获取某一列在表中对应的位置索引，然后将这个索引传入相应的取值方法中，就可以得到从数据库中读取到的数据。<br>接着使用Log将取出的数据打印出来，借此检查读取工作有没有成功完成。<br>最后调用close()方法关闭Cursor。  </p>
+<p>7）接着重新运行程序，如下图所示：<br><img src="/2021/10/19/android3/%E5%9B%BE%E7%89%8713.png">   </p>
+<p>可以看到多了ADD DATA 和 QUERY DATA 的按钮，点击ADD DATA，向表中添加提前准备好的数据，点击QUERY DATA按钮即可查询添加的数据，如下图所示：<br><img src="/2021/10/19/android3/%E5%9B%BE%E7%89%8714.png">   </p>
+<p>可以看到数据都正常插入了，用插件查看该表，如下图所示：<br><img src="/2021/10/19/android3/%E5%9B%BE%E7%89%8715.png">  </p>
+<p>可以看到数据确实正常插入了。<br>8）至此目标1，2都已经实现，接下来只需要升级新的数据库版本，将数据表中所有成绩全部更新为0。<br>将MainActivity中DatabaseHelper中的version参数改为2，重写onUpgrade函数，使数据库更新时，将每一个记录中的三个成绩的值都更新为0，如下图所示：<br><img src="/2021/10/19/android3/%E5%9B%BE%E7%89%8716.png">   </p>
+<p>点击运行按钮重新运行该代码，实现数据库的更新，再次使用QUERY DATA函数查询表中的数据，得到结果如下：<br><img src="/2021/10/19/android3/%E5%9B%BE%E7%89%8717.png">   </p>
+<p>使用插件直接查看该表，如下图所示：<br><img src="/2021/10/19/android3/%E5%9B%BE%E7%89%8718.png">   </p>
+<p>可以看到数据库更新后，所有结果成功归零。  </p>
+<h1 id="代码附录"><a href="#代码附录" class="headerlink" title="代码附录"></a>代码附录</h1><h2 id="MainActivity"><a href="#MainActivity" class="headerlink" title="MainActivity"></a>MainActivity</h2><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.homework</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.content.ContentValues</span><br><span class="line"><span class="keyword">import</span> androidx.appcompat.app.AppCompatActivity</span><br><span class="line"><span class="keyword">import</span> android.os.Bundle</span><br><span class="line"><span class="keyword">import</span> android.util.Log</span><br><span class="line"><span class="keyword">import</span> android.widget.Button</span><br><span class="line"><span class="keyword">import</span> java.lang.Exception</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> : <span class="type">AppCompatActivity</span></span>() &#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_main)</span><br><span class="line">        <span class="keyword">val</span> dbHelper = MyDatabaseHelper(<span class="keyword">this</span>, <span class="string">&quot;Student.db&quot;</span>, <span class="number">2</span>)</span><br><span class="line">        <span class="keyword">val</span> createDatabase: Button = findViewById(R.id.createDatabase)</span><br><span class="line">        createDatabase.setOnClickListener &#123;</span><br><span class="line">            dbHelper.writableDatabase</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">val</span> addData:Button = findViewById(R.id.addData)</span><br><span class="line">        addData.setOnClickListener&#123;</span><br><span class="line">            <span class="keyword">val</span> db = dbHelper.writableDatabase</span><br><span class="line">            db.beginTransaction()</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">val</span> values1 = ContentValues().apply &#123;</span><br><span class="line">                    put(<span class="string">&quot;id&quot;</span>, <span class="number">2120191738</span>)</span><br><span class="line">                    put(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;夏天豪&quot;</span>)</span><br><span class="line">                    put(<span class="string">&quot;hmath&quot;</span>, <span class="number">98</span>)</span><br><span class="line">                    put(<span class="string">&quot;english&quot;</span>, <span class="number">91</span>)</span><br><span class="line">                    put(<span class="string">&quot;sport&quot;</span>, <span class="number">93</span>)</span><br><span class="line">                &#125;</span><br><span class="line">                db.insert(<span class="string">&quot;Grade&quot;</span>, <span class="literal">null</span>, values1)</span><br><span class="line">                <span class="keyword">val</span> values2 = ContentValues().apply &#123;</span><br><span class="line">                    put(<span class="string">&quot;id&quot;</span>, <span class="number">2120192810</span>)</span><br><span class="line">                    put(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;王麒淳&quot;</span>)</span><br><span class="line">                    put(<span class="string">&quot;hmath&quot;</span>, <span class="number">77</span>)</span><br><span class="line">                    put(<span class="string">&quot;english&quot;</span>, <span class="number">67</span>)</span><br><span class="line">                    put(<span class="string">&quot;sport&quot;</span>, <span class="number">95</span>)</span><br><span class="line">                &#125;</span><br><span class="line">                db.insert(<span class="string">&quot;Grade&quot;</span>, <span class="literal">null</span>, values2)</span><br><span class="line">                <span class="keyword">val</span> values3 = ContentValues().apply &#123;</span><br><span class="line">                    put(<span class="string">&quot;id&quot;</span>, <span class="number">2120191912</span>)</span><br><span class="line">                    put(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;耿宇豪&quot;</span>)</span><br><span class="line">                    put(<span class="string">&quot;hmath&quot;</span>, <span class="number">89</span>)</span><br><span class="line">                    put(<span class="string">&quot;english&quot;</span>, <span class="number">85</span>)</span><br><span class="line">                    put(<span class="string">&quot;sport&quot;</span>, <span class="number">90</span>)</span><br><span class="line">                &#125;</span><br><span class="line">                db.insert(<span class="string">&quot;Grade&quot;</span>, <span class="literal">null</span>, values3)</span><br><span class="line">                <span class="keyword">val</span> values4 = ContentValues().apply &#123;</span><br><span class="line">                    put(<span class="string">&quot;id&quot;</span>, <span class="number">2120191736</span>)</span><br><span class="line">                    put(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;项明&quot;</span>)</span><br><span class="line">                    put(<span class="string">&quot;hmath&quot;</span>, <span class="number">67</span>)</span><br><span class="line">                    put(<span class="string">&quot;english&quot;</span>, <span class="number">78</span>)</span><br><span class="line">                    put(<span class="string">&quot;sport&quot;</span>, <span class="number">90</span>)</span><br><span class="line">                &#125;</span><br><span class="line">                db.insert(<span class="string">&quot;Grade&quot;</span>, <span class="literal">null</span>, values4)</span><br><span class="line">                db.setTransactionSuccessful()</span><br><span class="line">            &#125;<span class="keyword">catch</span>(e:Exception)&#123;</span><br><span class="line">                e.printStackTrace()</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">finally</span> &#123;</span><br><span class="line">                db.endTransaction()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"><span class="comment">//        val updateData: Button = findViewById(R.id.updateData)</span></span><br><span class="line"><span class="comment">//        updateData.setOnClickListener &#123;</span></span><br><span class="line"><span class="comment">//            val db = dbHelper.writableDatabase</span></span><br><span class="line"><span class="comment">//            val values = ContentValues()</span></span><br><span class="line"><span class="comment">//            values.put(&quot;hmath&quot;, 0)</span></span><br><span class="line"><span class="comment">//            values.put(&quot;english&quot;, 0)</span></span><br><span class="line"><span class="comment">//            values.put(&quot;sport&quot;, 0)</span></span><br><span class="line"><span class="comment">//            db.update(&quot;Grade&quot;, values, &quot;name = ?&quot;, arrayOf(&quot;夏天豪&quot;))</span></span><br><span class="line"><span class="comment">//            db.update(&quot;Grade&quot;, values, &quot;name = ?&quot;, arrayOf(&quot;项明&quot;))</span></span><br><span class="line"><span class="comment">//            db.update(&quot;Grade&quot;, values, &quot;name = ?&quot;, arrayOf(&quot;耿宇豪&quot;))</span></span><br><span class="line"><span class="comment">//            db.update(&quot;Grade&quot;, values, &quot;name = ?&quot;, arrayOf(&quot;王麒淳&quot;))</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line">        <span class="keyword">val</span> queryData: Button = findViewById(R.id.queryData)</span><br><span class="line">        queryData.setOnClickListener &#123;</span><br><span class="line">            <span class="keyword">val</span> db = dbHelper.writableDatabase  <span class="comment">// 查询Book表中所有的数据</span></span><br><span class="line">            <span class="keyword">val</span> cursor = db.query(<span class="string">&quot;Grade&quot;</span>, <span class="literal">null</span>, <span class="literal">null</span>,</span><br><span class="line">                <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>)</span><br><span class="line">            <span class="keyword">if</span> (cursor.moveToFirst()) &#123;</span><br><span class="line">                <span class="keyword">do</span> &#123;   <span class="comment">// 遍历Cursor对象，取出数据并打印</span></span><br><span class="line">                    <span class="keyword">val</span> id = cursor.getInt(cursor. getColumnIndexOrThrow(<span class="string">&quot;id&quot;</span>))</span><br><span class="line">                    <span class="keyword">val</span> name = cursor.getString(cursor.getColumnIndexOrThrow(<span class="string">&quot;name&quot;</span>))</span><br><span class="line">                    <span class="keyword">val</span> hmath = cursor.getInt(cursor. getColumnIndexOrThrow(<span class="string">&quot;hmath&quot;</span>))</span><br><span class="line">                    <span class="keyword">val</span> english = cursor.getInt(cursor. getColumnIndexOrThrow(<span class="string">&quot;english&quot;</span>))</span><br><span class="line">                    <span class="keyword">val</span> sport = cursor.getInt(cursor. getColumnIndexOrThrow(<span class="string">&quot;sport&quot;</span>))</span><br><span class="line">                    Log.d(<span class="string">&quot;MainActivity&quot;</span>, <span class="string">&quot;id is <span class="variable">$id</span>&quot;</span>)</span><br><span class="line">                    Log.d(<span class="string">&quot;MainActivity&quot;</span>, <span class="string">&quot;name is <span class="variable">$name</span>&quot;</span>)</span><br><span class="line">                    Log.d(<span class="string">&quot;MainActivity&quot;</span>, <span class="string">&quot;hmath is <span class="variable">$hmath</span>&quot;</span>)</span><br><span class="line">                    Log.d(<span class="string">&quot;MainActivity&quot;</span>, <span class="string">&quot;english is <span class="variable">$english</span>&quot;</span>)</span><br><span class="line">                    Log.d(<span class="string">&quot;MainActivity&quot;</span>, <span class="string">&quot;sport is <span class="variable">$sport</span>&quot;</span>)</span><br><span class="line">                    Log.d(<span class="string">&quot;MainActivity&quot;</span>, <span class="string">&quot;------------------------&quot;</span>)</span><br><span class="line">                &#125; <span class="keyword">while</span> (cursor.moveToNext())</span><br><span class="line">            &#125;</span><br><span class="line">            cursor.close()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="MyDatabaseHelper"><a href="#MyDatabaseHelper" class="headerlink" title="MyDatabaseHelper"></a>MyDatabaseHelper</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">package com.example.homework</span><br><span class="line"></span><br><span class="line">import android.content.ContentValues</span><br><span class="line">import android.content.Context</span><br><span class="line">import android.database.sqlite.SQLiteDatabase</span><br><span class="line">import android.database.sqlite.SQLiteOpenHelper</span><br><span class="line">import android.widget.Toast</span><br><span class="line"></span><br><span class="line">class MyDatabaseHelper(val context: Context, name: String, version: Int) :</span><br><span class="line">    SQLiteOpenHelper(context, name, null, version) &#123;</span><br><span class="line">    private val createGrade &#x3D; &quot;create table Grade (&quot; +</span><br><span class="line">            &quot; id integer primary key autoincrement,&quot; +</span><br><span class="line">            &quot;name text,&quot; +</span><br><span class="line">            &quot;hmath integer,&quot; +</span><br><span class="line">            &quot;english integer,&quot; +</span><br><span class="line">            &quot;sport integer)&quot;</span><br><span class="line">    override fun onCreate(db: SQLiteDatabase) &#123;</span><br><span class="line">        db.execSQL(createGrade)</span><br><span class="line">        Toast.makeText(context, &quot;Create succeeded&quot;, Toast.LENGTH_SHORT).show()</span><br><span class="line">    &#125;</span><br><span class="line">    override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) &#123;</span><br><span class="line">        val values &#x3D; ContentValues()</span><br><span class="line">        values.put(&quot;hmath&quot;, 0)</span><br><span class="line">        values.put(&quot;english&quot;, 0)</span><br><span class="line">        values.put(&quot;sport&quot;, 0)</span><br><span class="line">        db.update(&quot;Grade&quot;, values, &quot;name &#x3D; ?&quot;, arrayOf(&quot;夏天豪&quot;))</span><br><span class="line">        db.update(&quot;Grade&quot;, values, &quot;name &#x3D; ?&quot;, arrayOf(&quot;项明&quot;))</span><br><span class="line">        db.update(&quot;Grade&quot;, values, &quot;name &#x3D; ?&quot;, arrayOf(&quot;耿宇豪&quot;))</span><br><span class="line">        db.update(&quot;Grade&quot;, values, &quot;name &#x3D; ?&quot;, arrayOf(&quot;王麒淳&quot;))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="activity-main-xml"><a href="#activity-main-xml" class="headerlink" title="activity_main.xml"></a>activity_main.xml</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;LinearLayout xmlns:android&#x3D;&quot;http:&#x2F;&#x2F;schemas.android.com&#x2F;apk&#x2F;res&#x2F;android&quot;</span><br><span class="line">    android:orientation&#x3D;&quot;vertical&quot;</span><br><span class="line">    android:layout_width&#x3D;&quot;match_parent&quot;</span><br><span class="line">    android:layout_height&#x3D;&quot;match_parent&quot;&gt;</span><br><span class="line">    &lt;Button</span><br><span class="line">        android:id&#x3D;&quot;@+id&#x2F;createDatabase&quot;</span><br><span class="line">        android:layout_width&#x3D;&quot;match_parent&quot;</span><br><span class="line">        android:layout_height&#x3D;&quot;wrap_content&quot;</span><br><span class="line">        android:text&#x3D;&quot;Create Database&quot;&#x2F;&gt;</span><br><span class="line">    &lt;Button</span><br><span class="line">        android:id&#x3D;&quot;@+id&#x2F;addData&quot;</span><br><span class="line">        android:layout_width&#x3D;&quot;match_parent&quot;</span><br><span class="line">        android:layout_height&#x3D;&quot;wrap_content&quot;</span><br><span class="line">        android:text&#x3D;&quot;Add Data&quot;</span><br><span class="line">        &#x2F;&gt;</span><br><span class="line">    &lt;Button</span><br><span class="line">        android:id&#x3D;&quot;@+id&#x2F;queryData&quot;</span><br><span class="line">        android:layout_width&#x3D;&quot;match_parent&quot;</span><br><span class="line">        android:layout_height&#x3D;&quot;wrap_content&quot;</span><br><span class="line">        android:text&#x3D;&quot;Query Data&quot;</span><br><span class="line">        &#x2F;&gt;</span><br><span class="line">&lt;&#x2F;LinearLayout&gt;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------以上<i class="fa fa-paw"></i>（或许会有不定时更新）-------------</div>
+    
+</div>
+
+  
+</div>
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Komeiji Satori
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://kome1jisatori.github.io/2021/10/19/android3/" title="Android实验课作业三 数据库实践">https://kome1jisatori.github.io/2021/10/19/android3/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AE%9E%E9%AA%8C%E8%AF%BE%E4%BD%9C%E4%B8%9A/" rel="tag"># 实验课作业</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/10/19/android2/" rel="prev" title="Android实验课作业二 Fragment实践">
+      <i class="fa fa-chevron-left"></i> Android实验课作业二 Fragment实践
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/10/20/R4/" rel="next" title="R语言笔记（四）">
+      R语言笔记（四） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%AE%9E%E9%AA%8C%E7%9B%AE%E7%9A%84"><span class="nav-text">一、实验目的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83"><span class="nav-text">二、实验环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E4%B8%BB%E8%A6%81%E5%AE%9E%E9%AA%8C%E6%AD%A5%E9%AA%A4"><span class="nav-text">三、主要实验步骤</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E9%99%84%E5%BD%95"><span class="nav-text">代码附录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MainActivity"><span class="nav-text">MainActivity</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MyDatabaseHelper"><span class="nav-text">MyDatabaseHelper</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#activity-main-xml"><span class="nav-text">activity_main.xml</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Komeiji Satori"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Komeiji Satori</p>
+  <div class="site-description" itemprop="description">记录些有的没的的学习心得</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kome1jisatori" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kome1jisatori" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://wpa.qq.com/msgrd?v=3&uin=740775405&site=qq&menu=yes" title="QQ → http:&#x2F;&#x2F;wpa.qq.com&#x2F;msgrd?v&#x3D;3&amp;uin&#x3D;740775405&amp;site&#x3D;qq&amp;menu&#x3D;yes" rel="noopener" target="_blank"><i class="fab fa-qq fa-fw"></i>QQ</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      膜大佬的链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://sherlockcoder.xyz/" title="http:&#x2F;&#x2F;sherlockcoder.xyz" rel="noopener" target="_blank">不朽之存在的首页</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://datawhalechina.github.io/leeml-notes/#/" title="https:&#x2F;&#x2F;datawhalechina.github.io&#x2F;leeml-notes&#x2F;#&#x2F;" rel="noopener" target="_blank">机器学习笔记(LeeML-Notes)</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">苏ICP备 - 2021020302 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">KomeijiSatori</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">273k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">4:08</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : '8NhM2OcimmX1hgpelhxOhQK8-gzGzoHsz',
+      appKey     : 'bQ1303bPFHzcUrkoBzb39dgO',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+
+
+  <script type="text/javascript" color="0,0,0" opacity='0.5' zIndex="-1" count="150" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":true},"log":false});</script></body>
+</html>
