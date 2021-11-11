@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kome1jisatori.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="前言个人操作系统笔记整理，欢迎参考，时不时更新。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="操作系统笔记——第一章（绝赞更新中）">
+<meta property="og:url" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/OS-1.html">
+<meta property="og:site_name" content="KomeijiSatoriのblog">
+<meta property="og:description" content="前言个人操作系统笔记整理，欢迎参考，时不时更新。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/gainian.jpg">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/diwei.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E6%8E%A5%E5%8F%A3%E7%A4%BA%E6%84%8F%E5%9B%BE.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E6%B5%81%E7%A8%8B%E5%9B%BE1.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/detail.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E6%89%8B%E5%B7%A5%E6%93%8D%E4%BD%9C.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E8%84%B1%E6%9C%BA.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E5%8D%95%E9%81%93%E6%89%B9%E5%A4%84%E7%90%86.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E8%81%94%E6%9C%BA%E6%89%B9%E5%A4%84%E7%90%86.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E8%84%B1%E6%9C%BA%E6%89%B9%E5%A4%84%E7%90%86.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E5%A4%9A%E9%81%93%E6%89%B9%E5%A4%84%E7%90%86.jpg">
+<meta property="article:published_time" content="2021-04-18T23:33:48.000Z">
+<meta property="article:modified_time" content="2021-05-11T14:04:03.120Z">
+<meta property="article:author" content="Komeiji Satori">
+<meta property="article:tag" content="课堂笔记">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/gainian.jpg">
+
+<link rel="canonical" href="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/OS-1">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>操作系统笔记——第一章（绝赞更新中） | KomeijiSatoriのblog
+</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">KomeijiSatoriのblog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">地灵殿从零开始的学习生活</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">4</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">30</span></a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+  
+  
+
+          <div class="content page posts-expand">
+            
+
+    
+    
+    
+    <div class="post-block" lang="zh-CN">
+      <header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">操作系统笔记——第一章（绝赞更新中）
+</h1>
+
+<div class="post-meta">
+  
+  <ul class="breadcrumb">
+          
+            <li><a href="/Kome1jiSatori.github.io/">KOME1JISATORI.GITHUB.IO</a></li>
+            <li><a href="/Kome1jiSatori.github.io/page/">PAGE</a></li>
+            <li>OS-1</li>
+          
+  </ul>
+
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>个人操作系统笔记整理，欢迎参考，时不时更新。  </p>
+<span id="more"></span>
+
+<h1 id="第一章-操作系统引论"><a href="#第一章-操作系统引论" class="headerlink" title="第一章  操作系统引论"></a>第一章  操作系统引论</h1><h2 id="操作系统的概念"><a href="#操作系统的概念" class="headerlink" title="操作系统的概念"></a>操作系统的概念</h2><h3 id="一、计算机系统的组成"><a href="#一、计算机系统的组成" class="headerlink" title="一、计算机系统的组成"></a>一、计算机系统的组成</h3><p>&ensp;&ensp;&ensp;&ensp;<strong>1．计算机系统是由硬件和软件两部分组成</strong></p>
+<p><img src="/Kome1jiSatori.github.io/page/gainian.jpg" alt="计算机系统的组成">  </p>
+<p>&ensp;&ensp;&ensp;&ensp;硬件部分：构成了系统本身和用户作业赖以活动的物质基础和环境。<br>&ensp;&ensp;&ensp;&ensp;系统软件：主要管理计算机系统本身的操作；<br>&ensp;&ensp;&ensp;&ensp;应用软件: 主要解决用户的问题。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>2．操作系统在计算机系统中的地位和作用</strong> </p>
+<p><img src="/Kome1jiSatori.github.io/page/diwei.png" alt="操作系统的地位">  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>计算机的层次结构</strong></p>
+<p><img src="/Kome1jiSatori.github.io/page/%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84.png" alt="层次结构">  </p>
+<p>&ensp;&ensp;&ensp;&ensp;操作系统的地位：是系统硬件之上的第一层软件，为其他软件提供单向支撑作用。<br>&ensp;&ensp;&ensp;&ensp;裸机：没有任何软件支持的计算机。</p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>3．操作系统的定义</strong>  </p>
+<ul>
+<li>计算机系统中的一个大型的<font color="#FF0000">系统软件</font>   </li>
+<li>它用来<font color="#FF0000">管理和控制</font>计算机系统中的全部软、硬件<font color="#FF0000">资源</font>  </li>
+<li>合理地组织计算机的工作流程  </li>
+<li>为用户应用程序的运行提供一个<font color="#FF0000">友好的界面和良好的工作环境。</font>  </li>
+</ul>
+<h2 id="操作系统的目标和作用"><a href="#操作系统的目标和作用" class="headerlink" title="操作系统的目标和作用"></a>操作系统的目标和作用</h2><h3 id="一、操作系统的目标"><a href="#一、操作系统的目标" class="headerlink" title="一、操作系统的目标"></a>一、操作系统的目标</h3><ul>
+<li>有效性(系统管理人员的观点)：合理地组织计算机系统的工作流程，管理和分配各种硬件和软件资源，提高计算机系统资源利用率和系统吞吐量。</li>
+<li>方便性(用户的观点)：提供良好的、一致的用户接口。无需了解许多有关硬件和系统软件的细节。</li>
+<li>可扩充性：指OS应采用层次化、模块化结构，给计算机系统的功能的扩展提供开放式的支撑平台。</li>
+<li>开放性：指系统遵循世界标准规范，特别是遵循开放系统互联0SI国际标准。</li>
+</ul>
+<h3 id="二、操作系统的作用"><a href="#二、操作系统的作用" class="headerlink" title="二、操作系统的作用"></a>二、操作系统的作用</h3><p>&ensp;&ensp;&ensp;&ensp;<strong>1.OS作为用户与计算机硬件系统之间的接口</strong>  </p>
+<p>&ensp;&ensp;&ensp;&ensp;OS处于用户与计算机硬件系统之间，用户通过OS来使用计算机系统。<br><img src="/Kome1jiSatori.github.io/page/%E6%8E%A5%E5%8F%A3%E7%A4%BA%E6%84%8F%E5%9B%BE.png" alt="OS作为接口示意图"><br>&ensp;&ensp;&ensp;&ensp;使用方式：<br>&ensp;&ensp;&ensp;&ensp;（1）命令方式。这是指由OS提供了一组联机命令(语言)， 用户可通过键盘输入有关命令，来直接操纵计算机系统<br>&ensp;&ensp;&ensp;&ensp;（2）系统调用方式。OS提供了一组系统调用，用户可在自己的应用程序中通过相应的系统调用，来操纵计算机。<br>&ensp;&ensp;&ensp;&ensp;（3）图形、窗口方式。用户通过屏幕上的窗口和图标来操纵计算机系统和运行自己的程序。<br>&ensp;&ensp;&ensp;&ensp;<strong>2.OS作为计算机系统资源的管理者</strong><br><img src="/Kome1jiSatori.github.io/page/%E6%B5%81%E7%A8%8B%E5%9B%BE1.png" alt="资源的管理者">  </p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>3.OS实现了对计算机资源的抽象</strong></p>
+<ul>
+<li>在裸机上添加：处理机管理(针对CPU)、存储管理(针对内存和外存)、设备管理 、文件管理</li>
+<li>把覆盖了软件的机器称为扩充机或虚拟机器</li>
+<li>合理组织工作流程：作业管理、进程管理  </li>
+</ul>
+<p><img src="/Kome1jiSatori.github.io/page/detail.png" alt="细节">  </p>
+<h3 id="三、推动操作系统发展的动力"><a href="#三、推动操作系统发展的动力" class="headerlink" title="三、推动操作系统发展的动力"></a>三、推动操作系统发展的动力</h3><ul>
+<li>不断提高计算机资源利用率</li>
+<li>方便用户</li>
+<li>器件的不断更新换代</li>
+<li>计算机体系结构的不断发展</li>
+<li>不断提出新的应用需求  </li>
+</ul>
+<h2 id="操作系统的发展"><a href="#操作系统的发展" class="headerlink" title="操作系统的发展"></a>操作系统的发展</h2><h3 id="无操作系统的计算机系统"><a href="#无操作系统的计算机系统" class="headerlink" title="无操作系统的计算机系统"></a>无操作系统的计算机系统</h3><p>&ensp;&ensp;&ensp;&ensp;<strong>1、人工操作阶段</strong><br>&ensp;&ensp;&ensp;&ensp;电子管时代，1945-50年代:<br>&ensp;&ensp;&ensp;&ensp;手工操作计算机，用机器语言编写程序，操作繁琐、易出错，效率低，CPU等待人工操作、利用率低<br><img src="/Kome1jiSatori.github.io/page/%E6%89%8B%E5%B7%A5%E6%93%8D%E4%BD%9C.png" alt="手工操作计算机"><br>&ensp;&ensp;&ensp;&ensp;手工操作的缺点：<br>&ensp;&ensp;&ensp;&ensp;（1）易出错、操作繁琐、难于掌握<br>&ensp;&ensp;&ensp;&ensp;（2）CPU的利用率低<br>&ensp;&ensp;&ensp;&ensp;提高效率低途径：<br>&ensp;&ensp;&ensp;&ensp;（1）专门的操作员/批量处理<br>&ensp;&ensp;&ensp;&ensp;（2）脱机I/O<br>&ensp;&ensp;&ensp;&ensp;（3）通道技术、中断技术、缓冲技术<br>&ensp;&ensp;&ensp;&ensp;<strong>2. 脱机输入/输出(Off-Line I/O)方式</strong><br>&ensp;&ensp;&ensp;&ensp;这种脱机I/O方式的主要优点如下：<br>&ensp;&ensp;&ensp;&ensp;（1）减少了CPU的空闲时间。<br>&ensp;&ensp;&ensp;&ensp;（2）提高I/O速度。<br><img src="/Kome1jiSatori.github.io/page/%E8%84%B1%E6%9C%BA.png" alt="I/O脱机">  </p>
+<h3 id="成批处理阶段"><a href="#成批处理阶段" class="headerlink" title="成批处理阶段"></a>成批处理阶段</h3><p>&ensp;&ensp;&ensp;&ensp;晶体管时代，50年代末-60年代中，随着中央处理机速度的大幅度提高，人工操作的慢速度和中央处理机运算的高速度之间出现了矛盾，即所谓人机矛盾。为解决这一矛盾，只有设法去掉人工操作，实现作业的自动过渡，这样就出现了成批处理。<br>&ensp;&ensp;&ensp;&ensp;监督程序：是一个常驻内存的小的核心代码，用于实现各作业之间的自动转接，提高了系统效率。<br>&ensp;&ensp;&ensp;&ensp;<strong>1.单道批处理:</strong>    </p>
+<ul>
+<li>利用磁带把若干作用分类编成作业执行序列  </li>
+<li>每批作业由一个专门的监督程序自动依次处理  </li>
+<li>可使用汇编语言开发<br><img src="/Kome1jiSatori.github.io/page/%E5%8D%95%E9%81%93%E6%89%B9%E5%A4%84%E7%90%86.png" alt="单道批处理"><br>&ensp;&ensp;&ensp;&ensp;单道批处理系统特点：自动性、顺序性、单道性<br>&ensp;&ensp;&ensp;&ensp;成批处理经历了两个阶段：<br>&ensp;&ensp;&ensp;&ensp;联机批处理阶段和脱机批处理阶段。</li>
+</ul>
+<p>&ensp;&ensp;&ensp;&ensp;联机批处理系统：作业的I/O和计算全部由CPU直接控制。<br><img src="/Kome1jiSatori.github.io/page/%E8%81%94%E6%9C%BA%E6%89%B9%E5%A4%84%E7%90%86.png" alt="联机批处理">  </p>
+<p>&ensp;&ensp;&ensp;&ensp;脱机批处理系统：由主机和外围计算机（卫星机）组成，外围计算机负责I/O处理，主机和外围计算机可以并行工作。<br><img src="/Kome1jiSatori.github.io/page/%E8%84%B1%E6%9C%BA%E6%89%B9%E5%A4%84%E7%90%86.png" alt="脱机批处理"><br> &ensp;&ensp;&ensp;&ensp;<strong>2.多道批处理系统</strong><br>&ensp;&ensp;&ensp;&ensp;多道程序设计技术是指在计算机内存中同时存放多个作业，它们在管理程序控制之下交替执行，共享系统中的各种资源。60年代中-70年代中(集成电路)<br>多道程序运行的特征：<br> &ensp;&ensp;&ensp;&ensp;（1）主存中存放多道程序；<br> &ensp;&ensp;&ensp;&ensp;（2）宏观上并行；<br> &ensp;&ensp;&ensp;&ensp;（3）微观上串行。<br><img src="/Kome1jiSatori.github.io/page/%E5%A4%9A%E9%81%93%E6%89%B9%E5%A4%84%E7%90%86.jpg" alt="多道批处理">  </p>
+
+      </div>
+      
+      
+      
+    </div>
+    
+  <ul class="breadcrumb">
+          
+            <li><a href="/Kome1jiSatori.github.io/">KOME1JISATORI.GITHUB.IO</a></li>
+            <li><a href="/Kome1jiSatori.github.io/page/">PAGE</a></li>
+            <li>OS-1</li>
+          
+  </ul>
+
+    
+    
+    
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%BC%95%E8%AE%BA"><span class="nav-text">第一章  操作系统引论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-text">操作系统的概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%BB%84%E6%88%90"><span class="nav-text">一、计算机系统的组成</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%9B%AE%E6%A0%87%E5%92%8C%E4%BD%9C%E7%94%A8"><span class="nav-text">操作系统的目标和作用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%9B%AE%E6%A0%87"><span class="nav-text">一、操作系统的目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-text">二、操作系统的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%8E%A8%E5%8A%A8%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%8F%91%E5%B1%95%E7%9A%84%E5%8A%A8%E5%8A%9B"><span class="nav-text">三、推动操作系统发展的动力</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8F%91%E5%B1%95"><span class="nav-text">操作系统的发展</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A0%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F"><span class="nav-text">无操作系统的计算机系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%88%90%E6%89%B9%E5%A4%84%E7%90%86%E9%98%B6%E6%AE%B5"><span class="nav-text">成批处理阶段</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Komeiji Satori"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Komeiji Satori</p>
+  <div class="site-description" itemprop="description">记录些有的没的的学习心得</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kome1jisatori" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kome1jisatori" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://wpa.qq.com/msgrd?v=3&uin=740775405&site=qq&menu=yes" title="QQ → http:&#x2F;&#x2F;wpa.qq.com&#x2F;msgrd?v&#x3D;3&amp;uin&#x3D;740775405&amp;site&#x3D;qq&amp;menu&#x3D;yes" rel="noopener" target="_blank"><i class="fab fa-qq fa-fw"></i>QQ</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      膜大佬的链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://sherlockcoder.xyz/" title="http:&#x2F;&#x2F;sherlockcoder.xyz" rel="noopener" target="_blank">不朽之存在的首页</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://datawhalechina.github.io/leeml-notes/#/" title="https:&#x2F;&#x2F;datawhalechina.github.io&#x2F;leeml-notes&#x2F;#&#x2F;" rel="noopener" target="_blank">机器学习笔记(LeeML-Notes)</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">苏ICP备 - 2021020302 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">KomeijiSatori</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">283k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">4:17</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : '8NhM2OcimmX1hgpelhxOhQK8-gzGzoHsz',
+      appKey     : 'bQ1303bPFHzcUrkoBzb39dgO',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+
+
+  <script type="text/javascript" color="0,0,0" opacity='0.5' zIndex="-1" count="150" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":true},"log":false});</script></body>
+</html>

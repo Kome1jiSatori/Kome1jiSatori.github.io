@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kome1jisatori.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="前言&amp;ensp;&amp;ensp;&amp;ensp;&amp;ensp;用C语言模拟动态分区分配算法。本篇实验报告用于上交期末课程作业，图文请勿抄袭，谢谢配合。一经发现，必定追究。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="操作系统实验课作业四——动态分区内存管理">
+<meta property="og:url" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E5%8A%A8%E6%80%81%E5%88%86%E5%8C%BA%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86.html">
+<meta property="og:site_name" content="KomeijiSatoriのblog">
+<meta property="og:description" content="前言&amp;ensp;&amp;ensp;&amp;ensp;&amp;ensp;用C语言模拟动态分区分配算法。本篇实验报告用于上交期末课程作业，图文请勿抄袭，谢谢配合。一经发现，必定追究。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E5%88%86%E5%8C%BA%E8%A1%A8.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E5%9B%BE%E7%89%8713.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E5%88%86%E5%8C%BA%E9%93%BE.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/ff%E6%B5%81%E7%A8%8B%E5%9B%BE.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/nf%E6%B5%81%E7%A8%8B%E5%9B%BE.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/bf%E6%B5%81%E7%A8%8B%E5%9B%BE.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/wf%E6%B5%81%E7%A8%8B%E5%9B%BE.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E5%9B%9E%E6%94%B6%E6%B5%81%E7%A8%8B%E5%9B%BE.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/FF%E7%B3%BB%E7%BB%9F.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/FF%E7%BB%93%E6%9E%9C%E5%9B%BE.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/NF%E7%B3%BB%E7%BB%9F.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/BF%E7%BB%93%E6%9E%9C%E5%9B%BE.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/BF%E7%B3%BB%E7%BB%9F.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/BF%E7%BB%93%E6%9E%9C%E5%9B%BE.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/FF%E7%B3%BB%E7%BB%9F.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/WF%E7%BB%93%E6%9E%9C%E5%9B%BE.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/WF%E7%BB%93%E6%9E%9C%E5%9B%BE2.png">
+<meta property="article:published_time" content="2021-05-22T12:53:29.000Z">
+<meta property="article:modified_time" content="2021-05-30T09:42:04.740Z">
+<meta property="article:author" content="Komeiji Satori">
+<meta property="article:tag" content="实验课作业">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E5%88%86%E5%8C%BA%E8%A1%A8.png">
+
+<link rel="canonical" href="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E5%8A%A8%E6%80%81%E5%88%86%E5%8C%BA%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>操作系统实验课作业四——动态分区内存管理 | KomeijiSatoriのblog
+</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">KomeijiSatoriのblog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">地灵殿从零开始的学习生活</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">4</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">30</span></a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+  
+  
+
+          <div class="content page posts-expand">
+            
+
+    
+    
+    
+    <div class="post-block" lang="zh-CN">
+      <header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">操作系统实验课作业四——动态分区内存管理
+</h1>
+
+<div class="post-meta">
+  
+  <ul class="breadcrumb">
+          
+            <li><a href="/Kome1jiSatori.github.io/">KOME1JISATORI.GITHUB.IO</a></li>
+            <li><a href="/Kome1jiSatori.github.io/page/">PAGE</a></li>
+            <li>动态分区内存管理</li>
+          
+  </ul>
+
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>&ensp;&ensp;&ensp;&ensp;用C语言模拟动态分区分配算法。本篇实验报告用于上交期末课程作业，图文请勿抄袭，谢谢配合。一经发现，必定追究。</p>
+<span id="more"></span>
+
+<h1 id="一、实验目的及要求"><a href="#一、实验目的及要求" class="headerlink" title="一、实验目的及要求"></a>一、实验目的及要求</h1><p>&ensp;&ensp;&ensp;&ensp;本实验要求用高级语言编写模拟内存的动态分区分配和回收算法（不考虑紧凑），以便加深理解。<br>&ensp;&ensp;&ensp;&ensp;1.分配：实现首次适应算法（FF）、循环首次适应算法(NF)、最佳适应算法（BF），最坏适应算法(WF)的具体实现。<br>&ensp;&ensp;&ensp;&ensp;2.空闲分区的回收，需考虑合并问题。  </p>
+<h1 id="二、基本理论介绍"><a href="#二、基本理论介绍" class="headerlink" title="二、基本理论介绍"></a>二、基本理论介绍</h1><h2 id="2-1-动态分区分配"><a href="#2-1-动态分区分配" class="headerlink" title="2.1 动态分区分配"></a>2.1 动态分区分配</h2><p> &ensp;&ensp;&ensp;&ensp;动态分区是指在作业装入内存时，从可用的内存中划出一块连续的区域分配给它，且分区大小正好等于该作业的大小。<br> &ensp;&ensp;&ensp;&ensp;动态分区中分区的大小和分区的个数都是可变的，而且是根据作业的大小和多少动态地划分。这种存储管理技术是固定式分区的改进，既可以获得较大的灵活性，又能提高内存的利用率。<br> &ensp;&ensp;&ensp;&ensp;特点：分区的大小是可变的，分区的数目也是可变的。  </p>
+<h2 id="2-2-空闲分区表"><a href="#2-2-空闲分区表" class="headerlink" title="2.2 空闲分区表"></a>2.2 空闲分区表</h2><p>&ensp;&ensp;&ensp;&ensp;空闲分区表为每个尚未分配的分区设置一个表项，包括分区的序号、大小、始址和状态。如下表：  </p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>大小</th>
+<th>起址</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>48k</td>
+<td>116k</td>
+<td>空闲</td>
+</tr>
+<tr>
+<td>2</td>
+<td>252k</td>
+<td>260k</td>
+<td>空闲</td>
+</tr>
+</tbody></table>
+<h2 id="2-3-空闲分区链"><a href="#2-3-空闲分区链" class="headerlink" title="2.3 空闲分区链"></a>2.3 空闲分区链</h2><p>&ensp;&ensp;&ensp;&ensp;为了实现对空闲分区的分配和链接，在每个分区的起始部分，设置一些用于控制分区分配的信息以及用于链接其它分区的前向指针；在分区尾部，则设置了一个后向指针。通过前、后向指针将所有的分区链接成一个双向链表。</p>
+<h2 id="2-4-所涉及到的各个算法"><a href="#2-4-所涉及到的各个算法" class="headerlink" title="2.4 所涉及到的各个算法"></a>2.4 所涉及到的各个算法</h2><p><strong>1）首次适应算法（FF）</strong><br>&ensp;&ensp;&ensp;&ensp;空闲分区表(链)按低址―&gt;高址链接；<br>&ensp;&ensp;&ensp;&ensp;从表首顺序查找，找到第一个适合的空闲区，从该分区划出适当空间分配给请求者，余下的空闲分区更新数据后，仍然留空闲分区表(链)中。<br>&ensp;&ensp;&ensp;&ensp;回收过程：若有相邻空闲区，则合并；否则，将释放区按首地址升序的规则插入到空闲区表适当的位置。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;优点：<br>&ensp;&ensp;&ensp;&ensp;保留高地址大空闲区，利于大作业。<br>&ensp;&ensp;&ensp;&ensp;缺点：<br>&ensp;&ensp;&ensp;&ensp;a）容易产生碎片；<br>&ensp;&ensp;&ensp;&ensp;b）低地址端过多小空闲区，增加查找开销  </p>
+<p><strong>2）循环首次适应算法(NF)</strong><br>&ensp;&ensp;&ensp;&ensp;按地址递增的顺序链接，从上一次分配的下一个地址开始查找，找到第一个适合的空闲区。划出适当空间分配给请求者，余下的空闲分区更新数据后，仍然留空闲分区表(链)中。</p>
+<p>&ensp;&ensp;&ensp;&ensp;优点：使存储空间更均衡，便于查找<br>&ensp;&ensp;&ensp;&ensp;缺点：缺乏大的空闲分区，不利于大作业。  </p>
+<p><strong>3）最佳适应算法（BF）</strong><br>&ensp;&ensp;&ensp;&ensp;以容量递增的次序链接，从表(链)首开始顺序查找，直到找到第一个适合的空闲分区。若该空闲区大于作业，则划出适当空间分配出去，剩余空闲区仍留在空闲分区表(链)中。</p>
+<p>&ensp;&ensp;&ensp;&ensp;优点：找到的空闲区总既满足要求又是最小的。<br>&ensp;&ensp;&ensp;&ensp;缺点：留下较小的无法利用的外碎片。</p>
+<p><strong>4）最坏适应算法(WF)</strong><br>&ensp;&ensp;&ensp;&ensp;要求空闲分区按容量递减排列，从表(链)首开始顺序查找，若第一个表目都不能满足要求，分配失败，否则，划出适当分区给申请者，剩余空闲区插入空闲区表适当位置。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;优点：基本不留小分区<br>&ensp;&ensp;&ensp;&ensp;缺点：较大的空闲分区不被保留。  </p>
+<h1 id="三、实验内容"><a href="#三、实验内容" class="headerlink" title="三、实验内容"></a>三、实验内容</h1><p>&ensp;&ensp;&ensp;&ensp;本实验主要针对操作系统中内存管理相关理论进行实验，要求实验者编写一个程序，该程序管理一块虚拟内存，实现内存分配和回收功能  </p>
+<p>&ensp;&ensp;&ensp;&ensp;（1）设计内存分配的数据结构（空闲分区表/空闲分区链），模拟管理64M的内存块；<br>&ensp;&ensp;&ensp;&ensp;（2）设计内存分配函数；<br>&ensp;&ensp;&ensp;&ensp;（3）设计内存回收函数；<br>&ensp;&ensp;&ensp;&ensp;（4）实现动态分配和回收操作；<br>&ensp;&ensp;&ensp;&ensp;（5）可动态显示每个内存块信息。  </p>
+<h1 id="四、功能实现"><a href="#四、功能实现" class="headerlink" title="四、功能实现"></a>四、功能实现</h1><h2 id="4-1-设计内存分配的数据结构"><a href="#4-1-设计内存分配的数据结构" class="headerlink" title="4.1 设计内存分配的数据结构"></a>4.1 设计内存分配的数据结构</h2><p> <strong>1）定义空闲分区表</strong><br>&ensp;&ensp;&ensp;&ensp;由空闲分区表的定义可知，该数据结构包含以下几项：分区的序号、大小、始址和状态。<br>&ensp;&ensp;&ensp;&ensp;在程序中定义如下所示：<br><img src="/Kome1jiSatori.github.io/page/%E5%88%86%E5%8C%BA%E8%A1%A8.png"> </p>
+<p>&ensp;&ensp;&ensp;&ensp;其中id表示序号，base表示该分区的起始地址，size表示该分区的起始地址，status表示该分区的状态，用-1表示该分区空闲。<br><strong>2）定义空闲分区链</strong><br>&ensp;&ensp;&ensp;&ensp;由空闲分区链的定义可知，该数据结构包含以下几项：前向指针、后向指针，指向该分区块的指针（即能够包含该节点指向的分区块的信息）。空闲分区链图示如下：<br><img src="/Kome1jiSatori.github.io/page/%E5%9B%BE%E7%89%8713.png">  </p>
+<p>在程序中定义如下：<br><img src="/Kome1jiSatori.github.io/page/%E5%88%86%E5%8C%BA%E9%93%BE.png">  </p>
+<p>&ensp;&ensp;&ensp;&ensp;其中，node指向该分区，包含该分区的信息，front和next分别为前向指针和后向指针。</p>
+<h2 id="4-2-实现内存分配函数"><a href="#4-2-实现内存分配函数" class="headerlink" title="4.2 实现内存分配函数"></a>4.2 实现内存分配函数</h2><p><strong>1）首次适应算法（FF）</strong><br>&ensp;&ensp;&ensp;&ensp;根据首次适应算法的思想，程序实现的流程图如下所示：<br><img src="/Kome1jiSatori.github.io/page/ff%E6%B5%81%E7%A8%8B%E5%9B%BE.png"> </p>
+<p>&ensp;&ensp;&ensp;&ensp;首先从已建立好的数组中顺序查找，直至找到第一个大小能满足的空闲分区为止，然后按照作业大小，从该分区中划出一块内存空间分配给请求者，余下的空间开辟一块新的地址，大小为原来的大小减去作业大小，若查找结束都不能找到一个满足要求的分区，则此次内存分配失败。</p>
+<p><strong>2）循环首次适应算法（NF）</strong><br>&ensp;&ensp;&ensp;&ensp;根据循环首次适应算法的思想，程序实现的流程图如下所示：<br><img src="/Kome1jiSatori.github.io/page/nf%E6%B5%81%E7%A8%8B%E5%9B%BE.png">   </p>
+<p>&ensp;&ensp;&ensp;&ensp;在为进程分配内存空间时，从上次找到的空闲分区的下一个空闲分区开始查找，直至找到第一个能满足要求的空闲分区，从中划出一块与请求大小相等的内存空间分配给作业。具体实现本算法时，除了将首次适应算法的开始地址从第一个空闲区的起始地址变为上次找到的空闲区的下个地址外，还要设置一个标志量，只有当全部空闲区都查找完毕，仍旧找不到一个满足要求的分区时，此次内存才分配失败。</p>
+<p><strong>3）最佳适应算法（BF）</strong><br>&ensp;&ensp;&ensp;&ensp;根据最佳适应算法的思想，程序实现的流程图如下所示：<br><img src="/Kome1jiSatori.github.io/page/bf%E6%B5%81%E7%A8%8B%E5%9B%BE.png">  </p>
+<p>&ensp;&ensp;&ensp;&ensp;当使用最佳适应算法分配时，先遍历一遍空闲区，将大于作业大小的空闲区放入数组，取出其中最小的分区，从中划出一块与作业大小相等的空间分配给该作业。</p>
+<p><strong>4）最坏适应算法(WF)</strong><br>&ensp;&ensp;&ensp;&ensp;根据最坏适应算法的思想，程序实现的流程图如下所示：<br><img src="/Kome1jiSatori.github.io/page/wf%E6%B5%81%E7%A8%8B%E5%9B%BE.png">  </p>
+<p>&ensp;&ensp;&ensp;&ensp;和最佳适应算法相类似，同样是在分配前先遍历一遍空闲区，找出大于该作业大小的空闲区，并将其放入数组，在其中取出空间最大的分区，从中划出一块与作业大小相等的空间分配给该作业。</p>
+<h2 id="4-3-实现内存分配回收功能"><a href="#4-3-实现内存分配回收功能" class="headerlink" title="4.3 实现内存分配回收功能"></a>4.3 实现内存分配回收功能</h2><p>&ensp;&ensp;&ensp;&ensp;内存分配回收有四种情况，前一个分区空闲后一个分区不空闲，前一个分区不空闲后一个分区空闲，前后分区都不空闲，前后分区都空闲。可以将其合并为两种情况，即如果回收分区不是最后一个分区并且后一个分区空闲，则与后一个分区合并（前一个分区不空闲后一个分区空闲，前后分区都空闲），如果分区不是第一个空闲分区且前一个分区为空闲，则与前一个分区合并（前一个分区空闲后一个分区不空闲，前后分区都空闲）。<br>&ensp;&ensp;&ensp;&ensp;根据该思路的内存回收策略流程图如下所示：<br><img src="/Kome1jiSatori.github.io/page/%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E5%9B%9E%E6%94%B6%E6%B5%81%E7%A8%8B%E5%9B%BE.png">  </p>
+<p>&ensp;&ensp;&ensp;&ensp;在程序中用四个if语句实现该流程图，除了上面提到的两种分类方式外，还需要特判该分区号的存在与否和该分区是否已被分配。</p>
+<h1 id="五、结果测试与分析"><a href="#五、结果测试与分析" class="headerlink" title="五、结果测试与分析"></a>五、结果测试与分析</h1><h2 id="5-1-测试数据的选取"><a href="#5-1-测试数据的选取" class="headerlink" title="5.1 测试数据的选取"></a>5.1 测试数据的选取</h2><table>
+<thead>
+<tr>
+<th>序号</th>
+<th>操作</th>
+<th>大小</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Req</td>
+<td>40M</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Req</td>
+<td>10M</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Release</td>
+<td>40M</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Req</td>
+<td>12M</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Req</td>
+<td>8M</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Req</td>
+<td>6M</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Req</td>
+<td>4M</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Release</td>
+<td>6M</td>
+</tr>
+</tbody></table>
+<p>&ensp;&ensp;&ensp;&ensp;选取以上八个操作作为测试数据，来检验代码能否正确采取某一种分配策略和回收内存。下面依次将各个算法的运行结果与应得的结果进行比较。</p>
+<h2 id="5-2-结果比较与分析"><a href="#5-2-结果比较与分析" class="headerlink" title="5.2 结果比较与分析"></a>5.2 结果比较与分析</h2><p><strong>1）首次适应算法</strong><br>&ensp;&ensp;&ensp;&ensp;由首次适应算法的思想，测试案例各个步骤在系统内如下所示：<br><img src="/Kome1jiSatori.github.io/page/FF%E7%B3%BB%E7%BB%9F.png">  </p>
+<p>&ensp;&ensp;&ensp;&ensp;即在最后的结果中，系统一共有7个区块，其中0-12M为12M大小的作业区，12-20M为8M大小的作业区，20-26M为6M大小的空闲区，26-30M为4M大小的作业区，30-40M为10M大小的空闲区，40-50M为10M大小的作业区，50-64M为14M大小的空闲区。<br>&ensp;&ensp;&ensp;&ensp;将相应数据输入到程序中，得到结果如下图所示：<br><img src="/Kome1jiSatori.github.io/page/FF%E7%BB%93%E6%9E%9C%E5%9B%BE.png">  </p>
+<p>&ensp;&ensp;&ensp;&ensp;可以看到内存分配策略和回收的功能都可以正确执行，程序最后得到的结果与预先得到的结果相一致，说明实验正确。</p>
+<p><strong>2）循环首次适应算法</strong><br>&ensp;&ensp;&ensp;&ensp;由循环首次适应算法的思想，测试案例各个步骤在系统内如下所示：<br><img src="/Kome1jiSatori.github.io/page/NF%E7%B3%BB%E7%BB%9F.png">  </p>
+<p>&ensp;&ensp;&ensp;&ensp;即在最后的结果中，系统一共有7个区块，其中0-8M为8M大小的作业区，8-14M为6M大小的空闲区，14-18M为4M大小的作业区，18-40M为22M大小的空闲区，40-50M为10M大小的作业区，50-62M为12M大小的空闲区。<br>&ensp;&ensp;&ensp;&ensp;用该算法将相应数据输入到程序中，得到结果如下：<br><img src="/Kome1jiSatori.github.io/page/BF%E7%BB%93%E6%9E%9C%E5%9B%BE.png">  </p>
+<p>&ensp;&ensp;&ensp;&ensp;同样将该结果与预先得到的结果进行比较，发现能够得到理想的结果。</p>
+<p><strong>3）最佳适应算法</strong><br>&ensp;&ensp;&ensp;&ensp;由最佳适应算法的思想，测试案例各个步骤在系统内如下所示：<br><img src="/Kome1jiSatori.github.io/page/BF%E7%B3%BB%E7%BB%9F.png">  </p>
+<p>&ensp;&ensp;&ensp;&ensp;即在最后的结果中，系统一共有7个区块，其中0-8M为8M大小的作业区，8-14M为6M大小的空闲区，14-18M为4M大小的作业区，18-40M为22M大小的空闲区，40-50M为10M大小的作业区，50-62M为12M大小的空闲区。<br>&ensp;&ensp;&ensp;&ensp;用该算法将相应数据输入到程序中，得到结果如下：<br><img src="/Kome1jiSatori.github.io/page/BF%E7%BB%93%E6%9E%9C%E5%9B%BE.png">  </p>
+<p>&ensp;&ensp;&ensp;&ensp;同样将该结果与预先得到的结果进行比较，发现能够得到理想的结果，并且发现该结果与循环首次适应算法得到的结果相同，于是重复多次修改了案例，也能得到正确的结果，证明实验是可行的。</p>
+<p><strong>4）最坏适应算法</strong><br>&ensp;&ensp;&ensp;&ensp;由最坏适应算法的思想，测试案例各个步骤在系统内如下所示：<br><img src="/Kome1jiSatori.github.io/page/FF%E7%B3%BB%E7%BB%9F.png">  </p>
+<p>&ensp;&ensp;&ensp;&ensp;即在最后的结果中，系统一共有7个区块，其中0-12M为12M大小的作业区，12-20M为8M大小的作业区，20-26M为6M大小的空闲区，26-30M为4M大小的作业区，30-40M为10M大小的空闲区，40-50M为10M大小的作业区，50-64M为14M大小的空闲区。<br>&ensp;&ensp;&ensp;&ensp;将相应数据输入到程序中，得到结果如下图所示：<br><img src="/Kome1jiSatori.github.io/page/WF%E7%BB%93%E6%9E%9C%E5%9B%BE.png">  </p>
+<p>&ensp;&ensp;&ensp;&ensp;发现在该组测试样例下，得到的结果与首次适应算法相一致，尝试在原本的测试样例上再多加入一个5M大小的请求，由于最坏适应算法优先寻找最大的空闲区，所以会在最后一块（即大小为14M）的空闲区划分出相应大小的区域，而首次适应算法会将其分配于最前面，（即大小为6M）的空闲区。加入测试样例后，WF算法得到结果如下：<br><img src="/Kome1jiSatori.github.io/page/WF%E7%BB%93%E6%9E%9C%E5%9B%BE2.png">  </p>
+<p>&ensp;&ensp;&ensp;&ensp;得到的结果与由该算法思想得到的结果相一致，说明WF算法可以按照正确的分配策略运行，实验结果理想。</p>
+<h1 id="六、心得体会"><a href="#六、心得体会" class="headerlink" title="六、心得体会"></a>六、心得体会</h1><p>&ensp;&ensp;&ensp;&ensp;本次实验要求模拟动态分区分配算法，在开始该实验前，首先要做的是理解并实现动态分区分配算法所涉及到的数据结构。该种分配方式下主要有空闲分区表和空闲分区链两种数据结构，在程序中前者用于存储各个分区的状态，包括大小，起始地址，序号和该区块空闲与否，后者则用来实现区块的划分和分配。只有理解了数据结构的原理，才能在后续具体的算法实现中，灵活的应用不同的数据结构得到我们想要的功能。<br>&ensp;&ensp;&ensp;&ensp;在各个算法具体实现之前，我结合算法的思想和分配策略，作出了每个算法的流程图，后续的程序都按照流程图的思路来设计，这其中也有不断发现错误返工修改流程图和程序的过程，最终是参考了网上的一些思路，将流程图和程序进行了完善。在具体实现算法时，我先完成了首次适应算法和最佳适应算法，因为循环首次适应算法和最坏适应算法的分配策略与前两者的分配策略相似，在以首次适应和最佳适应为基础框架后，略作修改便能实现循环首次适应算法和最坏适应算法。<br>&ensp;&ensp;&ensp;&ensp;实现资源回收时主要涉及到的问题是分类问题，一开始将情况想的太复杂，对于四个不一样的情况（详情见4.3）都进行特判，导致程序冗杂并且不能正确实现相关功能，后来将其分为两个大类，问题才迎刃而解，这也加深了我对算法的应用，以及资源回收及合并的理解。<br>&ensp;&ensp;&ensp;&ensp;在最后的结果测试方面，为了体现出各个算法分配策略的不同，我作出了系统中不同算法的图示，但由于测试所用的数据是根据作业4略作修改得来的，因此在实际的执行过程中，发现最坏适应算法和首次适应算法得到的结果相一致，为了体现出这两种算法分配策略的区别，我在使用最坏适应算法的程序样例中多加了一个测试点，发现能够得到理想的结果，后续修改多组数据进行测试也能得到正确的结果，说明该实验是成功的。<br>&ensp;&ensp;&ensp;&ensp;本次实验中，我对各个分配算法有了更加深刻的认识，加深了对算法的应用和技巧，在探索的过程中也加强了自主学习的能力和兴趣。</p>
+<h1 id="七、附录代码"><a href="#七、附录代码" class="headerlink" title="七、附录代码"></a>七、附录代码</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br><span class="line">421</span><br><span class="line">422</span><br><span class="line">423</span><br><span class="line">424</span><br><span class="line">425</span><br><span class="line">426</span><br><span class="line">427</span><br><span class="line">428</span><br><span class="line">429</span><br><span class="line">430</span><br><span class="line">431</span><br><span class="line">432</span><br><span class="line">433</span><br><span class="line">434</span><br><span class="line">435</span><br><span class="line">436</span><br><span class="line">437</span><br><span class="line">438</span><br><span class="line">439</span><br><span class="line">440</span><br><span class="line">441</span><br><span class="line">442</span><br><span class="line">443</span><br><span class="line">444</span><br><span class="line">445</span><br><span class="line">446</span><br><span class="line">447</span><br><span class="line">448</span><br><span class="line">449</span><br><span class="line">450</span><br><span class="line">451</span><br><span class="line">452</span><br><span class="line">453</span><br><span class="line">454</span><br><span class="line">455</span><br><span class="line">456</span><br><span class="line">457</span><br><span class="line">458</span><br><span class="line">459</span><br><span class="line">460</span><br><span class="line">461</span><br><span class="line">462</span><br><span class="line">463</span><br><span class="line">464</span><br><span class="line">465</span><br><span class="line">466</span><br><span class="line">467</span><br><span class="line">468</span><br><span class="line">469</span><br><span class="line">470</span><br><span class="line">471</span><br><span class="line">472</span><br><span class="line">473</span><br><span class="line">474</span><br><span class="line">475</span><br><span class="line">476</span><br><span class="line">477</span><br><span class="line">478</span><br><span class="line">479</span><br><span class="line">480</span><br><span class="line">481</span><br><span class="line">482</span><br><span class="line">483</span><br><span class="line">484</span><br><span class="line">485</span><br><span class="line">486</span><br><span class="line">487</span><br><span class="line">488</span><br><span class="line">489</span><br><span class="line">490</span><br><span class="line">491</span><br><span class="line">492</span><br><span class="line">493</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">lei_item</span>       </span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> id;                </span><br><span class="line">	<span class="keyword">int</span> base;              </span><br><span class="line">	<span class="keyword">int</span> size;              </span><br><span class="line">	<span class="keyword">int</span> status;             </span><br><span class="line">&#125;Item;</span><br><span class="line"><span class="keyword">typedef</span> Item datatype;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">lei_list</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	datatype* node;      </span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">lei_list</span>* <span class="title">front</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">lei_list</span>* <span class="title">next</span>;</span></span><br><span class="line">&#125;List;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Max 64</span></span><br><span class="line"><span class="keyword">int</span> memory = Max;       </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function">List <span class="title">init</span><span class="params">()</span> </span>&#123;            </span><br><span class="line">	List <span class="built_in">list</span>;</span><br><span class="line">	<span class="built_in">list</span>.node = (datatype *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(datatype));</span><br><span class="line">	<span class="built_in">list</span>.node-&gt;base = <span class="number">0</span>;</span><br><span class="line">	<span class="built_in">list</span>.node-&gt;id = <span class="number">-1</span>;                    </span><br><span class="line">	<span class="built_in">list</span>.node-&gt;size = memory;</span><br><span class="line">	<span class="built_in">list</span>.node-&gt;status = <span class="number">0</span>;</span><br><span class="line">	<span class="built_in">list</span>.front = <span class="built_in">list</span>.next = <span class="literal">NULL</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">list</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">datatype* <span class="title">input</span><span class="params">()</span> </span>&#123;          </span><br><span class="line">	datatype* item = (datatype *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(datatype));</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;请输入作业号：&quot;</span>);</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;item-&gt;id);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;请输入所需要的内存的大小：&quot;</span>);</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;item-&gt;size);</span><br><span class="line">	item-&gt;status = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">return</span> item;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Momery_state</span><span class="params">(List *<span class="built_in">list</span>)</span> </span>&#123;</span><br><span class="line">	List* temp = <span class="built_in">list</span>;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;-----------------------------------\n&quot;</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;内存分配状况\n&quot;</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;-----------------------------------\n&quot;</span>);</span><br><span class="line">	<span class="keyword">while</span> (temp)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (temp-&gt;node-&gt;status == <span class="number">0</span> &amp;&amp; temp-&gt;node-&gt;id == <span class="number">-1</span>) &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;分区号：0\n&quot;</span>);</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;起始地址：%d\n&quot;</span>, temp-&gt;node-&gt;base);</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;内存大小：%d\n&quot;</span>, temp-&gt;node-&gt;size);</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;分区状态：空闲\n&quot;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;分区号：%d\t起始地址：%d\n&quot;</span>, temp-&gt;node-&gt;id, temp-&gt;node-&gt;base);</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;内存大小：%d\n&quot;</span>, temp-&gt;node-&gt;size);</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;分区状态：已分配\n&quot;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;-----------------------------------\n&quot;</span>);</span><br><span class="line">		temp = temp-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">First_fit</span><span class="params">(List *<span class="built_in">list</span>)</span> </span>&#123;</span><br><span class="line">	datatype* item = input();</span><br><span class="line">	List* temp = <span class="built_in">list</span>;                     </span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> (temp)</span><br><span class="line">	&#123;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (temp-&gt;node-&gt;status == <span class="number">0</span> &amp;&amp; temp-&gt;node-&gt;size &gt; item-&gt;size) &#123;       </span><br><span class="line">			List *front = temp-&gt;front;                                         </span><br><span class="line">			List *next = temp-&gt;next;                                            </span><br><span class="line">			<span class="keyword">int</span> base = temp-&gt;node-&gt;base;                                     </span><br><span class="line"></span><br><span class="line">			datatype* new_node = (datatype*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(datatype));        </span><br><span class="line">			new_node-&gt;id = <span class="number">-1</span>;                                                </span><br><span class="line">			new_node-&gt;size = temp-&gt;node-&gt;size - item-&gt;size;         </span><br><span class="line"></span><br><span class="line">			temp-&gt;node = item;                                </span><br><span class="line">			temp-&gt;node-&gt;status = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">			new_node-&gt;status = <span class="number">0</span>;</span><br><span class="line">			new_node-&gt;base = base + temp-&gt;node-&gt;size;             </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">			List* temp_next = (List*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(List));           </span><br><span class="line">			temp_next-&gt;node = new_node;                             </span><br><span class="line">			temp_next-&gt;front = temp_next-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">if</span> (front == <span class="literal">NULL</span> &amp;&amp; next == <span class="literal">NULL</span>) &#123;                      </span><br><span class="line">				temp-&gt;node-&gt;base = <span class="number">0</span>;                               </span><br><span class="line">				temp-&gt;next = temp_next;</span><br><span class="line">				temp_next-&gt;front = temp;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (front == <span class="literal">NULL</span> &amp;&amp; next != <span class="literal">NULL</span>) &#123;                 </span><br><span class="line">				temp-&gt;node-&gt;base = <span class="number">0</span>;</span><br><span class="line">				temp-&gt;node-&gt;status = <span class="number">1</span>;</span><br><span class="line">				temp_next-&gt;next = temp-&gt;next;</span><br><span class="line">				temp-&gt;next = temp_next;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (front != <span class="literal">NULL</span>) &#123;                      </span><br><span class="line">				temp-&gt;node-&gt;base = temp-&gt;front-&gt;node-&gt;base + temp-&gt;front-&gt;node-&gt;size;       </span><br><span class="line">				temp_next-&gt;next = temp-&gt;next;                                       </span><br><span class="line">				temp_next-&gt;front = temp;                            </span><br><span class="line">				temp-&gt;next = temp_next;                             </span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (temp-&gt;node-&gt;status == <span class="number">0</span> &amp;&amp; temp-&gt;node-&gt;size == item-&gt;size)</span><br><span class="line">		&#123;</span><br><span class="line">			item-&gt;base = temp-&gt;front-&gt;node-&gt;base + temp-&gt;front-&gt;node-&gt;size;               </span><br><span class="line">			item-&gt;status = <span class="number">1</span>;                                           </span><br><span class="line">			temp-&gt;node = item;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			temp = temp-&gt;next;</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		temp = temp-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">next_fit</span><span class="params">(List *<span class="built_in">list</span>)</span> </span>&#123;</span><br><span class="line">	datatype* item = input();</span><br><span class="line">	List* temp = <span class="built_in">list</span>;                      </span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> (temp)</span><br><span class="line">	&#123;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (temp-&gt;node-&gt;status == <span class="number">0</span> &amp;&amp; temp-&gt;node-&gt;size &gt; item-&gt;size) &#123;       </span><br><span class="line">			List *front = temp-&gt;front;                                         </span><br><span class="line">			List *next = temp-&gt;next;                                            </span><br><span class="line">			<span class="keyword">int</span> base = temp-&gt;node-&gt;base;                                     </span><br><span class="line"></span><br><span class="line">			datatype* new_node = (datatype*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(datatype));          </span><br><span class="line">			new_node-&gt;id = <span class="number">-1</span>;                                                 </span><br><span class="line">			new_node-&gt;size = temp-&gt;node-&gt;size - item-&gt;size;         </span><br><span class="line"></span><br><span class="line">			temp-&gt;node = item;                                 </span><br><span class="line">			temp-&gt;node-&gt;status = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">			new_node-&gt;status = <span class="number">0</span>;</span><br><span class="line">			new_node-&gt;base = base + temp-&gt;node-&gt;size;            </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">			List* temp_next = (List*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(List));           </span><br><span class="line">			temp_next-&gt;node = new_node;                             </span><br><span class="line">			temp_next-&gt;front = temp_next-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">   </span><br><span class="line">			<span class="keyword">if</span> (front == <span class="literal">NULL</span> &amp;&amp; next == <span class="literal">NULL</span>) &#123;                      </span><br><span class="line">				temp-&gt;node-&gt;base = <span class="number">0</span>;                              </span><br><span class="line">				temp-&gt;next = temp_next;</span><br><span class="line">				temp_next-&gt;front = temp;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (front == <span class="literal">NULL</span> &amp;&amp; next != <span class="literal">NULL</span>) &#123;                </span><br><span class="line">				temp-&gt;node-&gt;base = <span class="number">0</span>;</span><br><span class="line">				temp-&gt;node-&gt;status = <span class="number">1</span>;</span><br><span class="line">				temp_next-&gt;next = temp-&gt;next;</span><br><span class="line">				temp-&gt;next = temp_next;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (front != <span class="literal">NULL</span>) &#123;                      </span><br><span class="line">				temp-&gt;node-&gt;base = <span class="number">0</span>;									</span><br><span class="line">				temp_next-&gt;next = temp-&gt;next;                               </span><br><span class="line">				temp_next-&gt;front = temp;                              </span><br><span class="line">				temp-&gt;next = temp_next;                             </span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (temp-&gt;node-&gt;status == <span class="number">0</span> &amp;&amp; temp-&gt;node-&gt;size == item-&gt;size)</span><br><span class="line">		&#123;</span><br><span class="line">			item-&gt;base = temp-&gt;front-&gt;node-&gt;base + temp-&gt;front-&gt;node-&gt;size;            </span><br><span class="line">			item-&gt;status = <span class="number">1</span>;                                          </span><br><span class="line">			temp-&gt;node = item;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			temp = temp-&gt;next;</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		temp = temp-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Momory_recycle</span><span class="params">(List *<span class="built_in">list</span>)</span> </span>&#123;</span><br><span class="line">	List* temp = <span class="built_in">list</span>;                      </span><br><span class="line">	<span class="keyword">int</span> number;                         </span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;请输入需要回收的ID号：&quot;</span>);</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;number);</span><br><span class="line">	<span class="keyword">while</span> (temp)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (temp-&gt;node-&gt;id == number)             </span><br><span class="line">		&#123;</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">if</span> (temp-&gt;front == <span class="literal">NULL</span>) &#123;</span><br><span class="line">				temp-&gt;node-&gt;status = <span class="number">0</span>;</span><br><span class="line">				temp-&gt;node-&gt;id = <span class="number">-1</span>;</span><br><span class="line">				<span class="keyword">if</span> (temp-&gt;next == <span class="literal">NULL</span>) &#123;</span><br><span class="line">					temp-&gt;node-&gt;size = temp-&gt;node-&gt;size + temp-&gt;next-&gt;node-&gt;size;</span><br><span class="line">					temp-&gt;next = temp-&gt;next;</span><br><span class="line">					<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">				&#125;</span><br><span class="line"></span><br><span class="line">				<span class="keyword">if</span> (temp-&gt;next-&gt;node-&gt;id == <span class="number">-1</span> &amp;&amp; temp-&gt;next-&gt;node-&gt;status == <span class="number">0</span>) &#123;</span><br><span class="line">					List* next = temp-&gt;next; </span><br><span class="line">					temp-&gt;node-&gt;size = temp-&gt;node-&gt;size + next-&gt;node-&gt;size;</span><br><span class="line">					temp-&gt;node-&gt;status = <span class="number">0</span>;</span><br><span class="line">					temp-&gt;node-&gt;id = <span class="number">-1</span>;</span><br><span class="line">					temp-&gt;next = next-&gt;next;</span><br><span class="line">					<span class="keyword">if</span> (next-&gt;next == <span class="literal">NULL</span>) &#123;</span><br><span class="line">						<span class="built_in">free</span>(next);</span><br><span class="line">						<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">					&#125;</span><br><span class="line">					<span class="keyword">else</span></span><br><span class="line">					&#123;</span><br><span class="line">						next-&gt;next-&gt;front = temp;</span><br><span class="line">						<span class="built_in">free</span>(next);</span><br><span class="line">						<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line"></span><br><span class="line">				<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">			&#125; </span><br><span class="line">			<span class="keyword">if</span> (temp-&gt;front-&gt;node-&gt;id != <span class="number">-1</span> &amp;&amp; temp-&gt;front-&gt;node-&gt;status != <span class="number">0</span> &amp;&amp; temp-&gt;next-&gt;node-&gt;id != <span class="number">-1</span> &amp;&amp; temp-&gt;next-&gt;node-&gt;status != <span class="number">0</span>) &#123;</span><br><span class="line">				temp-&gt;node-&gt;status = <span class="number">0</span>;</span><br><span class="line">				temp-&gt;node-&gt;id = <span class="number">-1</span>;</span><br><span class="line">				<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (temp-&gt;front-&gt;node-&gt;id == <span class="number">-1</span> &amp;&amp; temp-&gt;front-&gt;node-&gt;status == <span class="number">0</span> &amp;&amp; temp-&gt;next-&gt;node-&gt;id == <span class="number">-1</span> &amp;&amp; temp-&gt;next-&gt;node-&gt;status == <span class="number">0</span>) &#123;</span><br><span class="line">				List* front = temp-&gt;front;</span><br><span class="line">				List* next = temp-&gt;next;</span><br><span class="line">				front-&gt;node-&gt;size = front-&gt;node-&gt;size + temp-&gt;node-&gt;size + next-&gt;node-&gt;size;</span><br><span class="line">				front-&gt;next = next-&gt;next;</span><br><span class="line">				<span class="keyword">if</span> (next-&gt;next == <span class="literal">NULL</span>) &#123;</span><br><span class="line">					<span class="built_in">free</span>(temp);</span><br><span class="line">					<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">				&#123;</span><br><span class="line"></span><br><span class="line">					next-&gt;next-&gt;front = front;</span><br><span class="line">					<span class="built_in">free</span>(temp);</span><br><span class="line">					<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (temp-&gt;front-&gt;node-&gt;id == <span class="number">-1</span> &amp;&amp; temp-&gt;front-&gt;node-&gt;status == <span class="number">0</span>) &#123;</span><br><span class="line">				List* front = temp-&gt;front;</span><br><span class="line">				front-&gt;next = temp-&gt;next;</span><br><span class="line">				temp-&gt;next-&gt;front = front;</span><br><span class="line">				front-&gt;node-&gt;size += temp-&gt;node-&gt;size;</span><br><span class="line">				<span class="built_in">free</span>(temp);</span><br><span class="line">				<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">if</span> (temp-&gt;next-&gt;node-&gt;id == <span class="number">-1</span> &amp;&amp; temp-&gt;next-&gt;node-&gt;status == <span class="number">0</span>) &#123;</span><br><span class="line">				List* next = temp-&gt;next;</span><br><span class="line">				temp-&gt;node-&gt;size = temp-&gt;node-&gt;size + next-&gt;node-&gt;size;</span><br><span class="line">				temp-&gt;node-&gt;status = <span class="number">0</span>;</span><br><span class="line">				temp-&gt;node-&gt;id = <span class="number">-1</span>;</span><br><span class="line">				temp-&gt;next = next-&gt;next;</span><br><span class="line">				<span class="keyword">if</span> (next-&gt;next == <span class="literal">NULL</span>) &#123;</span><br><span class="line">					<span class="built_in">free</span>(next);</span><br><span class="line">					<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">				&#123;</span><br><span class="line">					next-&gt;next-&gt;front = temp;</span><br><span class="line">					<span class="built_in">free</span>(next);</span><br><span class="line">					<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		temp = temp-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Best_fit</span><span class="params">(List *<span class="built_in">list</span>)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> min = <span class="number">0</span>;      </span><br><span class="line">	<span class="keyword">int</span> base_min = <span class="number">0</span>;      </span><br><span class="line">	List* temp = <span class="built_in">list</span>;</span><br><span class="line">	datatype* item = input();             </span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> (temp)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (temp-&gt;node-&gt;status == <span class="number">0</span> &amp;&amp; temp-&gt;node-&gt;id == <span class="number">-1</span> &amp;&amp; temp-&gt;node-&gt;size &gt; item-&gt;size) &#123;</span><br><span class="line">			<span class="keyword">if</span> (min == <span class="number">0</span>) &#123;          </span><br><span class="line">				min = temp-&gt;node-&gt;size;</span><br><span class="line">				base_min = temp-&gt;node-&gt;base;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span> (temp-&gt;node-&gt;size &lt; min) &#123;     </span><br><span class="line">					min = temp-&gt;node-&gt;size;</span><br><span class="line">					base_min = temp-&gt;node-&gt;base;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (temp-&gt;node-&gt;status == <span class="number">0</span> &amp;&amp; temp-&gt;node-&gt;id == <span class="number">-1</span> &amp;&amp; temp-&gt;node-&gt;size == item-&gt;size) &#123;</span><br><span class="line">			<span class="keyword">int</span> base = temp-&gt;node-&gt;base;</span><br><span class="line">			temp-&gt;node = item;</span><br><span class="line">			temp-&gt;node-&gt;status = <span class="number">1</span>;</span><br><span class="line">			temp-&gt;node-&gt;base = base;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		temp = temp-&gt;next;</span><br><span class="line">	&#125; </span><br><span class="line">	temp = <span class="built_in">list</span>;</span><br><span class="line">	<span class="keyword">while</span> (temp)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (temp-&gt;node-&gt;base == base_min) &#123;</span><br><span class="line"></span><br><span class="line">			datatype* temp_node = (datatype*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(datatype));      </span><br><span class="line">			temp_node-&gt;id = <span class="number">-1</span>;</span><br><span class="line">			temp_node-&gt;status = <span class="number">0</span>;</span><br><span class="line">			temp_node-&gt;base = base_min + item-&gt;size;</span><br><span class="line">			temp_node-&gt;size = temp-&gt;node-&gt;size - item-&gt;size;</span><br><span class="line"></span><br><span class="line">			temp-&gt;node = item;                    </span><br><span class="line">			temp-&gt;node-&gt;base = base_min;</span><br><span class="line">			temp-&gt;node-&gt;status = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">			List* temp_list_node = (List*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(List));         </span><br><span class="line">			temp_list_node-&gt;node = temp_node;</span><br><span class="line">			temp_list_node-&gt;front = temp;</span><br><span class="line">			temp_list_node-&gt;next = temp-&gt;next;</span><br><span class="line">			<span class="keyword">if</span> (temp-&gt;next != <span class="literal">NULL</span>) &#123;</span><br><span class="line">				temp-&gt;next-&gt;front = temp_list_node;</span><br><span class="line">			&#125;</span><br><span class="line">			temp-&gt;next = temp_list_node;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		temp = temp-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Worst_fit</span><span class="params">(List *<span class="built_in">list</span>)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> max = <span class="number">0</span>;       </span><br><span class="line">	<span class="keyword">int</span> base_max = <span class="number">0</span>;      </span><br><span class="line">	List* temp = <span class="built_in">list</span>;</span><br><span class="line">	datatype* item = input();            </span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> (temp)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (temp-&gt;node-&gt;status == <span class="number">0</span> &amp;&amp; temp-&gt;node-&gt;id == <span class="number">-1</span> &amp;&amp; temp-&gt;node-&gt;size &gt; item-&gt;size) &#123;</span><br><span class="line">			<span class="keyword">if</span> (max == <span class="number">0</span>) &#123;         </span><br><span class="line">				max = temp-&gt;node-&gt;size;</span><br><span class="line">				base_max = temp-&gt;node-&gt;base;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span> (temp-&gt;node-&gt;size &gt; max) &#123;      </span><br><span class="line">					max = temp-&gt;node-&gt;size;</span><br><span class="line">					base_max = temp-&gt;node-&gt;base;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (temp-&gt;node-&gt;status == <span class="number">0</span> &amp;&amp; temp-&gt;node-&gt;id == <span class="number">-1</span> &amp;&amp; temp-&gt;node-&gt;size == item-&gt;size) &#123;</span><br><span class="line">			<span class="keyword">int</span> base = temp-&gt;node-&gt;base;</span><br><span class="line">			temp-&gt;node = item;</span><br><span class="line">			temp-&gt;node-&gt;status = <span class="number">1</span>;</span><br><span class="line">			temp-&gt;node-&gt;base = base;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		temp = temp-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">  </span><br><span class="line">	temp = <span class="built_in">list</span>;</span><br><span class="line">	<span class="keyword">while</span> (temp)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (temp-&gt;node-&gt;base == base_max) &#123;</span><br><span class="line"></span><br><span class="line">			datatype* temp_node = (datatype*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(datatype));     </span><br><span class="line">			temp_node-&gt;id = <span class="number">-1</span>;</span><br><span class="line">			temp_node-&gt;status = <span class="number">0</span>;</span><br><span class="line">			temp_node-&gt;base = base_max + item-&gt;size;</span><br><span class="line">			temp_node-&gt;size = temp-&gt;node-&gt;size - item-&gt;size;</span><br><span class="line"></span><br><span class="line">			temp-&gt;node = item;                         </span><br><span class="line">			temp-&gt;node-&gt;base = base_max;</span><br><span class="line">			temp-&gt;node-&gt;status = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">			List* temp_list_node = (List*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(List));         </span><br><span class="line">			temp_list_node-&gt;node = temp_node;</span><br><span class="line">			temp_list_node-&gt;front = temp;</span><br><span class="line">			temp_list_node-&gt;next = temp-&gt;next;</span><br><span class="line">			<span class="keyword">if</span> (temp-&gt;next != <span class="literal">NULL</span>) &#123;</span><br><span class="line">				temp-&gt;next-&gt;front = temp_list_node;</span><br><span class="line">			&#125;</span><br><span class="line">			temp-&gt;next = temp_list_node;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		temp = temp-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;分区模拟\n&quot;</span>);</span><br><span class="line">	List <span class="built_in">list</span> = init();</span><br><span class="line">	<span class="keyword">int</span> select;</span><br><span class="line">	<span class="keyword">int</span> insert_state, recycle_state;</span><br><span class="line">	<span class="keyword">int</span> insert_state_best;</span><br><span class="line">	<span class="keyword">int</span> insert_state_worst;</span><br><span class="line">	<span class="keyword">int</span> insert_state_next;</span><br><span class="line">	<span class="keyword">do</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;请输入要进行的操作\n&quot;</span>);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;1-首次适应算法\n2-最佳适应算法\n3-最坏适应算法\n4-循环首次适应算法\n5-内存回收\n6-退出\n&quot;</span>);</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;select);</span><br><span class="line">		<span class="keyword">switch</span> (select)</span><br><span class="line">		&#123;</span><br><span class="line">		<span class="keyword">case</span> <span class="number">1</span>:              </span><br><span class="line">			insert_state = First_fit(&amp;<span class="built_in">list</span>);</span><br><span class="line">			<span class="keyword">if</span> (insert_state == <span class="number">0</span>) &#123;</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">&quot;分配失败\n&quot;</span>);</span><br><span class="line">				Momery_state(&amp;<span class="built_in">list</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> &#123;</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">&quot;分配成功！\n&quot;</span>);</span><br><span class="line">				Momery_state(&amp;<span class="built_in">list</span>);</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">&quot;首次适应算法\n&quot;</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">case</span> <span class="number">2</span>:             </span><br><span class="line">			insert_state_best = Best_fit(&amp;<span class="built_in">list</span>);</span><br><span class="line">			<span class="keyword">if</span> (insert_state_best == <span class="number">1</span>) &#123;</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">&quot;分配成功\n&quot;</span>);</span><br><span class="line">				Momery_state(&amp;<span class="built_in">list</span>);</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">&quot;最佳适应算法\n&quot;</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> &#123;</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">&quot;分配失败\n&quot;</span>);</span><br><span class="line">				Momery_state(&amp;<span class="built_in">list</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">			insert_state_worst = Worst_fit(&amp;<span class="built_in">list</span>);</span><br><span class="line">			<span class="keyword">if</span> (insert_state_worst == <span class="number">1</span>) &#123;</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">&quot;分配成功\n&quot;</span>);</span><br><span class="line">				Momery_state(&amp;<span class="built_in">list</span>);</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">&quot;最坏适应算法\n&quot;</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> &#123;</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">&quot;分配失败\n&quot;</span>);</span><br><span class="line">				Momery_state(&amp;<span class="built_in">list</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">			insert_state_next = next_fit(&amp;<span class="built_in">list</span>);</span><br><span class="line">			<span class="keyword">if</span> (insert_state_next == <span class="number">1</span>) &#123;</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">&quot;分配成功\n&quot;</span>);</span><br><span class="line">				Momery_state(&amp;<span class="built_in">list</span>);</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">&quot;循环首次适应算法\n&quot;</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> &#123;</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">&quot;分配失败\n&quot;</span>);</span><br><span class="line">				Momery_state(&amp;<span class="built_in">list</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">case</span> <span class="number">5</span>:             </span><br><span class="line">			recycle_state = Momory_recycle(&amp;<span class="built_in">list</span>);</span><br><span class="line">			<span class="keyword">if</span> (recycle_state == <span class="number">1</span>) &#123;</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">&quot;回收成功！\n&quot;</span>);</span><br><span class="line">				Momery_state(&amp;<span class="built_in">list</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> &#123;</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">&quot;回收失败\n&quot;</span>);</span><br><span class="line">				Momery_state(&amp;<span class="built_in">list</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line">	&#125; <span class="keyword">while</span> (select != <span class="number">6</span>);</span><br><span class="line"></span><br><span class="line">	system(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+      </div>
+      
+      
+      
+    </div>
+    
+  <ul class="breadcrumb">
+          
+            <li><a href="/Kome1jiSatori.github.io/">KOME1JISATORI.GITHUB.IO</a></li>
+            <li><a href="/Kome1jiSatori.github.io/page/">PAGE</a></li>
+            <li>动态分区内存管理</li>
+          
+  </ul>
+
+    
+    
+    
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%AE%9E%E9%AA%8C%E7%9B%AE%E7%9A%84%E5%8F%8A%E8%A6%81%E6%B1%82"><span class="nav-text">一、实验目的及要求</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%9F%BA%E6%9C%AC%E7%90%86%E8%AE%BA%E4%BB%8B%E7%BB%8D"><span class="nav-text">二、基本理论介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-%E5%8A%A8%E6%80%81%E5%88%86%E5%8C%BA%E5%88%86%E9%85%8D"><span class="nav-text">2.1 动态分区分配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-%E7%A9%BA%E9%97%B2%E5%88%86%E5%8C%BA%E8%A1%A8"><span class="nav-text">2.2 空闲分区表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-%E7%A9%BA%E9%97%B2%E5%88%86%E5%8C%BA%E9%93%BE"><span class="nav-text">2.3 空闲分区链</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-%E6%89%80%E6%B6%89%E5%8F%8A%E5%88%B0%E7%9A%84%E5%90%84%E4%B8%AA%E7%AE%97%E6%B3%95"><span class="nav-text">2.4 所涉及到的各个算法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%AE%9E%E9%AA%8C%E5%86%85%E5%AE%B9"><span class="nav-text">三、实验内容</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0"><span class="nav-text">四、功能实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-%E8%AE%BE%E8%AE%A1%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-text">4.1 设计内存分配的数据结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-%E5%AE%9E%E7%8E%B0%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E5%87%BD%E6%95%B0"><span class="nav-text">4.2 实现内存分配函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-%E5%AE%9E%E7%8E%B0%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E5%9B%9E%E6%94%B6%E5%8A%9F%E8%83%BD"><span class="nav-text">4.3 实现内存分配回收功能</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E7%BB%93%E6%9E%9C%E6%B5%8B%E8%AF%95%E4%B8%8E%E5%88%86%E6%9E%90"><span class="nav-text">五、结果测试与分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1-%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AE%E7%9A%84%E9%80%89%E5%8F%96"><span class="nav-text">5.1 测试数据的选取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2-%E7%BB%93%E6%9E%9C%E6%AF%94%E8%BE%83%E4%B8%8E%E5%88%86%E6%9E%90"><span class="nav-text">5.2 结果比较与分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E5%BF%83%E5%BE%97%E4%BD%93%E4%BC%9A"><span class="nav-text">六、心得体会</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E9%99%84%E5%BD%95%E4%BB%A3%E7%A0%81"><span class="nav-text">七、附录代码</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Komeiji Satori"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Komeiji Satori</p>
+  <div class="site-description" itemprop="description">记录些有的没的的学习心得</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kome1jisatori" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kome1jisatori" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://wpa.qq.com/msgrd?v=3&uin=740775405&site=qq&menu=yes" title="QQ → http:&#x2F;&#x2F;wpa.qq.com&#x2F;msgrd?v&#x3D;3&amp;uin&#x3D;740775405&amp;site&#x3D;qq&amp;menu&#x3D;yes" rel="noopener" target="_blank"><i class="fab fa-qq fa-fw"></i>QQ</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      膜大佬的链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://sherlockcoder.xyz/" title="http:&#x2F;&#x2F;sherlockcoder.xyz" rel="noopener" target="_blank">不朽之存在的首页</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://datawhalechina.github.io/leeml-notes/#/" title="https:&#x2F;&#x2F;datawhalechina.github.io&#x2F;leeml-notes&#x2F;#&#x2F;" rel="noopener" target="_blank">机器学习笔记(LeeML-Notes)</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">苏ICP备 - 2021020302 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">KomeijiSatori</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">283k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">4:17</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : '8NhM2OcimmX1hgpelhxOhQK8-gzGzoHsz',
+      appKey     : 'bQ1303bPFHzcUrkoBzb39dgO',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+
+
+  <script type="text/javascript" color="0,0,0" opacity='0.5' zIndex="-1" count="150" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":true},"log":false});</script></body>
+</html>

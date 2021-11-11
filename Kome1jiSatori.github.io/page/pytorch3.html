@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kome1jisatori.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="前言记录下pytorch数据集加载方法">
+<meta property="og:type" content="website">
+<meta property="og:title" content="pytorch数据集加载">
+<meta property="og:url" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/pytorch3.html">
+<meta property="og:site_name" content="KomeijiSatoriのblog">
+<meta property="og:description" content="前言记录下pytorch数据集加载方法">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/images/1.2/dataset%E6%95%B0%E6%8D%AE%E7%A4%BA%E4%BE%8B.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/dataset.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/MNIST-dataset-5.png">
+<meta property="article:published_time" content="2021-07-18T09:38:32.000Z">
+<meta property="article:modified_time" content="2021-07-19T01:39:59.493Z">
+<meta property="article:author" content="Komeiji Satori">
+<meta property="article:tag" content="机器学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/images/1.2/dataset%E6%95%B0%E6%8D%AE%E7%A4%BA%E4%BE%8B.png">
+
+<link rel="canonical" href="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/pytorch3">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>pytorch数据集加载 | KomeijiSatoriのblog
+</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">KomeijiSatoriのblog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">地灵殿从零开始的学习生活</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">4</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">30</span></a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+  
+  
+
+          <div class="content page posts-expand">
+            
+
+    
+    
+    
+    <div class="post-block" lang="zh-CN">
+      <header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">pytorch数据集加载
+</h1>
+
+<div class="post-meta">
+  
+  <ul class="breadcrumb">
+          
+            <li><a href="/Kome1jiSatori.github.io/">KOME1JISATORI.GITHUB.IO</a></li>
+            <li><a href="/Kome1jiSatori.github.io/page/">PAGE</a></li>
+            <li>PYTORCH3</li>
+          
+  </ul>
+
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>记录下pytorch数据集加载方法  </p>
+<span id="more"></span> 
+
+<h1 id="Pytorch中的数据加载"><a href="#Pytorch中的数据加载" class="headerlink" title="Pytorch中的数据加载"></a>Pytorch中的数据加载</h1><h2 id="1-模型中使用数据加载器的目的"><a href="#1-模型中使用数据加载器的目的" class="headerlink" title="1. 模型中使用数据加载器的目的"></a>1. 模型中使用数据加载器的目的</h2><p>在前面的线性回归模型中，我们使用的数据很少，所以直接把全部数据放到模型中去使用。</p>
+<p>但是在深度学习中，数据量通常是都非常多，非常大的，如此大量的数据，不可能一次性的在模型中进行向前的计算和反向传播，经常我们会对整个数据进行随机的打乱顺序，把数据处理成一个个的batch，同时还会对数据进行预处理。</p>
+<p>所以，接下来我们来学习pytorch中的数据加载的方法</p>
+<h2 id="2-数据集类"><a href="#2-数据集类" class="headerlink" title="2. 数据集类"></a>2. 数据集类</h2><h3 id="2-1-Dataset基类介绍"><a href="#2-1-Dataset基类介绍" class="headerlink" title="2.1 Dataset基类介绍"></a>2.1 Dataset基类介绍</h3><p>在torch中提供了数据集的基类<code>torch.utils.data.Dataset</code>，继承这个基类，我们能够非常快速的实现对数据的加载。</p>
+<p><code>torch.utils.data.Dataset</code>的源码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dataset</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;An abstract class representing a Dataset.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    All other datasets should subclass it. All subclasses should override</span></span><br><span class="line"><span class="string">    ``__len__``, that provides the size of the dataset, and ``__getitem__``,</span></span><br><span class="line"><span class="string">    supporting integer indexing in range from 0 to len(self) exclusive.</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span>(<span class="params">self, index</span>):</span></span><br><span class="line">        <span class="keyword">raise</span> NotImplementedError</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__len__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">raise</span> NotImplementedError</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__add__</span>(<span class="params">self, other</span>):</span></span><br><span class="line">        <span class="keyword">return</span> ConcatDataset([self, other])</span><br></pre></td></tr></table></figure>
+
+<p>可知：我们需要在自定义的数据集类中继承Dataset类，同时还需要实现两个方法：</p>
+<ol>
+<li><code>__len__</code>方法，能够实现通过全局的<code>len()</code>方法获取其中的元素个数</li>
+<li><code>__getitem__</code>方法，能够通过传入索引的方式获取数据，例如通过<code>dataset[i]</code>获取其中的第<code>i</code>条数据</li>
+</ol>
+<h3 id="2-2-数据加载案例"><a href="#2-2-数据加载案例" class="headerlink" title="2.2 数据加载案例"></a>2.2 数据加载案例</h3><p>下面通过一个例子来看看如何使用Dataset来加载数据</p>
+<p>数据来源：<code>http://archive.ics.uci.edu/ml/datasets/SMS+Spam+Collection</code></p>
+<p>数据介绍：SMS Spam Collection是用于骚扰短信识别的经典数据集，完全来自真实短信内容，包括4831条正常短信和747条骚扰短信。正常短信和骚扰短信保存在一个文本文件中。 每行完整记录一条短信内容，每行开头通过ham和spam标识正常短信和骚扰短信</p>
+<p>数据实例：</p>
+<p><img src="/Kome1jiSatori.github.io/page/images/1.2/dataset%E6%95%B0%E6%8D%AE%E7%A4%BA%E4%BE%8B.png"></p>
+<p>实现如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> Dataset,DataLoader</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line">data_path = <span class="string">r&quot;data\SMSSpamCollection&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CifarDataset</span>(<span class="params">Dataset</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        lines = <span class="built_in">open</span>(data_path,<span class="string">&quot;r&quot;</span>)</span><br><span class="line">        <span class="comment">#对数据进行处理，前4个为label，后面的为短信内容</span></span><br><span class="line">        lines = [[i[:<span class="number">4</span>].strip(),i[<span class="number">4</span>:].strip()] <span class="keyword">for</span> i <span class="keyword">in</span> lines]</span><br><span class="line">        <span class="comment">#转化为dataFrame</span></span><br><span class="line">        self.df = pd.DataFrame(lines,columns=[<span class="string">&quot;label&quot;</span>,<span class="string">&quot;sms&quot;</span>])</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span>(<span class="params">self, index</span>):</span></span><br><span class="line">        single_item = self.df.iloc[index,:]</span><br><span class="line">        <span class="keyword">return</span> single_item.values[<span class="number">0</span>],single_item.values[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__len__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self.df.shape[<span class="number">0</span>]</span><br></pre></td></tr></table></figure>
+
+<p>之后对Dataset进行实例化，可以跌倒获取其中的数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">d = CifarDataset()</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(d)):</span><br><span class="line">    <span class="built_in">print</span>(i,d[i])</span><br></pre></td></tr></table></figure>
+
+<p>输出如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">....</span><br><span class="line"><span class="number">5571</span> (<span class="string">&#x27;ham&#x27;</span>, <span class="string">&#x27;Pity, * was in mood for that. So...any other suggestions?&#x27;</span>)</span><br><span class="line"><span class="number">5572</span> (<span class="string">&#x27;ham&#x27;</span>, <span class="string">&quot;The guy did some bitching but I acted like i&#x27;d be interested in buying something else next week and he gave it to us for free&quot;</span>)</span><br><span class="line"><span class="number">5573</span> (<span class="string">&#x27;ham&#x27;</span>, <span class="string">&#x27;Rofl. Its true to its name&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-迭代数据集"><a href="#3-迭代数据集" class="headerlink" title="3. 迭代数据集"></a>3. 迭代数据集</h2><p>使用上述的方法能够进行数据的读取，但是其中还有很多内容没有实现：</p>
+<ul>
+<li>批处理数据（Batching the data）</li>
+<li>打乱数据（Shuffling the data）</li>
+<li>使用多线程 <code>multiprocessing</code> 并行加载数据。</li>
+</ul>
+<p>在pytorch中<code>torch.utils.data.DataLoader</code>提供了上述的所用方法</p>
+<p><code>DataLoader</code>的使用方法示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> DataLoader</span><br><span class="line"></span><br><span class="line">dataset = CifarDataset()</span><br><span class="line">data_loader = DataLoader(dataset=dataset,batch_size=<span class="number">10</span>,shuffle=<span class="literal">True</span>,num_workers=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#遍历，获取其中的每个batch的结果</span></span><br><span class="line"><span class="keyword">for</span> index, (label, context) <span class="keyword">in</span> <span class="built_in">enumerate</span>(data_loader):</span><br><span class="line">    <span class="built_in">print</span>(index,label,context)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;*&quot;</span>*<span class="number">100</span>)</span><br></pre></td></tr></table></figure>
+
+<p>其中参数含义：</p>
+<ol>
+<li>dataset：提前定义的dataset的实例</li>
+<li>batch_size:传入数据的batch的大小，常用128,256等等</li>
+<li>shuffle：bool类型，表示是否在每次获取数据的时候提前打乱数据</li>
+<li><code>num_workers</code>:加载数据的线程数</li>
+</ol>
+<p>数据迭代器的返回结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">555 (&#39;spam&#39;, &#39;ham&#39;, &#39;spam&#39;, &#39;ham&#39;, &#39;ham&#39;, &#39;ham&#39;, &#39;ham&#39;, &#39;spam&#39;, &#39;ham&#39;, &#39;ham&#39;) (&#39;URGENT! We are trying to contact U. Todays draw shows that you have won a £800 prize GUARANTEED. Call 09050003091 from....&quot;, &#39;swhrt how u dey,hope ur ok, tot about u 2day.love n miss.take care.&#39;)</span><br><span class="line">***********************************************************************************</span><br><span class="line">556 (&#39;ham&#39;, &#39;ham&#39;, &#39;ham&#39;, &#39;ham&#39;, &#39;ham&#39;, &#39;ham&#39;, &#39;ham&#39;, &#39;ham&#39;, &#39;ham&#39;, &#39;spam&#39;) (&#39;He telling not to tell any one. If so treat for me hi hi hi&#39;, &#39;Did u got that persons story&#39;, &quot;Don kn....1000 cash prize or a prize worth £5000&#39;)</span><br></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<ol>
+<li><code>len(dataset) = 数据集的样本数</code></li>
+<li><code>len(dataloader) = math.ceil(样本数/batch_size) 即向上取整</code> </li>
+</ol>
+<h2 id="4-pytorch自带的数据集"><a href="#4-pytorch自带的数据集" class="headerlink" title="4 pytorch自带的数据集"></a>4 pytorch自带的数据集</h2><p>pytorch中自带的数据集由两个上层api提供，分别是<code>torchvision</code>和<code>torchtext</code></p>
+<p>其中：</p>
+<ol>
+<li><code>torchvision</code>提供了对图片数据处理相关的api和数据<ul>
+<li>数据位置：<code>torchvision.datasets</code>，例如：<code>torchvision.datasets.MNIST</code>(手写数字图片数据)</li>
+</ul>
+</li>
+<li><code>torchtext</code>提供了对文本数据处理相关的API和数据<ul>
+<li>数据位置：<code>torchtext.datasets</code>,例如：<code>torchtext.datasets.IMDB（电影</code>评论文本数据）</li>
+</ul>
+</li>
+</ol>
+<p>下面我们以Mnist手写数字为例，来看看pytorch如何加载其中自带的数据集</p>
+<p>使用方法和之前一样：</p>
+<ol>
+<li>准备好Dataset实例</li>
+<li>把dataset交给dataloder 打乱顺序，组成batch</li>
+</ol>
+<h3 id="4-1-torchversion-datasets"><a href="#4-1-torchversion-datasets" class="headerlink" title="4.1 torchversion.datasets"></a>4.1 torchversion.datasets</h3><p><code>torchversoin.datasets</code>中的数据集类（比如<code>torchvision.datasets.MNIST</code>）,都是继承自<code>Dataset</code></p>
+<p>意味着：直接对<code>torchvision.datasets.MNIST</code>进行实例化就可以得到<code>Dataset</code>的实例</p>
+<p>但是MNIST API中的参数需要注意一下：</p>
+<p><code> torchvision.datasets.MNIST(root=&#39;/files/&#39;, train=True, download=True, transform=)</code></p>
+<ol>
+<li><code>root</code>参数表示数据存放的位置</li>
+<li><code>train：</code>bool类型，表示是使用训练集的数据还是测试集的数据</li>
+<li><code>download：</code>bool类型，表示是否需要下载数据到root目录</li>
+<li><code>transform:</code>实现的对图片的处理函数</li>
+</ol>
+<h3 id="4-2-MNIST数据集的介绍"><a href="#4-2-MNIST数据集的介绍" class="headerlink" title="4.2 MNIST数据集的介绍"></a>4.2 MNIST数据集的介绍</h3><p>数据集的原始地址：<code>http://yann.lecun.com/exdb/mnist/</code></p>
+<p>MNIST是由<code>Yann LeCun</code>等人提供的免费的图像识别的数据集，其中包括60000个训练样本和10000个测试样本，其中图拍了的尺寸已经进行的标准化的处理，都是黑白的图像，大小为<code>28X28</code></p>
+<p>执行代码，下载数据，观察数据类型：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torchvision</span><br><span class="line"></span><br><span class="line">dataset = torchvision.datasets.MNIST(root=<span class="string">&quot;./data&quot;</span>,train=<span class="literal">True</span>,download=<span class="literal">True</span>,transform=<span class="literal">None</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(dataset[<span class="number">0</span>])</span><br></pre></td></tr></table></figure>
+
+<p>下载的数据如下：</p>
+<p><img src="/Kome1jiSatori.github.io/page/dataset.png"></p>
+<p>代码输出结果如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Downloading http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz</span><br><span class="line">Downloading http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz</span><br><span class="line">Downloading http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz</span><br><span class="line">Downloading http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz</span><br><span class="line">Processing...</span><br><span class="line">Done!</span><br><span class="line">(&lt;PIL.Image.Image image mode=L size=28x28 at <span class="number">0x18D303B9C18</span>&gt;, tensor(<span class="number">5</span>))</span><br></pre></td></tr></table></figure>
+
+
+
+<p>可以其中数据集返回了两条数据，可以猜测为图片的数据和目标值</p>
+<p>返回值的第0个为Image类型，可以调用show() 方法打开，发现为手写数字5</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torchvision</span><br><span class="line"></span><br><span class="line">dataset = torchvision.datasets.MNIST(root=<span class="string">&quot;./data&quot;</span>,train=<span class="literal">True</span>,download=<span class="literal">True</span>,transform=<span class="literal">None</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(dataset[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line">img = dataset[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">img.show() <span class="comment">#打开图片</span></span><br></pre></td></tr></table></figure>
+
+<p>图片如下：</p>
+<p><img src="/Kome1jiSatori.github.io/page/MNIST-dataset-5.png"></p>
+<p>由上可知：返回值为<code>(图片，目标值)</code>,这个结果也可以通过观察源码得到</p>
+
+      </div>
+      
+      
+      
+    </div>
+    
+  <ul class="breadcrumb">
+          
+            <li><a href="/Kome1jiSatori.github.io/">KOME1JISATORI.GITHUB.IO</a></li>
+            <li><a href="/Kome1jiSatori.github.io/page/">PAGE</a></li>
+            <li>PYTORCH3</li>
+          
+  </ul>
+
+    
+    
+    
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pytorch%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E5%8A%A0%E8%BD%BD"><span class="nav-text">Pytorch中的数据加载</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%A8%A1%E5%9E%8B%E4%B8%AD%E4%BD%BF%E7%94%A8%E6%95%B0%E6%8D%AE%E5%8A%A0%E8%BD%BD%E5%99%A8%E7%9A%84%E7%9B%AE%E7%9A%84"><span class="nav-text">1. 模型中使用数据加载器的目的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%95%B0%E6%8D%AE%E9%9B%86%E7%B1%BB"><span class="nav-text">2. 数据集类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Dataset%E5%9F%BA%E7%B1%BB%E4%BB%8B%E7%BB%8D"><span class="nav-text">2.1 Dataset基类介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E6%95%B0%E6%8D%AE%E5%8A%A0%E8%BD%BD%E6%A1%88%E4%BE%8B"><span class="nav-text">2.2 数据加载案例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E8%BF%AD%E4%BB%A3%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-text">3. 迭代数据集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-pytorch%E8%87%AA%E5%B8%A6%E7%9A%84%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-text">4 pytorch自带的数据集</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-torchversion-datasets"><span class="nav-text">4.1 torchversion.datasets</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-MNIST%E6%95%B0%E6%8D%AE%E9%9B%86%E7%9A%84%E4%BB%8B%E7%BB%8D"><span class="nav-text">4.2 MNIST数据集的介绍</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Komeiji Satori"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Komeiji Satori</p>
+  <div class="site-description" itemprop="description">记录些有的没的的学习心得</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kome1jisatori" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kome1jisatori" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://wpa.qq.com/msgrd?v=3&uin=740775405&site=qq&menu=yes" title="QQ → http:&#x2F;&#x2F;wpa.qq.com&#x2F;msgrd?v&#x3D;3&amp;uin&#x3D;740775405&amp;site&#x3D;qq&amp;menu&#x3D;yes" rel="noopener" target="_blank"><i class="fab fa-qq fa-fw"></i>QQ</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      膜大佬的链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://sherlockcoder.xyz/" title="http:&#x2F;&#x2F;sherlockcoder.xyz" rel="noopener" target="_blank">不朽之存在的首页</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://datawhalechina.github.io/leeml-notes/#/" title="https:&#x2F;&#x2F;datawhalechina.github.io&#x2F;leeml-notes&#x2F;#&#x2F;" rel="noopener" target="_blank">机器学习笔记(LeeML-Notes)</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">苏ICP备 - 2021020302 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">KomeijiSatori</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">283k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">4:17</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : '8NhM2OcimmX1hgpelhxOhQK8-gzGzoHsz',
+      appKey     : 'bQ1303bPFHzcUrkoBzb39dgO',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+
+
+  <script type="text/javascript" color="0,0,0" opacity='0.5' zIndex="-1" count="150" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":true},"log":false});</script></body>
+</html>

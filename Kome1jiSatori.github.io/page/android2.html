@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kome1jisatori.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="前言Fragment实践：一个简易的新闻应用">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Android实验课作业二 Fragment实践">
+<meta property="og:url" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/android2.html">
+<meta property="og:site_name" content="KomeijiSatoriのblog">
+<meta property="og:description" content="前言Fragment实践：一个简易的新闻应用">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E5%9B%BE%E7%89%871.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E5%9B%BE%E7%89%872.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E5%9B%BE%E7%89%873.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E5%9B%BE%E7%89%874.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E5%9B%BE%E7%89%875.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E5%9B%BE%E7%89%876.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E5%9B%BE%E7%89%877.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E5%9B%BE%E7%89%878.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E5%9B%BE%E7%89%879.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E5%9B%BE%E7%89%8710.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E5%9B%BE%E7%89%8711.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E5%9B%BE%E7%89%8712.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E5%9B%BE%E7%89%8713.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E5%9B%BE%E7%89%8714.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E5%9B%BE%E7%89%8715.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E5%9B%BE%E7%89%8716.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E5%9B%BE%E7%89%8717.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E5%9B%BE%E7%89%8718.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E5%9B%BE%E7%89%8719.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E5%9B%BE%E7%89%8720.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E5%9B%BE%E7%89%8721.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E5%9B%BE%E7%89%8722.png">
+<meta property="article:published_time" content="2021-10-19T18:51:47.000Z">
+<meta property="article:modified_time" content="2021-10-20T11:16:27.080Z">
+<meta property="article:author" content="Komeiji Satori">
+<meta property="article:tag" content="实验课作业">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E5%9B%BE%E7%89%871.png">
+
+<link rel="canonical" href="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/android2">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Android实验课作业二 Fragment实践 | KomeijiSatoriのblog
+</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">KomeijiSatoriのblog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">地灵殿从零开始的学习生活</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">4</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">30</span></a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+  
+  
+
+          <div class="content page posts-expand">
+            
+
+    
+    
+    
+    <div class="post-block" lang="zh-CN">
+      <header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">Android实验课作业二 Fragment实践
+</h1>
+
+<div class="post-meta">
+  
+  <ul class="breadcrumb">
+          
+            <li><a href="/Kome1jiSatori.github.io/">KOME1JISATORI.GITHUB.IO</a></li>
+            <li><a href="/Kome1jiSatori.github.io/page/">PAGE</a></li>
+            <li>ANDROID2</li>
+          
+  </ul>
+
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Fragment实践：一个简易的新闻应用</p>
+<span id="more"></span> 
+
+<h1 id="一、实验目的"><a href="#一、实验目的" class="headerlink" title="一、实验目的"></a>一、实验目的</h1><p>1、完成Fragment实践：一个简易版的新闻应用<br>2、理解该项目的内在逻辑关系<br>3、能够较为熟练地应用Fragment和RecycleView</p>
+<h1 id="二、实验环境"><a href="#二、实验环境" class="headerlink" title="二、实验环境"></a>二、实验环境</h1><p>Android Studio、Kotlin  </p>
+<h1 id="三、实验内容"><a href="#三、实验内容" class="headerlink" title="三、实验内容"></a>三、实验内容</h1><p>运用Fragment相关内容编写一个简易的新闻应用，并且要求它可以兼容手机和平板。  </p>
+<h1 id="四、主要实验步骤"><a href="#四、主要实验步骤" class="headerlink" title="四、主要实验步骤"></a>四、主要实验步骤</h1><p>1）打开Android Studio，新建工程FragmentBestPractice，如图所示：<br><img src="/Kome1jiSatori.github.io/page/%E5%9B%BE%E7%89%871.png"> </p>
+<p>由于在编写新闻列表时会使用到RecyclerView，因此需要在app/build.gradle中添加RecyclerView的依赖库，因为有两个同样名字的build.gradle，所以需要注意添加依赖的位置，添加依赖如下图所示：<br><img src="/Kome1jiSatori.github.io/page/%E5%9B%BE%E7%89%872.png">   </p>
+<p>2）接下来准备新闻的实体类，新建类News，如图所示：<br><img src="/Kome1jiSatori.github.io/page/%E5%9B%BE%E7%89%873.png">   </p>
+<p>其中title字段表示新闻的标题，content字段表示新闻的内容。<br>接着需要新建layout文件news_content_frag.xml，作为新闻内容的布局，该布局文件主要包含三个UI控件，分别为两个TextView和两个个View：<br><img src="/Kome1jiSatori.github.io/page/%E5%9B%BE%E7%89%874.png">   </p>
+<p>两个TextView代码如上图所示，其中头部部分显示新闻标题，正文部分显示正文内容，中间用一条水平线隔开，分隔的水平线用View实现。另一个控件View代码如下图所示：<br><img src="/Kome1jiSatori.github.io/page/%E5%9B%BE%E7%89%875.png">  </p>
+<p>该View显示为一条垂直的细线，用于在双页模式时，将左侧的新闻列表和右侧的新闻内容分隔开。<br>该布局在design界面视图显示如下：<br><img src="/Kome1jiSatori.github.io/page/%E5%9B%BE%E7%89%876.png">   </p>
+<p>3）因为在双页模式中，如果还没有选中新闻列表中的任何一条新闻，是不应该显示新闻的内容布局，所以我们需要将新闻内容的布局设置成不可见，新建NewsContentFragment类，继承自Fragment，在该类中，首先使用OnCreateView()方法加载news_content_frag布局，如图所示：<br><img src="/Kome1jiSatori.github.io/page/%E5%9B%BE%E7%89%877.png">   </p>
+<p>该类中还提供了一个refresh()方法，用于将新闻的标题和内容显示在刚刚定义的界面上。调用refresh()时，需要将隐藏的新闻内容布局设置成可见，refresh()代码如下所示：<br><img src="/Kome1jiSatori.github.io/page/%E5%9B%BE%E7%89%878.png">   </p>
+<p>其中，contentLayout?.visibility = View.VISIBLE代码将布局设置为可见。接着创建newsTitleAboveContent和newsContent的实例，在调用该函数时，将调用时的标题和内容分别刷新到标题和内容的TextView中。  </p>
+<p>4）以上创建好了新闻内容的Fragment和布局，但是它们都是在双页模式中使用，需要新建一个NewsContentActivity，在单页中使用。<br>修改自动生成的activity_news_content.xml中的代码，如下图所示：<br><img src="/Kome1jiSatori.github.io/page/%E5%9B%BE%E7%89%879.png">   </p>
+<p>Fragment中直接引入了NewsContentFragment，相当于把news_content_frag布局的内容加了进来。<br>接着修改NewsContentActibity，该Activity分为两个部分：onCreate和actionStart方法，onCreate()函数如下图所示：<br><img src="/Kome1jiSatori.github.io/page/%E5%9B%BE%E7%89%8710.png">   </p>
+<p>该方法中通过intent获取传入的新闻标题和内容，然后创建NewsContentFragment的实例对象，并调用上文写到的refresh方法，显示新闻的标题和内容。<br>另一部分为actionStart方法，如下图所示：<br><img src="/Kome1jiSatori.github.io/page/%E5%9B%BE%E7%89%8711.png">   </p>
+<p>该Activity所需要的参数都可以通过actionStart()方法的参数传递过来。  </p>
+<p>5）新建news_title_frag作为显示新闻列表的布局，代码如下图所示<br><img src="/Kome1jiSatori.github.io/page/%E5%9B%BE%E7%89%8712.png">   </p>
+<p>这个布局中仅包括一个RecyclerView用于显示新闻列表，由于用到了RecyclerView，还需要创建子项的布局news_item.xml。子项的布局中只有一个TextView，设置TextView的几个属性，如长度、高度、单行显示、留白空间、文本缩略方式等，代码如下图所示：<br><img src="/Kome1jiSatori.github.io/page/%E5%9B%BE%E7%89%8713.png">   </p>
+<p>6）创建完新闻列表的布局后，还需要新建NewsTitleFragment作为展示新闻列表的Fragment，代码如图所示：<br><img src="/Kome1jiSatori.github.io/page/%E5%9B%BE%E7%89%8714.png">   </p>
+<p>在onCreateView()方法中加载了news_title_frag布局，isTwoPane根据是否检测到NewsContentLayout来选择双页模式或者单页模式。   </p>
+<p>7）为了实现让newsContentLayout只在双页模式中出现，修改activity_main.xml的代码，如下图所示：<br><img src="/Kome1jiSatori.github.io/page/%E5%9B%BE%E7%89%8715.png">   </p>
+<p>上述代码保证了在单页模式下只会加载一个新闻标题的Fragment。<br>接着新建文件夹layout-sw600dp，在这个文件夹下新建activity_main.xml<br>用于显示双页模式，代码如下所示：<br><img src="/Kome1jiSatori.github.io/page/%E5%9B%BE%E7%89%8716.png">   </p>
+<p>上述代码包含两个fragment，即在双页模式下，同时引入两个fragment，并将新闻内容的fragment放在FrameLayout布局中，因此只要能找到该布局的idnewsContentLayout时就是双页模式，否则为单页模式。该布局的预览如下图所示：<br><img src="/Kome1jiSatori.github.io/page/%E5%9B%BE%E7%89%8717.png">   </p>
+<p>8）想要在NewsTitleFragment中通过RecylerView展示新闻列表，需要在该类中新建一个适配器NewsAdapter的适配器，如下图所示：<br><img src="/Kome1jiSatori.github.io/page/%E5%9B%BE%E7%89%8718.png">   </p>
+<p>将适配器类写成内部类可以直接访问NewsTitleFragment的变量，上述代码首先创建了News的实例，接着根据IsTwoPane判断当前是单页还是双页模式。如果是双页模式，就刷新NewsContentFragment中的内容，如果是单页模式，则直接启动NewsContentActivity。  </p>
+<p>9）最后只需要向RecyclerView中填充数据即可。修改NewsTitleFragmen中的代码，在onActivityCreated()方法中添加RecyclerView标准的使用方法，并调用getNews()方法来初始化50条模拟新闻数据，并使用getRandomLengthString()方法随机生成新闻内容的长度。具体代码如下图所示：<br><img src="/Kome1jiSatori.github.io/page/%E5%9B%BE%E7%89%8719.png">   </p>
+<p>10）接着便可以分别在手机和平板的模拟器上运行程序检验一下效果。<br>手机模拟器：<br><img src="/Kome1jiSatori.github.io/page/%E5%9B%BE%E7%89%8720.png">   </p>
+<p>可以看到新闻标题的列表，尝试点击第一条新闻的标题，如下图所示：<br><img src="/Kome1jiSatori.github.io/page/%E5%9B%BE%E7%89%8721.png">   </p>
+<p>会启动一个新的Activity来显示新闻的内容。<br>接下来尝试将程序在平板模拟器上运行，点击第一条新闻标题，如下图所示：<br><img src="/Kome1jiSatori.github.io/page/%E5%9B%BE%E7%89%8722.png">   </p>
+<p>可以看到分为了新闻标题列和新闻内容列正常运行，点击其他的新闻标题也能够正常更新标题和内容。  </p>
+<h1 id="代码附录"><a href="#代码附录" class="headerlink" title="代码附录"></a>代码附录</h1><h2 id="MainActivity"><a href="#MainActivity" class="headerlink" title="MainActivity"></a>MainActivity</h2><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.fragmentbestpractice</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> androidx.appcompat.app.AppCompatActivity</span><br><span class="line"><span class="keyword">import</span> android.os.Bundle</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> : <span class="type">AppCompatActivity</span></span>() &#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_main)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="News"><a href="#News" class="headerlink" title="News"></a>News</h2><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.fragmentbestpractice</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">News</span></span>(<span class="keyword">val</span> title: String, <span class="keyword">val</span> content: String) &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="NewsContentActivity"><a href="#NewsContentActivity" class="headerlink" title="NewsContentActivity"></a>NewsContentActivity</h2><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.fragmentbestpractice</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.content.Context</span><br><span class="line"><span class="keyword">import</span> android.content.Intent</span><br><span class="line"><span class="keyword">import</span> androidx.appcompat.app.AppCompatActivity</span><br><span class="line"><span class="keyword">import</span> android.os.Bundle</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NewsContentActivity</span> : <span class="type">AppCompatActivity</span></span>() &#123;</span><br><span class="line">    <span class="keyword">companion</span> <span class="keyword">object</span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">fun</span> <span class="title">actionStart</span><span class="params">(context: <span class="type">Context</span>, title: <span class="type">String</span>, content: <span class="type">String</span>)</span></span>&#123;</span><br><span class="line">            <span class="keyword">val</span> intent = Intent(context, NewsContentActivity::<span class="keyword">class</span>.java).apply&#123; <span class="comment">//apply函数将apply的内容作用于intent，该intent从context传递到this</span></span><br><span class="line">                putExtra(<span class="string">&quot;news_title&quot;</span>,title)</span><br><span class="line">                putExtra(<span class="string">&quot;news_content&quot;</span>,content)</span><br><span class="line">            &#125;</span><br><span class="line">            context.startActivity(intent)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_news_content)</span><br><span class="line">        <span class="keyword">val</span> title = intent.getStringExtra(<span class="string">&quot;news_title&quot;</span>)<span class="comment">//获取传入的新闻标题</span></span><br><span class="line">        <span class="keyword">val</span> content = intent.getStringExtra(<span class="string">&quot;news_content&quot;</span>)<span class="comment">//获取传入的新闻内容</span></span><br><span class="line">        <span class="keyword">if</span>(title != <span class="literal">null</span>&amp;&amp;content != <span class="literal">null</span>)&#123;</span><br><span class="line">            <span class="keyword">val</span> fragment = supportFragmentManager.findFragmentById(R.id.newsContentFrag) <span class="keyword">as</span> NewsContentFragment</span><br><span class="line">            fragment.refresh(title,content) <span class="comment">//刷新NewsContentFragment界面</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="NewsContentFragment"><a href="#NewsContentFragment" class="headerlink" title="NewsContentFragment"></a>NewsContentFragment</h2><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.fragmentbestpractice</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.os.Bundle</span><br><span class="line"><span class="keyword">import</span> android.view.LayoutInflater</span><br><span class="line"><span class="keyword">import</span> android.view.View</span><br><span class="line"><span class="keyword">import</span> android.view.ViewGroup</span><br><span class="line"><span class="keyword">import</span> android.widget.LinearLayout</span><br><span class="line"><span class="keyword">import</span> android.widget.TextView</span><br><span class="line"><span class="keyword">import</span> androidx.fragment.app.Fragment</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NewsContentFragment</span>: <span class="type">Fragment</span></span>() &#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreateView</span><span class="params">(inflater: <span class="type">LayoutInflater</span>, container: <span class="type">ViewGroup</span>?, savedInstanceState: <span class="type">Bundle</span>?)</span></span>: View?&#123;</span><br><span class="line">        <span class="keyword">return</span> inflater.inflate(R.layout.news_content_frag,container,<span class="literal">false</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">refresh</span><span class="params">(title: <span class="type">String</span>, content: <span class="type">String</span>)</span></span> &#123;</span><br><span class="line">        <span class="keyword">val</span> contentLayout: LinearLayout? = activity?.findViewById(R.id.contentLayout)</span><br><span class="line">        contentLayout?.visibility = View.VISIBLE</span><br><span class="line">        <span class="keyword">val</span> newsTitle: TextView? = activity?.findViewById(R.id. newsTitleAboveContent)</span><br><span class="line">        <span class="keyword">val</span> newsContent:TextView? = activity?.findViewById(R.id.newsContent)</span><br><span class="line">        newsTitle?.text = title   <span class="comment">// 刷新新闻的标题</span></span><br><span class="line">        newsContent?.text = content    <span class="comment">// 刷新新闻的内容</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="NewsTitleFragment"><a href="#NewsTitleFragment" class="headerlink" title="NewsTitleFragment"></a>NewsTitleFragment</h2><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.fragmentbestpractice</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.os.Bundle</span><br><span class="line"><span class="keyword">import</span> android.view.LayoutInflater</span><br><span class="line"><span class="keyword">import</span> android.view.View</span><br><span class="line"><span class="keyword">import</span> android.view.ViewGroup</span><br><span class="line"><span class="keyword">import</span> android.widget.TextView</span><br><span class="line"><span class="keyword">import</span> androidx.fragment.app.Fragment</span><br><span class="line"><span class="keyword">import</span> androidx.recyclerview.widget.LinearLayoutManager</span><br><span class="line"><span class="keyword">import</span> androidx.recyclerview.widget.RecyclerView</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NewsTitleFragment</span> : <span class="type">Fragment</span></span>() &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> isTwoPane = <span class="literal">false</span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreateView</span><span class="params">(inflater: <span class="type">LayoutInflater</span>, container: <span class="type">ViewGroup</span>?,</span></span></span><br><span class="line"><span class="function"><span class="params">                              savedInstanceState: <span class="type">Bundle</span>?)</span></span>: View? &#123;</span><br><span class="line">        <span class="keyword">return</span> inflater.inflate(R.layout.news_title_frag, container, <span class="literal">false</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onActivityCreated</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onActivityCreated(savedInstanceState)</span><br><span class="line">        isTwoPane = activity?.findViewById&lt;View&gt;(R.id.newsContentLayout) != <span class="literal">null</span></span><br><span class="line">        <span class="keyword">val</span> layoutManager = LinearLayoutManager(activity)</span><br><span class="line">        <span class="keyword">val</span> newsTitleRecyclerView: RecyclerView? = activity?.findViewById(R.id.newsTitleRecyclerView)</span><br><span class="line">        newsTitleRecyclerView?.layoutManager = layoutManager</span><br><span class="line">        <span class="keyword">val</span> adapter = NewsAdapter(getNews())</span><br><span class="line">        newsTitleRecyclerView?.adapter = adapter&#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">getNews</span><span class="params">()</span></span>: List&lt;News&gt; &#123;</span><br><span class="line">        <span class="keyword">val</span> newsList = ArrayList&lt;News&gt;()</span><br><span class="line">        <span class="keyword">for</span> (i <span class="keyword">in</span> <span class="number">1.</span><span class="number">.50</span>) &#123;</span><br><span class="line">            <span class="keyword">val</span> news = News(<span class="string">&quot;This is news title <span class="variable">$i</span>&quot;</span>,</span><br><span class="line">                getRandomLengthString(<span class="string">&quot;This is news content <span class="variable">$i</span>. &quot;</span>))</span><br><span class="line">            newsList.add(news)&#125;</span><br><span class="line">        <span class="keyword">return</span> newsList</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">getRandomLengthString</span><span class="params">(str: <span class="type">String</span>)</span></span>: String &#123;</span><br><span class="line">        <span class="keyword">val</span> n = (<span class="number">1.</span><span class="number">.20</span>).random()</span><br><span class="line">        <span class="keyword">val</span> builder = StringBuilder()</span><br><span class="line">        repeat(n) &#123;</span><br><span class="line">            builder.append(str)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> builder.toString()</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">inner</span> <span class="class"><span class="keyword">class</span> <span class="title">NewsAdapter</span></span>(<span class="keyword">val</span> newsList: List&lt;News&gt;) :</span><br><span class="line">        RecyclerView.Adapter&lt;NewsAdapter.ViewHolder&gt;() &#123;</span><br><span class="line">        <span class="keyword">inner</span> <span class="class"><span class="keyword">class</span> <span class="title">ViewHolder</span></span>(view: View) : RecyclerView.ViewHolder(view) &#123;</span><br><span class="line">            <span class="keyword">val</span> newsTitle: TextView = view.findViewById(R.id.newsTitle)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreateViewHolder</span><span class="params">(parent: <span class="type">ViewGroup</span>, viewType: <span class="type">Int</span>)</span></span>: ViewHolder &#123;</span><br><span class="line">            <span class="keyword">val</span> view = LayoutInflater.from(parent.context)</span><br><span class="line">                .inflate(R.layout.news_item, parent, <span class="literal">false</span>)</span><br><span class="line">            <span class="keyword">val</span> holder = ViewHolder(view)</span><br><span class="line">            holder.itemView.setOnClickListener &#123;</span><br><span class="line">                <span class="keyword">val</span> news = newsList[holder. bindingAdapterPosition]</span><br><span class="line">                <span class="keyword">if</span> (isTwoPane) &#123;<span class="comment">// 如果是双页模式，则刷新NewsContentFragment中的内容</span></span><br><span class="line">                    <span class="keyword">val</span> fragment = fragmentManager?.findFragmentById(R.id.newsContentFrag)</span><br><span class="line">                            <span class="keyword">as</span> NewsContentFragment</span><br><span class="line">                    fragment?.refresh(news.title, news.content)</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;   <span class="comment">// 如果是单页模式，则直接启动NewsContentActivity</span></span><br><span class="line">                    NewsContentActivity.actionStart(parent.context, news.title,</span><br><span class="line">                        news.content)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> holder</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onBindViewHolder</span><span class="params">(holder: <span class="type">ViewHolder</span>, position: <span class="type">Int</span>)</span></span> &#123;</span><br><span class="line">            <span class="keyword">val</span> news = newsList[position]</span><br><span class="line">            holder.newsTitle.text = news.title</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">getItemCount</span><span class="params">()</span></span> = newsList.size</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="activity-main-xml"><a href="#activity-main-xml" class="headerlink" title="activity_main.xml"></a>activity_main.xml</h2><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span><br><span class="line">&lt;FrameLayout xmlns:android=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span><br><span class="line">    android:id=<span class="string">&quot;@+id/newsTitleLayout&quot;</span></span><br><span class="line">    android:layout_width=<span class="string">&quot;match_parent&quot;</span></span><br><span class="line">    android:layout_height=<span class="string">&quot;match_parent&quot;</span> &gt;</span><br><span class="line">    &lt;fragment</span><br><span class="line">        android:id=<span class="string">&quot;@+id/newsTitleFrag&quot;</span></span><br><span class="line">        android:name=<span class="string">&quot;com.example.fragmentbestpractice.NewsTitleFragment&quot;</span></span><br><span class="line">        android:layout_width=<span class="string">&quot;match_parent&quot;</span></span><br><span class="line">        android:layout_height=<span class="string">&quot;match_parent&quot;</span></span><br><span class="line">        /&gt;</span><br><span class="line">&lt;/FrameLayout&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="activity-news-content-xml"><a href="#activity-news-content-xml" class="headerlink" title="activity_news_content.xml"></a>activity_news_content.xml</h2><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span><br><span class="line">&lt;LinearLayout xmlns:android=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span><br><span class="line">    android:orientation=<span class="string">&quot;vertical&quot;</span></span><br><span class="line">    android:layout_width=<span class="string">&quot;match_parent&quot;</span></span><br><span class="line">    android:layout_height=<span class="string">&quot;match_parent&quot;</span>&gt;</span><br><span class="line">    &lt;fragment</span><br><span class="line">        android:id=<span class="string">&quot;@+id/newsContentFrag&quot;</span></span><br><span class="line">        android:name=<span class="string">&quot;com.example.fragmentbestpractice.NewsContentFragment&quot;</span></span><br><span class="line">        android:layout_width=<span class="string">&quot;match_parent&quot;</span></span><br><span class="line">        android:layout_height=<span class="string">&quot;match_parent&quot;</span></span><br><span class="line">        /&gt;</span><br><span class="line">&lt;/LinearLayout&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="news-content-frag-xml"><a href="#news-content-frag-xml" class="headerlink" title="news_content_frag.xml"></a>news_content_frag.xml</h2><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span><br><span class="line">&lt;RelativeLayout xmlns:android=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span><br><span class="line">    android:layout_width=<span class="string">&quot;match_parent&quot;</span></span><br><span class="line">    android:layout_height=<span class="string">&quot;match_parent&quot;</span>&gt;</span><br><span class="line">    &lt;LinearLayout</span><br><span class="line">        android:id=<span class="string">&quot;@+id/contentLayout&quot;</span></span><br><span class="line">        android:layout_width=<span class="string">&quot;match_parent&quot;</span></span><br><span class="line">        android:layout_height=<span class="string">&quot;match_parent&quot;</span></span><br><span class="line">        android:orientation=<span class="string">&quot;vertical&quot;</span></span><br><span class="line">        android:visibility=<span class="string">&quot;invisible&quot;</span> &gt;</span><br><span class="line">        &lt;TextView</span><br><span class="line">            android:id=<span class="string">&quot;@+id/newsTitleAboveContent&quot;</span></span><br><span class="line">            android:layout_width=<span class="string">&quot;match_parent&quot;</span></span><br><span class="line">            android:layout_height=<span class="string">&quot;wrap_content&quot;</span></span><br><span class="line">            android:gravity=<span class="string">&quot;center&quot;</span></span><br><span class="line">            android:padding=<span class="string">&quot;10dp&quot;</span></span><br><span class="line">            android:textSize=<span class="string">&quot;20sp&quot;</span> /&gt;</span><br><span class="line">        &lt;TextView</span><br><span class="line">            android:id=<span class="string">&quot;@+id/newsContent&quot;</span></span><br><span class="line">            android:layout_width=<span class="string">&quot;match_parent&quot;</span></span><br><span class="line">            android:layout_height=<span class="string">&quot;0dp&quot;</span></span><br><span class="line">            android:layout_weight=<span class="string">&quot;1&quot;</span></span><br><span class="line">            android:padding=<span class="string">&quot;15dp&quot;</span></span><br><span class="line">            android:textSize=<span class="string">&quot;18sp&quot;</span> /&gt;</span><br><span class="line">        &lt;View</span><br><span class="line">            android:layout_width=<span class="string">&quot;match_parent&quot;</span></span><br><span class="line">            android:layout_height=<span class="string">&quot;1dp&quot;</span></span><br><span class="line">            android:background=<span class="string">&quot;#000&quot;</span> /&gt;</span><br><span class="line">    &lt;/LinearLayout&gt;</span><br><span class="line">    &lt;View</span><br><span class="line">        android:layout_width=<span class="string">&quot;1dp&quot;</span></span><br><span class="line">        android:layout_height=<span class="string">&quot;match_parent&quot;</span></span><br><span class="line">        android:layout_alignParentLeft=<span class="string">&quot;true&quot;</span></span><br><span class="line">        android:background=<span class="string">&quot;#000&quot;</span> /&gt;</span><br><span class="line">&lt;/RelativeLayout&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="news-item-xml"><a href="#news-item-xml" class="headerlink" title="news_item.xml"></a>news_item.xml</h2><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span><br><span class="line">&lt;TextView xmlns:android=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span><br><span class="line">    android:id=<span class="string">&quot;@+id/newsTitle&quot;</span></span><br><span class="line">    android:layout_width=<span class="string">&quot;match_parent&quot;</span></span><br><span class="line">    android:layout_height=<span class="string">&quot;wrap_content&quot;</span></span><br><span class="line">    android:maxLines=<span class="string">&quot;1&quot;</span></span><br><span class="line">    android:ellipsize=<span class="string">&quot;end&quot;</span></span><br><span class="line">    android:textSize=<span class="string">&quot;18sp&quot;</span></span><br><span class="line">    android:paddingLeft=<span class="string">&quot;10dp&quot;</span></span><br><span class="line">    android:paddingRight=<span class="string">&quot;10dp&quot;</span></span><br><span class="line">    android:paddingTop=<span class="string">&quot;15dp&quot;</span></span><br><span class="line">    android:paddingBottom=<span class="string">&quot;15dp&quot;</span> /&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="news-title-frag-xml"><a href="#news-title-frag-xml" class="headerlink" title="news_title_frag.xml"></a>news_title_frag.xml</h2><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span><br><span class="line">&lt;LinearLayout xmlns:android=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span><br><span class="line">    android:orientation=<span class="string">&quot;vertical&quot;</span></span><br><span class="line">    android:layout_width=<span class="string">&quot;match_parent&quot;</span></span><br><span class="line">    android:layout_height=<span class="string">&quot;match_parent&quot;</span>&gt;</span><br><span class="line">    &lt;androidx.recyclerview.widget.RecyclerView</span><br><span class="line">        android:id=<span class="string">&quot;@+id/newsTitleRecyclerView&quot;</span></span><br><span class="line">        android:layout_width=<span class="string">&quot;match_parent&quot;</span></span><br><span class="line">        android:layout_height=<span class="string">&quot;match_parent&quot;</span></span><br><span class="line">        /&gt;</span><br><span class="line">&lt;/LinearLayout&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="activity-main-xml-sw600dp"><a href="#activity-main-xml-sw600dp" class="headerlink" title="activity_main.xml(sw600dp)"></a>activity_main.xml(sw600dp)</h2><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span><br><span class="line">&lt;LinearLayout xmlns:android=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span><br><span class="line">    android:orientation=<span class="string">&quot;vertical&quot;</span></span><br><span class="line">    android:layout_width=<span class="string">&quot;match_parent&quot;</span></span><br><span class="line">    android:layout_height=<span class="string">&quot;match_parent&quot;</span>&gt;</span><br><span class="line">    &lt;androidx.recyclerview.widget.RecyclerView</span><br><span class="line">        android:id=<span class="string">&quot;@+id/newsTitleRecyclerView&quot;</span></span><br><span class="line">        android:layout_width=<span class="string">&quot;match_parent&quot;</span></span><br><span class="line">        android:layout_height=<span class="string">&quot;match_parent&quot;</span></span><br><span class="line">        /&gt;</span><br><span class="line">&lt;/LinearLayout&gt;</span><br></pre></td></tr></table></figure>
+      </div>
+      
+      
+      
+    </div>
+    
+  <ul class="breadcrumb">
+          
+            <li><a href="/Kome1jiSatori.github.io/">KOME1JISATORI.GITHUB.IO</a></li>
+            <li><a href="/Kome1jiSatori.github.io/page/">PAGE</a></li>
+            <li>ANDROID2</li>
+          
+  </ul>
+
+    
+    
+    
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%AE%9E%E9%AA%8C%E7%9B%AE%E7%9A%84"><span class="nav-text">一、实验目的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83"><span class="nav-text">二、实验环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%AE%9E%E9%AA%8C%E5%86%85%E5%AE%B9"><span class="nav-text">三、实验内容</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E4%B8%BB%E8%A6%81%E5%AE%9E%E9%AA%8C%E6%AD%A5%E9%AA%A4"><span class="nav-text">四、主要实验步骤</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E9%99%84%E5%BD%95"><span class="nav-text">代码附录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MainActivity"><span class="nav-text">MainActivity</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#News"><span class="nav-text">News</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NewsContentActivity"><span class="nav-text">NewsContentActivity</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NewsContentFragment"><span class="nav-text">NewsContentFragment</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NewsTitleFragment"><span class="nav-text">NewsTitleFragment</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#activity-main-xml"><span class="nav-text">activity_main.xml</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#activity-news-content-xml"><span class="nav-text">activity_news_content.xml</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#news-content-frag-xml"><span class="nav-text">news_content_frag.xml</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#news-item-xml"><span class="nav-text">news_item.xml</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#news-title-frag-xml"><span class="nav-text">news_title_frag.xml</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#activity-main-xml-sw600dp"><span class="nav-text">activity_main.xml(sw600dp)</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Komeiji Satori"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Komeiji Satori</p>
+  <div class="site-description" itemprop="description">记录些有的没的的学习心得</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kome1jisatori" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kome1jisatori" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://wpa.qq.com/msgrd?v=3&uin=740775405&site=qq&menu=yes" title="QQ → http:&#x2F;&#x2F;wpa.qq.com&#x2F;msgrd?v&#x3D;3&amp;uin&#x3D;740775405&amp;site&#x3D;qq&amp;menu&#x3D;yes" rel="noopener" target="_blank"><i class="fab fa-qq fa-fw"></i>QQ</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      膜大佬的链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://sherlockcoder.xyz/" title="http:&#x2F;&#x2F;sherlockcoder.xyz" rel="noopener" target="_blank">不朽之存在的首页</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://datawhalechina.github.io/leeml-notes/#/" title="https:&#x2F;&#x2F;datawhalechina.github.io&#x2F;leeml-notes&#x2F;#&#x2F;" rel="noopener" target="_blank">机器学习笔记(LeeML-Notes)</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">苏ICP备 - 2021020302 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">KomeijiSatori</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">283k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">4:17</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : '8NhM2OcimmX1hgpelhxOhQK8-gzGzoHsz',
+      appKey     : 'bQ1303bPFHzcUrkoBzb39dgO',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+
+
+  <script type="text/javascript" color="0,0,0" opacity='0.5' zIndex="-1" count="150" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":true},"log":false});</script></body>
+</html>

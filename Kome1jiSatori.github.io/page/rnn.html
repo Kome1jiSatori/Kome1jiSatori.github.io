@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kome1jisatori.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="前言弃之可惜orz">
+<meta property="og:type" content="website">
+<meta property="og:title" content="记录下没有训练出成果的情感识别模型">
+<meta property="og:url" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/rnn.html">
+<meta property="og:site_name" content="KomeijiSatoriのblog">
+<meta property="og:description" content="前言弃之可惜orz">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-08-05T13:12:12.000Z">
+<meta property="article:modified_time" content="2021-08-06T05:14:07.912Z">
+<meta property="article:author" content="Komeiji Satori">
+<meta property="article:tag" content="机器学习">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/rnn">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>记录下没有训练出成果的情感识别模型 | KomeijiSatoriのblog
+</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">KomeijiSatoriのblog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">地灵殿从零开始的学习生活</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">4</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">30</span></a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+  
+  
+
+          <div class="content page posts-expand">
+            
+
+    
+    
+    
+    <div class="post-block" lang="zh-CN">
+      <header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">记录下没有训练出成果的情感识别模型
+</h1>
+
+<div class="post-meta">
+  
+  <ul class="breadcrumb">
+          
+            <li><a href="/Kome1jiSatori.github.io/">KOME1JISATORI.GITHUB.IO</a></li>
+            <li><a href="/Kome1jiSatori.github.io/page/">PAGE</a></li>
+            <li>RNN</li>
+          
+  </ul>
+
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>弃之可惜orz</p>
+<span id="more"></span> 
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> DataLoader, Dataset</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">import</span> torch.optim</span><br><span class="line"><span class="keyword">from</span> torch.nn <span class="keyword">import</span> functional <span class="keyword">as</span> F</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> tqdm</span><br><span class="line"><span class="keyword">import</span> _pickle <span class="keyword">as</span> pickle</span><br><span class="line">max_len = <span class="number">200</span></span><br><span class="line">batch_size = <span class="number">128</span></span><br><span class="line">hidden_size = <span class="number">512</span></span><br><span class="line">num_layer = <span class="number">2</span></span><br><span class="line">bidriectional = <span class="literal">True</span></span><br><span class="line">dropout = <span class="number">0.4</span></span><br><span class="line">test_batch_size = <span class="number">2000</span></span><br><span class="line">device = torch.device(<span class="string">&quot;cuda:0&quot;</span> <span class="keyword">if</span> torch.cuda.is_available() <span class="keyword">else</span> <span class="string">&quot;cpu&quot;</span>)</span><br><span class="line">data_base_path = <span class="string">r&quot;C:\Users\74077\Desktop\aclImdb&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Word2Sequence</span>:</span></span><br><span class="line">    UNK_TAG = <span class="string">&quot;UNK&quot;</span></span><br><span class="line">    PAD_TAG = <span class="string">&quot;PAD&quot;</span></span><br><span class="line"></span><br><span class="line">    UNK = <span class="number">0</span></span><br><span class="line">    PAD = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.<span class="built_in">dict</span> = &#123;</span><br><span class="line">            self.UNK_TAG: self.UNK,</span><br><span class="line">            self.PAD_TAG: self.PAD</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        self.count = &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">fit</span>(<span class="params">self, sentence</span>):</span></span><br><span class="line">        <span class="keyword">for</span> word <span class="keyword">in</span> sentence:</span><br><span class="line">            self.count[word] = self.count.get(word, <span class="number">0</span>) + <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">build_vocab</span>(<span class="params">self, <span class="built_in">min</span>=<span class="number">2</span>, <span class="built_in">max</span>=<span class="literal">None</span>, max_feature=<span class="literal">None</span></span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :param min:最小次数</span></span><br><span class="line"><span class="string">        :param max:最大次数</span></span><br><span class="line"><span class="string">        :param max_feature:一共保留多少个词语</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="comment"># 删除词频小于min的word</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">min</span> <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            self.count = &#123;word: value <span class="keyword">for</span> word, value <span class="keyword">in</span> self.count.items() <span class="keyword">if</span> value &gt; <span class="built_in">min</span>&#125;</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">max</span> <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            self.count = &#123;word: value <span class="keyword">for</span> word, value <span class="keyword">in</span> self.count.items() <span class="keyword">if</span> value &lt; <span class="built_in">max</span>&#125;</span><br><span class="line">        <span class="keyword">if</span> max_feature <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            temp = <span class="built_in">sorted</span>(self.count.items(), key=<span class="keyword">lambda</span> x: x[-<span class="number">1</span>], reverse=<span class="literal">True</span>)[:max_feature]</span><br><span class="line">            self.count = <span class="built_in">dict</span>(temp)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> word <span class="keyword">in</span> self.count:</span><br><span class="line">            self.<span class="built_in">dict</span>[word] = <span class="built_in">len</span>(self.<span class="built_in">dict</span>)</span><br><span class="line"></span><br><span class="line">        self.inverse_dict = <span class="built_in">dict</span>(<span class="built_in">zip</span>(self.<span class="built_in">dict</span>.values(), self.<span class="built_in">dict</span>.keys()))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">transform</span>(<span class="params">self, sentence, max_len=<span class="literal">None</span></span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        把句子转换为序列</span></span><br><span class="line"><span class="string">        :param sentence:</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> max_len <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">if</span> max_len &gt; <span class="built_in">len</span>(sentence):</span><br><span class="line">                sentence = sentence + [self.PAD_TAG] * (max_len - <span class="built_in">len</span>(sentence))</span><br><span class="line">            <span class="keyword">if</span> max_len &lt; <span class="built_in">len</span>(sentence):</span><br><span class="line">                sentence = sentence[:max_len]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> [self.<span class="built_in">dict</span>.get(word, self.UNK) <span class="keyword">for</span> word <span class="keyword">in</span> sentence]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inverse_transform</span>(<span class="params">self, indices</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        把序列转换为句子</span></span><br><span class="line"><span class="string">        :param indices:</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">return</span>[self.inverse_dict.get(idx) <span class="keyword">for</span> idx <span class="keyword">in</span> indices]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__len__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">len</span>(self.<span class="built_in">dict</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ws = Word2Sequence()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># def collate_fn(batch):</span></span><br><span class="line"><span class="comment">#     content, label = list(zip(*batch))</span></span><br><span class="line"><span class="comment">#     content = [ws.transform(i, max_len=max_len) for i in content]</span></span><br><span class="line"><span class="comment">#     content = torch.LongTensor(content)</span></span><br><span class="line"><span class="comment">#     label = torch.LongTensor(label)</span></span><br><span class="line"><span class="comment">#     return content, label</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">collate_fn</span>(<span class="params">batch</span>):</span></span><br><span class="line">    <span class="comment"># MAX_LEN = 500</span></span><br><span class="line">    MAX_LEN = <span class="built_in">max</span>([<span class="built_in">len</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> texts]) <span class="comment">#取当前batch的最大值作为batch的最大长度</span></span><br><span class="line"></span><br><span class="line">    batch = <span class="built_in">list</span>(<span class="built_in">zip</span>(*batch))</span><br><span class="line">    labes = torch.tensor(batch[<span class="number">0</span>],dtype=torch.<span class="built_in">int</span>)</span><br><span class="line"></span><br><span class="line">    texts = batch[<span class="number">1</span>]</span><br><span class="line">    <span class="comment">#获取每个文本的长度</span></span><br><span class="line">    lengths = [<span class="built_in">len</span>(i) <span class="keyword">if</span> <span class="built_in">len</span>(i)&lt;MAX_LEN <span class="keyword">else</span> MAX_LEN <span class="keyword">for</span> i <span class="keyword">in</span> texts]</span><br><span class="line">    texts = torch.tensor([ws.transform(i, MAX_LEN) <span class="keyword">for</span> i <span class="keyword">in</span> texts])</span><br><span class="line">    <span class="keyword">del</span> batch</span><br><span class="line">    <span class="keyword">return</span> labes,texts,lengths</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">tokenlize</span>(<span class="params">content</span>):</span></span><br><span class="line">    content = re.sub(<span class="string">&quot;&lt;&quot;</span>, <span class="string">&quot; &quot;</span>, content)</span><br><span class="line">    fileters = [<span class="string">&#x27;!&#x27;</span>, <span class="string">&#x27;&quot;&#x27;</span>, <span class="string">&#x27;#&#x27;</span>, <span class="string">&#x27;$&#x27;</span>, <span class="string">&#x27;%&#x27;</span>, <span class="string">&#x27;&amp;&#x27;</span>, <span class="string">&#x27;\(&#x27;</span>, <span class="string">&#x27;\)&#x27;</span>, <span class="string">&#x27;\*&#x27;</span>, <span class="string">&#x27;\+&#x27;</span>, <span class="string">&#x27;,&#x27;</span>, <span class="string">&#x27;-&#x27;</span>, <span class="string">&#x27;\.&#x27;</span>,<span class="string">&#x27;/&#x27;</span>,<span class="string">&#x27;:&#x27;</span>,<span class="string">&#x27;;&#x27;</span>,<span class="string">&#x27;&lt;&#x27;</span>,<span class="string">&#x27;=&#x27;</span>,<span class="string">&#x27;&gt;&#x27;</span>,<span class="string">&#x27;\?&#x27;</span>,<span class="string">&#x27;@&#x27;</span></span><br><span class="line">        ,<span class="string">&#x27;\[&#x27;</span>,<span class="string">&#x27;\\&#x27;</span>,<span class="string">&#x27;\]&#x27;</span>,<span class="string">&#x27;^&#x27;</span>,<span class="string">&#x27;_&#x27;</span>,<span class="string">&#x27;`&#x27;</span>,<span class="string">&#x27;\&#123;&#x27;</span>,<span class="string">&#x27;\|&#x27;</span>,<span class="string">&#x27;\&#125;&#x27;</span>,<span class="string">&#x27;~&#x27;</span>,<span class="string">&#x27;\t&#x27;</span>,<span class="string">&#x27;\n&#x27;</span>,<span class="string">&#x27;\x97&#x27;</span>,<span class="string">&#x27;\x96&#x27;</span>,<span class="string">&#x27;”&#x27;</span>,<span class="string">&#x27;“&#x27;</span>,]</span><br><span class="line">    content = re.sub(<span class="string">&quot;|&quot;</span>.join(fileters), <span class="string">&quot; &quot;</span>, content)</span><br><span class="line">    tokens = [i.strip().lower() <span class="keyword">for</span> i <span class="keyword">in</span> content.split()]</span><br><span class="line">    <span class="keyword">return</span> tokens</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ImdbDataset</span>(<span class="params">Dataset</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, train=<span class="literal">True</span></span>):</span></span><br><span class="line">        self.train_data_path = <span class="string">r&quot;C:\Users\74077\Desktop\aclImdb\train&quot;</span></span><br><span class="line">        self.test_data_path = <span class="string">r&quot;C:\Users\74077\Desktop\aclImdb\test&quot;</span></span><br><span class="line">        data_path = self.train_data_path <span class="keyword">if</span> train <span class="keyword">else</span> self.test_data_path</span><br><span class="line">        temp_data_path = [os.path.join(data_path, <span class="string">&quot;pos&quot;</span>), os.path.join(data_path, <span class="string">&quot;neg&quot;</span>)]</span><br><span class="line">        self.total_file_path = []</span><br><span class="line">        <span class="keyword">for</span> path <span class="keyword">in</span> temp_data_path:</span><br><span class="line">            file_name_list = os.listdir(path)</span><br><span class="line">            file_path_list = [os.path.join(path, i) <span class="keyword">for</span> i <span class="keyword">in</span> file_name_list <span class="keyword">if</span> i.endswith(<span class="string">&quot;.txt&quot;</span>)]</span><br><span class="line">            self.total_file_path.extend(file_path_list)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span>(<span class="params">self, index</span>):</span></span><br><span class="line">        file_path = self.total_file_path[index]</span><br><span class="line">        label_str = file_path.split(<span class="string">&quot;\\&quot;</span>)[-<span class="number">2</span>]</span><br><span class="line">        label = <span class="number">0</span> <span class="keyword">if</span> label_str == <span class="string">&quot;neg&quot;</span> <span class="keyword">else</span> <span class="number">1</span></span><br><span class="line">        tokens = tokenlize(<span class="built_in">open</span>(file_path, encoding=<span class="string">&#x27;utf-8&#x27;</span>).read())</span><br><span class="line">        <span class="keyword">return</span> tokens, label</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__len__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">len</span>(self.total_file_path)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_dataloader</span>(<span class="params">train=<span class="literal">True</span>, Batch_size=batch_size</span>):</span></span><br><span class="line">    imdb_dataset = ImdbDataset(train=train)</span><br><span class="line">    data_loader = DataLoader(imdb_dataset, batch_size=Batch_size, shuffle=<span class="literal">True</span>, collate_fn=collate_fn)</span><br><span class="line">    <span class="keyword">return</span> data_loader</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Mymodel</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">super</span>(Mymodel, self).__init__()</span><br><span class="line">        self.embedding = nn.Embedding(<span class="built_in">len</span>(ws), <span class="number">100</span>)</span><br><span class="line">        self.lstm = nn.LSTM(input_size=<span class="number">100</span>, hidden_size=hidden_size, num_layers=num_layer, batch_first=<span class="literal">True</span>, bidirectional=bidriectional, dropout=dropout)</span><br><span class="line">        self.fc = nn.Linear(hidden_size * <span class="number">2</span>, <span class="number">20</span>)</span><br><span class="line">        self.fc2 = nn.Linear(<span class="number">20</span>, <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, <span class="built_in">input</span></span>):</span></span><br><span class="line">        x = self.embedding(<span class="built_in">input</span>)</span><br><span class="line">        x, (h_n, c_n) = self.lstm(x)</span><br><span class="line">        output_fw = h_n[-<span class="number">2</span>, :, :]</span><br><span class="line">        output_bw = h_n[-<span class="number">1</span>, :, :]</span><br><span class="line">        output = torch.cat([output_fw, output_bw], dim=-<span class="number">1</span>)</span><br><span class="line">        out = self.fc(output)</span><br><span class="line">        out = F.relu(out)</span><br><span class="line">        out = self.fc2(out)</span><br><span class="line">        <span class="keyword">return</span> F.log_softmax(out, dim=-<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">model = Mymodel().to(device)</span><br><span class="line">optimizer = torch.optim.Adam(model.parameters(), lr=<span class="number">1e-3</span>)</span><br><span class="line"><span class="comment"># if os.path.exists(&quot;./model/rnn.hh&quot;):</span></span><br><span class="line">    <span class="comment"># model.load_state_dict(torch.load(&quot;./model/rnn.hh&quot;))</span></span><br><span class="line">    <span class="comment"># optimizer.load_state_dict(torch.load(&quot;./model/rhhopt.hh&quot;))</span></span><br><span class="line">data_loader = get_dataloader()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">train</span>(<span class="params">epoch</span>):</span></span><br><span class="line">    <span class="keyword">for</span> idx, (<span class="built_in">input</span>, target) <span class="keyword">in</span> <span class="built_in">enumerate</span>(get_dataloader()):</span><br><span class="line">        <span class="built_in">input</span> = <span class="built_in">input</span>.to(device)</span><br><span class="line">        target = target.to(device)</span><br><span class="line">        optimizer.zero_grad()</span><br><span class="line">        output = model(<span class="built_in">input</span>)</span><br><span class="line">        loss = F.nll_loss(output, target)</span><br><span class="line">        loss.backward()</span><br><span class="line">        optimizer.step()</span><br><span class="line">        <span class="built_in">print</span>(epoch, idx, loss.item())</span><br><span class="line">        <span class="comment"># if idx % 100 == 0:</span></span><br><span class="line"><span class="comment"># torch.save(model.state_dict(), &quot;./model/rnn.hh&quot;)</span></span><br><span class="line"><span class="comment"># torch.save(optimizer.state_dict(), &quot;./model/rhhopt.hh&quot;)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">eval</span>():</span></span><br><span class="line">    loss_list = []</span><br><span class="line">    acc_list = []</span><br><span class="line">    <span class="keyword">for</span> idx, (<span class="built_in">input</span>, target) <span class="keyword">in</span> <span class="built_in">enumerate</span>(get_dataloader(train=<span class="literal">False</span>, Batch_size=test_batch_size)):</span><br><span class="line">        <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">            <span class="comment"># input = input.to(device)</span></span><br><span class="line">            <span class="comment"># target = target.to(device)</span></span><br><span class="line">            output = model(<span class="built_in">input</span>)</span><br><span class="line">            cur_loss = F.nll_loss(output, target)</span><br><span class="line">            loss_list.append(cur_loss)</span><br><span class="line">            pred = output.<span class="built_in">max</span>(dim=-<span class="number">1</span>)[-<span class="number">1</span>]</span><br><span class="line">            cur_acc = pred.eq(target).<span class="built_in">float</span>().mean()</span><br><span class="line">            acc_list.append(cur_acc)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;平均准确率，平均损失：&quot;</span>, np.mean(acc_list), np.mean(loss_list))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fit_save_word_sequence</span>():</span></span><br><span class="line">    ws = Word2Sequence()</span><br><span class="line">    train_path = [os.path.join(data_base_path,i)  <span class="keyword">for</span> i <span class="keyword">in</span> [<span class="string">&quot;train/neg&quot;</span>,<span class="string">&quot;train/pos&quot;</span>]]</span><br><span class="line">    total_file_path_list = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> train_path:</span><br><span class="line">        total_file_path_list.extend([os.path.join(i, j) <span class="keyword">for</span> j <span class="keyword">in</span> os.listdir(i)])</span><br><span class="line">    <span class="keyword">for</span> cur_path <span class="keyword">in</span> tqdm(total_file_path_list,<span class="built_in">ascii</span>=<span class="literal">True</span>,desc=<span class="string">&quot;fitting&quot;</span>):</span><br><span class="line">        ws.fit(tokenlize(<span class="built_in">open</span>(cur_path).read().strip()))</span><br><span class="line">    ws.build_vocab()</span><br><span class="line">    <span class="comment"># 对wordSequesnce进行保存</span></span><br><span class="line">    pickle.dump(ws,<span class="built_in">open</span>(<span class="string">&quot;./model/ws.pkl&quot;</span>,<span class="string">&quot;wb&quot;</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">#2. 在dataset中使用wordsequence</span></span><br><span class="line"><span class="comment"># ws = pickle.load(open(&quot;./model/ws.pkl&quot;,&quot;rb&quot;))</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">        train(i)</span><br><span class="line">    <span class="built_in">eval</span>()</span><br></pre></td></tr></table></figure>
+      </div>
+      
+      
+      
+    </div>
+    
+  <ul class="breadcrumb">
+          
+            <li><a href="/Kome1jiSatori.github.io/">KOME1JISATORI.GITHUB.IO</a></li>
+            <li><a href="/Kome1jiSatori.github.io/page/">PAGE</a></li>
+            <li>RNN</li>
+          
+  </ul>
+
+    
+    
+    
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Komeiji Satori"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Komeiji Satori</p>
+  <div class="site-description" itemprop="description">记录些有的没的的学习心得</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kome1jisatori" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kome1jisatori" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://wpa.qq.com/msgrd?v=3&uin=740775405&site=qq&menu=yes" title="QQ → http:&#x2F;&#x2F;wpa.qq.com&#x2F;msgrd?v&#x3D;3&amp;uin&#x3D;740775405&amp;site&#x3D;qq&amp;menu&#x3D;yes" rel="noopener" target="_blank"><i class="fab fa-qq fa-fw"></i>QQ</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      膜大佬的链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://sherlockcoder.xyz/" title="http:&#x2F;&#x2F;sherlockcoder.xyz" rel="noopener" target="_blank">不朽之存在的首页</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://datawhalechina.github.io/leeml-notes/#/" title="https:&#x2F;&#x2F;datawhalechina.github.io&#x2F;leeml-notes&#x2F;#&#x2F;" rel="noopener" target="_blank">机器学习笔记(LeeML-Notes)</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">苏ICP备 - 2021020302 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">KomeijiSatori</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">283k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">4:17</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : '8NhM2OcimmX1hgpelhxOhQK8-gzGzoHsz',
+      appKey     : 'bQ1303bPFHzcUrkoBzb39dgO',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+
+
+  <script type="text/javascript" color="0,0,0" opacity='0.5' zIndex="-1" count="150" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":true},"log":false});</script></body>
+</html>

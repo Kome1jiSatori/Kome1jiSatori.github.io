@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kome1jisatori.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="前言&amp;ensp;&amp;ensp;&amp;ensp;&amp;ensp;用C语言模拟银行家算法。个人实验报告使用，如果想参考，不得保留原文40%以上，谢谢配合。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="操作系统实验课作业三——银行家算法">
+<meta property="og:url" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E9%93%B6%E8%A1%8C%E5%AE%B6%E7%AE%97%E6%B3%95.html">
+<meta property="og:site_name" content="KomeijiSatoriのblog">
+<meta property="og:description" content="前言&amp;ensp;&amp;ensp;&amp;ensp;&amp;ensp;用C语言模拟银行家算法。个人实验报告使用，如果想参考，不得保留原文40%以上，谢谢配合。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E5%88%86%E9%85%8D%E6%88%90%E5%8A%9F.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E5%88%86%E9%85%8D%E5%A4%B1%E8%B4%A5.png">
+<meta property="article:published_time" content="2021-05-06T14:52:51.000Z">
+<meta property="article:modified_time" content="2021-05-27T03:11:59.215Z">
+<meta property="article:author" content="Komeiji Satori">
+<meta property="article:tag" content="实验课作业">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E5%88%86%E9%85%8D%E6%88%90%E5%8A%9F.png">
+
+<link rel="canonical" href="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E9%93%B6%E8%A1%8C%E5%AE%B6%E7%AE%97%E6%B3%95">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>操作系统实验课作业三——银行家算法 | KomeijiSatoriのblog
+</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">KomeijiSatoriのblog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">地灵殿从零开始的学习生活</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">4</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">30</span></a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+  
+  
+
+          <div class="content page posts-expand">
+            
+
+    
+    
+    
+    <div class="post-block" lang="zh-CN">
+      <header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">操作系统实验课作业三——银行家算法
+</h1>
+
+<div class="post-meta">
+  
+  <ul class="breadcrumb">
+          
+            <li><a href="/Kome1jiSatori.github.io/">KOME1JISATORI.GITHUB.IO</a></li>
+            <li><a href="/Kome1jiSatori.github.io/page/">PAGE</a></li>
+            <li>银行家算法</li>
+          
+  </ul>
+
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>&ensp;&ensp;&ensp;&ensp;用C语言模拟银行家算法。个人实验报告使用，如果想参考，不得保留原文40%以上，谢谢配合。</p>
+<span id="more"></span>
+
+<h1 id="一、实验目的及要求"><a href="#一、实验目的及要求" class="headerlink" title="一、实验目的及要求"></a>一、实验目的及要求</h1><ul>
+<li><p>通过编写和调试一个系统动态分配资源的简单模拟程序；  </p>
+</li>
+<li><p>观察死锁产生的条件 ； </p>
+</li>
+<li><p>模拟死锁避免的实现  ；</p>
+</li>
+<li><p>加深对死锁避免 ；</p>
+</li>
+<li><p>系统安全状态的理解；  </p>
+</li>
+<li><p>体会和了解死锁以及避免死锁的具体实现方法。  </p>
+</li>
+</ul>
+<h1 id="二、基本理论介绍"><a href="#二、基本理论介绍" class="headerlink" title="二、基本理论介绍"></a>二、基本理论介绍</h1><h2 id="2-1-银行家算法"><a href="#2-1-银行家算法" class="headerlink" title="2.1 银行家算法"></a>2.1 银行家算法</h2><p>&ensp;&ensp;&ensp;&ensp;银行家算法（Banker’s Algorithm）是一个避免死锁（Deadlock）的著名算法，是由艾兹格·迪杰斯特拉在1965年为T.H.E系统设计的一种避免死锁产生的算法。<br>&ensp;&ensp;&ensp;&ensp;它以银行借贷系统的分配策略为基础，判断并保证系统的安全运行。在银行中，客户申请贷款的数量是有限的，每个客户在第一次申请贷款时要声明完成该项目所需的最大资金量，在满足所有贷款要求时，客户应及时归还。银行家在客户申请的贷款数量不超过自己拥有的最大值时，都应尽量满足客户的需要。在这样的描述中，银行家就好比操作系统，资金就是资源，客户就相当于要申请资源的进程。</p>
+<h2 id="2-2-安全状态"><a href="#2-2-安全状态" class="headerlink" title="2.2 安全状态"></a>2.2 安全状态</h2><p>&ensp;&ensp;&ensp;&ensp;如果存在一个由系统中所有进程构成的安全序列P1，…，Pn，则系统处于安全状态。安全状态一定是没有死锁发生。</p>
+<h2 id="2-3-不安全状态"><a href="#2-3-不安全状态" class="headerlink" title="2.3 不安全状态"></a>2.3 不安全状态</h2><p>&ensp;&ensp;&ensp;&ensp;不存在一个安全序列。不安全状态不一定导致死锁。</p>
+<h2 id="2-4-银行家算法所涉及的数据结构"><a href="#2-4-银行家算法所涉及的数据结构" class="headerlink" title="2.4 银行家算法所涉及的数据结构"></a>2.4 银行家算法所涉及的数据结构</h2><h3 id="1）可利用资源向量Available"><a href="#1）可利用资源向量Available" class="headerlink" title="1）可利用资源向量Available"></a>1）可利用资源向量Available</h3><p>&ensp;&ensp;&ensp;&ensp;是个含有m个元素的数组，其中的每一个元素代表一类可利用的资源数目。如果Available[j]=K，则表示系统中现有Rj类资源K个。</p>
+<h3 id="2）最大需求矩阵Max"><a href="#2）最大需求矩阵Max" class="headerlink" title="2）最大需求矩阵Max"></a>2）最大需求矩阵Max</h3><p>&ensp;&ensp;&ensp;&ensp;这是一个n×m的矩阵，它定义了系统中n个进程中的每一个进程对m类资源的最大需求。如果Max[i,j]=K，则表示进程i需要Rj类资源的最大数目为K。</p>
+<h3 id="3）分配矩阵Allocation"><a href="#3）分配矩阵Allocation" class="headerlink" title="3）分配矩阵Allocation"></a>3）分配矩阵Allocation</h3><p>&ensp;&ensp;&ensp;&ensp;这也是一个n×m的矩阵，它定义了系统中每一类资源当前已分配给每一进程的资源数。如果Allocation[i,j]=K，则表示进程i当前已分得Rj类资源的 数目为K。</p>
+<h3 id="4）需求矩阵Need。"><a href="#4）需求矩阵Need。" class="headerlink" title="4）需求矩阵Need。"></a>4）需求矩阵Need。</h3><p>&ensp;&ensp;&ensp;&ensp;这也是一个n×m的矩阵，用以表示每一个进程尚需的各类资源数。如果Need[i,j]=K，则表示进程i还需要Rj类资源K个，方能完成其任务。<br>Need[i,j]=Max[i,j]-Allocation[i,j]</p>
+<h1 id="三、实验内容"><a href="#三、实验内容" class="headerlink" title="三、实验内容"></a>三、实验内容</h1><ol>
+<li>设计进程管理数据结构</li>
+<li>输入系统资源当前的使用情况，如：系统当前的进程数、各进程的资源信息等</li>
+<li>设计安全性检查算法检查系统状态是否安全</li>
+<li>动态申请资源，设计银行家算法，在银行家算法中调用安全性检查算法，判断本次申请是否能够满足，进行资源分配</li>
+<li>输出每次分配后的安全序列，及系统当前资源分配信息</li>
+</ol>
+<h1 id="四、功能实现"><a href="#四、功能实现" class="headerlink" title="四、功能实现"></a>四、功能实现</h1><h2 id="4-1-银行家算法实现"><a href="#4-1-银行家算法实现" class="headerlink" title="4.1 银行家算法实现"></a>4.1 银行家算法实现</h2><p>&ensp;&ensp;&ensp;&ensp;在避免死锁的方法中，所施加的限制条件较弱，有可能获得令人满意的系统性能。在该方法中把系统的状态分为安全状态和不安全状态，只要能使系统始终都处于安全状态，便可以避免发生死锁。<br>&ensp;&ensp;&ensp;&ensp;银行家算法的基本思想是分配资源之前，判断系统是否是安全的；若是，才分配。它是最具有代表性的避免死锁的算法。<br>&ensp;&ensp;&ensp;&ensp;设进程cusneed提出请求REQUEST [i]，则银行家算法按如下规则进行判断。<br>&ensp;&ensp;&ensp;&ensp;(1)如果REQUEST [cusneed] [i]&lt;= NEED[cusneed][i]，则转(2)；否则，出错。<br>&ensp;&ensp;&ensp;&ensp;(2)如果REQUEST [cusneed] [i]&lt;= AVAILABLE[i]，则转(3)；否则，等待。<br>&ensp;&ensp;&ensp;&ensp;(3)系统试探分配资源，修改相关数据：<br>&ensp;&ensp;&ensp;&ensp;AVAILABLE[i]-=REQUEST[cusneed][i];<br>&ensp;&ensp;&ensp;&ensp;ALLOCATION[cusneed][i]+=REQUEST[cusneed][i];<br>&ensp;&ensp;&ensp;&ensp;NEED[cusneed][i]-=REQUEST[cusneed][i];<br>&ensp;&ensp;&ensp;&ensp;(4)系统执行安全性检查，如安全，则分配成立；否则试探险性分配作废，系统恢复原状，进程等待。  </p>
+<h2 id="4-2-安全性检查算法"><a href="#4-2-安全性检查算法" class="headerlink" title="4.2 安全性检查算法"></a>4.2 安全性检查算法</h2><p>&ensp;&ensp;&ensp;&ensp;(1)设置两个工作向量Work=AVAILABLE;FINISH<br>&ensp;&ensp;&ensp;&ensp;(2)从进程集合中找到一个满足下述条件的进程，<br>&ensp;&ensp;&ensp;&ensp;FINISH==false;<br>&ensp;&ensp;&ensp;&ensp;NEED&lt;=Work;<br>&ensp;&ensp;&ensp;&ensp;如找到，执行（3)；否则，执行（4)<br>&ensp;&ensp;&ensp;&ensp;(3)设进程获得资源，可顺利执行，直至完成，从而释放资源。<br>&ensp;&ensp;&ensp;&ensp;Work=Work+ALLOCATION;<br>&ensp;&ensp;&ensp;&ensp;Finish=true;<br>&ensp;&ensp;&ensp;&ensp;转到（2）<br>&ensp;&ensp;&ensp;&ensp;(4)如所有的进程Finish= true，则表示安全；否则系统不安全。  </p>
+<h2 id="4-3-代码实现"><a href="#4-3-代码实现" class="headerlink" title="4.3 代码实现"></a>4.3 代码实现</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> processNum 5</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> resourceNum 3</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXINT 9999</span></span><br><span class="line"><span class="keyword">int</span> avaliable[resourceNum] = &#123; <span class="number">3</span>,<span class="number">3</span>,<span class="number">2</span> &#125;;</span><br><span class="line"><span class="keyword">int</span> max[processNum][resourceNum] = &#123;<span class="number">7</span>,<span class="number">5</span>,<span class="number">3</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">9</span>,<span class="number">0</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">3</span>&#125;;</span><br><span class="line"><span class="keyword">int</span> allocation[processNum][resourceNum] = &#123; <span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">2</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">3</span>,<span class="number">0</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">2</span> &#125;;</span><br><span class="line"><span class="keyword">int</span> need[processNum][resourceNum] = &#123;<span class="number">7</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">6</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">1</span>&#125;;</span><br><span class="line"><span class="keyword">bool</span> finish[processNum];</span><br><span class="line"><span class="keyword">int</span> request[resourceNum];</span><br><span class="line"><span class="keyword">int</span> safeSeries[processNum] = &#123; MAXINT, MAXINT , MAXINT , MAXINT , MAXINT &#125;;</span><br><span class="line"><span class="comment">//int processNum, resourceNum;</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i, j;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;输入进程和资源数量，用空格分开\n&quot;</span>);</span><br><span class="line">	<span class="comment">//scanf(&quot;%d%d&quot;, &amp;processNum, &amp;resourceNum);</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;输入当前可用资源数\n&quot;</span>);</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; resourceNum; i++)</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;avaliable[i]);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;输入最大需求矩阵\n&quot;</span>);</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; processNum; i++)</span><br><span class="line">		<span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; resourceNum; j++)</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;max[i][j]);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;输入分配矩阵\n&quot;</span>);</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; processNum; i++)</span><br><span class="line">		<span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; resourceNum; j++)</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;allocation[i][j]);</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; processNum; i++)</span><br><span class="line">		<span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; resourceNum; j++)</span><br><span class="line">			need[i][j] = max[i][j] - allocation[i][j];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">showin</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i, j;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;当前资源剩余:&quot;</span>);</span><br><span class="line">	<span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; resourceNum; j++)</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, avaliable[j]);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;进程名\t Max\t \tAllocation\tNeed\n&quot;</span>);</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; processNum; i++) &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot; P%d\t&quot;</span>, i);</span><br><span class="line">		<span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; resourceNum; j++) &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, max[i][j]);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;\t\t&quot;</span>);</span><br><span class="line">		<span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; resourceNum; j++) &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, allocation[i][j]);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;\t\t&quot;</span>);</span><br><span class="line">		<span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; resourceNum; j++) &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, need[i][j]);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Safeinfo</span><span class="params">(<span class="keyword">int</span>* work, <span class="keyword">int</span> i)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">isSafe</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i, j, k;</span><br><span class="line">	<span class="keyword">int</span> flag = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> truefinished = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> work[resourceNum];</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; resourceNum; i++)</span><br><span class="line">		work[i] = avaliable[i];</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; processNum; i++)</span><br><span class="line">		finish[i] = <span class="literal">false</span>;</span><br><span class="line">	i = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> temp = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> temp0;</span><br><span class="line">	<span class="keyword">while</span> (truefinished != processNum) &#123;</span><br><span class="line">		<span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">if</span> (finish[i] != <span class="literal">true</span>) &#123;</span><br><span class="line">			<span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; resourceNum; j++)</span><br><span class="line">				<span class="keyword">if</span> (need[i][j] &gt; work[j]) <span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (j == resourceNum) &#123;</span><br><span class="line">			finish[i] = <span class="literal">true</span>;</span><br><span class="line">			<span class="built_in">Safeinfo</span>(work, i);</span><br><span class="line">			<span class="keyword">for</span> (k = <span class="number">0</span>; k &lt; resourceNum; k++) &#123;</span><br><span class="line">				work[k] += allocation[i][k];</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">int</span> k2;</span><br><span class="line">			safeSeries[truefinished++] = i;</span><br><span class="line">		&#125;</span><br><span class="line">		i++;</span><br><span class="line">		<span class="keyword">if</span> (i &gt;= processNum) &#123;</span><br><span class="line">			<span class="keyword">if</span> (flag == <span class="number">0</span>) &#123;</span><br><span class="line">				temp = truefinished;</span><br><span class="line">				temp0 = truefinished;</span><br><span class="line">			&#125;</span><br><span class="line">			i = i % processNum;</span><br><span class="line">			<span class="keyword">if</span> (flag == <span class="number">1</span>) &#123;</span><br><span class="line">				temp = truefinished;</span><br><span class="line">				<span class="keyword">if</span> (temp == temp0)</span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">					temp0 = temp;</span><br><span class="line">			&#125;</span><br><span class="line">			flag = <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		temp = truefinished;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (truefinished == processNum) &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;\n系统安全,\n\n安全序列为：&quot;</span>);</span><br><span class="line">		<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; processNum; i++) &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, safeSeries[i]);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;******系统不安全******\n&quot;</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Safeinfo</span><span class="params">(<span class="keyword">int</span>* work, <span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> j;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot; P%d\t&quot;</span>, i);</span><br><span class="line">	<span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; resourceNum; j++) &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, work[j]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;\t\t&quot;</span>);</span><br><span class="line">	<span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; resourceNum; j++) &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, need[i][j]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;\t &quot;</span>);</span><br><span class="line">	<span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; resourceNum; j++) &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, allocation[i][j]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;\t\t&quot;</span>);</span><br><span class="line">	<span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; resourceNum; j++) &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, allocation[i][j] + work[j]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i, j, curProcess;</span><br><span class="line">	<span class="keyword">int</span> wheInit = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">if</span> (wheInit)</span><br><span class="line">		<span class="comment">//Init();</span></span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;---------------------------------------------------------\n&quot;</span>);</span><br><span class="line">	<span class="built_in">showin</span>();</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;\n系统安全情况分析\n&quot;</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot; PID\t Work\t\tNeed\tAllocation\tWork+Allocation\n&quot;</span>);</span><br><span class="line">	<span class="built_in">isSafe</span>();</span><br><span class="line">	<span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;\n---------------------------------------------------------\n&quot;</span>);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;\n输入要分配的进程：&quot;</span>);</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;curProcess);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;\n输入要分配给进程P%d的资源：&quot;</span>, curProcess);</span><br><span class="line">		<span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; resourceNum; j++) &#123;</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;request[j]);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; resourceNum; j++) &#123;</span><br><span class="line">			<span class="keyword">if</span> (request[j] &lt;= need[curProcess][j])<span class="keyword">continue</span>;</span><br><span class="line">			<span class="keyword">else</span> &#123; <span class="built_in">printf</span>(<span class="string">&quot;ERROR！\n&quot;</span>); <span class="keyword">break</span>; &#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (j == resourceNum) &#123;</span><br><span class="line">			<span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; resourceNum; j++) &#123;</span><br><span class="line">				<span class="keyword">if</span> (request[j] &lt;= need[curProcess][j])<span class="keyword">continue</span>;</span><br><span class="line">				<span class="keyword">else</span> &#123; <span class="built_in">printf</span>(<span class="string">&quot;资源不足，等待中！\n&quot;</span>); <span class="keyword">break</span>; &#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (j == resourceNum) &#123;</span><br><span class="line">				<span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; resourceNum; j++) &#123;</span><br><span class="line">					avaliable[j] -= request[j];</span><br><span class="line">					allocation[curProcess][j] += request[j];</span><br><span class="line">					need[curProcess][j] -= request[j];</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">&quot;\n系统安全情况分析\n&quot;</span>);</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">&quot; PID\t Work\t\tNeed\tAllocation\tWork+Allocation\n&quot;</span>);</span><br><span class="line">				<span class="keyword">if</span> (<span class="built_in">isSafe</span>()) &#123;</span><br><span class="line">					<span class="built_in">printf</span>(<span class="string">&quot;分配成功！\n&quot;</span>);</span><br><span class="line">					<span class="built_in">showin</span>();</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span> &#123;</span><br><span class="line">					<span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; resourceNum; j++) &#123;</span><br><span class="line">						avaliable[j] += request[j];</span><br><span class="line">						allocation[curProcess][j] -= request[j];</span><br><span class="line">						need[curProcess][j] += request[j];</span><br><span class="line">					&#125;</span><br><span class="line">					<span class="built_in">printf</span>(<span class="string">&quot;分配失败！\n&quot;</span>);</span><br><span class="line">					<span class="built_in">showin</span>();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="五、结果测试与分析"><a href="#五、结果测试与分析" class="headerlink" title="五、结果测试与分析"></a>五、结果测试与分析</h1><p>&ensp;&ensp;&ensp;&ensp;以下为部分运行结果截图：</p>
+<p><img src="/Kome1jiSatori.github.io/page/%E5%88%86%E9%85%8D%E6%88%90%E5%8A%9F.png" alt="分配成功"><br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;图1 分配成功<br><img src="/Kome1jiSatori.github.io/page/%E5%88%86%E9%85%8D%E5%A4%B1%E8%B4%A5.png" alt="分配失败"><br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;图2 分配失败   </p>
+<p>&ensp;&ensp;&ensp;&ensp;分析略</p>
+<h1 id="六、心得体会"><a href="#六、心得体会" class="headerlink" title="六、心得体会"></a>六、心得体会</h1><p>&ensp;&ensp;&ensp;&ensp;以上文字和代码仅供参考，请勿直接复制用于完成作业。</p>
+
+      </div>
+      
+      
+      
+    </div>
+    
+  <ul class="breadcrumb">
+          
+            <li><a href="/Kome1jiSatori.github.io/">KOME1JISATORI.GITHUB.IO</a></li>
+            <li><a href="/Kome1jiSatori.github.io/page/">PAGE</a></li>
+            <li>银行家算法</li>
+          
+  </ul>
+
+    
+    
+    
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%AE%9E%E9%AA%8C%E7%9B%AE%E7%9A%84%E5%8F%8A%E8%A6%81%E6%B1%82"><span class="nav-text">一、实验目的及要求</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%9F%BA%E6%9C%AC%E7%90%86%E8%AE%BA%E4%BB%8B%E7%BB%8D"><span class="nav-text">二、基本理论介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-%E9%93%B6%E8%A1%8C%E5%AE%B6%E7%AE%97%E6%B3%95"><span class="nav-text">2.1 银行家算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-%E5%AE%89%E5%85%A8%E7%8A%B6%E6%80%81"><span class="nav-text">2.2 安全状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-%E4%B8%8D%E5%AE%89%E5%85%A8%E7%8A%B6%E6%80%81"><span class="nav-text">2.3 不安全状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-%E9%93%B6%E8%A1%8C%E5%AE%B6%E7%AE%97%E6%B3%95%E6%89%80%E6%B6%89%E5%8F%8A%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-text">2.4 银行家算法所涉及的数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%EF%BC%89%E5%8F%AF%E5%88%A9%E7%94%A8%E8%B5%84%E6%BA%90%E5%90%91%E9%87%8FAvailable"><span class="nav-text">1）可利用资源向量Available</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%EF%BC%89%E6%9C%80%E5%A4%A7%E9%9C%80%E6%B1%82%E7%9F%A9%E9%98%B5Max"><span class="nav-text">2）最大需求矩阵Max</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%EF%BC%89%E5%88%86%E9%85%8D%E7%9F%A9%E9%98%B5Allocation"><span class="nav-text">3）分配矩阵Allocation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%EF%BC%89%E9%9C%80%E6%B1%82%E7%9F%A9%E9%98%B5Need%E3%80%82"><span class="nav-text">4）需求矩阵Need。</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%AE%9E%E9%AA%8C%E5%86%85%E5%AE%B9"><span class="nav-text">三、实验内容</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0"><span class="nav-text">四、功能实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-%E9%93%B6%E8%A1%8C%E5%AE%B6%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0"><span class="nav-text">4.1 银行家算法实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-%E5%AE%89%E5%85%A8%E6%80%A7%E6%A3%80%E6%9F%A5%E7%AE%97%E6%B3%95"><span class="nav-text">4.2 安全性检查算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-text">4.3 代码实现</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E7%BB%93%E6%9E%9C%E6%B5%8B%E8%AF%95%E4%B8%8E%E5%88%86%E6%9E%90"><span class="nav-text">五、结果测试与分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E5%BF%83%E5%BE%97%E4%BD%93%E4%BC%9A"><span class="nav-text">六、心得体会</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Komeiji Satori"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Komeiji Satori</p>
+  <div class="site-description" itemprop="description">记录些有的没的的学习心得</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kome1jisatori" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kome1jisatori" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://wpa.qq.com/msgrd?v=3&uin=740775405&site=qq&menu=yes" title="QQ → http:&#x2F;&#x2F;wpa.qq.com&#x2F;msgrd?v&#x3D;3&amp;uin&#x3D;740775405&amp;site&#x3D;qq&amp;menu&#x3D;yes" rel="noopener" target="_blank"><i class="fab fa-qq fa-fw"></i>QQ</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      膜大佬的链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://sherlockcoder.xyz/" title="http:&#x2F;&#x2F;sherlockcoder.xyz" rel="noopener" target="_blank">不朽之存在的首页</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://datawhalechina.github.io/leeml-notes/#/" title="https:&#x2F;&#x2F;datawhalechina.github.io&#x2F;leeml-notes&#x2F;#&#x2F;" rel="noopener" target="_blank">机器学习笔记(LeeML-Notes)</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">苏ICP备 - 2021020302 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">KomeijiSatori</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">283k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">4:17</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : '8NhM2OcimmX1hgpelhxOhQK8-gzGzoHsz',
+      appKey     : 'bQ1303bPFHzcUrkoBzb39dgO',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+
+
+  <script type="text/javascript" color="0,0,0" opacity='0.5' zIndex="-1" count="150" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":true},"log":false});</script></body>
+</html>
