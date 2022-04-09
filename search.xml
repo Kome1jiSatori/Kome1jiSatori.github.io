@@ -2901,7 +2901,10 @@ tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
   <entry>
     <title>pytorch线性回归</title>
     <url>/2021/07/17/%E5%86%B3%E7%AD%96%E6%A0%91%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/</url>
-    <content><![CDATA[<h1 id="决策树实验报告"><a href="#决策树实验报告" class="headerlink" title="决策树实验报告"></a>决策树实验报告</h1><h2 id="实验要求"><a href="#实验要求" class="headerlink" title="实验要求"></a>实验要求</h2><ol>
+    <content><![CDATA[<p>数据挖掘</p>
+<span id="more"></span>  
+
+<h1 id="决策树实验报告"><a href="#决策树实验报告" class="headerlink" title="决策树实验报告"></a>决策树实验报告</h1><h2 id="实验要求"><a href="#实验要求" class="headerlink" title="实验要求"></a>实验要求</h2><ol>
 <li><p>编程实现一个基于信息熵进行划分选择的决策树算法，并为表中的数据生成一棵决策树。</p>
 <table>
 <thead>
@@ -3427,14 +3430,14 @@ tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 
 <p>表面上后剪枝的操作比预剪枝少，实际上在测试时递归的测试了当前节点所在子树的正确率。所以后剪枝带来的开销远大于的预剪枝。</p>
 <h2 id="实验结果分析"><a href="#实验结果分析" class="headerlink" title="实验结果分析"></a>实验结果分析</h2><h3 id="西瓜数据集3-0"><a href="#西瓜数据集3-0" class="headerlink" title="西瓜数据集3.0"></a>西瓜数据集3.0</h3><p>实现基于信息熵进行划分的决策树算法（ID3）算法，并可视化结果如下：</p>
-<p><img src="/2021/07/16/%E5%86%B3%E7%AD%96%E6%A0%91%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/ID3-1.png" alt="img"></p>
+<p><img src="/2021/07/17/%E5%86%B3%E7%AD%96%E6%A0%91%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/ID3-1.png" alt="img"></p>
 <p>可以注意到直接使用了编号信息进行划分，这一点和书中描述的 “基于信息增益的算法对可取数值较多的属性有偏好” 一致。下来除去编号属性并对结果进行可视化，结果如下：</p>
-<p><img src="/2021/07/16/%E5%86%B3%E7%AD%96%E6%A0%91%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/ID3-2.png" alt="img"></p>
+<p><img src="/2021/07/17/%E5%86%B3%E7%AD%96%E6%A0%91%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/ID3-2.png" alt="img"></p>
 <h3 id="西瓜数据集2-0"><a href="#西瓜数据集2-0" class="headerlink" title="西瓜数据集2.0"></a>西瓜数据集2.0</h3><p>实现基于基尼指数进行划分选择的决策树算法，并进行相应的剪枝操作，使用书中的测试集，验证集划分。</p>
 <ul>
-<li>未剪枝  <img src="/2021/07/16/%E5%86%B3%E7%AD%96%E6%A0%91%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/4.4-1'.png" height="400"></li>
-<li>预剪枝  <img src="/2021/07/16/%E5%86%B3%E7%AD%96%E6%A0%91%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/4.4-2.png" height="150"></li>
-<li>后剪枝  <img src="/2021/07/16/%E5%86%B3%E7%AD%96%E6%A0%91%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/4.4-3.png" height="300"></li>
+<li>未剪枝  <img src="/2021/07/17/%E5%86%B3%E7%AD%96%E6%A0%91%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/4.4-1'.png" height="400"></li>
+<li>预剪枝  <img src="/2021/07/17/%E5%86%B3%E7%AD%96%E6%A0%91%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/4.4-2.png" height="150"></li>
+<li>后剪枝  <img src="/2021/07/17/%E5%86%B3%E7%AD%96%E6%A0%91%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/4.4-3.png" height="300"></li>
 </ul>
 <h3 id="UCI-数据集"><a href="#UCI-数据集" class="headerlink" title="UCI 数据集"></a>UCI 数据集</h3><p>使用 UCI 数据集来判断未剪枝，预剪枝，后剪枝的方法产生的差异。</p>
 <h4 id="Iris"><a href="#Iris" class="headerlink" title="Iris"></a>Iris</h4><p>总数据集一共 150 条数据，共三个类别。在数据集中随机抽取30条数据组成测试集，再从中随机抽取30个作为训练时的验证集，余下的90条数据组成训练集。数据集的描述内容包括：花萼长度，花萼宽度，花瓣长度，花瓣宽度。</p>
@@ -3454,7 +3457,7 @@ tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 </li>
 </ul>
 <p>经过观察，通过修改随机数种子来更改测试集和验证集的划分可以很大程度上影响决策树的准确率。</p>
-<p>将数据集划分函数的 <code>random state</code> 从 15 改成 1 之后，后剪枝产生的决策树变为下图：<br><img src="/2021/07/16/%E5%86%B3%E7%AD%96%E6%A0%91%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/4.6-4.png" alt="img"><br>所以数据集的划分可以显著影响树的形状和结果的准确率。</p>
+<p>将数据集划分函数的 <code>random state</code> 从 15 改成 1 之后，后剪枝产生的决策树变为下图：<br><img src="/2021/07/17/%E5%86%B3%E7%AD%96%E6%A0%91%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/4.6-4.png" alt="img"><br>所以数据集的划分可以显著影响树的形状和结果的准确率。</p>
 <h4 id="Balloons"><a href="#Balloons" class="headerlink" title="Balloons"></a>Balloons</h4><ul>
 <li><p>数据集描述<br>  数据集较小，共20个样本，四个属性。<a href="https://archive.ics.uci.edu/ml/datasets/Balloons">数据集链接</a></p>
 <table>
@@ -3487,11 +3490,11 @@ tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 </tbody></table>
 <p>  其中选择4个样本作为测试集，4个样本作为训练时使用的验证集，余下的作为训练集。</p>
 </li>
-<li><p>不剪枝<br>  <img src="/2021/07/16/%E5%86%B3%E7%AD%96%E6%A0%91%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/4.6-5.png" alt="img"></p>
+<li><p>不剪枝<br>  <img src="/2021/07/17/%E5%86%B3%E7%AD%96%E6%A0%91%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/4.6-5.png" alt="img"></p>
 </li>
-<li><p>预剪枝<br>  <img src="/2021/07/16/%E5%86%B3%E7%AD%96%E6%A0%91%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/4.6-6.png" alt="img"></p>
+<li><p>预剪枝<br>  <img src="/2021/07/17/%E5%86%B3%E7%AD%96%E6%A0%91%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/4.6-6.png" alt="img"></p>
 </li>
-<li><p>后剪枝<br>  <img src="/2021/07/16/%E5%86%B3%E7%AD%96%E6%A0%91%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/4.6-5.png" alt="img"></p>
+<li><p>后剪枝<br>  <img src="/2021/07/17/%E5%86%B3%E7%AD%96%E6%A0%91%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/4.6-5.png" alt="img"></p>
 </li>
 </ul>
 <h2 id="个人感悟"><a href="#个人感悟" class="headerlink" title="个人感悟"></a>个人感悟</h2><p>通过本次实验有如下的发现和收获：</p>
