@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>操作系统笔记——第一章（绝赞更新中）</title>
-    <url>/2021/04/18/OS-1/</url>
+    <url>/2021/04/19/OS-1/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>个人操作系统笔记整理，欢迎参考，时不时更新。  </p>
 <span id="more"></span>
 
@@ -62,7 +62,7 @@
   </entry>
   <entry>
     <title>于是开始写第一篇博客</title>
-    <url>/2021/04/09/my-first-blog/</url>
+    <url>/2021/04/10/my-first-blog/</url>
     <content><![CDATA[<p>从零开始的学习生活</p>
 <span id="more"></span>!
 <h1 id="以下是代码测试"><a href="#以下是代码测试" class="headerlink" title="以下是代码测试"></a>以下是代码测试</h1><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">print(&quot;Hello</span> <span class="string">World&quot;);</span></span><br></pre></td></tr></table></figure>
@@ -111,7 +111,7 @@
   </entry>
   <entry>
     <title>二维矩阵前缀和计算方法</title>
-    <url>/2021/05/06/%E5%89%8D%E7%BC%80%E5%92%8C/</url>
+    <url>/2021/05/07/%E5%89%8D%E7%BC%80%E5%92%8C/</url>
     <content><![CDATA[<p>&ensp;&ensp;&ensp;&ensp;二维矩阵前缀和的思考与实现。</p>
 <span id="more"></span>
 
@@ -192,7 +192,7 @@
   </entry>
   <entry>
     <title>操作系统笔记——第四章</title>
-    <url>/2021/05/10/os-4/</url>
+    <url>/2021/05/11/os-4/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>个人操作系统笔记整理，欢迎参考，时不时更新。  </p>
 <span id="more"></span>
 
@@ -623,7 +623,7 @@ STORE 1, [B]|&lt;C&gt;
   </entry>
   <entry>
     <title>操作系统笔记——第二章</title>
-    <url>/2021/05/08/os-2/</url>
+    <url>/2021/05/09/os-2/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>个人操作系统笔记整理，欢迎参考，时不时更新。  </p>
 <span id="more"></span>
 
@@ -915,7 +915,7 @@ STORE 1, [B]|&lt;C&gt;
   </entry>
   <entry>
     <title>操作系统笔记——第三章</title>
-    <url>/2021/05/09/os-3/</url>
+    <url>/2021/05/10/os-3/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>个人操作系统笔记整理，欢迎参考，时不时更新。  </p>
 <span id="more"></span>
 
@@ -1090,7 +1090,7 @@ STORE 1, [B]|&lt;C&gt;
   </entry>
   <entry>
     <title>第十一届蓝桥杯C/C++ B组国赛部分题解</title>
-    <url>/2021/05/31/lanqiao/</url>
+    <url>/2021/06/01/lanqiao/</url>
     <content><![CDATA[<p>填空题和部分编程题（因为太菜了，没有全部题目的题解</p>
 <span id="more"></span>
 
@@ -1194,7 +1194,7 @@ STORE 1, [B]|&lt;C&gt;
   </entry>
   <entry>
     <title>操作系统笔记——第五章</title>
-    <url>/2021/06/15/os-5/</url>
+    <url>/2021/06/16/os-5/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>个人操作系统笔记整理，欢迎参考，时不时更新。  </p>
 <span id="more"></span> 
 
@@ -1330,7 +1330,7 @@ STORE 1, [B]|&lt;C&gt;
   </entry>
   <entry>
     <title>操作系统笔记——第六章</title>
-    <url>/2021/06/16/os-6/</url>
+    <url>/2021/06/17/os-6/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>个人操作系统笔记整理，欢迎参考，时不时更新。  </p>
 <span id="more"></span> 
 
@@ -1524,7 +1524,7 @@ STORE 1, [B]|&lt;C&gt;
   </entry>
   <entry>
     <title>操作系统笔记——第七章</title>
-    <url>/2021/06/19/os-7/</url>
+    <url>/2021/06/20/os-7/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>个人操作系统笔记整理，欢迎参考，时不时更新。  </p>
 <span id="more"></span> 
 
@@ -1641,7 +1641,7 @@ STORE 1, [B]|&lt;C&gt;
   </entry>
   <entry>
     <title>Tensor性质和用法</title>
-    <url>/2021/07/16/pytorch/</url>
+    <url>/2021/07/17/pytorch/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>记录pytorch的一些函数用法——tensor</p>
 <span id="more"></span> 
 
@@ -1864,7 +1864,7 @@ STORE 1, [B]|&lt;C&gt;
   </entry>
   <entry>
     <title>pytorch线性回归</title>
-    <url>/2021/07/16/pytorch2/</url>
+    <url>/2021/07/17/pytorch2/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>手动和api调用线性回归</p>
 <span id="more"></span> 
 
@@ -2218,7 +2218,7 @@ STORE 1, [B]|&lt;C&gt;
   </entry>
   <entry>
     <title>Minist手写数字识别</title>
-    <url>/2021/07/18/pytorch4/</url>
+    <url>/2021/07/19/pytorch4/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>使用pytorch实现minist手写数字识别</p>
 <span id="more"></span> 
 
@@ -2372,7 +2372,7 @@ STORE 1, [B]|&lt;C&gt;
   </entry>
   <entry>
     <title>循环神经网络（RNN）原理和简单应用</title>
-    <url>/2021/07/20/pytorch5/</url>
+    <url>/2021/07/21/pytorch5/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>循环神经网络原理学习应用</p>
 <span id="more"></span> 
 
@@ -2715,7 +2715,7 @@ tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
   </entry>
   <entry>
     <title>Android实验课作业二 Fragment实践</title>
-    <url>/2021/10/19/android2/</url>
+    <url>/2021/10/20/android2/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Fragment实践：一个简易的新闻应用</p>
 <span id="more"></span> 
 
@@ -2777,7 +2777,7 @@ tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
   </entry>
   <entry>
     <title>R语言笔记（四）</title>
-    <url>/2021/10/20/R4/</url>
+    <url>/2021/10/21/R4/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>记一下近期的一些函数</p>
 <span id="more"></span> 
 
@@ -2794,7 +2794,7 @@ tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
   </entry>
   <entry>
     <title>Android实验课作业三 数据库实践</title>
-    <url>/2021/10/19/android3/</url>
+    <url>/2021/10/20/android3/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>安卓SQLite实践</p>
 <span id="more"></span> 
 
@@ -2835,7 +2835,7 @@ tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
   </entry>
   <entry>
     <title>Android实验课作业四 后台质数运算</title>
-    <url>/2021/11/10/Android4/</url>
+    <url>/2021/11/11/Android4/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>后台质数运算（复习一下筛法求素数，虽然代码没用到）</p>
 <span id="more"></span> 
 
@@ -2869,7 +2869,7 @@ tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
   </entry>
   <entry>
     <title>Android实验课作业五 Json解析</title>
-    <url>/2021/11/10/Android5/</url>
+    <url>/2021/11/11/Android5/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>实验五，解析套娃json</p>
 <span id="more"></span> 
 
@@ -2896,6 +2896,730 @@ tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
       </categories>
       <tags>
         <tag>实验课作业</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>pytorch线性回归</title>
+    <url>/2021/07/17/%E5%86%B3%E7%AD%96%E6%A0%91%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/</url>
+    <content><![CDATA[<h1 id="决策树实验报告"><a href="#决策树实验报告" class="headerlink" title="决策树实验报告"></a>决策树实验报告</h1><h2 id="实验要求"><a href="#实验要求" class="headerlink" title="实验要求"></a>实验要求</h2><ol>
+<li><p>编程实现一个基于信息熵进行划分选择的决策树算法，并为表中的数据生成一棵决策树。</p>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>色泽</th>
+<th>根蒂</th>
+<th>敲声</th>
+<th>纹理</th>
+<th>脐部</th>
+<th>触感</th>
+<th>密度</th>
+<th>含糖率</th>
+<th>好瓜</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>青绿</td>
+<td>蜷缩</td>
+<td>浊响</td>
+<td>清晰</td>
+<td>凹陷</td>
+<td>硬滑</td>
+<td>0.697</td>
+<td>0.460</td>
+<td>是</td>
+</tr>
+<tr>
+<td>2</td>
+<td>乌黑</td>
+<td>蜷缩</td>
+<td>沉闷</td>
+<td>清晰</td>
+<td>凹陷</td>
+<td>硬滑</td>
+<td>0.774</td>
+<td>0.376</td>
+<td>是</td>
+</tr>
+<tr>
+<td>3</td>
+<td>乌黑</td>
+<td>蜷缩</td>
+<td>浊响</td>
+<td>清晰</td>
+<td>凹陷</td>
+<td>硬滑</td>
+<td>0.634</td>
+<td>0.264</td>
+<td>是</td>
+</tr>
+<tr>
+<td>4</td>
+<td>青绿</td>
+<td>蜷缩</td>
+<td>沉闷</td>
+<td>清晰</td>
+<td>凹陷</td>
+<td>硬滑</td>
+<td>0.608</td>
+<td>0.318</td>
+<td>是</td>
+</tr>
+<tr>
+<td>5</td>
+<td>浅白</td>
+<td>蜷缩</td>
+<td>浊响</td>
+<td>清晰</td>
+<td>凹陷</td>
+<td>硬滑</td>
+<td>0.556</td>
+<td>0.215</td>
+<td>是</td>
+</tr>
+<tr>
+<td>6</td>
+<td>青绿</td>
+<td>稍蜷</td>
+<td>浊响</td>
+<td>清晰</td>
+<td>稍凹</td>
+<td>软粘</td>
+<td>0.403</td>
+<td>0.237</td>
+<td>是</td>
+</tr>
+<tr>
+<td>7</td>
+<td>乌黑</td>
+<td>稍蜷</td>
+<td>浊响</td>
+<td>稍糊</td>
+<td>稍凹</td>
+<td>软粘</td>
+<td>0.481</td>
+<td>0.149</td>
+<td>是</td>
+</tr>
+<tr>
+<td>8</td>
+<td>乌黑</td>
+<td>稍蜷</td>
+<td>浊响</td>
+<td>清晰</td>
+<td>稍凹</td>
+<td>硬滑</td>
+<td>0.437</td>
+<td>0.211</td>
+<td>是</td>
+</tr>
+<tr>
+<td>9</td>
+<td>乌黑</td>
+<td>稍蜷</td>
+<td>沉闷</td>
+<td>稍糊</td>
+<td>稍凹</td>
+<td>硬滑</td>
+<td>0.666</td>
+<td>0.091</td>
+<td>否</td>
+</tr>
+<tr>
+<td>10</td>
+<td>青绿</td>
+<td>硬挺</td>
+<td>清脆</td>
+<td>清晰</td>
+<td>平坦</td>
+<td>软粘</td>
+<td>0.243</td>
+<td>0.267</td>
+<td>否</td>
+</tr>
+<tr>
+<td>11</td>
+<td>浅白</td>
+<td>硬挺</td>
+<td>清脆</td>
+<td>模糊</td>
+<td>平坦</td>
+<td>硬滑</td>
+<td>0.245</td>
+<td>0.057</td>
+<td>否</td>
+</tr>
+<tr>
+<td>12</td>
+<td>浅白</td>
+<td>蜷缩</td>
+<td>浊响</td>
+<td>模糊</td>
+<td>平坦</td>
+<td>软粘</td>
+<td>0.343</td>
+<td>0.099</td>
+<td>否</td>
+</tr>
+<tr>
+<td>13</td>
+<td>青绿</td>
+<td>稍蜷</td>
+<td>浊响</td>
+<td>稍糊</td>
+<td>凹陷</td>
+<td>硬滑</td>
+<td>0.639</td>
+<td>0.161</td>
+<td>否</td>
+</tr>
+<tr>
+<td>14</td>
+<td>浅白</td>
+<td>稍蜷</td>
+<td>沉闷</td>
+<td>稍糊</td>
+<td>凹陷</td>
+<td>硬滑</td>
+<td>0.657</td>
+<td>0.198</td>
+<td>否</td>
+</tr>
+<tr>
+<td>15</td>
+<td>乌黑</td>
+<td>稍蜷</td>
+<td>浊响</td>
+<td>清晰</td>
+<td>稍凹</td>
+<td>软粘</td>
+<td>0.360</td>
+<td>0.370</td>
+<td>否</td>
+</tr>
+<tr>
+<td>16</td>
+<td>浅白</td>
+<td>蜷缩</td>
+<td>浊响</td>
+<td>模糊</td>
+<td>平坦</td>
+<td>硬滑</td>
+<td>0.593</td>
+<td>0.042</td>
+<td>否</td>
+</tr>
+<tr>
+<td>17</td>
+<td>青绿</td>
+<td>蜷缩</td>
+<td>沉闷</td>
+<td>稍糊</td>
+<td>稍凹</td>
+<td>硬滑</td>
+<td>0.719</td>
+<td>0.103</td>
+<td>否</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>编程实现基于基尼指数进行划分选择的决策树算法，为表中数据生成预剪枝，后剪枝决策树，并与未剪枝的决策树进行比较。</p>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>色泽</th>
+<th>根蒂</th>
+<th>敲声</th>
+<th>纹理</th>
+<th>脐部</th>
+<th>触感</th>
+<th>好瓜</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>青绿</td>
+<td>蜷缩</td>
+<td>浊响</td>
+<td>清晰</td>
+<td>凹陷</td>
+<td>硬滑</td>
+<td>是</td>
+</tr>
+<tr>
+<td>2</td>
+<td>乌黑</td>
+<td>蜷缩</td>
+<td>沉闷</td>
+<td>清晰</td>
+<td>凹陷</td>
+<td>硬滑</td>
+<td>是</td>
+</tr>
+<tr>
+<td>3</td>
+<td>乌黑</td>
+<td>蜷缩</td>
+<td>浊响</td>
+<td>清晰</td>
+<td>凹陷</td>
+<td>硬滑</td>
+<td>是</td>
+</tr>
+<tr>
+<td>4</td>
+<td>青绿</td>
+<td>蜷缩</td>
+<td>沉闷</td>
+<td>清晰</td>
+<td>凹陷</td>
+<td>硬滑</td>
+<td>是</td>
+</tr>
+<tr>
+<td>5</td>
+<td>浅白</td>
+<td>蜷缩</td>
+<td>浊响</td>
+<td>清晰</td>
+<td>凹陷</td>
+<td>硬滑</td>
+<td>是</td>
+</tr>
+<tr>
+<td>6</td>
+<td>青绿</td>
+<td>稍蜷</td>
+<td>浊响</td>
+<td>清晰</td>
+<td>稍凹</td>
+<td>软粘</td>
+<td>是</td>
+</tr>
+<tr>
+<td>7</td>
+<td>乌黑</td>
+<td>稍蜷</td>
+<td>浊响</td>
+<td>稍糊</td>
+<td>稍凹</td>
+<td>软粘</td>
+<td>是</td>
+</tr>
+<tr>
+<td>8</td>
+<td>乌黑</td>
+<td>稍蜷</td>
+<td>浊响</td>
+<td>清晰</td>
+<td>稍凹</td>
+<td>硬滑</td>
+<td>是</td>
+</tr>
+<tr>
+<td>9</td>
+<td>乌黑</td>
+<td>稍蜷</td>
+<td>沉闷</td>
+<td>稍糊</td>
+<td>稍凹</td>
+<td>硬滑</td>
+<td>否</td>
+</tr>
+<tr>
+<td>10</td>
+<td>青绿</td>
+<td>硬挺</td>
+<td>清脆</td>
+<td>清晰</td>
+<td>平坦</td>
+<td>软粘</td>
+<td>否</td>
+</tr>
+<tr>
+<td>11</td>
+<td>浅白</td>
+<td>硬挺</td>
+<td>清脆</td>
+<td>模糊</td>
+<td>平坦</td>
+<td>硬滑</td>
+<td>否</td>
+</tr>
+<tr>
+<td>12</td>
+<td>浅白</td>
+<td>蜷缩</td>
+<td>浊响</td>
+<td>模糊</td>
+<td>平坦</td>
+<td>软粘</td>
+<td>否</td>
+</tr>
+<tr>
+<td>13</td>
+<td>青绿</td>
+<td>稍蜷</td>
+<td>浊响</td>
+<td>稍糊</td>
+<td>凹陷</td>
+<td>硬滑</td>
+<td>否</td>
+</tr>
+<tr>
+<td>14</td>
+<td>浅白</td>
+<td>稍蜷</td>
+<td>沉闷</td>
+<td>稍糊</td>
+<td>凹陷</td>
+<td>硬滑</td>
+<td>否</td>
+</tr>
+<tr>
+<td>15</td>
+<td>乌黑</td>
+<td>稍蜷</td>
+<td>浊响</td>
+<td>清晰</td>
+<td>稍凹</td>
+<td>软粘</td>
+<td>否</td>
+</tr>
+<tr>
+<td>16</td>
+<td>浅白</td>
+<td>蜷缩</td>
+<td>浊响</td>
+<td>模糊</td>
+<td>平坦</td>
+<td>硬滑</td>
+<td>否</td>
+</tr>
+<tr>
+<td>17</td>
+<td>青绿</td>
+<td>蜷缩</td>
+<td>沉闷</td>
+<td>稍糊</td>
+<td>稍凹</td>
+<td>硬滑</td>
+<td>否</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>选择两个UCI数据集，对上述3种算法产生的未剪枝，预剪枝，后剪枝的决策树进行实验比较</p>
+</li>
+</ol>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><h3 id="决策树"><a href="#决策树" class="headerlink" title="决策树"></a>决策树</h3><ul>
+<li>定义：一种描述对实例进行分类的树形结构。决策树由点和有向边组成。节点有两种类型：内部节点和叶节点。内部节点表示一种特征或者属性，叶节点表示一个分类。构建决策树时通常采用自上而下的方法，在每一步选择一个最好的属性来分裂。[8] “最好” 的定义是使得子节点中的训练集尽量的纯。不同的算法使用不同的指标来定义”最好”。</li>
+<li>意义：每次都找不同的切分点，将样本空间逐渐进行细分，最后把属于同一类的空间进行合并，就形成了决策边界，树的层次越深，决策边界的切分就越细，区分越准确，同时也越有可能产生过拟合。<ul>
+<li>决策树是一个预测模型；他代表的是对象属性与对象值之间的一种映射关系。树中每个节点表示某个对象，而每个分叉路径则代表的某个可能的属性值，而每个叶结点则对应从根节点到该叶节点所经历的路径所表示的对象的值。决策树仅有单一输出，若欲有复数输出，可以建立独立的决策树以处理不同输出。</li>
+<li>分支使用的是节点属性中的离散型数据，如果数据是连续型的，也需要转化成离散型数据才能在决策树中展示。</li>
+<li>决策树的路径具有一个重要的性质：互斥且完备,即每一个样本均被且只能被一条路径所覆盖。决策树学习算法主要由三部分构成：<ul>
+<li>特征选择</li>
+<li>决策树生成</li>
+<li>决策树的剪枝</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>决策树的建立<br>开始，构建根节点，将所有训练数据放在根节点，选择一个最优特征，按照这一特征的取值将训练数据分割为子集，使各个子集有一个当前条件下最好的分类。如果这些子集能被基本正确分类，那么构造叶节点，将对应子集集中到叶节点。如果有子集不能被正确分类，那么就这些子集选择新的最优特征，继续对其进行分割，构建相应的节点。递归进行上述的操作，直到所有训练数据子集均能被正确分类。<ul>
+<li>节点分裂：一般当一个节点所代表的属性无法给出判断时，则选择将这一节点分成2个子节点（如不是二叉树的情况会分成n个子节点）</li>
+<li>阈值的确定，选择适当的阈值使得分类错误率最小。</li>
+</ul>
+</li>
+<li>与其他的数据挖掘算法相比，决策树有许多优点:<ul>
+<li>易于理解和解释，人们很容易理解决策树的意义。</li>
+<li>只需很少的数据准备，其他技术往往需要数据归一化。</li>
+<li>既可以处理数值型数据也可以处理类别型数据。其他技术往往只能处理一种数据类型。例如关联规则只能处理类别型的而神经网络只能处理数值型的数据。</li>
+<li>使用白箱模型，输出结果容易通过模型的结构来解释。而神经网络是黑箱模型，很难解释输出的结果。</li>
+<li>可以通过测试集来验证模型的性能，可以考虑模型的稳定性。</li>
+<li>强健控制，对噪声处理有好的强健性。</li>
+<li>可以很好的处理大规模数据 。</li>
+</ul>
+</li>
+</ul>
+<h3 id="ID3"><a href="#ID3" class="headerlink" title="ID3"></a>ID3</h3><ul>
+<li><p>信息熵 entropy<br>  熵是接收的每条消息中包含的信息的平均量，熵是对不确定性的测量。但是在信息世界，熵越高，则能传输越多的信息，熵越低，则意味着传输的信息越少。<br>  当取自有限的样本时，熵的公式可以表示为：<br>  $$H(X) = -\sum^{n}_{i = 1}p_i \log_2 p_i$$<br>  其中若 $p_i = 0$ 则定义 $p_i\log p_i = 0$</p>
+  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">calc_ent</span>(<span class="params">datasets</span>):</span></span><br><span class="line">    data_length = <span class="built_in">len</span>(datasets)</span><br><span class="line">    label_count = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(data_length):</span><br><span class="line">        label = datasets[i][-<span class="number">1</span>]</span><br><span class="line">        <span class="keyword">if</span> label <span class="keyword">not</span> <span class="keyword">in</span> label_count:</span><br><span class="line">            label_count[label] = <span class="number">0</span></span><br><span class="line">        label_count[label] += <span class="number">1</span></span><br><span class="line">    ent = -<span class="built_in">sum</span>([(p / data_length) * log(p / data_length, <span class="number">2</span>)</span><br><span class="line">                <span class="keyword">for</span> p <span class="keyword">in</span> label_count.values()])</span><br><span class="line">    <span class="keyword">return</span> ent</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>信息量<br>信息量是对信息的度量，就跟时间的度量是秒一样，当我们考虑一个离散的随机变量x的时候，当我们观察到的这个变量的一个具体值的时候，我们接收到了多少信息呢？多少信息用信息量来衡量，我们接受到的信息量跟具体发生的事件有关。信息的大小跟随机事件的概率有关。越小概率的事情发生了产生的信息量越大，越大概率的事情发生了产生的信息量越小</li>
+</ul>
+</li>
+<li><p>信息增益 information gain<br>  得知特征 $X$ 的信息而使得类 $Y$ 的信息的不确定性减少的程度。<br>  特征 $A$ 对训练数据集 $D$ 的信息增益 $g(D, A)$ 定义为集合 $D$ 的经验熵 $H(D)$ 与特征 $A$ 给定条件下 $D$ 的经验条件熵 $H(D|A)$ 的差。<br>  $$g(D,A) = H(D) - H(D|A)$$<br>  一般地，熵 $H(Y)$ 与条件熵 $H(Y|X)$ 之差称为互信息(mutual information) 根据信息增益准则进行特征选择的方法是：对训练数据集D，计算其每个特征的信息增益，并比它们的大小，从而选择信息增益最大的特征。<br>  假设训练数据集为 $D$，样本容量为 $|D|$,有 $K$ 个类别 $C_k$，$|C_k|$ 为类别 $C_k$ 的样本个数。某一特征 $A$ 有 $n$ 个不同的取值 $a_1, a_2, …, a_n$。根据特征 $A$ 的取值可将数据集 $D$ 划分为 $n$ 个子集 $D_1, D_2, …, D_n$， $|D_i$|为 $D_i$ 的样本个数。并记子集 $D_i$ 中属于类 $C_k$ 的样本的集合为 $D_{ik}$，$|D_{ik}|$ 为 $D_{ik}$ 的样本个数。</p>
+  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cond_ent</span>(<span class="params">datasets, axis=<span class="number">0</span></span>):</span></span><br><span class="line">    data_length = <span class="built_in">len</span>(datasets)</span><br><span class="line">    feature_sets = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(data_length):</span><br><span class="line">        feature = datasets[i][axis]</span><br><span class="line">        <span class="keyword">if</span> feature <span class="keyword">not</span> <span class="keyword">in</span> feature_sets:</span><br><span class="line">            feature_sets[feature] = []</span><br><span class="line">        feature_sets[feature].append(datasets[i])</span><br><span class="line">    cond_ent = <span class="built_in">sum</span>(</span><br><span class="line">        [(<span class="built_in">len</span>(p) / data_length) * calc_ent(p) <span class="keyword">for</span> p <span class="keyword">in</span> feature_sets.values()])</span><br><span class="line">    <span class="keyword">return</span> cond_ent</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">info_gain</span>(<span class="params">ent, cond_ent</span>):</span></span><br><span class="line">    <span class="keyword">return</span> ent - cond_ent</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>ID3算法的核心是在决策树的各个结点上应用信息增益准则进行特征选择。具体做法是：</p>
+<ul>
+<li>从根节点开始，对结点计算所有可能特征的信息增益，选择信息增益最大的特征作为结点的特征，并由该特征的不同取值构建子节点；</li>
+<li>对子节点递归地调用以上方法，构建决策树；</li>
+<li>直到所有特征的信息增益均很小或者没有特征可选时为止。</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">判断数据集中的每个子项是否属于同一类：</span><br><span class="line">    if true:</span><br><span class="line">        return 类标签；</span><br><span class="line">    else:</span><br><span class="line">        寻找划分数据集的最佳特征</span><br><span class="line">        根据最佳特征划分数据集</span><br><span class="line">        创建分支节点</span><br><span class="line">        for 每个划分的子集</span><br><span class="line">            递归调用createBranch();</span><br><span class="line">        return 分支节点</span><br></pre></td></tr></table></figure>
+
+<h3 id="C4-5"><a href="#C4-5" class="headerlink" title="C4.5"></a>C4.5</h3><ul>
+<li>信息增益比 information gain ratio<br>  以信息增益作为划分训练数据集的特征，存在偏向与选择取值较多的特征的问题。使用信息增益比可以对这个问题进行矫正。<br>  特征 $A$ 对训练数据集 $D$ 的信息增益比 $g_R(D,A)$ 定义为其信息增益 $g(D,A)$ 和训练数据集 $D$ 关于特征 $A$ 的熵 $H_A(D)$ 的比值。<br>  $$g_R(D,A) = \frac{g(D,A)}{H_A(D,A)}$$<br>  其中 $H_A(D) = \sum_{i=1}^n \frac{|D_i|}{|D|} \log_2 \frac{|D_i|}{|D|}$, $n$ 是特征 $A$ 取值的个数。</li>
+</ul>
+<p>相比 ID3 算法，C4.5 算法更换了特征选择的标准，使用信息增益比进行特征选择。不直接选择增益率最大的候选划分属性，候选划分属性中找出信息增益高于平均水平的属性（这样保证了大部分好的的特征），再从中选择增益率最高的（又保证了不会出现编号特征这种极端的情况）<br>对于连续值属性来说，可取值数目不再有限，因此可以采用离散化技术（如二分法）进行处理。将属性值从小到大排序，然后选择中间值作为分割点，数值比它小的点被划分到左子树，数值不小于它的点被分到又子树，计算分割的信息增益率，选择信息增益率最大的属性值进行分割。</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">Function C4.5(R:包含连续属性的无类别属性集合,C:类别属性,S:训练集)  </span><br><span class="line">/*返回一棵决策树*/  </span><br><span class="line">Begin  </span><br><span class="line">   If S 为空,返回一个值为 Failure 的单个节点;  </span><br><span class="line">   If S 是由相同类别属性值的记录组成：  </span><br><span class="line">      返回一个带有该值的单个节点;  </span><br><span class="line">   If R 为空,则返回一个单节点,其值为在 S 的记录中找出的频率最高的类别属性值;  </span><br><span class="line">   [注意未出现错误则意味着是不适合分类的记录]；  </span><br><span class="line">  For 所有的属性 R(Ri) Do  </span><br><span class="line">        If 属性 Ri 为连续属性，则  </span><br><span class="line">     Begin  </span><br><span class="line">           将Ri的最小值赋给 A1：  </span><br><span class="line">        将Rm的最大值赋给Am；/*m值手工设置*/  </span><br><span class="line">           For j From 2 To m-1 Do Aj=A1+j*(A1Am)/m;  </span><br><span class="line">           将 Ri 点的基于&#123;&lt; =Aj,&gt;Aj&#125;的最大信息增益属性 (Ri,S) 赋给 A；  </span><br><span class="line">     End；  </span><br><span class="line">  将 R 中属性之间具有最大信息增益的属性 (D,S) 赋给 D;  </span><br><span class="line">   将属性D的值赋给&#123;dj/j=1,2...m&#125;；  </span><br><span class="line">  将分别由对应于 D 的值为 dj 的记录组成的S的子集赋给 &#123;sj/j=1,2...m&#125;;  </span><br><span class="line">   返回一棵树，其根标记为 D;树枝标记为 d1,d2...dm;  </span><br><span class="line">   再分别构造以下树:  </span><br><span class="line">   C4.5(R-&#123;D&#125;,C,S1),C4.5(R-&#123;D&#125;,C,S2)...C4.5(R-&#123;D&#125;,C,Sm);  </span><br><span class="line"></span><br><span class="line">End C4.5</span><br></pre></td></tr></table></figure>
+
+<h3 id="CART"><a href="#CART" class="headerlink" title="CART"></a>CART</h3><p>CART与ID3区别： CART中用于选择变量的不纯性度量是Gini指数； 如果目标变量是标称的，并且是具有两个以上的类别，则CART可能考虑将目标类别合并成两个超类别（双化）； 如果目标变量是连续的，则CART算法找出一组基于树的回归方程来预测目标变量。</p>
+<ul>
+<li><p>Gini 指数<br>  分类问题中假设有 $K$ 个类，样本点属于第 $k$ 个类的概率为 $p_k$，则概率分布的基尼指数为定义为<br>  $$Gini(p) = \sum_{k=1}^K p_k(1 - p_k) = 1 - \sum_{k = 1}^K p_k^2$$<br>  对于二分类问题和给定的样本集合 $D$ 其基尼指数为<br>  $$Gini(D) = 1 - \sum_{k=1}^K (\frac{|C_k|}{|D|})^2$$<br>  若样本集合 $D$ 根据特征 $A$ 是否取某一可能的值 $a$ 分割为 $D_1, D_2$ 两部分，则在特征 $A$ 的条件下集合 $D$ 的基尼指数定义为<br>  $$Gini(D,A) = \frac{|D_1|}{|D|} Gini(D_1) + \frac{|D_2|}{|D|} Gini(D_2)$$<br>  $Gini(D)$ 反映了数据集 $D$ 的纯度，值越小，纯度越高。我们在候选集合中选择使得划分后基尼指数最小的属性作为最优化分属性。</p>
+  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">gini</span>(<span class="params">data_set</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    计算gini的值，即Gini(p)</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    length = <span class="built_in">len</span>(data_set)</span><br><span class="line">    category_2_cnt = calculate_diff_count(data_set)</span><br><span class="line">    <span class="built_in">sum</span> = <span class="number">0.0</span></span><br><span class="line">    <span class="keyword">for</span> category <span class="keyword">in</span> category_2_cnt:</span><br><span class="line">        <span class="built_in">sum</span> += <span class="built_in">pow</span>(<span class="built_in">float</span>(category_2_cnt[category]) / length, <span class="number">2</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span> - <span class="built_in">sum</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>CART是一棵二叉树，采用二元切分法，每次把数据切成两份，分别进入左子树、右子树。而且每个非叶子节点都有两个孩子，所以CART的叶子节点比非叶子多1。相比ID3和C4.5，CART应用要多一些，既可以用于分类也可以用于回归。CART分类时，使用基尼指数（Gini）来选择最好的数据分割的特征，gini描述的是纯度，与信息熵的含义相似。CART中每一次迭代都会降低GINI系数。</p>
+<ul>
+<li><p>算法流程：</p>
+<ol>
+<li>CART回归树预测回归连续型数据，假设X与Y分别是输入和输出变量，并且Y是连续变量。在训练数据集所在的输入空间中，递归的将每个区域划分为两个子区域并决定每个子区域上的输出值，构建二叉决策树。</li>
+<li>选择最优切分变量j与切分点 $s$：遍历变量 $j$，对规定的切分变量 $j$ 扫描切分点 $s$，选择使下式得到最小值时的 $(j,s)$ 对。其中 $R_m$ 是被划分的输入空间，$c_m$ 是空间 $R_m$ 对应的固定输出值。</li>
+<li>用选定的 $(j,s)$ 对，划分区域并决定相应的输出值。</li>
+<li>继续对两个子区域调用上述步骤，将输入空间划分为 $M$ 个区域 $R_1,R_2,…,R_m$，生成决策树。</li>
+</ol>
+<p>  当输入空间划分确定时，可以用平方误差来表示回归树对于训练数据的预测方法，用平方误差最小的准则求解每个单元上的最优输出值。<br>  $$\sum_{x_i \in R_m} (y_i - f(x_i))^2$$</p>
+</li>
+</ul>
+<h3 id="剪枝"><a href="#剪枝" class="headerlink" title="剪枝"></a>剪枝</h3><p>为了避免决策树“过拟合”样本。前面的算法生成的决策树非常的详细而庞大，每个属性都被详细地加以考虑，决策树的树叶节点所覆盖的训练样本都是“纯”的。因此用这个决策树来对训练样本进行分类的话，你会发现对于训练样本而言，这个树表现堪称完美，它可以100%完美正确得对训练样本集中的样本进行分类（因为决策树本身就是100%完美拟合训练样本的产物）。但是，这会带来一个问题，如果训练样本中包含了一些错误，按照前面的算法，这些错误也会100%一点不留得被决策树学习了，这就是“过拟合”。</p>
+<h4 id="预剪枝-pre-pruning"><a href="#预剪枝-pre-pruning" class="headerlink" title="预剪枝 pre-pruning"></a>预剪枝 pre-pruning</h4><p>预剪枝就是在树的构建过程（只用到训练集），设置一个阈值（样本个数小于预定阈值或GINI指数小于预定阈值），使得当在当前分裂节点中分裂前和分裂后的误差超过这个阈值则分列，否则不进行分裂操作。所有决策树的构建方法，都是在无法进一步降低熵的情况下才会停止创建分支的过程，为了避免过拟合，可以设定一个阈值，熵减小的数量小于这个阈值，即使还可以继续降低熵，也停止继续创建分支。但是这种方法实际中的效果并不好。<br>在划分之前，所有样本集中于根节点，若不进行划分，该节点被标记为叶节点，其类别标记为训练样例最多的类别。若进行划分在测试集上的准确率小于在根节点不进行划分的准确率，或增幅没有超过阈值，都不进行划分，作为一个叶节点返回当前数据集中最多的标签类型。</p>
+<ul>
+<li><p>预剪枝就是在完全正确分类训练集之前，较早地停止树的生长。 具体在什么时候停止决策树的生长有多种不同的方法:</p>
+<ol>
+<li>一种最为简单的方法就是在决策树到达一定高度的情况下就停止树的生长。</li>
+<li>到达此结点的实例具有相同的特征向量，而不必一定属于同一类， 也可停止生长。</li>
+<li>到达此结点的实例个数小于某一个阈值也可停止树的生长。</li>
+<li>还有一种更为普遍的做法是计算每次扩张对系统性能的增益，如果这个增益值小于某个阈值则不进行扩展。</li>
+</ol>
+</li>
+<li><p>优点：快速，可以在构建决策树时进行剪枝，显著降低了过拟合风险。由于预剪枝不必生成整棵决策树，且算法相对简单，效率很高，适合解决大规模问题。但是尽管这一方法看起来很直接， 但是怎样精确地估计何时停止树的增长是相当困难的。</p>
+</li>
+<li><p>缺点：预剪枝基于贪心思想，本质上禁止分支展开，给决策树带来了欠拟合的风险。因为视野效果问题 。 也就是说在相同的标准下，也许当前的扩展会造成过度拟合训练数据，但是更进一步的扩展能够满足要求，也有可能准确地拟合训练数据。这将使得算法过早地停止决策树的构造。</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> pre_pruning:</span><br><span class="line">    ans = []</span><br><span class="line">    <span class="keyword">for</span> index <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(test_dataset)):  <span class="comment"># build label for test dataset</span></span><br><span class="line">        ans.append(test_dataset[index][-<span class="number">1</span>])</span><br><span class="line">    result_counter = Counter()</span><br><span class="line">    <span class="keyword">for</span> vec <span class="keyword">in</span> dataset:</span><br><span class="line">        result_counter[vec[-<span class="number">1</span>]] += <span class="number">1</span></span><br><span class="line">    <span class="comment"># what will it be if it is a leaf node</span></span><br><span class="line">    leaf_output = result_counter.most_common(<span class="number">1</span>)[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">    root_acc = cal_acc(test_output=[leaf_output] * <span class="built_in">len</span>(test_dataset),</span><br><span class="line">                        label=ans)</span><br><span class="line">    outputs = []</span><br><span class="line">    ans = []</span><br><span class="line">    <span class="keyword">for</span> value <span class="keyword">in</span> uniqueVals:  <span class="comment"># expand the node</span></span><br><span class="line">        cut_testset = splitdataset(test_dataset, bestFeat, value)</span><br><span class="line">        cut_dataset = splitdataset(dataset, bestFeat, value)</span><br><span class="line">        <span class="keyword">for</span> vec <span class="keyword">in</span> cut_testset:</span><br><span class="line">            ans.append(vec[-<span class="number">1</span>])</span><br><span class="line">        result_counter = Counter()</span><br><span class="line">        <span class="keyword">for</span> vec <span class="keyword">in</span> cut_dataset:</span><br><span class="line">            result_counter[vec[-<span class="number">1</span>]] += <span class="number">1</span></span><br><span class="line">        leaf_output = result_counter.most_common(<span class="number">1</span>)[<span class="number">0</span>][<span class="number">0</span>]  <span class="comment"># what will it be if it is a leaf node</span></span><br><span class="line">        outputs += [leaf_output] * <span class="built_in">len</span>(cut_testset)</span><br><span class="line">    cut_acc = cal_acc(test_output=outputs, label=ans)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> cut_acc &lt;= root_acc + threshold: <span class="comment"># whether expand the node or not</span></span><br><span class="line">        <span class="keyword">return</span> leaf_output</span><br></pre></td></tr></table></figure>
+
+<h4 id="后剪枝-post-pruning"><a href="#后剪枝-post-pruning" class="headerlink" title="后剪枝 post-pruning"></a>后剪枝 post-pruning</h4><p>决策树构造完成后进行剪枝。剪枝的过程是对拥有同样父节点的一组节点进行检查，判断如果将其合并，熵的增加量是否小于某一阈值。如果确实小，则这一组节点可以合并一个节点，其中包含了所有可能的结果。后剪枝是目前最普遍的做法。<br>后剪枝的剪枝过程是删除一些子树，然后用其叶子节点代替，这个叶子节点所标识的类别通过大多数原则 (majority class criterion) 确定。所谓大多数原则，是指剪枝过程中, 将一些子树删除而用叶节点代替,这个叶节点所标识的类别用这棵子树中大多数训练样本所属的类别来标识。相比于前剪枝，后剪枝方法更常用，是因为在前剪枝方法中精确地估计何时停止树增长很困难。</p>
+<ul>
+<li>优点：欠拟合风险小，泛化性能好</li>
+<li>缺点：在生成决策树之后完成，自底向上对所有非叶节点进行逐一考察，训练的时间开销较大</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">prune_tree</span>(<span class="params">node, prunedList</span>):</span></span><br><span class="line">    <span class="comment"># Base case: we&#x27;ve reached a leaf</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">isinstance</span>(node, Leaf):</span><br><span class="line">        <span class="keyword">return</span> node</span><br><span class="line">    <span class="comment"># If we reach a pruned node, make that node a leaf node and return.</span></span><br><span class="line">    <span class="comment"># Since it becomes a leaf node, the nodes</span></span><br><span class="line">    <span class="comment"># below it are automatically not considered</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">int</span>(node.<span class="built_in">id</span>) <span class="keyword">in</span> prunedList:</span><br><span class="line">        <span class="keyword">return</span> Leaf(node.rows, node.<span class="built_in">id</span>, node.depth)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Call this function recursively on the true branch</span></span><br><span class="line">    node.true_branch = prune_tree(node.true_branch, prunedList)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Call this function recursively on the false branch</span></span><br><span class="line">    node.false_branch = prune_tree(node.false_branch, prunedList)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> node</span><br></pre></td></tr></table></figure>
+
+<h2 id="实现细节"><a href="#实现细节" class="headerlink" title="实现细节"></a>实现细节</h2><p>测试数据使用李航老师的统计方法中对应的数据集。</p>
+<h3 id="ID3-算法实现"><a href="#ID3-算法实现" class="headerlink" title="ID3 算法实现"></a>ID3 算法实现</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ID3_chooseBestFeature</span>(<span class="params">dataset</span>):</span></span><br><span class="line">    numFeatures = <span class="built_in">len</span>(dataset[<span class="number">0</span>]) - <span class="number">1</span></span><br><span class="line">    baseEnt = cal_entropy(dataset)</span><br><span class="line">    bestInfoGain = <span class="number">0.0</span></span><br><span class="line">    bestFeature = -<span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(numFeatures):  <span class="comment"># check all features</span></span><br><span class="line">        featList = [example[i] <span class="keyword">for</span> example <span class="keyword">in</span> dataset]</span><br><span class="line">        uniqueVals = <span class="built_in">set</span>(featList)</span><br><span class="line">        newEnt = <span class="number">0.0</span></span><br><span class="line">        <span class="comment"># claculate entropy of every divide ways</span></span><br><span class="line">        <span class="keyword">for</span> value <span class="keyword">in</span> uniqueVals:</span><br><span class="line">            <span class="comment"># choose the samples mmeeting the requirement</span></span><br><span class="line">            subdataset = splitdataset(dataset, i, value)</span><br><span class="line">            p = <span class="built_in">len</span>(subdataset) / <span class="built_in">float</span>(<span class="built_in">len</span>(dataset))</span><br><span class="line">            newEnt += p * cal_entropy(subdataset)</span><br><span class="line">        infoGain = baseEnt - newEnt</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (infoGain &gt; bestInfoGain):</span><br><span class="line">            bestInfoGain = infoGain  <span class="comment"># choose the largest information gain</span></span><br><span class="line">            bestFeature = i</span><br><span class="line">    <span class="keyword">return</span> bestFeature</span><br></pre></td></tr></table></figure>
+
+<h3 id="C4-5-算法实现"><a href="#C4-5-算法实现" class="headerlink" title="C4.5 算法实现"></a>C4.5 算法实现</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">C45_chooseBestFeatureToSplit</span>(<span class="params">dataset</span>):</span></span><br><span class="line">    numFeatures = <span class="built_in">len</span>(dataset[<span class="number">0</span>]) - <span class="number">1</span></span><br><span class="line">    baseEnt = cal_entropy(dataset)</span><br><span class="line">    bestInfoGain_ratio = <span class="number">0.0</span></span><br><span class="line">    bestFeature = -<span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(numFeatures):  <span class="comment"># check every feature</span></span><br><span class="line">        featList = [example[i] <span class="keyword">for</span> example <span class="keyword">in</span> dataset]</span><br><span class="line">        uniqueVals = <span class="built_in">set</span>(featList)</span><br><span class="line">        newEnt = <span class="number">0.0</span></span><br><span class="line">        IV = <span class="number">0.0</span></span><br><span class="line">        <span class="keyword">for</span> value <span class="keyword">in</span> uniqueVals:</span><br><span class="line">            subdataset = splitdataset(dataset, i, value)</span><br><span class="line">            p = <span class="built_in">len</span>(subdataset) / <span class="built_in">float</span>(<span class="built_in">len</span>(dataset))</span><br><span class="line">            newEnt += p * cal_entropy(subdataset)</span><br><span class="line">            IV = IV - p * log(p, <span class="number">2</span>)</span><br><span class="line">        infoGain = baseEnt - newEnt</span><br><span class="line">        <span class="keyword">if</span> (IV == <span class="number">0</span>):</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        infoGain_ratio = infoGain / IV  <span class="comment"># infoGain_ratio of current feature</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (infoGain_ratio &gt; bestInfoGain_ratio):  <span class="comment"># choose the greatest gain ratio</span></span><br><span class="line">            bestInfoGain_ratio = infoGain_ratio</span><br><span class="line">            bestFeature = i  <span class="comment"># choose the feature corsbounding to the gain ratio</span></span><br><span class="line">    <span class="keyword">return</span> bestFeature</span><br></pre></td></tr></table></figure>
+
+<h3 id="CART-算法实现"><a href="#CART-算法实现" class="headerlink" title="CART 算法实现"></a>CART 算法实现</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">CART_chooseBestFeature</span>(<span class="params">dataset</span>):</span></span><br><span class="line">    numFeatures = <span class="built_in">len</span>(dataset[<span class="number">0</span>]) - <span class="number">1</span>  <span class="comment"># except the column of labels</span></span><br><span class="line">    bestGini = <span class="number">999999.0</span></span><br><span class="line">    bestFeature = -<span class="number">1</span>  <span class="comment"># default label</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(numFeatures):</span><br><span class="line">        featList = [example[i] <span class="keyword">for</span> example <span class="keyword">in</span> dataset]</span><br><span class="line">        uniqueVals = <span class="built_in">set</span>(featList)  <span class="comment"># get the possible values of each feature</span></span><br><span class="line">        gini = <span class="number">0.0</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> value <span class="keyword">in</span> uniqueVals:</span><br><span class="line">            subdataset = splitdataset(dataset, i, value)</span><br><span class="line">            p = <span class="built_in">len</span>(subdataset) / <span class="built_in">float</span>(<span class="built_in">len</span>(dataset))</span><br><span class="line">            subp = <span class="built_in">len</span>(splitdataset(subdataset, -<span class="number">1</span>, <span class="string">&#x27;0&#x27;</span>)) / <span class="built_in">float</span>(<span class="built_in">len</span>(subdataset))</span><br><span class="line">        gini += p * (<span class="number">1.0</span> - <span class="built_in">pow</span>(subp, <span class="number">2</span>) - <span class="built_in">pow</span>(<span class="number">1</span> - subp, <span class="number">2</span>))</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (gini &lt; bestGini):</span><br><span class="line">            bestGini = gini</span><br><span class="line">            bestFeature = i</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> bestFeature</span><br></pre></td></tr></table></figure>
+
+<h3 id="建树操作"><a href="#建树操作" class="headerlink" title="建树操作"></a>建树操作</h3><p>因为建树过程相似，仅选取 ID3 算法的建树过程。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ID3_create_tree</span>(<span class="params">dataset, labels, test_dataset</span>):</span></span><br><span class="line">    classList = [example[-<span class="number">1</span>] <span class="keyword">for</span> example <span class="keyword">in</span> dataset]</span><br><span class="line">    <span class="keyword">if</span> classList.count(classList[<span class="number">0</span>]) == <span class="built_in">len</span>(classList):</span><br><span class="line">        <span class="comment"># 类别完全相同，停止划分</span></span><br><span class="line">        <span class="keyword">return</span> classList[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(dataset[<span class="number">0</span>]) == <span class="number">1</span>:</span><br><span class="line">        <span class="comment"># 遍历完所有特征时返回出现次数最多的</span></span><br><span class="line">        <span class="keyword">return</span> majority_count(classList)</span><br><span class="line">    bestFeat = ID3_choose_best_feature(dataset)</span><br><span class="line">    bestFeatLabel = labels[bestFeat]</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">u&quot;此时最优索引为：&quot;</span> + (bestFeatLabel))</span><br><span class="line"></span><br><span class="line">    ID3Tree = &#123;bestFeatLabel: &#123;&#125;&#125;</span><br><span class="line">    <span class="keyword">del</span> (labels[bestFeat])</span><br><span class="line">    <span class="comment"># 得到列表包括节点所有的属性值</span></span><br><span class="line">    featValues = [example[bestFeat] <span class="keyword">for</span> example <span class="keyword">in</span> dataset]</span><br><span class="line">    uniqueVals = <span class="built_in">set</span>(featValues)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> value <span class="keyword">in</span> uniqueVals:  <span class="comment"># 枚举对用特征的每个取值</span></span><br><span class="line">        subLabels = labels[:]</span><br><span class="line">        ID3Tree[bestFeatLabel][value] = ID3_create_tree(</span><br><span class="line">            split_dataset(dataset, bestFeat, value),</span><br><span class="line">            subLabels,</span><br><span class="line">            split_dataset(test_dataset, bestFeat, value))</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> cut_acc &gt;= root_acc:</span><br><span class="line">            <span class="keyword">return</span> leaf_output</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> ID3Tree  <span class="comment"># 如果没有剪枝返回节点</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="预剪枝"><a href="#预剪枝" class="headerlink" title="预剪枝"></a>预剪枝</h3><p>在实现时检查划分，如果在测试集上的准确率下降或没有上升到一个阈值时，将进行剪枝。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> pre_pruning:</span><br><span class="line">    ans = []</span><br><span class="line">    <span class="keyword">for</span> index <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(test_dataset)):</span><br><span class="line">        ans.append(test_dataset[index][-<span class="number">1</span>])</span><br><span class="line">    result_counter = Counter()</span><br><span class="line">    <span class="keyword">for</span> vec <span class="keyword">in</span> dataset:</span><br><span class="line">        result_counter[vec[-<span class="number">1</span>]] += <span class="number">1</span></span><br><span class="line">    leaf_output = result_counter.most_common(<span class="number">1</span>)[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">    root_acc = cal_acc(test_output=[leaf_output] * <span class="built_in">len</span>(test_dataset), label=ans)</span><br><span class="line">    <span class="comment"># 若当前节点是叶节点的准确率</span></span><br><span class="line">    outputs = []</span><br><span class="line">    ans = []</span><br><span class="line">    <span class="keyword">for</span> value <span class="keyword">in</span> uniqueVals:</span><br><span class="line">        cut_testset = split_dataset(test_dataset, bestFeat, value)</span><br><span class="line">        cut_dataset = split_dataset(dataset, bestFeat, value)</span><br><span class="line">        <span class="keyword">for</span> vec <span class="keyword">in</span> cut_testset:</span><br><span class="line">            ans.append(vec[-<span class="number">1</span>])</span><br><span class="line">        result_counter = Counter()</span><br><span class="line">        <span class="keyword">for</span> vec <span class="keyword">in</span> cut_dataset:</span><br><span class="line">            result_counter[vec[-<span class="number">1</span>]] += <span class="number">1</span></span><br><span class="line">        leaf_output = result_counter.most_common(<span class="number">1</span>)[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">        outputs += [leaf_output] * <span class="built_in">len</span>(cut_testset)</span><br><span class="line">    cut_acc = cal_acc(test_output=outputs, label=ans)  <span class="comment"># 不进行剪枝在测试集上的准确率</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> cut_acc &lt;= root_acc + threshold:  <span class="comment"># 检查准确率上升情况</span></span><br><span class="line">        <span class="keyword">return</span> leaf_output</span><br></pre></td></tr></table></figure>
+
+<h3 id="后剪枝"><a href="#后剪枝" class="headerlink" title="后剪枝"></a>后剪枝</h3><p>因为后剪枝的方法是自下而上的判断是否应该进行剪枝，所以在实现时在返回节点对象之前进行剪枝，决定是返回对象还是返回单一类别。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> post_pruning:</span><br><span class="line">    tree_output = test_tree(C45Tree,</span><br><span class="line">                            featLabels=total_labels,</span><br><span class="line">                            testDataSet=test_dataset)</span><br><span class="line">    ans = []</span><br><span class="line">    <span class="keyword">for</span> vec <span class="keyword">in</span> test_dataset:</span><br><span class="line">        ans.append(vec[-<span class="number">1</span>])</span><br><span class="line">    root_acc = cal_acc(tree_output, ans)</span><br><span class="line">    result_counter = Counter()</span><br><span class="line">    <span class="keyword">for</span> vec <span class="keyword">in</span> dataset:</span><br><span class="line">        result_counter[vec[-<span class="number">1</span>]] += <span class="number">1</span></span><br><span class="line">    leaf_output = result_counter.most_common(<span class="number">1</span>)[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">    cut_acc = cal_acc([leaf_output] * <span class="built_in">len</span>(test_dataset), ans)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> cut_acc &gt;= root_acc:</span><br><span class="line">        <span class="keyword">return</span> leaf_output</span><br></pre></td></tr></table></figure>
+
+<p>表面上后剪枝的操作比预剪枝少，实际上在测试时递归的测试了当前节点所在子树的正确率。所以后剪枝带来的开销远大于的预剪枝。</p>
+<h2 id="实验结果分析"><a href="#实验结果分析" class="headerlink" title="实验结果分析"></a>实验结果分析</h2><h3 id="西瓜数据集3-0"><a href="#西瓜数据集3-0" class="headerlink" title="西瓜数据集3.0"></a>西瓜数据集3.0</h3><p>实现基于信息熵进行划分的决策树算法（ID3）算法，并可视化结果如下：</p>
+<p><img src="/2021/07/16/%E5%86%B3%E7%AD%96%E6%A0%91%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/ID3-1.png" alt="img"></p>
+<p>可以注意到直接使用了编号信息进行划分，这一点和书中描述的 “基于信息增益的算法对可取数值较多的属性有偏好” 一致。下来除去编号属性并对结果进行可视化，结果如下：</p>
+<p><img src="/2021/07/16/%E5%86%B3%E7%AD%96%E6%A0%91%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/ID3-2.png" alt="img"></p>
+<h3 id="西瓜数据集2-0"><a href="#西瓜数据集2-0" class="headerlink" title="西瓜数据集2.0"></a>西瓜数据集2.0</h3><p>实现基于基尼指数进行划分选择的决策树算法，并进行相应的剪枝操作，使用书中的测试集，验证集划分。</p>
+<ul>
+<li>未剪枝  <img src="/2021/07/16/%E5%86%B3%E7%AD%96%E6%A0%91%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/4.4-1'.png" height="400"></li>
+<li>预剪枝  <img src="/2021/07/16/%E5%86%B3%E7%AD%96%E6%A0%91%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/4.4-2.png" height="150"></li>
+<li>后剪枝  <img src="/2021/07/16/%E5%86%B3%E7%AD%96%E6%A0%91%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/4.4-3.png" height="300"></li>
+</ul>
+<h3 id="UCI-数据集"><a href="#UCI-数据集" class="headerlink" title="UCI 数据集"></a>UCI 数据集</h3><p>使用 UCI 数据集来判断未剪枝，预剪枝，后剪枝的方法产生的差异。</p>
+<h4 id="Iris"><a href="#Iris" class="headerlink" title="Iris"></a>Iris</h4><p>总数据集一共 150 条数据，共三个类别。在数据集中随机抽取30条数据组成测试集，再从中随机抽取30个作为训练时的验证集，余下的90条数据组成训练集。数据集的描述内容包括：花萼长度，花萼宽度，花瓣长度，花瓣宽度。</p>
+<ul>
+<li>使用 CART 进行实验<ul>
+<li>未剪枝<pre><code>&lt;img src=&quot;4.6-1.png&quot; height=500&gt;
+</code></pre>
+</li>
+<li>预剪枝<pre><code>&lt;img src=&quot;4.6-2.png&quot; height=400&gt;
+</code></pre>
+</li>
+<li>后剪枝<pre><code> 不是剪枝一定要剪掉某个节点，如果树中本身的节点符合要求，可以不用剪枝。
+&lt;img src=&quot;4.6-1.png&quot; height=500&gt;
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<p>经过观察，通过修改随机数种子来更改测试集和验证集的划分可以很大程度上影响决策树的准确率。</p>
+<p>将数据集划分函数的 <code>random state</code> 从 15 改成 1 之后，后剪枝产生的决策树变为下图：<br><img src="/2021/07/16/%E5%86%B3%E7%AD%96%E6%A0%91%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/4.6-4.png" alt="img"><br>所以数据集的划分可以显著影响树的形状和结果的准确率。</p>
+<h4 id="Balloons"><a href="#Balloons" class="headerlink" title="Balloons"></a>Balloons</h4><ul>
+<li><p>数据集描述<br>  数据集较小，共20个样本，四个属性。<a href="https://archive.ics.uci.edu/ml/datasets/Balloons">数据集链接</a></p>
+<table>
+<thead>
+<tr>
+<th>列名</th>
+<th>取值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>color</td>
+<td>yellow, purple</td>
+</tr>
+<tr>
+<td>size</td>
+<td>large, small</td>
+</tr>
+<tr>
+<td>act</td>
+<td>stretch, dip</td>
+</tr>
+<tr>
+<td>age</td>
+<td>adult, child</td>
+</tr>
+<tr>
+<td>label</td>
+<td>T, F</td>
+</tr>
+</tbody></table>
+<p>  其中选择4个样本作为测试集，4个样本作为训练时使用的验证集，余下的作为训练集。</p>
+</li>
+<li><p>不剪枝<br>  <img src="/2021/07/16/%E5%86%B3%E7%AD%96%E6%A0%91%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/4.6-5.png" alt="img"></p>
+</li>
+<li><p>预剪枝<br>  <img src="/2021/07/16/%E5%86%B3%E7%AD%96%E6%A0%91%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/4.6-6.png" alt="img"></p>
+</li>
+<li><p>后剪枝<br>  <img src="/2021/07/16/%E5%86%B3%E7%AD%96%E6%A0%91%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/4.6-5.png" alt="img"></p>
+</li>
+</ul>
+<h2 id="个人感悟"><a href="#个人感悟" class="headerlink" title="个人感悟"></a>个人感悟</h2><p>通过本次实验有如下的发现和收获：</p>
+<ul>
+<li>训练数据集大小和模型精度的关系：<ul>
+<li>当训练数据集过小时，建立的模型精度过低，不具有参考价值。</li>
+<li>随训练数据集尺寸增大，建立模型的分类精度也会随之增大。</li>
+<li>当训练数据集尺寸增大到一定程度时，建立模型的精度不会再持续增大，且最大分类精度不会超过模型对训练数据的拟合度。</li>
+</ul>
+</li>
+<li>测试数据集大小与模型精度的关系：<ul>
+<li>当测试数据集过小时，所测模型精度不具有代表性，没有参考价值。</li>
+<li>随测试数据集尺寸增大，模型精度也会随之增大。</li>
+<li>当测试数据集尺寸增大到一定程度时，对模型精度的测量值不会再持续增大，并保持在某一数值上下微小浮动。</li>
+</ul>
+</li>
+<li>属性个数对数据集大小与模型精度的关系的影响：<ul>
+<li>当实例的属性个数过少时，所建模型精度低，没有参考价值。</li>
+<li>随实例的属性个数增多，所建立模型的精度也会随之增大。</li>
+</ul>
+</li>
+</ul>
+<p>通过本次实验透彻的了解了决策树各种构造算法和剪枝算法，通过使用 Python 进行实现基本的决策树和简单的剪枝算法，锻炼了我的代码能力和对相应伪代码的理解能力。</p>
+<p>在一开始，我对于决策树的整体没有认识，不知道如何从零开始构建一棵决策树，通过仔细研究课本，将思路从认识整体调整为模拟数据的流向。<br>首先定义参与到结构中的决策树的数据格式为 list 数组类型的嵌套。然后思考如何构建一棵决策树，自然而然想到的就是递归，通过返回节点的实例来递归建树。<br>下面碰到的问题就在于如何有机统一不同特征的不同的取值可能和在推理时的便利实现相结合，那么 Python 内建的 dict 字典类型就是很好的选择，通过设置特征的不同的可能取值为 key 值，对应的 value 为递归返回的结果，若连接的为叶节点，则 value 为 ‘0’ 或 ‘1’ 表示正负例，若为决策树的内部节点，则储存对应的对象，将查询请求递归处理直到叶节点。<br>下来就是漫长的 debug 时间，通过 pyCharm 方便的断点，我能成功复现每个异常发生时的程序情况，思考为什么会发生当前的状况和怎样进行修改。一开始我在实现后剪枝是还是给整个函数传入一整棵树，先递归到叶节点在向上逐层剪枝。但是在我仔细研究课本过后，发现书上给的顺序本就是自底向上的，所以只需要在建树时先剪枝再返回节点即可。</p>
+<p>通过实现决策树和两个剪枝算法，我懂得了实际生活中，专业知识是怎样应用与实践的。同时了解了所谓的复现是什么，通过别人的描述重现他人的工作。了解到在实验中应该先彻底明白算法再进行复现，否则可能因为理解的偏差很多工作可能是错误的。为了最大化效率，应该先明确每个实现细节，在确定完了细节之后从下向上构建代码。</p>
+]]></content>
+      <categories>
+        <category>Pytorch</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>第十三届蓝桥杯C/C++ B组省赛</title>
+    <url>/2022/04/09/lanqiao2022/</url>
+    <content><![CDATA[<p>填空题比较简单略过了，写一下自己写出来的编程题。</p>
+<span id="more"></span>  
+
+<h1 id="试题-C-刷题统计"><a href="#试题-C-刷题统计" class="headerlink" title="试题 C: 刷题统计"></a>试题 C: 刷题统计</h1><p><strong>【问题描述】</strong><br>小明决定从下周一开始努力刷题准备蓝桥杯竞赛。他计划周一至周五每天<br>做 a 道题目，周六和周日每天做 b 道题目。请你帮小明计算，按照计划他将在第几天实现做题数大于等于 n 题  </p>
+<p>这题应该要按周算，我直接累加了（犯傻）应该只能过50%</p>
+<p><strong>输入格式</strong><br>输入一行包含三个整数 a, b 和 n.</p>
+<p><strong>输出格式</strong><br>输出一个整数代表天数。    </p>
+<p><strong>输入样例：</strong>  </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">10 20 99</span><br></pre></td></tr></table></figure>
+
+<p><strong>输出样例：</strong>  </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">8</span><br></pre></td></tr></table></figure>
+
+<p><strong>评测用例规模与约定</strong><br>对于 50% 的评测用例，1 ≤ a, b, n ≤ 1e6.<br>对于 100% 的评测用例，1 ≤ a, b, n ≤ 1e18  </p>
+<p><strong>代码实现：</strong>  </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">	long long int a, b, n;</span><br><span class="line">	cin &gt;&gt; a &gt;&gt; b &gt;&gt; n;</span><br><span class="line">	long long int cnt &#x3D; 0;</span><br><span class="line">	long long int day &#x3D; 0;</span><br><span class="line">	while(cnt &lt; n)&#123;</span><br><span class="line">		day ++;</span><br><span class="line">		if(day % 7 &#x3D;&#x3D; 0 || day % 7 &#x3D;&#x3D; 6) cnt +&#x3D; b;</span><br><span class="line">		else cnt +&#x3D; a;</span><br><span class="line">	&#125;</span><br><span class="line">	printf(&quot;%lld\n&quot;, day);</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br><span class="line">&#96;&#96;&#96;  </span><br><span class="line"></span><br><span class="line"># 试题 D: 修剪灌木</span><br><span class="line"></span><br><span class="line">**【问题描述】**  </span><br><span class="line">爱丽丝要完成一项修剪灌木的工作。  </span><br><span class="line">有 N 棵灌木整齐的从左到右排成一排。爱丽丝在每天傍晚会修剪一棵灌</span><br><span class="line">木，让灌木的高度变为 0 厘米。爱丽丝修剪灌木的顺序是从最左侧的灌木开始，每天向右修剪一棵灌木。当修剪了最右侧的灌木后，她会调转方向，下一天开始向左修剪灌木。直到修剪了最左的灌木后再次调转方向。然后如此循环往复。  </span><br><span class="line">灌木每天从早上到傍晚会长高 1 厘米，而其余时间不会长高。在第一天的</span><br><span class="line">早晨，所有灌木的高度都是 0 厘米。爱丽丝想知道每棵灌木最高长到多高。  </span><br><span class="line"></span><br><span class="line">找规律</span><br><span class="line"></span><br><span class="line">**输入格式**  </span><br><span class="line">一个正整数 N ，含义如题面所述。</span><br><span class="line"></span><br><span class="line">**输出格式**  </span><br><span class="line">输出 N 行，每行一个整数，第行表示从左到右第 i 棵树最高能长到多高。  </span><br><span class="line"></span><br><span class="line">**输入样例：**  </span><br></pre></td></tr></table></figure>
+<p>3</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">**输出样例：**  </span><br><span class="line">&#96;&#96;&#96;  </span><br><span class="line">4</span><br><span class="line">2</span><br><span class="line">4</span><br></pre></td></tr></table></figure>
+
+<p><strong>评测用例规模与约定</strong><br>对于 30% 的数据，N ≤ 10.<br>对于 100% 的数据，1 &lt; N ≤ 10000  </p>
+<p><strong>代码实现：</strong>  </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">	int n;</span><br><span class="line">	cin &gt;&gt; n;</span><br><span class="line">	for(int i &#x3D; 1; i &lt;&#x3D; n; i ++)</span><br><span class="line">		cout &lt;&lt; max(2 * (n - i), 2 * (i - 1)) &lt;&lt; endl;</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br><span class="line">&#96;&#96;&#96;  </span><br><span class="line"></span><br><span class="line"># 试题 E: X 进制减法</span><br><span class="line"></span><br><span class="line">**【问题描述】**  </span><br><span class="line">进制规定了数字在数位上逢几进一。  </span><br><span class="line">X 进制是一种很神奇的进制，因为其每一数位的进制并不固定！例如说某</span><br><span class="line">种 X 进制数，最低数位为二进制，第二数位为十进制，第三数位为八进制，则X 进制数 321 转换为十进制数为 65。  </span><br><span class="line">现在有两个 X 进制表示的整数 A 和 B，但是其具体每一数位的进制还不确定，只知道 A 和 B 是同一进制规则，且每一数位最高为 N 进制，最低为二进制。请你算出 A − B 的结果最小可能是多少。  </span><br><span class="line">请注意，你需要保证 A 和 B 在 X 进制下都是合法的，即每一数位上的数字要小于其进制。  </span><br><span class="line"></span><br><span class="line">暴力，不知道能不能全过</span><br><span class="line"></span><br><span class="line">**输入格式**  </span><br><span class="line">第一行一个正整数 N，含义如题面所述。  </span><br><span class="line">第二行一个正整数 Ma，表示 X 进制数 A 的位数。  </span><br><span class="line">第三行 Ma 个用空格分开的整数，表示 X 进制数 A 按从高位到低位顺序各 个数位上的数字在十进制下的表示。  </span><br><span class="line">第四行一个正整数 Mb，表示 X 进制数 B 的位数。  </span><br><span class="line">第五行 Mb 个用空格分开的整数，表示 X 进制数 B 按从高位到低位顺序各个数位上的数字在十进制下的表示。   </span><br><span class="line">请注意，输入中的所有数字都是十进制的。  </span><br><span class="line"></span><br><span class="line">**输出格式**  </span><br><span class="line">输出一行一个整数，表示 X 进制数 A − B 的结果的最小可能值转换为十进制后再模 1000000007 的结果。    </span><br><span class="line"></span><br><span class="line">**输入样例：**  </span><br></pre></td></tr></table></figure>
+<p>11<br>3<br>10 4 0<br>3<br>1 2 0</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">**输出样例：**  </span><br><span class="line">&#96;&#96;&#96;  </span><br><span class="line">94</span><br></pre></td></tr></table></figure>
+
+<p><strong>评测用例规模与约定</strong><br>对于 30% 的数据，N ≤ 10; Ma, Mb ≤ 8.<br>对于 100% 的数据，2 ≤ N ≤ 1000; 1 ≤ Ma, Mb ≤ 100000; A ≥ B   </p>
+<p><strong>代码实现：</strong>  </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;cstdio&gt;</span><br><span class="line">#include&lt;cstring&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;cmath&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">const int N &#x3D; 1e6 + 10;</span><br><span class="line"></span><br><span class="line">int numa[N], numb[N];</span><br><span class="line">int x[N];</span><br><span class="line">int n, ma, mb;</span><br><span class="line">int minv &#x3D; 0x3f3f3f3f;</span><br><span class="line"></span><br><span class="line">void dfs(int step)&#123;</span><br><span class="line">	if(step &#x3D;&#x3D; ma + 1)&#123;</span><br><span class="line">		long long int a &#x3D; 0, b &#x3D; 0, help &#x3D; 1;</span><br><span class="line">		for(int i &#x3D; 1; i &lt;&#x3D; ma; i ++)&#123;</span><br><span class="line">			if(numa[i] &gt;&#x3D; x[i] || numb[i] &gt;&#x3D; x[i]) return;</span><br><span class="line">			a &#x3D; (a  + numa[i] * help) % 1000000007;</span><br><span class="line">			b &#x3D; (b  + numb[i] * help) % 1000000007;</span><br><span class="line">			help *&#x3D; x[i];</span><br><span class="line">		&#125;</span><br><span class="line">		long long int minus &#x3D; (a - b) % 1000000007;</span><br><span class="line">		if(minus &lt; minv) minv &#x3D; minus;</span><br><span class="line">		return;</span><br><span class="line">	&#125;</span><br><span class="line">	for(int i &#x3D; 2; i &lt;&#x3D; n; i ++)&#123;</span><br><span class="line">		x[step] &#x3D; i;</span><br><span class="line">		dfs(step + 1);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">	cin &gt;&gt; n;</span><br><span class="line">	cin &gt;&gt; ma;</span><br><span class="line">	for(int i &#x3D; ma; i &gt;&#x3D; 1; i --)</span><br><span class="line">		scanf(&quot;%d&quot;, &amp;numa[i]);</span><br><span class="line">	cin &gt;&gt; mb;</span><br><span class="line">	for(int i &#x3D; mb; i &gt;&#x3D; 1; i --)</span><br><span class="line">		scanf(&quot;%d&quot;, &amp;numb[i]);</span><br><span class="line">	x[0] &#x3D; 1;</span><br><span class="line">	dfs(1);</span><br><span class="line">	</span><br><span class="line">	cout &lt;&lt; minv &lt;&lt; endl;</span><br><span class="line">	</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br><span class="line">&#96;&#96;&#96;  </span><br><span class="line"></span><br><span class="line"># 试题 F: 统计子矩阵</span><br><span class="line"></span><br><span class="line">**【问题描述】**  </span><br><span class="line">给定一个 N × M 的矩阵 A，请你统计有多少个子矩阵 (最小 1 × 1，最大N × M) 满足子矩阵中所有数的和不超过给定的整数 K?  </span><br><span class="line"></span><br><span class="line">二维前缀和+暴力</span><br><span class="line"></span><br><span class="line">**输入格式**  </span><br><span class="line">第一行包含三个整数 N, M 和 K.  </span><br><span class="line">之后 N 行每行包含 M 个整数，代表矩阵 A.  </span><br><span class="line"></span><br><span class="line">**输出格式**  </span><br><span class="line">一个整数代表答案。  </span><br><span class="line"></span><br><span class="line">**输入样例：**  </span><br></pre></td></tr></table></figure>
+<p>3 4 10<br>1 2 3 4<br>5 6 7 8<br>9 10 11 12</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">**输出样例：**  </span><br><span class="line">&#96;&#96;&#96;  </span><br><span class="line">19</span><br></pre></td></tr></table></figure>
+
+<p><strong>评测用例规模与约定</strong><br>对于 30% 的数据，N, M ≤ 20.<br>对于 70% 的数据，N, M ≤ 100.<br>对于 100% 的数据，1 ≤ N, M ≤ 500; 0 ≤ Ai j ≤ 1000; 1 ≤ K ≤ 250000000  </p>
+<p><strong>代码实现：</strong>  </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">const int N &#x3D; 510;</span><br><span class="line">int map[N][N];</span><br><span class="line">int s[N][N];</span><br><span class="line">int n, m, k;</span><br><span class="line">int res;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">	cin &gt;&gt; n &gt;&gt; m &gt;&gt; k;</span><br><span class="line">	for(int i &#x3D; 1; i &lt;&#x3D; n; i ++)</span><br><span class="line">		for(int j &#x3D; 1; j &lt;&#x3D; m; j ++)&#123;</span><br><span class="line">			scanf(&quot;%d&quot;, &amp;map[i][j]);</span><br><span class="line">			s[i][j] &#x3D; s[i - 1][j] + s[i][j - 1] - s[i - 1][j - 1] + map[i][j];</span><br><span class="line">		&#125;</span><br><span class="line">	for(int x1 &#x3D; 1; x1 &lt;&#x3D; n; x1 ++)</span><br><span class="line">		for(int y1 &#x3D; 1; y1 &lt;&#x3D; m; y1 ++)</span><br><span class="line">			for(int x2 &#x3D; x1; x2 &lt;&#x3D; n; x2 ++)</span><br><span class="line">				for(int y2 &#x3D; y1; y2 &lt;&#x3D; m; y2 ++)&#123;</span><br><span class="line">					int cnt &#x3D; s[x2][y2] - s[x2][y1 - 1] - s[x1 - 1][y2] + s[x1 - 1][y1 - 1];</span><br><span class="line">					if(cnt &lt;&#x3D; k) res ++;</span><br><span class="line">				&#125;</span><br><span class="line">	cout &lt;&lt; res &lt;&lt; endl;</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br><span class="line">&#96;&#96;&#96;  </span><br><span class="line"></span><br><span class="line"># 试题 G: 积木画</span><br><span class="line"></span><br><span class="line">之前做过差不多的，忘了，不会，之后再更新  </span><br><span class="line"></span><br><span class="line"># 试题 H: 扫雷</span><br><span class="line"></span><br><span class="line">**【问题描述】**  </span><br><span class="line">小明最近迷上了一款名为《扫雷》的游戏。其中有一个关卡的任务如下，</span><br><span class="line">在一个二维平面上放置着 n 个炸雷，第 i 个炸雷 (xi, yi,ri) 表示在坐标 (xi, yi) 处存在一个炸雷，它的爆炸范围是以半径为 ri 的一个圆。  </span><br><span class="line">为了顺利通过这片土地，需要玩家进行排雷。玩家可以发射 m 个排雷火</span><br><span class="line">箭，小明已经规划好了每个排雷火箭的发射方向，第 j 个排雷火箭 (xj, yj,rj) 表示这个排雷火箭将会在 (xj, yj) 处爆炸，它的爆炸范围是以半径为 rj 的一个圆，  </span><br><span class="line">在其爆炸范围内的炸雷会被引爆。同时，当炸雷被引爆时，在其爆炸范围内的炸雷也会被引爆。现在小明想知道他这次共引爆了几颗炸雷？  </span><br><span class="line">你可以把炸雷和排雷火箭都视为平面上的一个点。一个点处可以存在多个</span><br><span class="line">炸雷和排雷火箭。当炸雷位于爆炸范围的边界上时也会被引爆。</span><br><span class="line"></span><br><span class="line">暴力bfs</span><br><span class="line">  </span><br><span class="line">**输入格式**  </span><br><span class="line">输入的第一行包含两个整数 n、m.  </span><br><span class="line">接下来的 n 行，每行三个整数 xi, yi,ri，表示一个炸雷的信息。  </span><br><span class="line">再接下来的 m 行，每行三个整数 xj, yj,rj，表示一个排雷火箭的信息。  </span><br><span class="line"></span><br><span class="line">**输出格式**  </span><br><span class="line">一个整数代表答案。  </span><br><span class="line"></span><br><span class="line">**输入样例：**  </span><br></pre></td></tr></table></figure>
+<p>2 1<br>2 2 4<br>4 4 2<br>0 0 5</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">**输出样例：**  </span><br><span class="line">&#96;&#96;&#96;  </span><br><span class="line">2</span><br></pre></td></tr></table></figure>
+
+<p><strong>评测用例规模与约定</strong><br>对于 40% 的评测用例：0 ≤ x, y ≤ 109, 0 ≤ n, m ≤ 103, 1 ≤ r ≤ 10.<br>对于 100% 的评测用例：0 ≤ x, y ≤ 109, 0 ≤ n, m ≤ 5 × 104, 1 ≤ r ≤ 10.</p>
+<p><strong>代码实现：</strong>  </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;cstdio&gt;</span><br><span class="line">#include&lt;cstring&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;vector&gt;</span><br><span class="line">#include&lt;cmath&gt;</span><br><span class="line">#include&lt;queue&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">const int N &#x3D; 1e3 + 10;</span><br><span class="line">typedef struct&#123;</span><br><span class="line">	int xx;</span><br><span class="line">	int yy;</span><br><span class="line">	int rr;</span><br><span class="line">&#125;Node;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Node h[N];</span><br><span class="line">vector&lt;int&gt; h3[N];</span><br><span class="line">vector&lt;int&gt; h4[N]; </span><br><span class="line">int n, m;</span><br><span class="line">bool st[N];</span><br><span class="line">int res;</span><br><span class="line"></span><br><span class="line">bfs(int x)&#123;</span><br><span class="line">	queue&lt;int&gt; q;</span><br><span class="line">	for(auto t: h4[x])&#123;</span><br><span class="line">		if(!st[t])&#123;</span><br><span class="line">			q.push(t);</span><br><span class="line">			st[t] &#x3D; true;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	while(q.size())&#123;</span><br><span class="line">		int t &#x3D; q.front();</span><br><span class="line">		q.pop();</span><br><span class="line">		res ++;</span><br><span class="line">		for(auto i: h3[t])&#123;</span><br><span class="line">			if(!st[i])&#123;</span><br><span class="line">				q.push(i);</span><br><span class="line">				st[t] &#x3D; true;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">	cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">	for(int i &#x3D; 0; i &lt; n; i ++)&#123;</span><br><span class="line">		int x, y, r;</span><br><span class="line">		cin &gt;&gt; x &gt;&gt; y &gt;&gt; r;</span><br><span class="line">		h[i].xx &#x3D; x;</span><br><span class="line">		h[i].yy &#x3D; y;</span><br><span class="line">		h[i].rr &#x3D; r;</span><br><span class="line">	&#125;</span><br><span class="line">	for(int i &#x3D; 0; i &lt; n; i ++)&#123;</span><br><span class="line">		int x1 &#x3D; h[i].xx;</span><br><span class="line">		int y1 &#x3D; h[i].yy;</span><br><span class="line">		int r1 &#x3D; h[i].rr;</span><br><span class="line">		for(int j &#x3D; 0; j &lt; n; j ++)&#123;</span><br><span class="line">			int x2 &#x3D; h[j].xx;</span><br><span class="line">			int y2 &#x3D; h[j].yy;</span><br><span class="line">			if(i !&#x3D; j)&#123;</span><br><span class="line">				double dist &#x3D; (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2);</span><br><span class="line">				dist &#x3D; sqrt(dist);</span><br><span class="line">				if(dist &lt;&#x3D; r1) h3[i].push_back(j);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	for(int i &#x3D; 0; i &lt; m; i ++)&#123;</span><br><span class="line">		int x, y, r;</span><br><span class="line">		cin &gt;&gt; x &gt;&gt; y &gt;&gt; r;</span><br><span class="line">		for(int j &#x3D; 0; j &lt; n; j ++)&#123;</span><br><span class="line">			int x2 &#x3D; h[j].xx;</span><br><span class="line">			int y2 &#x3D; h[j].yy;</span><br><span class="line">			double dist &#x3D; (x - x2) * (x - x2) + (y - y2) * (y - y2);</span><br><span class="line">			dist &#x3D; sqrt(dist);</span><br><span class="line">			if(dist &lt;&#x3D; r) h4[i].push_back(j);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	for(int i &#x3D; 0; i &lt; m; i ++)&#123;</span><br><span class="line">		bfs(i);</span><br><span class="line">	&#125;</span><br><span class="line">	cout &lt;&lt; res &lt;&lt; endl;</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br><span class="line">&#96;&#96;&#96;  </span><br><span class="line"></span><br><span class="line"># 试题 I: 李白打酒加强版</span><br><span class="line"></span><br><span class="line">**【问题描述】**  </span><br><span class="line">话说大诗人李白，一生好饮。幸好他从不开车。  </span><br><span class="line">一天，他提着酒壶，从家里出来，酒壶中有酒 2 斗。他边走边唱：  </span><br><span class="line">无事街上走，提壶去打酒。  </span><br><span class="line">逢店加一倍，遇花喝一斗。  </span><br><span class="line">这一路上，他一共遇到店 N 次，遇到花 M 次。已知最后一次遇到的是花，他正好把酒喝光了。  </span><br><span class="line">请你计算李白这一路遇到店和花的顺序，有多少种不同的可能？  </span><br><span class="line">注意：壶里没酒 ( 0 斗) 时遇店是合法的，加倍后还是没酒；但是没酒时遇花是不合法的  </span><br><span class="line"></span><br><span class="line">暴力肯定是过不了全部的，应该转换成三维dp，后来懒得想了，直接暴力做的。</span><br><span class="line">**输入格式**  </span><br><span class="line">第一行包含两个整数 N 和 M  </span><br><span class="line"></span><br><span class="line">**输出格式**  </span><br><span class="line">输出一个整数表示答案。由于答案可能很大，输出模 1000000007 的结果。     </span><br><span class="line"></span><br><span class="line">**输入样例：**  </span><br></pre></td></tr></table></figure>
+<p>5 10</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">**输出样例：**  </span><br><span class="line">&#96;&#96;&#96;  </span><br><span class="line">14</span><br></pre></td></tr></table></figure>
+
+<p><strong>评测用例规模与约定</strong><br>对于 40% 的评测用例：1 ≤ N, M ≤ 10。<br>对于 100% 的评测用例：1 ≤ N, M ≤ 100。</p>
+<p><strong>代码实现：</strong>  </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">const int N &#x3D; 510;</span><br><span class="line">int n, m;</span><br><span class="line">int res;</span><br><span class="line">int a[2 * N];</span><br><span class="line"></span><br><span class="line">void dfs(int step)&#123;</span><br><span class="line">	if(step &#x3D;&#x3D; m + n - 1)&#123;</span><br><span class="line">		int store &#x3D; 0;</span><br><span class="line">		int flower &#x3D; 0;</span><br><span class="line">		for(int i &#x3D; 0; i &lt; n + m - 1; i ++)&#123;</span><br><span class="line">			if(a[i]) store ++;</span><br><span class="line">			else flower ++;</span><br><span class="line">		&#125;</span><br><span class="line">		if(store !&#x3D; n || flower !&#x3D; m - 1) return;</span><br><span class="line">		int e &#x3D; 2;</span><br><span class="line">		for(int i &#x3D; 0; i &lt; n + m - 1; i ++)&#123;</span><br><span class="line">			if(a[i]) e *&#x3D; 2;</span><br><span class="line">			else e -&#x3D; 1;</span><br><span class="line">			if(e &lt; 0) return;</span><br><span class="line">		&#125;</span><br><span class="line">		if(e &#x3D;&#x3D; 1) res ++;</span><br><span class="line">		return;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	for(int i &#x3D; 0; i &lt;&#x3D; 1; i ++)&#123;</span><br><span class="line">		a[step] &#x3D; i;</span><br><span class="line">		dfs(step + 1);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">	cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">	dfs(0);</span><br><span class="line">	cout &lt;&lt; res &lt;&lt; endl;</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br><span class="line">&#96;&#96;&#96;  </span><br><span class="line"></span><br><span class="line"># 试题 J: 砍竹子</span><br><span class="line"></span><br><span class="line">**【问题描述】**  </span><br><span class="line">这天，小明在砍竹子，他面前有 n 棵竹子排成一排，一开始第 i 棵竹子的高度为 hi.  </span><br><span class="line">他觉得一棵一棵砍太慢了，决定使用魔法来砍竹子。魔法可以对连续的一</span><br><span class="line">段相同高度的竹子使用，假设这一段竹子的高度为 H，那么使用一次魔法可以把这一段竹子的高度都变为 ⌊ √⌊ H2 ⌋ + 1⌋，其中 ⌊x⌋ 表示对 x 向下取整。小明想知道他最少使用多少次魔法可以让所有的竹子的高度都变为 1。  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">**输入格式**  </span><br><span class="line">第一行为一个正整数 n，表示竹子的棵数。  </span><br><span class="line">第二行共 n 个空格分开的正整数 hi，表示每棵竹子的高度。  </span><br><span class="line"></span><br><span class="line">感觉使用线段树维护，忘了怎么写，瞎写写暴力方法，不想空着（</span><br><span class="line"></span><br><span class="line">**输出格式**  </span><br><span class="line">一个整数表示答案。    </span><br><span class="line"></span><br><span class="line">**输入样例：**  </span><br></pre></td></tr></table></figure>
+<p>6<br>2 1 4 2 6 7</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">**输出样例：**  </span><br><span class="line">&#96;&#96;&#96;  </span><br><span class="line">5</span><br></pre></td></tr></table></figure>
+
+<p><strong>评测用例规模与约定</strong><br>对于 20% 的数据，保证 n ≤ 1000, hi ≤ 10^6。<br>对于 100% 的数据，保证 n ≤ 2 × 105, hi ≤ 10^18  </p>
+<p><strong>代码实现：</strong>  </p>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;cstring&gt;
+#include&lt;cstdio&gt;
+#include&lt;algorithm&gt;
+#include&lt;cmath&gt;
+
+using namespace std;
+
+const int N = 1e6 +10;
+int n;
+int ban[N];
+int res;
+
+int main()&#123;
+    cin &gt;&gt; n;
+    for(int i = 0; i &lt; n; i ++)
+        scanf(&quot;%d&quot;, &amp;ban[i]);
+    while(true)&#123;
+        int maxv = 0;
+        for(int i = 0; i &lt; n; i ++)
+            if(maxv &lt; ban[i]) maxv = ban[i];
+        if(maxv == 1) break;
+        res ++;
+        bool flag = false;
+        for(int i = 0; i &lt; n; i ++)&#123;
+            if(ban[i] == maxv)&#123;
+                ban[i] = sqrt(ban[i] / 2 + 1);
+                flag = true;
+            &#125;
+            else if(flag &amp;&amp; ban[i] != maxv) break;
+        &#125;
+    &#125;
+    cout &lt;&lt; res &lt;&lt; endl;
+&#125;
+</code></pre>
+]]></content>
+      <categories>
+        <category>practise</category>
+      </categories>
+      <tags>
+        <tag>算法练习</tag>
       </tags>
   </entry>
 </search>

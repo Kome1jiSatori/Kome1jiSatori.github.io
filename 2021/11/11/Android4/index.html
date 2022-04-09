@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kome1jisatori.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="前言后台质数运算（复习一下筛法求素数，虽然代码没用到）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android实验课作业四 后台质数运算">
+<meta property="og:url" content="https://kome1jisatori.github.io/2021/11/11/Android4/index.html">
+<meta property="og:site_name" content="KomeijiSatoriのblog">
+<meta property="og:description" content="前言后台质数运算（复习一下筛法求素数，虽然代码没用到）">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/11/10/Android4/%E5%9B%BE%E7%89%871.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/11/10/Android4/%E5%9B%BE%E7%89%872.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/11/10/Android4/%E5%9B%BE%E7%89%873.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/11/10/Android4/%E5%9B%BE%E7%89%874.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/11/10/Android4/%E5%9B%BE%E7%89%875.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/11/10/Android4/%E5%9B%BE%E7%89%876.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/11/10/Android4/%E5%9B%BE%E7%89%877.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/11/10/Android4/%E5%9B%BE%E7%89%878.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/11/10/Android4/%E5%9B%BE%E7%89%879.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/11/10/Android4/%E5%9B%BE%E7%89%8710.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/11/10/Android4/%E5%9B%BE%E7%89%8711.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/11/10/Android4/%E5%9B%BE%E7%89%8712.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/11/10/Android4/%E5%9B%BE%E7%89%8713.png">
+<meta property="article:published_time" content="2021-11-10T21:26:20.000Z">
+<meta property="article:modified_time" content="2021-11-11T14:07:55.584Z">
+<meta property="article:author" content="Komeiji Satori">
+<meta property="article:tag" content="实验课作业">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kome1jisatori.github.io/2021/11/10/Android4/%E5%9B%BE%E7%89%871.png">
+
+<link rel="canonical" href="https://kome1jisatori.github.io/2021/11/11/Android4/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Android实验课作业四 后台质数运算 | KomeijiSatoriのblog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">KomeijiSatoriのblog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">地灵殿从零开始的学习生活</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">4</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">32</span></a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kome1jisatori.github.io/2021/11/11/Android4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Komeiji Satori">
+      <meta itemprop="description" content="记录些有的没的的学习心得">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KomeijiSatoriのblog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android实验课作业四 后台质数运算
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-11-11 05:26:20 / 修改时间：22:07:55" itemprop="dateCreated datePublished" datetime="2021-11-11T05:26:20+08:00">2021-11-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2021/11/11/Android4/" class="post-meta-item leancloud_visitors" data-flag-title="Android实验课作业四 后台质数运算" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/11/11/Android4/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/11/11/Android4/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+     
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>后台质数运算（复习一下筛法求素数，虽然代码没用到）</p>
+<span id="more"></span> 
+
+<h1 id="一、实验目的"><a href="#一、实验目的" class="headerlink" title="一、实验目的"></a>一、实验目的</h1><p>使用WorkManager，开启后台线程计算100万以内的质数（不需要输出），并结合第4章提到的ProgressBar，显示后台程序进度。  </p>
+<h1 id="二、实验环境"><a href="#二、实验环境" class="headerlink" title="二、实验环境"></a>二、实验环境</h1><p>Android Studio、Kotlin  </p>
+<h1 id="三、主要实验步骤"><a href="#三、主要实验步骤" class="headerlink" title="三、主要实验步骤"></a>三、主要实验步骤</h1><p>1）打开Android Studio，新建工程Prime，如图所示：<br><img src="/2021/11/10/Android4/%E5%9B%BE%E7%89%871.png">   </p>
+<p>2）为了使用WorkManager类，首先需要添加该类的依赖，如下图所示：<br><img src="/2021/11/10/Android4/%E5%9B%BE%E7%89%872.png">   </p>
+<p>3）将依赖添加成功之后，准备工作就做好了，接着可以开始使用WorkManager。首先定义一个后台任务，这里创建一个PrimeWorker类，如下图所示：<br><img src="/2021/11/10/Android4/%E5%9B%BE%E7%89%873.png">   </p>
+<p>该类必须继承自worker类，并调用它唯一的构造函数然 后 重 写 父 类 中 的 doWork() 方 法， 在 这 个 方 法 中 编 写 具 体 的 后 台 任 务 逻 辑任务，即计算100万以内的质数，具体代码如下图所示：<br><img src="/2021/11/10/Android4/%E5%9B%BE%E7%89%874.png">    </p>
+<p>设置一个二重循环，如果i不能被从2到i-1的数字整除，则认为它是一个质数，并将其输出。另外dowork()方法要求返回一个Result对象，成 功 就 返 回 Result.success()。<br>4）接下来可以进入到第二步，配置该后台任务的运行条件和约束信息，由于该任务中不需要配置额外的限制信息，因此只进行最基本的配置就可以，代码如下图所示：<br><img src="/2021/11/10/Android4/%E5%9B%BE%E7%89%875.png">   </p>
+<p>最后将构建出的后台任务请求传入WorkManager的enqueue()方法中，系统就会在合适的时间去执行。<br>5）完成WorkRquest的配置后，我们希望它在点击按钮后运行后台程序，在activity_mian.xml中绘制按钮Start Caculating和Stop Caculating，并绘制一条进度条progressbar，用来记录后台运行的进度，代码如下图所示：<br><img src="/2021/11/10/Android4/%E5%9B%BE%E7%89%876.png">   </p>
+<p>设置控件的各项属性，将progressbar的max值设置为100，方便之后的进度记录。<br>该界面的视图如下图所示：<br><img src="/2021/11/10/Android4/%E5%9B%BE%E7%89%877.png">   </p>
+<p>6）接着回到MainActivity，使用findViewById方法找到两个按钮和一个进度条，分别使按钮在点击时实现PrimeWorker入队和取消所有队列中的进程的功能，如下图所示：<br><img src="/2021/11/10/Android4/%E5%9B%BE%E7%89%878.png">   </p>
+<p>7）最后需要实现的功能是用progressbar记录后台服务的进度，由于找质数的方法是遍历从1到100万的每一个数字，所以可以通过循环中的i来判断后台服务的完成进度。<br>首先在PrimeWorker将i放入Data对象中，并将其返回到MainActivity，如下图示：<br><img src="/2021/11/10/Android4/%E5%9B%BE%E7%89%879.png">   </p>
+<p>接着在MainActivity中使用监视器取出i值，并且可以在该返回值更新时实时更新界面的ui，即这里的progressbar，具体代码如下图所示：<br><img src="/2021/11/10/Android4/%E5%9B%BE%E7%89%8710.png">   </p>
+<p>需要注意的是，进度条设置的最大值为100，取出的i的值需要除以10000来得到进度，并且为了能够在运行完成后保持进度条处于满的进度，当workinfo中的状态为succeeded时，将进度条设置为满。<br>8）接着就可以尝试运行代码，点击Start Caculating，即可开始后台的运算，在run中可以看到输出结果，如下图示：<br><img src="/2021/11/10/Android4/%E5%9B%BE%E7%89%8711.png">   </p>
+<p>可以看到进度条也可以正常运行，如下图所示：<br><img src="/2021/11/10/Android4/%E5%9B%BE%E7%89%8712.png">   </p>
+<p>运算完成之后，进度条保持在100不变，如下图所示：<br><img src="/2021/11/10/Android4/%E5%9B%BE%E7%89%8713.png">   </p>
+<p>至此，成功完成了实验的要求，实验成功。  </p>
+<h1 id="代码附录"><a href="#代码附录" class="headerlink" title="代码附录"></a>代码附录</h1><h2 id="MainActivity"><a href="#MainActivity" class="headerlink" title="MainActivity"></a>MainActivity</h2><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.prime</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> androidx.appcompat.app.AppCompatActivity</span><br><span class="line"><span class="keyword">import</span> android.os.Bundle</span><br><span class="line"><span class="keyword">import</span> android.util.Log</span><br><span class="line"><span class="keyword">import</span> android.view.View</span><br><span class="line"><span class="keyword">import</span> android.widget.Button</span><br><span class="line"><span class="keyword">import</span> android.widget.ProgressBar</span><br><span class="line"><span class="keyword">import</span> androidx.lifecycle.LiveData</span><br><span class="line"><span class="keyword">import</span> androidx.lifecycle.Observer</span><br><span class="line"><span class="keyword">import</span> androidx.work.OneTimeWorkRequest</span><br><span class="line"><span class="keyword">import</span> androidx.work.WorkInfo</span><br><span class="line"><span class="keyword">import</span> androidx.work.WorkManager</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> : <span class="type">AppCompatActivity</span></span>()&#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_main)</span><br><span class="line">        <span class="keyword">val</span> doWorkBtn: Button = findViewById(R.id.doWorkBtn)</span><br><span class="line">        <span class="keyword">val</span> stopWorkBtn: Button = findViewById(R.id.StopWorkBtn)</span><br><span class="line">        <span class="keyword">val</span> bar: ProgressBar = findViewById(R.id.progressBar)</span><br><span class="line">        <span class="keyword">val</span> request = OneTimeWorkRequest.Builder(PrimeWorker::<span class="keyword">class</span>.java).build()</span><br><span class="line">        doWorkBtn.setOnClickListener&#123;</span><br><span class="line">            WorkManager.getInstance(<span class="keyword">this</span>).enqueue(request)</span><br><span class="line">            WorkManager.getInstance(<span class="keyword">this</span>).getWorkInfoByIdLiveData(request.id).observe(<span class="keyword">this</span>,</span><br><span class="line">                Observer&#123; workinfo: WorkInfo? -&gt;</span><br><span class="line">                <span class="keyword">if</span>(workinfo != <span class="literal">null</span>)&#123;</span><br><span class="line">                    <span class="keyword">val</span> progress = workinfo.progress</span><br><span class="line">                    <span class="keyword">val</span> value = progress.getInt(<span class="string">&quot;Progress&quot;</span>,<span class="number">0</span>)</span><br><span class="line"><span class="comment">//                    Log.d(&quot;MainActivity&quot;, &quot;$value\n&quot;)</span></span><br><span class="line">                    <span class="keyword">val</span> value2 = value / <span class="number">10000</span></span><br><span class="line">                    bar.setProgress(value2)</span><br><span class="line">                &#125;</span><br><span class="line">                    <span class="keyword">if</span>(workinfo?.state == WorkInfo.State.SUCCEEDED) bar.setProgress(<span class="number">100</span>)</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">        stopWorkBtn.setOnClickListener &#123;</span><br><span class="line">            WorkManager.getInstance(<span class="keyword">this</span>).cancelWorkById(request.id)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="PrimeWorker"><a href="#PrimeWorker" class="headerlink" title="PrimeWorker"></a>PrimeWorker</h2><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.prime</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.content.Context</span><br><span class="line"><span class="keyword">import</span> android.util.Log</span><br><span class="line"><span class="keyword">import</span> androidx.work.*</span><br><span class="line"><span class="keyword">import</span> java.lang.Exception</span><br><span class="line"><span class="keyword">import</span> java.lang.Math.sqrt</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PrimeWorker</span> </span>(context: Context, params: WorkerParameters) : Worker(context, params) &#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">doWork</span><span class="params">()</span></span>: Result &#123;</span><br><span class="line">        <span class="keyword">val</span> start: <span class="built_in">Int</span> = <span class="number">2</span></span><br><span class="line">        <span class="keyword">val</span> end: <span class="built_in">Int</span> = <span class="number">1000000</span></span><br><span class="line">        <span class="keyword">var</span> isPrime: <span class="built_in">Boolean</span> = <span class="literal">false</span></span><br><span class="line">        <span class="keyword">for</span>(i <span class="keyword">in</span> start..end)&#123;</span><br><span class="line">            isPrime = <span class="literal">true</span></span><br><span class="line">            <span class="keyword">for</span>(j <span class="keyword">in</span> <span class="number">2</span> until i)&#123;</span><br><span class="line">                <span class="keyword">if</span>(i % j == <span class="number">0</span>)&#123;</span><br><span class="line">                    isPrime = <span class="literal">false</span></span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(isPrime) Log.d(<span class="string">&quot;PrimeWorker&quot;</span>, <span class="string">&quot;<span class="variable">$i</span>\n&quot;</span>)</span><br><span class="line">            <span class="keyword">val</span> <span class="keyword">data</span>: Data = Data.Builder().putInt(<span class="string">&quot;Progress&quot;</span>, i).build()</span><br><span class="line">            setProgressAsync(<span class="keyword">data</span>)</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">1</span>)</span><br><span class="line">            &#125;<span class="keyword">catch</span> (e: Exception)&#123;</span><br><span class="line">                e.printStackTrace()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> Result.success()</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onStopped</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onStopped()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="activity-main-xml"><a href="#activity-main-xml" class="headerlink" title="activity_main.xml"></a>activity_main.xml</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;LinearLayout</span><br><span class="line">    xmlns:android &#x3D;&quot;http:&#x2F;&#x2F;schemas.android.com&#x2F;apk&#x2F;res&#x2F;android&quot;</span><br><span class="line">    android:layout_width &#x3D;&quot;match_parent&quot;</span><br><span class="line">    android:layout_height &#x3D;&quot;match_parent&quot;</span><br><span class="line">    android:orientation &#x3D;&quot;vertical&quot; &gt;</span><br><span class="line">    &lt;Button android:id &#x3D;&quot;@+id&#x2F;doWorkBtn&quot;</span><br><span class="line">        android:layout_width &#x3D;&quot;match_parent&quot;</span><br><span class="line">        android:layout_height &#x3D;&quot;wrap_content&quot;</span><br><span class="line">        android:layout_gravity &#x3D;&quot;center_horizontal&quot;</span><br><span class="line">        android:text &#x3D;&quot;Start Caculating&quot;&#x2F;&gt;</span><br><span class="line">    &lt;ProgressBar</span><br><span class="line">        android:id&#x3D;&quot;@+id&#x2F;progressBar&quot;</span><br><span class="line">        android:layout_width&#x3D;&quot;match_parent&quot;</span><br><span class="line">        android:layout_height&#x3D;&quot;wrap_content&quot;</span><br><span class="line">        style&#x3D;&quot;?android:attr&#x2F;progressBarStyleHorizontal&quot;</span><br><span class="line">        android:max&#x3D;&quot;100&quot;</span><br><span class="line">        &#x2F;&gt;</span><br><span class="line">    &lt;Button android:id &#x3D;&quot;@+id&#x2F;StopWorkBtn&quot;</span><br><span class="line">        android:layout_width &#x3D;&quot;match_parent&quot;</span><br><span class="line">        android:layout_height &#x3D;&quot;wrap_content&quot;</span><br><span class="line">        android:layout_gravity &#x3D;&quot;center_horizontal&quot;</span><br><span class="line">        android:text &#x3D;&quot;Stop Caculating&quot;&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;LinearLayout&gt;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------以上<i class="fa fa-paw"></i>（或许会有不定时更新）-------------</div>
+    
+</div>
+
+  
+</div>
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Komeiji Satori
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://kome1jisatori.github.io/2021/11/11/Android4/" title="Android实验课作业四 后台质数运算">https://kome1jisatori.github.io/2021/11/11/Android4/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AE%9E%E9%AA%8C%E8%AF%BE%E4%BD%9C%E4%B8%9A/" rel="tag"># 实验课作业</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/10/21/R4/" rel="prev" title="R语言笔记（四）">
+      <i class="fa fa-chevron-left"></i> R语言笔记（四）
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/11/11/Android5/" rel="next" title="Android实验课作业五 Json解析">
+      Android实验课作业五 Json解析 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%AE%9E%E9%AA%8C%E7%9B%AE%E7%9A%84"><span class="nav-text">一、实验目的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83"><span class="nav-text">二、实验环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E4%B8%BB%E8%A6%81%E5%AE%9E%E9%AA%8C%E6%AD%A5%E9%AA%A4"><span class="nav-text">三、主要实验步骤</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E9%99%84%E5%BD%95"><span class="nav-text">代码附录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MainActivity"><span class="nav-text">MainActivity</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PrimeWorker"><span class="nav-text">PrimeWorker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#activity-main-xml"><span class="nav-text">activity_main.xml</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Komeiji Satori"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Komeiji Satori</p>
+  <div class="site-description" itemprop="description">记录些有的没的的学习心得</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kome1jisatori" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kome1jisatori" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://wpa.qq.com/msgrd?v=3&uin=740775405&site=qq&menu=yes" title="QQ → http:&#x2F;&#x2F;wpa.qq.com&#x2F;msgrd?v&#x3D;3&amp;uin&#x3D;740775405&amp;site&#x3D;qq&amp;menu&#x3D;yes" rel="noopener" target="_blank"><i class="fab fa-qq fa-fw"></i>QQ</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      膜大佬的链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://sherlockcoder.xyz/" title="http:&#x2F;&#x2F;sherlockcoder.xyz" rel="noopener" target="_blank">不朽之存在的首页</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://datawhalechina.github.io/leeml-notes/#/" title="https:&#x2F;&#x2F;datawhalechina.github.io&#x2F;leeml-notes&#x2F;#&#x2F;" rel="noopener" target="_blank">机器学习笔记(LeeML-Notes)</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">苏ICP备 - 2021020302 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">KomeijiSatori</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">306k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">4:38</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : '8NhM2OcimmX1hgpelhxOhQK8-gzGzoHsz',
+      appKey     : 'bQ1303bPFHzcUrkoBzb39dgO',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+
+
+  <script type="text/javascript" color="0,0,0" opacity='0.5' zIndex="-1" count="150" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":true},"log":false});</script></body>
+</html>

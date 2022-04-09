@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kome1jisatori.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="&amp;ensp;&amp;ensp;&amp;ensp;&amp;ensp;二维矩阵前缀和的思考与实现。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="二维矩阵前缀和计算方法">
+<meta property="og:url" content="https://kome1jisatori.github.io/2021/05/07/%E5%89%8D%E7%BC%80%E5%92%8C/index.html">
+<meta property="og:site_name" content="KomeijiSatoriのblog">
+<meta property="og:description" content="&amp;ensp;&amp;ensp;&amp;ensp;&amp;ensp;二维矩阵前缀和的思考与实现。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/05/06/%E5%89%8D%E7%BC%80%E5%92%8C/%E5%89%8D%E7%BC%80%E5%92%8C%E7%9F%A9%E9%98%B5%E5%92%8C%E5%8E%9F%E7%9F%A9%E9%98%B5.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/05/06/%E5%89%8D%E7%BC%80%E5%92%8C/%E5%AE%B9%E6%96%A51.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/2021/05/06/%E5%89%8D%E7%BC%80%E5%92%8C/%E5%AE%B9%E6%96%A52.png">
+<meta property="article:published_time" content="2021-05-06T22:22:14.000Z">
+<meta property="article:modified_time" content="2021-05-08T02:47:26.817Z">
+<meta property="article:author" content="Komeiji Satori">
+<meta property="article:tag" content="算法练习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kome1jisatori.github.io/2021/05/06/%E5%89%8D%E7%BC%80%E5%92%8C/%E5%89%8D%E7%BC%80%E5%92%8C%E7%9F%A9%E9%98%B5%E5%92%8C%E5%8E%9F%E7%9F%A9%E9%98%B5.png">
+
+<link rel="canonical" href="https://kome1jisatori.github.io/2021/05/07/%E5%89%8D%E7%BC%80%E5%92%8C/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>二维矩阵前缀和计算方法 | KomeijiSatoriのblog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">KomeijiSatoriのblog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">地灵殿从零开始的学习生活</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">4</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">32</span></a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kome1jisatori.github.io/2021/05/07/%E5%89%8D%E7%BC%80%E5%92%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Komeiji Satori">
+      <meta itemprop="description" content="记录些有的没的的学习心得">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KomeijiSatoriのblog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          二维矩阵前缀和计算方法
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-05-07 06:22:14" itemprop="dateCreated datePublished" datetime="2021-05-07T06:22:14+08:00">2021-05-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-05-08 10:47:26" itemprop="dateModified" datetime="2021-05-08T10:47:26+08:00">2021-05-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/practise/" itemprop="url" rel="index"><span itemprop="name">practise</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2021/05/07/%E5%89%8D%E7%BC%80%E5%92%8C/" class="post-meta-item leancloud_visitors" data-flag-title="二维矩阵前缀和计算方法" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/05/07/%E5%89%8D%E7%BC%80%E5%92%8C/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/05/07/%E5%89%8D%E7%BC%80%E5%92%8C/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+     
+      
+        <p>&ensp;&ensp;&ensp;&ensp;二维矩阵前缀和的思考与实现。</p>
+<span id="more"></span>
+
+<h1 id="一、一维数组前缀和"><a href="#一、一维数组前缀和" class="headerlink" title="一、一维数组前缀和"></a>一、一维数组前缀和</h1><p>&ensp;&ensp;&ensp;&ensp;首先在解答二维矩阵的前缀和的问题之前，先复习一下一维的前缀和</p>
+<h2 id="1-1-前缀和的介绍"><a href="#1-1-前缀和的介绍" class="headerlink" title="1.1 前缀和的介绍"></a>1.1 前缀和的介绍</h2><p>&ensp;&ensp;&ensp;&ensp;假设我们有一个字符串ABCDE，什么是这个单词的前缀，A、AB、ABC、ABCD、ABCDE就是这个单词的前缀，就是从第一个字母开始，依次往后拼接。E、ED、EDC、EDCB、EDCBA被称为这个单词的后缀。<br>&ensp;&ensp;&ensp;&ensp;那么对于一个数组的前缀，例如数组a = [1,2,3,4,5]，我们维护一个由前缀的和组成的数组sum，sum[i]表示数组中a[0]~ a[i] 的和。<br>&ensp;&ensp;&ensp;&ensp;sum[0] = a[0]<br>&ensp;&ensp;&ensp;&ensp;sum[1] = a[0] + a[1]<br>&ensp;&ensp;&ensp;&ensp;sum[2] = a[0] + a[1] + a[2]<br>&ensp;&ensp;&ensp;&ensp;sum[3] = a[0] + a[1] + a[2] + a[3]<br>&ensp;&ensp;&ensp;&ensp;sum[4] = a[0] + a[1] + a[2] + a[3] + a[4]<br>&ensp;&ensp;&ensp;&ensp;sum数组就被称为前缀和数组。<br>&ensp;&ensp;&ensp;&ensp;用在整数数组中，sum数组即为前n个整数的和。  </p>
+<h2 id="1-2-前缀和的作用"><a href="#1-2-前缀和的作用" class="headerlink" title="1.2 前缀和的作用"></a>1.2 前缀和的作用</h2><p>&ensp;&ensp;&ensp;&ensp;前缀和的最主要目的是求子数组的和的大小。例如元素a[1]到a[3]的和。可以用sum[3] - sum[0]表示。<br>&ensp;&ensp;&ensp;&ensp;用此法求多个子数组的和，因为只需要遍历一遍数组，记录下sum数组，所以复杂度为O(n)，计算sum[r] - sum[l]的复杂度为O(1)，可以忽略不计，大大提升了需要计算多个子数组和时的效率。<br>&ensp;&ensp;&ensp;&ensp;注意：这里sum中的i表示的是前i个数的和，不是下标，因为题目中需要用到前0个数的和。</p>
+<h2 id="1-3-一维前缀和举例"><a href="#1-3-一维前缀和举例" class="headerlink" title="1.3 一维前缀和举例"></a>1.3 一维前缀和举例</h2><p><strong>例题1：</strong>   </p>
+<p>输入一个长度为 n 的整数序列。</p>
+<p>接下来再输入 m 个询问，每个询问输入一对 l,r。</p>
+<p>对于每个询问，输出原序列中从第 l 个数到第 r 个数的和。</p>
+<p><strong>输入格式</strong><br>第一行包含两个整数 n 和 m。</p>
+<p>第二行包含 n 个整数，表示整数数列。</p>
+<p>接下来 m 行，每行包含两个整数 l 和 r，表示一个询问的区间范围。</p>
+<p><strong>输出格式</strong><br>共 m 行，每行输出一个询问的结果。</p>
+<p><strong>数据范围</strong><br>1≤l≤r≤n,<br>1≤n,m≤100000,<br>−1000≤数列中元素的值≤1000  </p>
+<p><strong>输入样例：</strong>  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">5 3  </span><br><span class="line">2 1 3 6 4  </span><br><span class="line">1 2  </span><br><span class="line">1 3  </span><br><span class="line">2 4  </span><br></pre></td></tr></table></figure>
+<p><strong>输出样例：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">3  </span><br><span class="line">6  </span><br><span class="line">10 </span><br></pre></td></tr></table></figure>
+
+<p><strong>代码实现：</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, m;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n &gt;&gt; m;</span><br><span class="line">    <span class="keyword">int</span> a[n];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i ++)</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; a[i];</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> <span class="keyword">int</span> s[n+<span class="number">1</span>];</span><br><span class="line">    s[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i ++)</span><br><span class="line">        s[i] = s[i<span class="number">-1</span>] + a[i<span class="number">-1</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i ++)&#123;</span><br><span class="line">        <span class="keyword">int</span> x, y;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; x &gt;&gt; y;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; s[y] - s[x<span class="number">-1</span>] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&ensp;&ensp;&ensp;&ensp;思想和相关代码的实现都非常简单，但是如果简单对给出的每一组数据都采用从a[l]到a[r]累加求和的方式，复杂度会由O(m+n)上升为O(mn)，导致部分样例超时无法通过。</p>
+<h1 id="二、二维矩阵前缀和"><a href="#二、二维矩阵前缀和" class="headerlink" title="二、二维矩阵前缀和"></a>二、二维矩阵前缀和</h1><h2 id="2-1-问题提出"><a href="#2-1-问题提出" class="headerlink" title="2.1 问题提出"></a>2.1 问题提出</h2><p><strong>例题二：</strong><br>输入一个 n 行 m 列的整数矩阵，再输入 q 个询问，每个询问包含四个整数 x1,y1,x2,y2，表示一个子矩阵的左上角坐标和右下角坐标。</p>
+<p>对于每个询问输出子矩阵中所有数的和。</p>
+<p><strong>输入格式</strong><br>第一行包含三个整数 n，m，q。</p>
+<p>接下来 n 行，每行包含 m 个整数，表示整数矩阵。</p>
+<p>接下来 q 行，每行包含四个整数 x1,y1,x2,y2，表示一组询问。</p>
+<p><strong>输出格式</strong><br>共 q 行，每行输出一个询问的结果。</p>
+<p><strong>数据范围</strong><br>1≤n,m≤1000,<br>1≤q≤200000,<br>1≤x1≤x2≤n,<br>1≤y1≤y2≤m,<br>−1000≤矩阵内元素的值≤1000  </p>
+<p><strong>输入样例：</strong>  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">3 4 3  </span><br><span class="line">1 7 2 4  </span><br><span class="line">3 6 2 8  </span><br><span class="line">2 1 2 3  </span><br><span class="line">1 1 2 2   </span><br><span class="line">2 1 3 4  </span><br><span class="line">1 3 3 4  </span><br></pre></td></tr></table></figure>
+<p><strong>输出样例：</strong>  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">17</span><br><span class="line">27</span><br><span class="line">21</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-2-问题思考"><a href="#2-2-问题思考" class="headerlink" title="2.2 问题思考"></a>2.2 问题思考</h2><p>&ensp;&ensp;&ensp;&ensp;要求子矩阵的和，很容易想到类比到一维数组的前缀和，使用相同的方式解决。在使用前缀和解决求子矩阵和的过程中，需要解决两个问题：<br>&ensp;&ensp;&ensp;&ensp;1）如何计算前缀和矩阵；<br>&ensp;&ensp;&ensp;&ensp;2）如何利用前缀和矩阵，计算某一个子矩阵的和。<br>&ensp;&ensp;&ensp;&ensp;通过解决这两个问题，便可以得到一个关于s[x][y]的递推式和答案的递推式，通过这两个递推式便能够以一个较低的复杂度解决相关问题。<br>&ensp;&ensp;&ensp;&ensp;下面依次来解决这两个问题。 </p>
+<h2 id="2-3-使用容斥原理解决二维矩阵前缀和问题"><a href="#2-3-使用容斥原理解决二维矩阵前缀和问题" class="headerlink" title="2.3 使用容斥原理解决二维矩阵前缀和问题"></a>2.3 使用容斥原理解决二维矩阵前缀和问题</h2><h3 id="1）计算前缀和矩阵"><a href="#1）计算前缀和矩阵" class="headerlink" title="1）计算前缀和矩阵"></a>1）计算前缀和矩阵</h3><p>&ensp;&ensp;&ensp;&ensp;为了便于观察，首先画出样例给出的前缀和矩阵和原矩阵的示意图,如下：<br><img src="/2021/05/06/%E5%89%8D%E7%BC%80%E5%92%8C/%E5%89%8D%E7%BC%80%E5%92%8C%E7%9F%A9%E9%98%B5%E5%92%8C%E5%8E%9F%E7%9F%A9%E9%98%B5.png" alt="前缀和和原矩阵">  </p>
+<p>&ensp;&ensp;&ensp;&ensp;对于这样的问题，想到用容斥原理来计算s[x][y]的值。  </p>
+<p>&ensp;&ensp;&ensp;&ensp;容斥原理的简单介绍如下：<br>&ensp;&ensp;&ensp;&ensp;如果被计数的事物有A、B、C三类，那么，A类和B类和C类元素个数总和= A类元素个数+ B类元素个数+C类元素个数—既是A类又是B类的元素个数—既是A类又是C类的元素个数—既是B类又是C类的元素个数+既是A类又是B类而且是C类的元素个数。（A∪B∪C = A+B+C - A∩B - B∩C - C∩A + A∩B∩C）  </p>
+<p>&ensp;&ensp;&ensp;&ensp;以求得s[2][3]为例，用s[1][3]加上s[2][2],得到的和的区域范围如下所示：  </p>
+<p><img src="/2021/05/06/%E5%89%8D%E7%BC%80%E5%92%8C/%E5%AE%B9%E6%96%A51.png" alt="容斥1"><br>&ensp;&ensp;&ensp;&ensp;黄色标出的区域进行了一次求和，蓝色区域进行了两次求和，为了保证该2x3的范围内每个区域都只进行了一次运算，根据容斥原理，减去这两个区域的交集，即s[1][2]，再加上a[2][3]，便得到了s[2][3]的值。所以s[x][y]的值可由以下递推式得到：<br>&ensp;&ensp;&ensp;&ensp;s[x][y] = s[x - 1][y] + s[x][y - 1] - s[x - 1][y - 1] + a[x][y]  </p>
+<h3 id="2）利用前缀和矩阵，计算子矩阵的和"><a href="#2）利用前缀和矩阵，计算子矩阵的和" class="headerlink" title="2）利用前缀和矩阵，计算子矩阵的和"></a>2）利用前缀和矩阵，计算子矩阵的和</h3><p>&ensp;&ensp;&ensp;&ensp;以图中红色所标出的子矩阵为例:<br><img src="/2021/05/06/%E5%89%8D%E7%BC%80%E5%92%8C/%E5%AE%B9%E6%96%A52.png" alt="容斥2"><br>&ensp;&ensp;&ensp;&ensp;首先明确一下，对于任何一个s[x][y]表示的是从(0,0)的点到(x,y)点所有元素的和，所以要解决的问题便是如何在9x9的黄色区域中扣除掉倒“7”字型的区域。<br>&ensp;&ensp;&ensp;&ensp;同样是利用容斥原理，首先扣除上方区域，即s[1][3]，接着扣除左边区域，即s[3][1]，最后加上重复扣除的这两个区域的交集，即s[1][1]。推广开来，对于求(x1,y1)到(x2,y2)的子矩阵的和的递推公式可写为：<br>&ensp;&ensp;&ensp;&ensp;sum = s[x2][y2] - s[x2][y1 - 1] - s[x1 - 1][y2] + s[x1 - 1][y1 - 1]  </p>
+<h2 id="2-4-代码实现"><a href="#2-4-代码实现" class="headerlink" title="2.4 代码实现"></a>2.4 代码实现</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> a[<span class="number">1001</span>][<span class="number">1001</span>];</span><br><span class="line"><span class="keyword">int</span> s[<span class="number">1001</span>][<span class="number">1001</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, m, q;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d%d%d&quot;</span>, &amp;n, &amp;m, &amp;q);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i ++)</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= m; j ++)&#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;a[i][j]);</span><br><span class="line">            s[i][j] = s[i<span class="number">-1</span>][j] + s[i][j<span class="number">-1</span>] - s[i<span class="number">-1</span>][j<span class="number">-1</span>] + a[i][j];</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; q; i ++)&#123;</span><br><span class="line">        <span class="keyword">int</span> x1, x2, y1, y2;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d%d%d%d&quot;</span>,&amp;x1, &amp;y1, &amp;x2, &amp;y2);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,s[x2][y2] - s[x1 - <span class="number">1</span>][y2] - s[x2][y1 - <span class="number">1</span>] + s[x1 - <span class="number">1</span>][y1 - <span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="三、总结"><a href="#三、总结" class="headerlink" title="三、总结"></a>三、总结</h1><p>&ensp;&ensp;&ensp;&ensp;对于二维矩阵的前缀和，通过容斥原理得到相关递推公式后便可轻松得出。部分范围的复杂度从O(mn)降低到了O(1)。</p>
+
+    </div>
+
+    
+    
+    
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------以上<i class="fa fa-paw"></i>（或许会有不定时更新）-------------</div>
+    
+</div>
+
+  
+</div>
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Komeiji Satori
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://kome1jisatori.github.io/2021/05/07/%E5%89%8D%E7%BC%80%E5%92%8C/" title="二维矩阵前缀和计算方法">https://kome1jisatori.github.io/2021/05/07/前缀和/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%AE%97%E6%B3%95%E7%BB%83%E4%B9%A0/" rel="tag"># 算法练习</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/05/06/%E9%93%B6%E8%A1%8C%E5%AE%B6%E7%AE%97%E6%B3%95/" rel="prev" title="操作系统实验课作业三——银行家算法">
+      <i class="fa fa-chevron-left"></i> 操作系统实验课作业三——银行家算法
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/05/09/os-2/" rel="next" title="操作系统笔记——第二章">
+      操作系统笔记——第二章 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E4%B8%80%E7%BB%B4%E6%95%B0%E7%BB%84%E5%89%8D%E7%BC%80%E5%92%8C"><span class="nav-text">一、一维数组前缀和</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-%E5%89%8D%E7%BC%80%E5%92%8C%E7%9A%84%E4%BB%8B%E7%BB%8D"><span class="nav-text">1.1 前缀和的介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-%E5%89%8D%E7%BC%80%E5%92%8C%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-text">1.2 前缀和的作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-%E4%B8%80%E7%BB%B4%E5%89%8D%E7%BC%80%E5%92%8C%E4%B8%BE%E4%BE%8B"><span class="nav-text">1.3 一维前缀和举例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E4%BA%8C%E7%BB%B4%E7%9F%A9%E9%98%B5%E5%89%8D%E7%BC%80%E5%92%8C"><span class="nav-text">二、二维矩阵前缀和</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-%E9%97%AE%E9%A2%98%E6%8F%90%E5%87%BA"><span class="nav-text">2.1 问题提出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-%E9%97%AE%E9%A2%98%E6%80%9D%E8%80%83"><span class="nav-text">2.2 问题思考</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-%E4%BD%BF%E7%94%A8%E5%AE%B9%E6%96%A5%E5%8E%9F%E7%90%86%E8%A7%A3%E5%86%B3%E4%BA%8C%E7%BB%B4%E7%9F%A9%E9%98%B5%E5%89%8D%E7%BC%80%E5%92%8C%E9%97%AE%E9%A2%98"><span class="nav-text">2.3 使用容斥原理解决二维矩阵前缀和问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%EF%BC%89%E8%AE%A1%E7%AE%97%E5%89%8D%E7%BC%80%E5%92%8C%E7%9F%A9%E9%98%B5"><span class="nav-text">1）计算前缀和矩阵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%EF%BC%89%E5%88%A9%E7%94%A8%E5%89%8D%E7%BC%80%E5%92%8C%E7%9F%A9%E9%98%B5%EF%BC%8C%E8%AE%A1%E7%AE%97%E5%AD%90%E7%9F%A9%E9%98%B5%E7%9A%84%E5%92%8C"><span class="nav-text">2）利用前缀和矩阵，计算子矩阵的和</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-text">2.4 代码实现</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%80%BB%E7%BB%93"><span class="nav-text">三、总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Komeiji Satori"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Komeiji Satori</p>
+  <div class="site-description" itemprop="description">记录些有的没的的学习心得</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kome1jisatori" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kome1jisatori" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://wpa.qq.com/msgrd?v=3&uin=740775405&site=qq&menu=yes" title="QQ → http:&#x2F;&#x2F;wpa.qq.com&#x2F;msgrd?v&#x3D;3&amp;uin&#x3D;740775405&amp;site&#x3D;qq&amp;menu&#x3D;yes" rel="noopener" target="_blank"><i class="fab fa-qq fa-fw"></i>QQ</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      膜大佬的链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://sherlockcoder.xyz/" title="http:&#x2F;&#x2F;sherlockcoder.xyz" rel="noopener" target="_blank">不朽之存在的首页</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://datawhalechina.github.io/leeml-notes/#/" title="https:&#x2F;&#x2F;datawhalechina.github.io&#x2F;leeml-notes&#x2F;#&#x2F;" rel="noopener" target="_blank">机器学习笔记(LeeML-Notes)</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">苏ICP备 - 2021020302 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">KomeijiSatori</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">306k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">4:38</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : '8NhM2OcimmX1hgpelhxOhQK8-gzGzoHsz',
+      appKey     : 'bQ1303bPFHzcUrkoBzb39dgO',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+
+
+  <script type="text/javascript" color="0,0,0" opacity='0.5' zIndex="-1" count="150" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":true},"log":false});</script></body>
+</html>
