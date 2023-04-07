@@ -27,13 +27,13 @@
 <meta property="og:site_name" content="KomeijiSatoriのblog">
 <meta property="og:description" content="前言使用pytorch实现minist手写数字识别">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/softmax.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/pytorch4/softmax.png">
 <meta property="article:published_time" content="2021-07-18T22:18:33.000Z">
 <meta property="article:modified_time" content="2021-07-20T01:16:07.679Z">
 <meta property="article:author" content="Komeiji Satori">
 <meta property="article:tag" content="机器学习">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/softmax.png">
+<meta name="twitter:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/pytorch4/softmax.png">
 
 <link rel="canonical" href="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/pytorch4">
 
@@ -124,12 +124,12 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">4</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">5</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">32</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">33</span></a>
 
   </li>
   </ul>
@@ -278,7 +278,7 @@
 </li>
 </ul>
 <p>例如下图：</p>
-<p><img src="/Kome1jiSatori.github.io/page/softmax.png"></p>
+<p><img src="/Kome1jiSatori.github.io/page/pytorch4/softmax.png"></p>
 <p>假如softmax之前的输出结果是<code>2.3, 4.1, 5.6</code>,那么经过softmax之后的结果是多少呢？<br>$$<br>Y1 = \frac{e^{2.3}}{e^{2.3}+e^{4.1}+e^{5.6}} \<br>Y2 = \frac{e^{4.1}}{e^{2.3}+e^{4.1}+e^{5.6}} \<br>Y3 = \frac{e^{5.6}}{e^{2.3}+e^{4.1}+e^{5.6}} \<br>$$</p>
 <p>对于这个softmax输出的结果，是在[0,1]区间，我们可以把它当做概率</p>
 <p>和前面2分类的损失一样，多分类的损失只需要再把这个结果进行对数似然损失的计算即可</p>
@@ -413,19 +413,19 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-count">33</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -478,7 +478,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

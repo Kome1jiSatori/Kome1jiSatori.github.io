@@ -27,15 +27,15 @@
 <meta property="og:site_name" content="KomeijiSatoriのblog">
 <meta property="og:description" content="&amp;ensp;&amp;ensp;&amp;ensp;&amp;ensp;二维矩阵前缀和的思考与实现。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E5%89%8D%E7%BC%80%E5%92%8C%E7%9F%A9%E9%98%B5%E5%92%8C%E5%8E%9F%E7%9F%A9%E9%98%B5.png">
-<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E5%AE%B9%E6%96%A51.png">
-<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E5%AE%B9%E6%96%A52.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E5%89%8D%E7%BC%80%E5%92%8C/%E5%89%8D%E7%BC%80%E5%92%8C%E7%9F%A9%E9%98%B5%E5%92%8C%E5%8E%9F%E7%9F%A9%E9%98%B5.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E5%89%8D%E7%BC%80%E5%92%8C/%E5%AE%B9%E6%96%A51.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E5%89%8D%E7%BC%80%E5%92%8C/%E5%AE%B9%E6%96%A52.png">
 <meta property="article:published_time" content="2021-05-06T22:22:14.000Z">
 <meta property="article:modified_time" content="2021-05-08T02:47:26.817Z">
 <meta property="article:author" content="Komeiji Satori">
 <meta property="article:tag" content="算法练习">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E5%89%8D%E7%BC%80%E5%92%8C%E7%9F%A9%E9%98%B5%E5%92%8C%E5%8E%9F%E7%9F%A9%E9%98%B5.png">
+<meta name="twitter:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E5%89%8D%E7%BC%80%E5%92%8C/%E5%89%8D%E7%BC%80%E5%92%8C%E7%9F%A9%E9%98%B5%E5%92%8C%E5%8E%9F%E7%9F%A9%E9%98%B5.png">
 
 <link rel="canonical" href="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/%E5%89%8D%E7%BC%80%E5%92%8C">
 
@@ -126,12 +126,12 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">4</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">5</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">32</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">33</span></a>
 
   </li>
   </ul>
@@ -224,12 +224,12 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">17</span><br><span class="line">27</span><br><span class="line">21</span><br></pre></td></tr></table></figure>
 
 <h2 id="2-2-问题思考"><a href="#2-2-问题思考" class="headerlink" title="2.2 问题思考"></a>2.2 问题思考</h2><p>&ensp;&ensp;&ensp;&ensp;要求子矩阵的和，很容易想到类比到一维数组的前缀和，使用相同的方式解决。在使用前缀和解决求子矩阵和的过程中，需要解决两个问题：<br>&ensp;&ensp;&ensp;&ensp;1）如何计算前缀和矩阵；<br>&ensp;&ensp;&ensp;&ensp;2）如何利用前缀和矩阵，计算某一个子矩阵的和。<br>&ensp;&ensp;&ensp;&ensp;通过解决这两个问题，便可以得到一个关于s[x][y]的递推式和答案的递推式，通过这两个递推式便能够以一个较低的复杂度解决相关问题。<br>&ensp;&ensp;&ensp;&ensp;下面依次来解决这两个问题。 </p>
-<h2 id="2-3-使用容斥原理解决二维矩阵前缀和问题"><a href="#2-3-使用容斥原理解决二维矩阵前缀和问题" class="headerlink" title="2.3 使用容斥原理解决二维矩阵前缀和问题"></a>2.3 使用容斥原理解决二维矩阵前缀和问题</h2><h3 id="1）计算前缀和矩阵"><a href="#1）计算前缀和矩阵" class="headerlink" title="1）计算前缀和矩阵"></a>1）计算前缀和矩阵</h3><p>&ensp;&ensp;&ensp;&ensp;为了便于观察，首先画出样例给出的前缀和矩阵和原矩阵的示意图,如下：<br><img src="/Kome1jiSatori.github.io/page/%E5%89%8D%E7%BC%80%E5%92%8C%E7%9F%A9%E9%98%B5%E5%92%8C%E5%8E%9F%E7%9F%A9%E9%98%B5.png" alt="前缀和和原矩阵">  </p>
+<h2 id="2-3-使用容斥原理解决二维矩阵前缀和问题"><a href="#2-3-使用容斥原理解决二维矩阵前缀和问题" class="headerlink" title="2.3 使用容斥原理解决二维矩阵前缀和问题"></a>2.3 使用容斥原理解决二维矩阵前缀和问题</h2><h3 id="1）计算前缀和矩阵"><a href="#1）计算前缀和矩阵" class="headerlink" title="1）计算前缀和矩阵"></a>1）计算前缀和矩阵</h3><p>&ensp;&ensp;&ensp;&ensp;为了便于观察，首先画出样例给出的前缀和矩阵和原矩阵的示意图,如下：<br><img src="/Kome1jiSatori.github.io/page/%E5%89%8D%E7%BC%80%E5%92%8C/%E5%89%8D%E7%BC%80%E5%92%8C%E7%9F%A9%E9%98%B5%E5%92%8C%E5%8E%9F%E7%9F%A9%E9%98%B5.png" alt="前缀和和原矩阵">  </p>
 <p>&ensp;&ensp;&ensp;&ensp;对于这样的问题，想到用容斥原理来计算s[x][y]的值。  </p>
 <p>&ensp;&ensp;&ensp;&ensp;容斥原理的简单介绍如下：<br>&ensp;&ensp;&ensp;&ensp;如果被计数的事物有A、B、C三类，那么，A类和B类和C类元素个数总和= A类元素个数+ B类元素个数+C类元素个数—既是A类又是B类的元素个数—既是A类又是C类的元素个数—既是B类又是C类的元素个数+既是A类又是B类而且是C类的元素个数。（A∪B∪C = A+B+C - A∩B - B∩C - C∩A + A∩B∩C）  </p>
 <p>&ensp;&ensp;&ensp;&ensp;以求得s[2][3]为例，用s[1][3]加上s[2][2],得到的和的区域范围如下所示：  </p>
-<p><img src="/Kome1jiSatori.github.io/page/%E5%AE%B9%E6%96%A51.png" alt="容斥1"><br>&ensp;&ensp;&ensp;&ensp;黄色标出的区域进行了一次求和，蓝色区域进行了两次求和，为了保证该2x3的范围内每个区域都只进行了一次运算，根据容斥原理，减去这两个区域的交集，即s[1][2]，再加上a[2][3]，便得到了s[2][3]的值。所以s[x][y]的值可由以下递推式得到：<br>&ensp;&ensp;&ensp;&ensp;s[x][y] = s[x - 1][y] + s[x][y - 1] - s[x - 1][y - 1] + a[x][y]  </p>
-<h3 id="2）利用前缀和矩阵，计算子矩阵的和"><a href="#2）利用前缀和矩阵，计算子矩阵的和" class="headerlink" title="2）利用前缀和矩阵，计算子矩阵的和"></a>2）利用前缀和矩阵，计算子矩阵的和</h3><p>&ensp;&ensp;&ensp;&ensp;以图中红色所标出的子矩阵为例:<br><img src="/Kome1jiSatori.github.io/page/%E5%AE%B9%E6%96%A52.png" alt="容斥2"><br>&ensp;&ensp;&ensp;&ensp;首先明确一下，对于任何一个s[x][y]表示的是从(0,0)的点到(x,y)点所有元素的和，所以要解决的问题便是如何在9x9的黄色区域中扣除掉倒“7”字型的区域。<br>&ensp;&ensp;&ensp;&ensp;同样是利用容斥原理，首先扣除上方区域，即s[1][3]，接着扣除左边区域，即s[3][1]，最后加上重复扣除的这两个区域的交集，即s[1][1]。推广开来，对于求(x1,y1)到(x2,y2)的子矩阵的和的递推公式可写为：<br>&ensp;&ensp;&ensp;&ensp;sum = s[x2][y2] - s[x2][y1 - 1] - s[x1 - 1][y2] + s[x1 - 1][y1 - 1]  </p>
+<p><img src="/Kome1jiSatori.github.io/page/%E5%89%8D%E7%BC%80%E5%92%8C/%E5%AE%B9%E6%96%A51.png" alt="容斥1"><br>&ensp;&ensp;&ensp;&ensp;黄色标出的区域进行了一次求和，蓝色区域进行了两次求和，为了保证该2x3的范围内每个区域都只进行了一次运算，根据容斥原理，减去这两个区域的交集，即s[1][2]，再加上a[2][3]，便得到了s[2][3]的值。所以s[x][y]的值可由以下递推式得到：<br>&ensp;&ensp;&ensp;&ensp;s[x][y] = s[x - 1][y] + s[x][y - 1] - s[x - 1][y - 1] + a[x][y]  </p>
+<h3 id="2）利用前缀和矩阵，计算子矩阵的和"><a href="#2）利用前缀和矩阵，计算子矩阵的和" class="headerlink" title="2）利用前缀和矩阵，计算子矩阵的和"></a>2）利用前缀和矩阵，计算子矩阵的和</h3><p>&ensp;&ensp;&ensp;&ensp;以图中红色所标出的子矩阵为例:<br><img src="/Kome1jiSatori.github.io/page/%E5%89%8D%E7%BC%80%E5%92%8C/%E5%AE%B9%E6%96%A52.png" alt="容斥2"><br>&ensp;&ensp;&ensp;&ensp;首先明确一下，对于任何一个s[x][y]表示的是从(0,0)的点到(x,y)点所有元素的和，所以要解决的问题便是如何在9x9的黄色区域中扣除掉倒“7”字型的区域。<br>&ensp;&ensp;&ensp;&ensp;同样是利用容斥原理，首先扣除上方区域，即s[1][3]，接着扣除左边区域，即s[3][1]，最后加上重复扣除的这两个区域的交集，即s[1][1]。推广开来，对于求(x1,y1)到(x2,y2)的子矩阵的和的递推公式可写为：<br>&ensp;&ensp;&ensp;&ensp;sum = s[x2][y2] - s[x2][y1 - 1] - s[x1 - 1][y2] + s[x1 - 1][y1 - 1]  </p>
 <h2 id="2-4-代码实现"><a href="#2-4-代码实现" class="headerlink" title="2.4 代码实现"></a>2.4 代码实现</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> a[<span class="number">1001</span>][<span class="number">1001</span>];</span><br><span class="line"><span class="keyword">int</span> s[<span class="number">1001</span>][<span class="number">1001</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, m, q;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d%d%d&quot;</span>, &amp;n, &amp;m, &amp;q);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i ++)</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= m; j ++)&#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;a[i][j]);</span><br><span class="line">            s[i][j] = s[i<span class="number">-1</span>][j] + s[i][j<span class="number">-1</span>] - s[i<span class="number">-1</span>][j<span class="number">-1</span>] + a[i][j];</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; q; i ++)&#123;</span><br><span class="line">        <span class="keyword">int</span> x1, x2, y1, y2;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d%d%d%d&quot;</span>,&amp;x1, &amp;y1, &amp;x2, &amp;y2);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,s[x2][y2] - s[x1 - <span class="number">1</span>][y2] - s[x2][y1 - <span class="number">1</span>] + s[x1 - <span class="number">1</span>][y1 - <span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="三、总结"><a href="#三、总结" class="headerlink" title="三、总结"></a>三、总结</h1><p>&ensp;&ensp;&ensp;&ensp;对于二维矩阵的前缀和，通过容斥原理得到相关递推公式后便可轻松得出。部分范围的复杂度从O(mn)降低到了O(1)。</p>
 
@@ -317,19 +317,19 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-count">33</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -382,7 +382,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

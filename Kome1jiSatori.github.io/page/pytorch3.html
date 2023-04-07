@@ -27,15 +27,15 @@
 <meta property="og:site_name" content="KomeijiSatoriのblog">
 <meta property="og:description" content="前言记录下pytorch数据集加载方法">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/images/1.2/dataset%E6%95%B0%E6%8D%AE%E7%A4%BA%E4%BE%8B.png">
-<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/dataset.png">
-<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/MNIST-dataset-5.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/images/1.2/dataset%E6%95%B0%E6%8D%AE%E7%A4%BA%E4%BE%8B.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/pytorch3/dataset.png">
+<meta property="og:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/pytorch3/MNIST-dataset-5.png">
 <meta property="article:published_time" content="2021-07-18T09:38:32.000Z">
 <meta property="article:modified_time" content="2021-07-19T01:39:59.493Z">
 <meta property="article:author" content="Komeiji Satori">
 <meta property="article:tag" content="机器学习">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/images/1.2/dataset%E6%95%B0%E6%8D%AE%E7%A4%BA%E4%BE%8B.png">
+<meta name="twitter:image" content="https://kome1jisatori.github.io/Kome1jiSatori.github.io/images/1.2/dataset%E6%95%B0%E6%8D%AE%E7%A4%BA%E4%BE%8B.png">
 
 <link rel="canonical" href="https://kome1jisatori.github.io/Kome1jiSatori.github.io/page/pytorch3">
 
@@ -126,12 +126,12 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">4</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">5</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">32</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">33</span></a>
 
   </li>
   </ul>
@@ -206,7 +206,7 @@
 <p>数据来源：<code>http://archive.ics.uci.edu/ml/datasets/SMS+Spam+Collection</code></p>
 <p>数据介绍：SMS Spam Collection是用于骚扰短信识别的经典数据集，完全来自真实短信内容，包括4831条正常短信和747条骚扰短信。正常短信和骚扰短信保存在一个文本文件中。 每行完整记录一条短信内容，每行开头通过ham和spam标识正常短信和骚扰短信</p>
 <p>数据实例：</p>
-<p><img src="/Kome1jiSatori.github.io/page/images/1.2/dataset%E6%95%B0%E6%8D%AE%E7%A4%BA%E4%BE%8B.png"></p>
+<p><img src="../images/1.2/dataset%E6%95%B0%E6%8D%AE%E7%A4%BA%E4%BE%8B.png"></p>
 <p>实现如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> Dataset,DataLoader</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line">data_path = <span class="string">r&quot;data\SMSSpamCollection&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CifarDataset</span>(<span class="params">Dataset</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        lines = <span class="built_in">open</span>(data_path,<span class="string">&quot;r&quot;</span>)</span><br><span class="line">        <span class="comment">#对数据进行处理，前4个为label，后面的为短信内容</span></span><br><span class="line">        lines = [[i[:<span class="number">4</span>].strip(),i[<span class="number">4</span>:].strip()] <span class="keyword">for</span> i <span class="keyword">in</span> lines]</span><br><span class="line">        <span class="comment">#转化为dataFrame</span></span><br><span class="line">        self.df = pd.DataFrame(lines,columns=[<span class="string">&quot;label&quot;</span>,<span class="string">&quot;sms&quot;</span>])</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span>(<span class="params">self, index</span>):</span></span><br><span class="line">        single_item = self.df.iloc[index,:]</span><br><span class="line">        <span class="keyword">return</span> single_item.values[<span class="number">0</span>],single_item.values[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__len__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self.df.shape[<span class="number">0</span>]</span><br></pre></td></tr></table></figure>
 
@@ -277,7 +277,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torchvision</span><br><span class="line"></span><br><span class="line">dataset = torchvision.datasets.MNIST(root=<span class="string">&quot;./data&quot;</span>,train=<span class="literal">True</span>,download=<span class="literal">True</span>,transform=<span class="literal">None</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(dataset[<span class="number">0</span>])</span><br></pre></td></tr></table></figure>
 
 <p>下载的数据如下：</p>
-<p><img src="/Kome1jiSatori.github.io/page/dataset.png"></p>
+<p><img src="/Kome1jiSatori.github.io/page/pytorch3/dataset.png"></p>
 <p>代码输出结果如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Downloading http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz</span><br><span class="line">Downloading http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz</span><br><span class="line">Downloading http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz</span><br><span class="line">Downloading http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz</span><br><span class="line">Processing...</span><br><span class="line">Done!</span><br><span class="line">(&lt;PIL.Image.Image image mode=L size=28x28 at <span class="number">0x18D303B9C18</span>&gt;, tensor(<span class="number">5</span>))</span><br></pre></td></tr></table></figure>
 
@@ -288,7 +288,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torchvision</span><br><span class="line"></span><br><span class="line">dataset = torchvision.datasets.MNIST(root=<span class="string">&quot;./data&quot;</span>,train=<span class="literal">True</span>,download=<span class="literal">True</span>,transform=<span class="literal">None</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(dataset[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line">img = dataset[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">img.show() <span class="comment">#打开图片</span></span><br></pre></td></tr></table></figure>
 
 <p>图片如下：</p>
-<p><img src="/Kome1jiSatori.github.io/page/MNIST-dataset-5.png"></p>
+<p><img src="/Kome1jiSatori.github.io/page/pytorch3/MNIST-dataset-5.png"></p>
 <p>由上可知：返回值为<code>(图片，目标值)</code>,这个结果也可以通过观察源码得到</p>
 
       </div>
@@ -375,19 +375,19 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-count">33</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -440,7 +440,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
