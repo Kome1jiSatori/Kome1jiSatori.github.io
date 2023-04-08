@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .replace(/\$\{time}/, data.processingTimeMS);
           return `${stats}
             <span class="algolia-powered">
-              <img src="${CONFIG.root}images/algolia_logo.svg" alt="Algolia">
+              <img src="/Kome1jiSatori.github.io/js/algolia_logo.svg" alt="Algolia">
             </span>
             <hr>`;
         }
