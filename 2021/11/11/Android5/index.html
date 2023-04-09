@@ -40,7 +40,7 @@
 <meta property="og:image" content="http://kome1jisatori.github.io/2021/11/11/Android5/%E5%9B%BE%E7%89%8711.png">
 <meta property="og:image" content="http://kome1jisatori.github.io/2021/11/11/Android5/%E5%9B%BE%E7%89%8712.png">
 <meta property="article:published_time" content="2021-11-10T21:26:31.000Z">
-<meta property="article:modified_time" content="2021-11-11T13:51:45.712Z">
+<meta property="article:modified_time" content="2023-04-08T14:36:48.288Z">
 <meta property="article:author" content="Komeiji Satori">
 <meta property="article:tag" content="实验课作业">
 <meta name="twitter:card" content="summary">
@@ -192,10 +192,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-11-11 05:26:31 / 修改时间：21:51:45" itemprop="dateCreated datePublished" datetime="2021-11-11T05:26:31+08:00">2021-11-11</time>
+              <time title="创建时间：2021-11-11 05:26:31" itemprop="dateCreated datePublished" datetime="2021-11-11T05:26:31+08:00">2021-11-11</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-04-08 22:36:48" itemprop="dateModified" datetime="2023-04-08T22:36:48+08:00">2023-04-08</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -257,18 +263,41 @@
 
 <h1 id="一、实验目的"><a href="#一、实验目的" class="headerlink" title="一、实验目的"></a>一、实验目的</h1><p>解析提供的素材shanghaiindex2021018.json，将解析后的时间、指数和成交量进行日志打印输出</p>
 <h1 id="二、实验环境"><a href="#二、实验环境" class="headerlink" title="二、实验环境"></a>二、实验环境</h1><p>Android Studio、Kotlin</p>
-<h1 id="三、主要实验步骤"><a href="#三、主要实验步骤" class="headerlink" title="三、主要实验步骤"></a>三、主要实验步骤</h1><p>该实验主要分为以下几个步骤：<br>①以计算机为服务器构建web网页端便于安卓手机访问②使用okhttp发起POST请求，返回String类型的Json内容③使用Gson解析Json内容并于日志中输出时间、指数和成交量等数据。<br>1）下载本课程第十一章的素材，打开httpd-2.4.51-win64-VS16.zip，按照readme的说明进行安装，即解压Apach24文件夹至C盘，接着打开命令行，将目录调至Apache24/bin下，并运行httpd.exe，如下图所示：<br><img src="/2021/11/11/Android5/%E5%9B%BE%E7%89%871.png">    </p>
-<p>看到光标自动跳转到下一行说明成功运行。在浏览器中输入<a target="_blank" rel="noopener" href="http://localhost,显示it/">http://localhost，显示It</a> works表明Apache运行正常，如下图所示：<br><img src="/2021/11/11/Android5/%E5%9B%BE%E7%89%872.png">   </p>
-<p>2）接着将本次实验所需要用到的json文件shanghaiindex20210108.json，放入C:\Apache\htdocs目录下，这时在浏览器中访问<a target="_blank" rel="noopener" href="http://127.0.0.1/shanghaiindex20210108.json%EF%BC%8C%E5%B0%B1%E5%8F%AF%E4%BB%A5%E7%9C%8B%E5%88%B0%E8%AF%A5json%E6%96%87%E4%BB%B6%E7%9A%84%E5%86%85%E5%AE%B9%EF%BC%8C%E5%A6%82%E4%B8%8B%E5%9B%BE%E6%89%80%E7%A4%BA%EF%BC%9A">http://127.0.0.1/shanghaiindex20210108.json，就可以看到该json文件的内容，如下图所示：</a><br><img src="/2021/11/11/Android5/%E5%9B%BE%E7%89%873.png">   </p>
-<p>3）准备工作就到此结束了，接着打开Android studio，创建新工程JsonTest，如下图所示：<br><img src="/2021/11/11/Android5/%E5%9B%BE%E7%89%874.png">    </p>
-<p>4）因为需要使用okhttp发送POST请求，首先需要在app/build.gradle文件中添加相关的依赖包，如下图所示：<br><img src="/2021/11/11/Android5/%E5%9B%BE%E7%89%875.png">    </p>
-<p>5）接着构造函数，发出POST请求，得到Json文件的内容，代码如下图所示：<br><img src="/2021/11/11/Android5/%E5%9B%BE%E7%89%876.png">    </p>
-<p>首先创建一个request的对象设置目标的网址，接着以String的数据类型记录json的主体，然后使用parseJSONWithGSON函数对该主体进行解析，下面介绍parseJSONWithGSON函数。<br>6）在parseJSONWithGSON函数中需要使用到GSON开源库，因此需要在app/build.gradle文件中添加以下依赖：<br><img src="/2021/11/11/Android5/%E5%9B%BE%E7%89%877.png">    </p>
-<p>GSON库的强大之处就在于可以将一段JSON格式的字符串自动映射成一个对象，不需要再手动编写代码进行解析。<br>7）观察json的主体，发现该json分为多层，最外层有两个属性，分别为“success”和“result”，其中“success”为Int类型的数据，取值为1，“result”中又含有4个不同的属性“dtQuery”、“dtCount”、“dtAppend”和“dtList”，其中“dtQuery”和“dtCount”为两个Int类型的数据，“dtAppend”包含4个不同的属性，“dtList”是一个{“dateYmdhi”，”lastPrice”，”volume”}的列表，我们需要读取的即是dtList列表中的各个属性值。<br>8）解读完json的主体结构后，就可以根据该结构构建用于GSON映射的对象，构建类APP，如下图所示：<br><img src="/2021/11/11/Android5/%E5%9B%BE%E7%89%878.png">    </p>
-<p>9）接着使用GSON提供的相关方法，即可取出我们需要的数据，具体代码如下图所示：<br><img src="/2021/11/11/Android5/%E5%9B%BE%E7%89%879.png">    </p>
-<p>首先创建一个gson的对象，接着使用该对象中的方法fromJson用App类的格式创建基于Json解析的对象，接着读出我们需要的数据所在的列表dtlist，最后对dtlist进行遍历，并在日志中打印出各项的解析后的时间、指数和成交量。<br>10）最后在activity_main.xml中添加一个按钮，并修改MainActivity，按下按钮时调用sendRequestWithOkHttp函数，如下图所示：<br><img src="/2021/11/11/Android5/%E5%9B%BE%E7%89%8710.png">    </p>
-<p>11）最后在虚拟机上运行程序，如下图所示：<br><img src="/2021/11/11/Android5/%E5%9B%BE%E7%89%8711.png">    </p>
-<p>点击按钮，可以在Run界面中看到解析得到的Json数据，如下图所示：<br><img src="/2021/11/11/Android5/%E5%9B%BE%E7%89%8712.png">    </p>
+<h1 id="三、主要实验步骤"><a href="#三、主要实验步骤" class="headerlink" title="三、主要实验步骤"></a>三、主要实验步骤</h1><p>该实验主要分为以下几个步骤：<br>①以计算机为服务器构建web网页端便于安卓手机访问②使用okhttp发起POST请求，返回String类型的Json内容③使用Gson解析Json内容并于日志中输出时间、指数和成交量等数据。<br>1）下载本课程第十一章的素材，打开httpd-2.4.51-win64-VS16.zip，按照readme的说明进行安装，即解压Apach24文件夹至C盘，接着打开命令行，将目录调至Apache24/bin下，并运行httpd.exe，如下图所示：  </p>
+<img src="/2021/11/11/Android5/%E5%9B%BE%E7%89%871.png" class>      
+
+<p>看到光标自动跳转到下一行说明成功运行。在浏览器中输入<a target="_blank" rel="noopener" href="http://localhost,显示it/">http://localhost，显示It</a> works表明Apache运行正常，如下图所示：  </p>
+<img src="/2021/11/11/Android5/%E5%9B%BE%E7%89%872.png" class>     
+
+<p>2）接着将本次实验所需要用到的json文件shanghaiindex20210108.json，放入C:\Apache\htdocs目录下，这时在浏览器中访问<a target="_blank" rel="noopener" href="http://127.0.0.1/shanghaiindex20210108.json%EF%BC%8C%E5%B0%B1%E5%8F%AF%E4%BB%A5%E7%9C%8B%E5%88%B0%E8%AF%A5json%E6%96%87%E4%BB%B6%E7%9A%84%E5%86%85%E5%AE%B9%EF%BC%8C%E5%A6%82%E4%B8%8B%E5%9B%BE%E6%89%80%E7%A4%BA%EF%BC%9A">http://127.0.0.1/shanghaiindex20210108.json，就可以看到该json文件的内容，如下图所示：</a>  </p>
+<img src="/2021/11/11/Android5/%E5%9B%BE%E7%89%873.png" class>     
+<p>3）准备工作就到此结束了，接着打开Android studio，创建新工程JsonTest，如下图所示：  </p>
+<img src="/2021/11/11/Android5/%E5%9B%BE%E7%89%874.png" class>      
+
+<p>4）因为需要使用okhttp发送POST请求，首先需要在app/build.gradle文件中添加相关的依赖包，如下图所示：  </p>
+<img src="/2021/11/11/Android5/%E5%9B%BE%E7%89%875.png" class>      
+
+<p>5）接着构造函数，发出POST请求，得到Json文件的内容，代码如下图所示：  </p>
+<img src="/2021/11/11/Android5/%E5%9B%BE%E7%89%876.png" class>      
+
+<p>首先创建一个request的对象设置目标的网址，接着以String的数据类型记录json的主体，然后使用parseJSONWithGSON函数对该主体进行解析，下面介绍parseJSONWithGSON函数。<br>6）在parseJSONWithGSON函数中需要使用到GSON开源库，因此需要在app/build.gradle文件中添加以下依赖：  </p>
+<img src="/2021/11/11/Android5/%E5%9B%BE%E7%89%877.png" class>      
+
+<p>GSON库的强大之处就在于可以将一段JSON格式的字符串自动映射成一个对象，不需要再手动编写代码进行解析。<br>7）观察json的主体，发现该json分为多层，最外层有两个属性，分别为“success”和“result”，其中“success”为Int类型的数据，取值为1，“result”中又含有4个不同的属性“dtQuery”、“dtCount”、“dtAppend”和“dtList”，其中“dtQuery”和“dtCount”为两个Int类型的数据，“dtAppend”包含4个不同的属性，“dtList”是一个{“dateYmdhi”，”lastPrice”，”volume”}的列表，我们需要读取的即是dtList列表中的各个属性值。<br>8）解读完json的主体结构后，就可以根据该结构构建用于GSON映射的对象，构建类APP，如下图所示：  </p>
+<img src="/2021/11/11/Android5/%E5%9B%BE%E7%89%878.png" class>      
+
+<p>9）接着使用GSON提供的相关方法，即可取出我们需要的数据，具体代码如下图所示：  </p>
+<img src="/2021/11/11/Android5/%E5%9B%BE%E7%89%879.png" class>      
+
+<p>首先创建一个gson的对象，接着使用该对象中的方法fromJson用App类的格式创建基于Json解析的对象，接着读出我们需要的数据所在的列表dtlist，最后对dtlist进行遍历，并在日志中打印出各项的解析后的时间、指数和成交量。<br>10）最后在activity_main.xml中添加一个按钮，并修改MainActivity，按下按钮时调用sendRequestWithOkHttp函数，如下图所示：  </p>
+<img src="/2021/11/11/Android5/%E5%9B%BE%E7%89%8710.png" class>      
+
+<p>11）最后在虚拟机上运行程序，如下图所示：  </p>
+<img src="/2021/11/11/Android5/%E5%9B%BE%E7%89%8711.png" class>      
+
+<p>点击按钮，可以在Run界面中看到解析得到的Json数据，如下图所示：  </p>
+<img src="/2021/11/11/Android5/%E5%9B%BE%E7%89%8712.png" class>      
+
 <p>成功解析出了需要的数据，说明实验成功。  </p>
 <h1 id="代码附录"><a href="#代码附录" class="headerlink" title="代码附录"></a>代码附录</h1><h2 id="MainActivity"><a href="#MainActivity" class="headerlink" title="MainActivity"></a>MainActivity</h2><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.jsontest</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> androidx.appcompat.app.AppCompatActivity</span><br><span class="line"><span class="keyword">import</span> android.os.Bundle</span><br><span class="line"><span class="keyword">import</span> android.util.Log</span><br><span class="line"><span class="keyword">import</span> android.widget.Button</span><br><span class="line"><span class="keyword">import</span> android.widget.TextView</span><br><span class="line"><span class="keyword">import</span> com.google.gson.Gson</span><br><span class="line"><span class="keyword">import</span> com.google.gson.reflect.TypeToken</span><br><span class="line"><span class="keyword">import</span> okhttp3.OkHttpClient</span><br><span class="line"><span class="keyword">import</span> okhttp3.Request</span><br><span class="line"><span class="keyword">import</span> org.json.JSONArray</span><br><span class="line"><span class="keyword">import</span> org.json.JSONObject</span><br><span class="line"><span class="keyword">import</span> java.io.BufferedReader</span><br><span class="line"><span class="keyword">import</span> java.io.InputStreamReader</span><br><span class="line"><span class="keyword">import</span> java.net.HttpURLConnection</span><br><span class="line"><span class="keyword">import</span> java.net.URL</span><br><span class="line"><span class="keyword">import</span> kotlin.concurrent.thread</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> : <span class="type">AppCompatActivity</span></span>() &#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_main)</span><br><span class="line">        <span class="keyword">val</span> sendRequestBtn: Button = findViewById(R.id.sendRequestBtn)</span><br><span class="line">        sendRequestBtn.setOnClickListener &#123;</span><br><span class="line">            sendRequestWithOkHttp()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">sendRequestWithOkHttp</span><span class="params">()</span></span> &#123;</span><br><span class="line">        thread &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">val</span> client = OkHttpClient()</span><br><span class="line">                <span class="keyword">val</span> request = Request.Builder()</span><br><span class="line">                    <span class="comment">// 指定访问的服务器地址是计算机本机</span></span><br><span class="line">                    .url(<span class="string">&quot;http://10.0.2.2/shanghaiindex20210108.json&quot;</span>)</span><br><span class="line">                    .build()</span><br><span class="line">                <span class="keyword">val</span> response = client.newCall(request).execute()</span><br><span class="line">                <span class="keyword">val</span> responseData = response.body?.string()</span><br><span class="line">                <span class="keyword">if</span> (responseData != <span class="literal">null</span>) &#123;</span><br><span class="line">                    parseJSONWithGSON(responseData)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (e: Exception) &#123;</span><br><span class="line">                e.printStackTrace()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">parseJSONWithGSON</span><span class="params">(jsonData: <span class="type">String</span>)</span></span> &#123;</span><br><span class="line">        <span class="keyword">val</span> gson = Gson()</span><br><span class="line">        <span class="keyword">val</span> row_appList = gson.fromJson(jsonData, App::<span class="keyword">class</span>.java)</span><br><span class="line">        <span class="keyword">val</span> appList = row_appList.result.dtList</span><br><span class="line">        <span class="keyword">for</span> (app <span class="keyword">in</span> appList) &#123;</span><br><span class="line">            Log.d(<span class="string">&quot;MainActivity&quot;</span>, <span class="string">&quot;dateYmdhi is <span class="subst">$&#123;app.dateYmdhi&#125;</span>&quot;</span>)</span><br><span class="line">            Log.d(<span class="string">&quot;MainActivity&quot;</span>, <span class="string">&quot;lastPrice is <span class="subst">$&#123;app.lastPrice&#125;</span>&quot;</span>)</span><br><span class="line">            Log.d(<span class="string">&quot;MainActivity&quot;</span>, <span class="string">&quot;volume is <span class="subst">$&#123;app.volume&#125;</span>&quot;</span>)</span><br><span class="line">            Log.d(<span class="string">&quot;MainActivity&quot;</span>, <span class="string">&quot;-----------------------------------&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span></span>(<span class="keyword">val</span> success: String, <span class="keyword">val</span> result: Result)&#123;</span><br><span class="line">    <span class="keyword">inner</span> <span class="class"><span class="keyword">class</span> <span class="title">Result</span></span>(<span class="keyword">val</span> dtQuery: String, <span class="keyword">val</span> dtcount: String, <span class="keyword">val</span> dtAppend: DtAppend, <span class="keyword">val</span> dtList: List&lt;DtList&gt;)&#123;</span><br><span class="line">        <span class="keyword">inner</span> <span class="class"><span class="keyword">class</span> <span class="title">DtAppend</span></span>(<span class="keyword">val</span> htType: String, <span class="keyword">val</span> inxId: String, <span class="keyword">val</span> inxNm: String)&#123;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">inner</span> <span class="class"><span class="keyword">class</span> <span class="title">DtList</span></span>(<span class="keyword">val</span> dateYmdhi: String, <span class="keyword">val</span> lastPrice: String, <span class="keyword">val</span> volume: String)&#123;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -474,13 +503,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">305k</span>
+    <span title="站点总字数">313k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:37</span>
+    <span title="站点阅读时长">4:44</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
