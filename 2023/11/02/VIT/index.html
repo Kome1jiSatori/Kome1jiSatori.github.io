@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kome1jisatori.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="VIT论文阅读并实现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="论文阅读：AN IMAGE IS WORTH 16X16 WORDS:TRANSFORMERS FOR IMAGE RECOGNITION AT SCALE">
+<meta property="og:url" content="http://kome1jisatori.github.io/2023/11/02/VIT/index.html">
+<meta property="og:site_name" content="KomeijiSatoriのblog">
+<meta property="og:description" content="VIT论文阅读并实现">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://kome1jisatori.github.io/2023/11/02/VIT/hexotext/source_posts/VIT/实验结果.png">
+<meta property="og:image" content="http://kome1jisatori.github.io/2023/11/02/VIT/hexotext/source_posts/VIT/ViT结构.png">
+<meta property="og:image" content="http://kome1jisatori.github.io/2023/11/02/VIT/hexotext/source/_posts/VIT/multihead.png">
+<meta property="og:image" content="http://kome1jisatori.github.io/2023/11/02/VIT/hexotext/source/_posts/VIT/data%20flow.png">
+<meta property="og:image" content="http://kome1jisatori.github.io/2023/11/02/VIT/hexotext/source_posts/VIT/实验设置.png">
+<meta property="article:published_time" content="2023-11-02T07:20:09.000Z">
+<meta property="article:modified_time" content="2023-11-15T03:14:53.593Z">
+<meta property="article:author" content="Komeiji Satori">
+<meta property="article:tag" content="机器学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://kome1jisatori.github.io/2023/11/02/VIT/hexotext/source_posts/VIT/实验结果.png">
+
+<link rel="canonical" href="http://kome1jisatori.github.io/2023/11/02/VIT/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>论文阅读：AN IMAGE IS WORTH 16X16 WORDS:TRANSFORMERS FOR IMAGE RECOGNITION AT SCALE | KomeijiSatoriのblog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">KomeijiSatoriのblog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">地灵殿从零开始的学习生活</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">5</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">35</span></a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://kome1jisatori.github.io/2023/11/02/VIT/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Komeiji Satori">
+      <meta itemprop="description" content="记录些有的没的的学习心得">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KomeijiSatoriのblog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          论文阅读：AN IMAGE IS WORTH 16X16 WORDS:TRANSFORMERS FOR IMAGE RECOGNITION AT SCALE
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-11-02 15:20:09" itemprop="dateCreated datePublished" datetime="2023-11-02T15:20:09+08:00">2023-11-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-11-15 11:14:53" itemprop="dateModified" datetime="2023-11-15T11:14:53+08:00">2023-11-15</time>
+              </span>
+
+          
+            <span id="/2023/11/02/VIT/" class="post-meta-item leancloud_visitors" data-flag-title="论文阅读：AN IMAGE IS WORTH 16X16 WORDS:TRANSFORMERS FOR IMAGE RECOGNITION AT SCALE" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2023/11/02/VIT/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2023/11/02/VIT/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+     
+      
+        <p>VIT论文阅读并实现</p>
+<span id="more"></span> 
+
+<h1 id="一、论文简介"><a href="#一、论文简介" class="headerlink" title="一、论文简介"></a>一、论文简介</h1><h2 id="1-1-摘要核心"><a href="#1-1-摘要核心" class="headerlink" title="1.1 摘要核心"></a>1.1 摘要核心</h2><p>1、Transformer在NLP领域中已经成为了首选模型，但在CV中应用还比较少；</p>
+<p>2、在CV中，Attention机制只是作为一个CNN补充或者作为网络中的一部分在使用；</p>
+<p>3、我们使用纯Transformer（纯Attention）结构就可以在图像分类任务上取得不错的结果；</p>
+<p>4、在足够大的训练集上训练后，ViT可以拿到和CNN的SOTA（state-of-the-art convolutional networks）不相上下的结果。</p>
+<h2 id="1-2-研究背景"><a href="#1-2-研究背景" class="headerlink" title="1.2 研究背景"></a>1.2 研究背景</h2><p>​    尽管Transformer结构非常强，但是在视觉任务中的应用比较有限。Transformer提出后在NLP领域中取得了极好的结果，其全Attention的结构，不仅<strong>增强了特征提取能力</strong>，还<strong>保持了并行计算的特点</strong>，可以又好又快地完成NLP领域内的几乎所有任务，极大地推动了自然语言处理地发展</p>
+<p>​    但在CV的应用非常有限，此前只有目标检测中的DETR大规模使用了Transformer，别的领域很少，而纯Transformer的则几乎没有。</p>
+<p>​    Transformer的优势（相比于CNN）：1、并行计算；2、全局视野；3、灵活的堆叠能力。</p>
+<p>​    NLP中的模型Transformer+CV中的基础任务图像分类，需要解决很多问题，如输入不一致等。</p>
+<h2 id="1-3-研究成果"><a href="#1-3-研究成果" class="headerlink" title="1.3 研究成果"></a>1.3 研究成果</h2><p><img src="/2023/11/02/VIT/hexotext\source_posts\VIT\实验结果.png" alt="实验结果"></p>
+<p>​    ViT和ResNet Baseline取得了<strong>不相上下</strong>的结果。</p>
+<p>​    ImageNet等：数据集名称</p>
+<p>​    JFT：谷歌私有数据集，规模为ImageNet的20~30倍</p>
+<p>​    ViT-H/14：ViT-Huge模型，输入序列14x14</p>
+<h2 id="1-4-研究意义"><a href="#1-4-研究意义" class="headerlink" title="1.4 研究意义"></a>1.4 研究意义</h2><p>​    展示了在计算机视觉中使用纯Transformer结构的可能；</p>
+<p>​    拉开了Transformer研究热潮的序幕。</p>
+<h1 id="二、论文详解"><a href="#二、论文详解" class="headerlink" title="二、论文详解"></a>二、论文详解</h1><h2 id="2-1-模型总览"><a href="#2-1-模型总览" class="headerlink" title="2.1 模型总览"></a>2.1 模型总览</h2><p>​    因为Transformer在NLP中很好用，所以ViT结构在进行设计时希望可以直接把Transformer应用于图像领域，所以对其作了最小的改动。具体而言，就是把一张图片切片，然后将其当作一个序列，加上线性的embedding后放入到Transformer中去。类比于NLP，此处的Image patch（图像切片）是作为token输入，即每一个切片都是一个处理单元，如下图所示。</p>
+<p><img src="/2023/11/02/VIT/hexotext\source_posts\VIT\ViT结构.png" alt="ViT结构"></p>
+<p>​    将图像处理为序列后输入进入Transformer Encoder，该部分由L个图右所示组件组成，其中Norm用于标准化，MLP为两层FC层。模型中有三个部分我不是很理解，分别为①Multi-Head Attention；②Position Embedding；③Linear Projection of Flattened Patches，接下来逐一解读这三个部分。</p>
+<h2 id="2-2-Multi-head-attention"><a href="#2-2-Multi-head-attention" class="headerlink" title="2.2 Multi-head attention"></a>2.2 Multi-head attention</h2><p>​    为了理解Multi-head attention，需要先了解一下Attention的机制。Transformer有两个部分，分别是编码器和解码器，编码器用于将输入的内容编码成“意思”（即该语言所指的东西），解码器用于将“意思”映射为目标语言中对应的表示方式。但是人工在进行翻译时有这样一种直觉：一个翻译只与有限的几个词有关，因此就在Transformer中引入了attention机制，对于需要关注的词，我们给一个更高的权重，不需要关注的词，给的权重则比较低，attention本质上是对token进行加权平均。attention需要考虑的问题是如何得到相应的权重，一般使用相似度计算来解决。</p>
+<p>​    Multi-head attention用到了多个Self Attention。Self Attention的计算用到了Scaled dot product，计算公式为<br>$$<br>Attention(Q,K,V)=softmax(\frac{QK^T}{\sqrt{d_k}})<br>$$<br>​    输入时，我们会将原本的对象进行转换，如将单词转换为词向量，图像转变为序列等。公式中的Q、K、V都是序列或词向量进行不同的矩阵乘法后得到的，其中Q是Query，用于对输入进行查询；Key为键值，通过与查询的值进行<strong>相似度计算</strong>（使用点积）获得相关度最高的关键字；V为价值，根据关键字返回对应的数值。本质是对input进行了线性变换，可以使用nn.Linear实现这些可学习的矩阵。$\sqrt{d_k}$为规模，一般取64，除以该值进行缩放，可以避免出现较大的数值，防止因softmax产生的极端值导致的梯度消失。最后使用softmax计算权值，每一个q与所有k计算得到的相似度之和为1(如q1和k1,k2,…,kn计算得到的相似度之和为1)。Self Attention实际上是在计算每个q和每个k的相似度。得到相似度后，将其作为权重与$k_n$对应的值$v_n$进行相乘并相加，最终得到输入$x$的sum结果$z$，代表了单词意思到句中意思的转化。直接将向量合并为矩阵可以进行并行计算。</p>
+<p>​    MultiHead Attention就是有多层Self Attention Layer，有多个$w_q$,$w_k$,$w_v$，将上述操作重复多次，每多一层Self Attention Layer就会多得到一组$z$，最后将得到的结果concat在一起，经过一层Linear层得到最后的结果。</p>
+<img src="/2023/11/02/VIT/hexotext\source\_posts\VIT\multihead.png" alt="multihead" style="zoom:70%;">
+
+<p>​    目的是为了给注意力提供多种可能性。不同头的注意力可以集中到一个事物的不同地方上去。</p>
+<h2 id="2-3-输入端适配"><a href="#2-3-输入端适配" class="headerlink" title="2.3 输入端适配"></a>2.3 输入端适配</h2><p>​    本小节解读图像如何转换成transformer能够接受的输入格式，分为两个部分，第一个部分为图片是如何切分的，第二个部分为position encoding是如何操作的。</p>
+<p>​    Transformer的输入要求是一个序列，对于我们输入的一个原始图像，首先进行切图重排，将原图切分成3*3共9个小块，每一小份叫做一个patch；接着对每一个patch做flatten操作，即将原本3维的张量拉成1维的向量，将每一个拉平的patch称为flatten patch；然后对flatten patch做Linear projection（使用fc），即使向量通过全连接层映射为另一个向量，这样就得到了我们需要的输入向量。</p>
+<p>​    第二个部分为position encoding（位置编码）。由于图像切分重排后失去了位置信息，并且Transformer的内部运算是空间信息无关的，所以需要把位置信息编码重新传进网络。ViT使用了一个可学习的Vector来编码，编码vector和patch vector直接相加组成输入。但是不同的input size和patch size可能会得到不同数量的patch，所以编号的方法需要缩放。</p>
+<p>​    经过position encoding编号的输入，除了我们得到的输入向量编号1-9以外，还会有一个编号为0的patch（本质是dynamic pooling layer）用于整合信息，最后使用position0来进行分类。</p>
+<img src="/2023/11/02/VIT/hexotext\source\_posts\VIT\data flow.png" alt="data flow" style="zoom:80%;">
+
+<h2 id="2-4-实验设置"><a href="#2-4-实验设置" class="headerlink" title="2.4 实验设置"></a>2.4 实验设置</h2><p><img src="/2023/11/02/VIT/hexotext\source_posts\VIT\实验设置.png" alt="实验设置"></p>
+<p>​    论文使用了3个不同规模的模型来进行实验，分别为Base、Large和Huge。其中Layers指标代表有多少个Transformer Encoder，hidden size代表embedding进去时候的channel数，MLP size是Encoder中channel数放大的size，Heads数代表有多少个attention head，Params为模型大小，可以看到ViT模型普遍都比较大。</p>
+<p>​    训练时该模型大规模使用Pre-Train。现在大数据集上预训练，然后到小数据集上Fine Tune。迁移过去后，需要把原本的MLP Head换掉，换成对应类别数的FC层，处理不同尺寸输入的时候需要对Positional Encoding的结果进行插值（缩放编号）。</p>
+<p>​    从原论文p7的图像可以看出，ViT的性能需要大量的数据来保证，否则无法充分发挥性能。</p>
+<h1 id="3-代码实现"><a href="#3-代码实现" class="headerlink" title="3 代码实现"></a>3 代码实现</h1><h2 id="3-1-ViT参数"><a href="#3-1-ViT参数" class="headerlink" title="3.1 ViT参数"></a>3.1 ViT参数</h2><p>使用了<a target="_blank" rel="noopener" href="https://github.com/lucidrains/vit-pytorch">https://github.com/lucidrains/vit-pytorch</a> 的库来进行解读。</p>
+<h3 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> vit_pytorch <span class="keyword">import</span> ViT</span><br><span class="line"></span><br><span class="line">v = ViT(</span><br><span class="line">    image_size = <span class="number">256</span>,</span><br><span class="line">    patch_size = <span class="number">32</span>,</span><br><span class="line">    num_classes = <span class="number">1000</span>,</span><br><span class="line">    dim = <span class="number">1024</span>,</span><br><span class="line">    depth = <span class="number">6</span>,</span><br><span class="line">    heads = <span class="number">16</span>,</span><br><span class="line">    mlp_dim = <span class="number">2048</span>,</span><br><span class="line">    dropout = <span class="number">0.1</span>,</span><br><span class="line">    emb_dropout = <span class="number">0.1</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">img = torch.randn(<span class="number">1</span>, <span class="number">3</span>, <span class="number">256</span>, <span class="number">256</span>)</span><br><span class="line"></span><br><span class="line">preds = v(img) <span class="comment"># (1, 1000)</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>image_size</code>: int.<br>Image size. If you have rectangular images, make sure your image size is the maximum of the width and height</li>
+<li><code>patch_size</code>: int.<br>Size of patches. <code>image_size</code> must be divisible by <code>patch_size</code>.<br>The number of patches is: <code> n = (image_size // patch_size) ** 2</code> and <code>n</code> <strong>must be greater than 16</strong>.</li>
+<li><code>num_classes</code>: int.<br>Number of classes to classify.</li>
+<li><code>dim</code>: int.<br>Last dimension of output tensor after linear transformation <code>nn.Linear(..., dim)</code>.</li>
+<li><code>depth</code>: int.<br>Number of Transformer blocks.</li>
+<li><code>heads</code>: int.<br>Number of heads in Multi-head Attention layer.</li>
+<li><code>mlp_dim</code>: int.<br>Dimension of the MLP (FeedForward) layer.</li>
+<li><code>channels</code>: int, default <code>3</code>.<br>Number of image’s channels.</li>
+<li><code>dropout</code>: float between <code>[0, 1]</code>, default <code>0.</code>.<br>Dropout rate.</li>
+<li><code>emb_dropout</code>: float between <code>[0, 1]</code>, default <code>0</code>.<br>Embedding dropout rate.</li>
+<li><code>pool</code>: string, either <code>cls</code> token pooling or <code>mean</code> pooling</li>
+</ul>
+<h2 id="3-2-输入端适配"><a href="#3-2-输入端适配" class="headerlink" title="3.2 输入端适配"></a>3.2 输入端适配</h2><h3 id="图像切分重排"><a href="#图像切分重排" class="headerlink" title="图像切分重排"></a>图像切分重排</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">img = torch.randn(<span class="number">1</span>, <span class="number">3</span>, <span class="number">256</span>, <span class="number">256</span>) <span class="comment"># b c h w</span></span><br><span class="line">b = <span class="number">1</span></span><br><span class="line">c = <span class="number">3</span></span><br><span class="line">h = <span class="number">256</span></span><br><span class="line">w = <span class="number">256</span></span><br><span class="line"><span class="comment"># ViT类中实现切分重排的语句为</span></span><br><span class="line">self.to_patch_embedding = nn.Sequential(</span><br><span class="line">            Rearrange(<span class="string">&#x27;b c (h p1) (w p2) -&gt; b (h w) (p1 p2 c)&#x27;</span>, p1 = patch_height, p2 = patch_width),</span><br><span class="line">            nn.LayerNorm(patch_dim),</span><br><span class="line">            nn.Linear(patch_dim, dim), <span class="comment"># 进行Linear Projection of Flattened Patches</span></span><br><span class="line">            nn.LayerNorm(dim),</span><br><span class="line">        )</span><br></pre></td></tr></table></figure>
+
+<p>​    其中Rearrange函数来自于einops库，einops是一个用来高效实现元素重排的库，主要用来代替一些需要集成使用reshape，repeat，expand，view，stack，permute才能实现的方法，恰好图片的切分重排就是这样的一个事情。通过<code>b c (h p1) (w p2) -&gt; b (h w) (p1 p2 c)</code>把原本的shape变为想要的shape。</p>
+<p>​    原本的shape为<code>(b,c,h,w)</code>，rearrange变化前将h拆为了<code>h,p1</code>,w拆为了<code>w,p2</code>,所以变化前形状为<code>(b,c,h,p1,w,p2)</code>，这个五元组中，b和c仍然为batchsize和channel，p1为每一个patch的高度，h为图片在纵坐标被分割的块数，p2为patch的宽度，w为图片在横坐标被分割的块数，即完成了把图拆开的工作。变化后为<code>(b,h*w,p1*p2*c)</code>的形状，即将patches拉平，最后经过一个Linear层，得到input vector。</p>
+<p>​    官方演示：<a target="_blank" rel="noopener" href="https://github.com/arogozhnikov/einops/blob/master/docs/1-einops-basics.ipynb%E3%80%82">https://github.com/arogozhnikov/einops/blob/master/docs/1-einops-basics.ipynb。</a></p>
+<h3 id="用Conv2d实现图像切分重排"><a href="#用Conv2d实现图像切分重排" class="headerlink" title="用Conv2d实现图像切分重排"></a>用Conv2d实现图像切分重排</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PatchEmbed</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, img_size=<span class="number">224</span>, patch_size=<span class="number">16</span>, in_chans=<span class="number">3</span>, embed_dim=<span class="number">768</span></span>):</span></span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        img_size = to_2tuple(img_size)</span><br><span class="line">        patch_size = to_2tuple(patch_size)</span><br><span class="line">        </span><br><span class="line">        self.img_size = img_size</span><br><span class="line">        self.patch_size = patch_size</span><br><span class="line">        </span><br><span class="line">        self.H, self.W = img_size[<span class="number">0</span>] // patch_size[<span class="number">0</span>], img_size[<span class="number">1</span>] // patch_size[<span class="number">1</span>]</span><br><span class="line">        self.num_patches = self.H * self.W</span><br><span class="line">        self.proj = nn.Conv2d(in_chans, embed_dim, kernel_size=patch_size, stride=patch_size)</span><br><span class="line">        self.norm = nn.LayerNoem(embed_dim)</span><br><span class="line">      	</span><br><span class="line"> 	<span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        B, C, H, W = x.shape</span><br><span class="line">        x = self.proj(x).flatten(<span class="number">2</span>).transpose(<span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line">        x = self.norm(x)</span><br><span class="line">        H, W = H // self.patch_size[<span class="number">0</span>], W // self.patch_size[<span class="number">1</span>]</span><br><span class="line">        <span class="keyword">return</span> x, (H, W)</span><br></pre></td></tr></table></figure>
+
+<p>​    能够这样写的原因是MLP和Conv2d的计算过程很像。具体而言，MLP一般处理一维vector，方法为矩阵乘法，也就是n个点积，先乘再加。Conv2d处理二维，方式为卷积，也就是随着窗口滑动的先乘再加。MLP和Conv2d最重要的两点区别为局部连接、权重共享。可以发现在图像切分重排的这个过程中，所有的操作都在每个patch内（局部连接），而对于每个patch的操作是相同的（权重共享），因此可以用conv代替。</p>
+<h3 id="0号token和加上position-embedding的实现"><a href="#0号token和加上position-embedding的实现" class="headerlink" title="0号token和加上position embedding的实现"></a>0号token和加上position embedding的实现</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, img</span>):</span></span><br><span class="line">    x = self.to_patch_embedding(img)</span><br><span class="line">    b, n, _ = x.shape</span><br><span class="line"></span><br><span class="line">    cls_tokens = repeat(self.cls_token, <span class="string">&#x27;1 1 d -&gt; b 1 d&#x27;</span>, b = b) <span class="comment"># cls_token是通过nn.Parameter创建的可学习变量，保证每一个patch都cat一样的东西，把cls_token repeat b次</span></span><br><span class="line">    x = torch.cat((cls_tokens, x), dim=<span class="number">1</span>) <span class="comment"># 连接patch0</span></span><br><span class="line">    x += self.pos_embedding[:, :(n + <span class="number">1</span>)] <span class="comment"># pos_embedding为可学习变量，加上position embedding</span></span><br><span class="line">    x = self.dropout(x)</span><br><span class="line"></span><br><span class="line">    x = self.transformer(x)</span><br><span class="line"></span><br><span class="line">    x = x.mean(dim = <span class="number">1</span>) <span class="keyword">if</span> self.pool == <span class="string">&#x27;mean&#x27;</span> <span class="keyword">else</span> x[:, <span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">    x = self.to_latent(x)</span><br><span class="line">    <span class="keyword">return</span> self.mlp_head(x)</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-3-Transformer-Block"><a href="#3-3-Transformer-Block" class="headerlink" title="3.3 Transformer Block"></a>3.3 Transformer Block</h2>
+    </div>
+
+    
+    
+    
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------以上<i class="fa fa-paw"></i>（或许会有不定时更新）-------------</div>
+    
+</div>
+
+  
+</div>
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Komeiji Satori
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://kome1jisatori.github.io/2023/11/02/VIT/" title="论文阅读：AN IMAGE IS WORTH 16X16 WORDS:TRANSFORMERS FOR IMAGE RECOGNITION AT SCALE">http://kome1jisatori.github.io/2023/11/02/VIT/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag"># 机器学习</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/04/07/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/" rel="prev" title="2023一战上岸华中科技大学计算机专硕经验分享">
+      <i class="fa fa-chevron-left"></i> 2023一战上岸华中科技大学计算机专硕经验分享
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/01/10/git/" rel="next" title="git">
+      git <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E8%AE%BA%E6%96%87%E7%AE%80%E4%BB%8B"><span class="nav-text">一、论文简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-%E6%91%98%E8%A6%81%E6%A0%B8%E5%BF%83"><span class="nav-text">1.1 摘要核心</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-%E7%A0%94%E7%A9%B6%E8%83%8C%E6%99%AF"><span class="nav-text">1.2 研究背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-%E7%A0%94%E7%A9%B6%E6%88%90%E6%9E%9C"><span class="nav-text">1.3 研究成果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-%E7%A0%94%E7%A9%B6%E6%84%8F%E4%B9%89"><span class="nav-text">1.4 研究意义</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E8%AE%BA%E6%96%87%E8%AF%A6%E8%A7%A3"><span class="nav-text">二、论文详解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-%E6%A8%A1%E5%9E%8B%E6%80%BB%E8%A7%88"><span class="nav-text">2.1 模型总览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-Multi-head-attention"><span class="nav-text">2.2 Multi-head attention</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-%E8%BE%93%E5%85%A5%E7%AB%AF%E9%80%82%E9%85%8D"><span class="nav-text">2.3 输入端适配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-%E5%AE%9E%E9%AA%8C%E8%AE%BE%E7%BD%AE"><span class="nav-text">2.4 实验设置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-text">3 代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-ViT%E5%8F%82%E6%95%B0"><span class="nav-text">3.1 ViT参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Usage"><span class="nav-text">Usage</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-%E8%BE%93%E5%85%A5%E7%AB%AF%E9%80%82%E9%85%8D"><span class="nav-text">3.2 输入端适配</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE%E5%83%8F%E5%88%87%E5%88%86%E9%87%8D%E6%8E%92"><span class="nav-text">图像切分重排</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8Conv2d%E5%AE%9E%E7%8E%B0%E5%9B%BE%E5%83%8F%E5%88%87%E5%88%86%E9%87%8D%E6%8E%92"><span class="nav-text">用Conv2d实现图像切分重排</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0%E5%8F%B7token%E5%92%8C%E5%8A%A0%E4%B8%8Aposition-embedding%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-text">0号token和加上position embedding的实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-Transformer-Block"><span class="nav-text">3.3 Transformer Block</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Komeiji Satori"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Komeiji Satori</p>
+  <div class="site-description" itemprop="description">记录些有的没的的学习心得</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kome1jisatori" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kome1jisatori" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://wpa.qq.com/msgrd?v=3&uin=740775405&site=qq&menu=yes" title="QQ → http:&#x2F;&#x2F;wpa.qq.com&#x2F;msgrd?v&#x3D;3&amp;uin&#x3D;740775405&amp;site&#x3D;qq&amp;menu&#x3D;yes" rel="noopener" target="_blank"><i class="fab fa-qq fa-fw"></i>QQ</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      膜大佬的链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://sherlockcoder.xyz/" title="http:&#x2F;&#x2F;sherlockcoder.xyz" rel="noopener" target="_blank">不朽之存在的首页</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://datawhalechina.github.io/leeml-notes/#/" title="https:&#x2F;&#x2F;datawhalechina.github.io&#x2F;leeml-notes&#x2F;#&#x2F;" rel="noopener" target="_blank">机器学习笔记(LeeML-Notes)</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">苏ICP备 - 2021020302 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">KomeijiSatori</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">324k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">4:55</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : '8NhM2OcimmX1hgpelhxOhQK8-gzGzoHsz',
+      appKey     : 'bQ1303bPFHzcUrkoBzb39dgO',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+
+
+  <script type="text/javascript" color="0,0,0" opacity='0.5' zIndex="-1" count="150" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":true},"log":false});</script></body>
+</html>
