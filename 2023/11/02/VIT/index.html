@@ -27,17 +27,16 @@
 <meta property="og:site_name" content="KomeijiSatoriのblog">
 <meta property="og:description" content="VIT论文阅读并实现">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://kome1jisatori.github.io/2023/11/02/VIT/hexotext/source_posts/VIT/实验结果.png">
-<meta property="og:image" content="http://kome1jisatori.github.io/2023/11/02/VIT/hexotext/source_posts/VIT/ViT结构.png">
-<meta property="og:image" content="http://kome1jisatori.github.io/2023/11/02/VIT/hexotext/source/_posts/VIT/multihead.png">
-<meta property="og:image" content="http://kome1jisatori.github.io/2023/11/02/VIT/hexotext/source/_posts/VIT/data%20flow.png">
-<meta property="og:image" content="http://kome1jisatori.github.io/2023/11/02/VIT/hexotext/source_posts/VIT/实验设置.png">
+<meta property="og:image" content="http://kome1jisatori.github.io/2023/11/02/VIT/%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C.png">
+<meta property="og:image" content="http://kome1jisatori.github.io/2023/11/02/VIT/ViT%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="http://kome1jisatori.github.io/2023/11/02/VIT/multihead.png">
+<meta property="og:image" content="http://kome1jisatori.github.io/2023/11/02/VIT/%E5%AE%9E%E9%AA%8C%E8%AE%BE%E7%BD%AE.png">
 <meta property="article:published_time" content="2023-11-02T07:20:09.000Z">
-<meta property="article:modified_time" content="2023-11-15T03:14:53.593Z">
+<meta property="article:modified_time" content="2024-01-10T02:46:13.096Z">
 <meta property="article:author" content="Komeiji Satori">
 <meta property="article:tag" content="机器学习">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://kome1jisatori.github.io/2023/11/02/VIT/hexotext/source_posts/VIT/实验结果.png">
+<meta name="twitter:image" content="http://kome1jisatori.github.io/2023/11/02/VIT/%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C.png">
 
 <link rel="canonical" href="http://kome1jisatori.github.io/2023/11/02/VIT/">
 
@@ -193,7 +192,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-11-15 11:14:53" itemprop="dateModified" datetime="2023-11-15T11:14:53+08:00">2023-11-15</time>
+                <time title="修改时间：2024-01-10 10:46:13" itemprop="dateModified" datetime="2024-01-10T10:46:13+08:00">2024-01-10</time>
               </span>
 
           
@@ -253,7 +252,7 @@
 <p>​    但在CV的应用非常有限，此前只有目标检测中的DETR大规模使用了Transformer，别的领域很少，而纯Transformer的则几乎没有。</p>
 <p>​    Transformer的优势（相比于CNN）：1、并行计算；2、全局视野；3、灵活的堆叠能力。</p>
 <p>​    NLP中的模型Transformer+CV中的基础任务图像分类，需要解决很多问题，如输入不一致等。</p>
-<h2 id="1-3-研究成果"><a href="#1-3-研究成果" class="headerlink" title="1.3 研究成果"></a>1.3 研究成果</h2><p><img src="/2023/11/02/VIT/hexotext\source_posts\VIT\实验结果.png" alt="实验结果"></p>
+<h2 id="1-3-研究成果"><a href="#1-3-研究成果" class="headerlink" title="1.3 研究成果"></a>1.3 研究成果</h2><p><img src="/2023/11/02/VIT/%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C.png"></p>
 <p>​    ViT和ResNet Baseline取得了<strong>不相上下</strong>的结果。</p>
 <p>​    ImageNet等：数据集名称</p>
 <p>​    JFT：谷歌私有数据集，规模为ImageNet的20~30倍</p>
@@ -261,21 +260,19 @@
 <h2 id="1-4-研究意义"><a href="#1-4-研究意义" class="headerlink" title="1.4 研究意义"></a>1.4 研究意义</h2><p>​    展示了在计算机视觉中使用纯Transformer结构的可能；</p>
 <p>​    拉开了Transformer研究热潮的序幕。</p>
 <h1 id="二、论文详解"><a href="#二、论文详解" class="headerlink" title="二、论文详解"></a>二、论文详解</h1><h2 id="2-1-模型总览"><a href="#2-1-模型总览" class="headerlink" title="2.1 模型总览"></a>2.1 模型总览</h2><p>​    因为Transformer在NLP中很好用，所以ViT结构在进行设计时希望可以直接把Transformer应用于图像领域，所以对其作了最小的改动。具体而言，就是把一张图片切片，然后将其当作一个序列，加上线性的embedding后放入到Transformer中去。类比于NLP，此处的Image patch（图像切片）是作为token输入，即每一个切片都是一个处理单元，如下图所示。</p>
-<p><img src="/2023/11/02/VIT/hexotext\source_posts\VIT\ViT结构.png" alt="ViT结构"></p>
+<p><img src="/2023/11/02/VIT/ViT%E7%BB%93%E6%9E%84.png" alt="ViT结构"></p>
 <p>​    将图像处理为序列后输入进入Transformer Encoder，该部分由L个图右所示组件组成，其中Norm用于标准化，MLP为两层FC层。模型中有三个部分我不是很理解，分别为①Multi-Head Attention；②Position Embedding；③Linear Projection of Flattened Patches，接下来逐一解读这三个部分。</p>
 <h2 id="2-2-Multi-head-attention"><a href="#2-2-Multi-head-attention" class="headerlink" title="2.2 Multi-head attention"></a>2.2 Multi-head attention</h2><p>​    为了理解Multi-head attention，需要先了解一下Attention的机制。Transformer有两个部分，分别是编码器和解码器，编码器用于将输入的内容编码成“意思”（即该语言所指的东西），解码器用于将“意思”映射为目标语言中对应的表示方式。但是人工在进行翻译时有这样一种直觉：一个翻译只与有限的几个词有关，因此就在Transformer中引入了attention机制，对于需要关注的词，我们给一个更高的权重，不需要关注的词，给的权重则比较低，attention本质上是对token进行加权平均。attention需要考虑的问题是如何得到相应的权重，一般使用相似度计算来解决。</p>
 <p>​    Multi-head attention用到了多个Self Attention。Self Attention的计算用到了Scaled dot product，计算公式为<br>$$<br>Attention(Q,K,V)=softmax(\frac{QK^T}{\sqrt{d_k}})<br>$$<br>​    输入时，我们会将原本的对象进行转换，如将单词转换为词向量，图像转变为序列等。公式中的Q、K、V都是序列或词向量进行不同的矩阵乘法后得到的，其中Q是Query，用于对输入进行查询；Key为键值，通过与查询的值进行<strong>相似度计算</strong>（使用点积）获得相关度最高的关键字；V为价值，根据关键字返回对应的数值。本质是对input进行了线性变换，可以使用nn.Linear实现这些可学习的矩阵。$\sqrt{d_k}$为规模，一般取64，除以该值进行缩放，可以避免出现较大的数值，防止因softmax产生的极端值导致的梯度消失。最后使用softmax计算权值，每一个q与所有k计算得到的相似度之和为1(如q1和k1,k2,…,kn计算得到的相似度之和为1)。Self Attention实际上是在计算每个q和每个k的相似度。得到相似度后，将其作为权重与$k_n$对应的值$v_n$进行相乘并相加，最终得到输入$x$的sum结果$z$，代表了单词意思到句中意思的转化。直接将向量合并为矩阵可以进行并行计算。</p>
 <p>​    MultiHead Attention就是有多层Self Attention Layer，有多个$w_q$,$w_k$,$w_v$，将上述操作重复多次，每多一层Self Attention Layer就会多得到一组$z$，最后将得到的结果concat在一起，经过一层Linear层得到最后的结果。</p>
-<img src="/2023/11/02/VIT/hexotext\source\_posts\VIT\multihead.png" alt="multihead" style="zoom:70%;">
-
+<p><img src="/2023/11/02/VIT/multihead.png"></p>
 <p>​    目的是为了给注意力提供多种可能性。不同头的注意力可以集中到一个事物的不同地方上去。</p>
 <h2 id="2-3-输入端适配"><a href="#2-3-输入端适配" class="headerlink" title="2.3 输入端适配"></a>2.3 输入端适配</h2><p>​    本小节解读图像如何转换成transformer能够接受的输入格式，分为两个部分，第一个部分为图片是如何切分的，第二个部分为position encoding是如何操作的。</p>
 <p>​    Transformer的输入要求是一个序列，对于我们输入的一个原始图像，首先进行切图重排，将原图切分成3*3共9个小块，每一小份叫做一个patch；接着对每一个patch做flatten操作，即将原本3维的张量拉成1维的向量，将每一个拉平的patch称为flatten patch；然后对flatten patch做Linear projection（使用fc），即使向量通过全连接层映射为另一个向量，这样就得到了我们需要的输入向量。</p>
 <p>​    第二个部分为position encoding（位置编码）。由于图像切分重排后失去了位置信息，并且Transformer的内部运算是空间信息无关的，所以需要把位置信息编码重新传进网络。ViT使用了一个可学习的Vector来编码，编码vector和patch vector直接相加组成输入。但是不同的input size和patch size可能会得到不同数量的patch，所以编号的方法需要缩放。</p>
 <p>​    经过position encoding编号的输入，除了我们得到的输入向量编号1-9以外，还会有一个编号为0的patch（本质是dynamic pooling layer）用于整合信息，最后使用position0来进行分类。</p>
-<img src="/2023/11/02/VIT/hexotext\source\_posts\VIT\data flow.png" alt="data flow" style="zoom:80%;">
-
-<h2 id="2-4-实验设置"><a href="#2-4-实验设置" class="headerlink" title="2.4 实验设置"></a>2.4 实验设置</h2><p><img src="/2023/11/02/VIT/hexotext\source_posts\VIT\实验设置.png" alt="实验设置"></p>
+<p>![](data flow.png)</p>
+<h2 id="2-4-实验设置"><a href="#2-4-实验设置" class="headerlink" title="2.4 实验设置"></a>2.4 实验设置</h2><p><img src="/2023/11/02/VIT/%E5%AE%9E%E9%AA%8C%E8%AE%BE%E7%BD%AE.png" alt="实验设置"></p>
 <p>​    论文使用了3个不同规模的模型来进行实验，分别为Base、Large和Huge。其中Layers指标代表有多少个Transformer Encoder，hidden size代表embedding进去时候的channel数，MLP size是Encoder中channel数放大的size，Heads数代表有多少个attention head，Params为模型大小，可以看到ViT模型普遍都比较大。</p>
 <p>​    训练时该模型大规模使用Pre-Train。现在大数据集上预训练，然后到小数据集上Fine Tune。迁移过去后，需要把原本的MLP Head换掉，换成对应类别数的FC层，处理不同尺寸输入的时候需要对Positional Encoding的结果进行插值（缩放编号）。</p>
 <p>​    从原论文p7的图像可以看出，ViT的性能需要大量的数据来保证，否则无法充分发挥性能。</p>
@@ -354,8 +351,8 @@
       <i class="fa fa-chevron-left"></i> 2023一战上岸华中科技大学计算机专硕经验分享
     </a></div>
       <div class="post-nav-item">
-    <a href="/2024/01/10/git/" rel="next" title="git">
-      git <i class="fa fa-chevron-right"></i>
+    <a href="/2024/01/10/git/" rel="next" title="git基础操作">
+      git基础操作 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -507,13 +504,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">324k</span>
+    <span title="站点总字数">332k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:55</span>
+    <span title="站点阅读时长">5:02</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>

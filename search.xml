@@ -283,7 +283,7 @@
 <p>​    但在CV的应用非常有限，此前只有目标检测中的DETR大规模使用了Transformer，别的领域很少，而纯Transformer的则几乎没有。</p>
 <p>​    Transformer的优势（相比于CNN）：1、并行计算；2、全局视野；3、灵活的堆叠能力。</p>
 <p>​    NLP中的模型Transformer+CV中的基础任务图像分类，需要解决很多问题，如输入不一致等。</p>
-<h2 id="1-3-研究成果"><a href="#1-3-研究成果" class="headerlink" title="1.3 研究成果"></a>1.3 研究成果</h2><p><img src="/2023/11/02/VIT/hexotext\source_posts\VIT\实验结果.png" alt="实验结果"></p>
+<h2 id="1-3-研究成果"><a href="#1-3-研究成果" class="headerlink" title="1.3 研究成果"></a>1.3 研究成果</h2><p><img src="/2023/11/02/VIT/%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C.png"></p>
 <p>​    ViT和ResNet Baseline取得了<strong>不相上下</strong>的结果。</p>
 <p>​    ImageNet等：数据集名称</p>
 <p>​    JFT：谷歌私有数据集，规模为ImageNet的20~30倍</p>
@@ -291,21 +291,19 @@
 <h2 id="1-4-研究意义"><a href="#1-4-研究意义" class="headerlink" title="1.4 研究意义"></a>1.4 研究意义</h2><p>​    展示了在计算机视觉中使用纯Transformer结构的可能；</p>
 <p>​    拉开了Transformer研究热潮的序幕。</p>
 <h1 id="二、论文详解"><a href="#二、论文详解" class="headerlink" title="二、论文详解"></a>二、论文详解</h1><h2 id="2-1-模型总览"><a href="#2-1-模型总览" class="headerlink" title="2.1 模型总览"></a>2.1 模型总览</h2><p>​    因为Transformer在NLP中很好用，所以ViT结构在进行设计时希望可以直接把Transformer应用于图像领域，所以对其作了最小的改动。具体而言，就是把一张图片切片，然后将其当作一个序列，加上线性的embedding后放入到Transformer中去。类比于NLP，此处的Image patch（图像切片）是作为token输入，即每一个切片都是一个处理单元，如下图所示。</p>
-<p><img src="/2023/11/02/VIT/hexotext\source_posts\VIT\ViT结构.png" alt="ViT结构"></p>
+<p><img src="/2023/11/02/VIT/ViT%E7%BB%93%E6%9E%84.png" alt="ViT结构"></p>
 <p>​    将图像处理为序列后输入进入Transformer Encoder，该部分由L个图右所示组件组成，其中Norm用于标准化，MLP为两层FC层。模型中有三个部分我不是很理解，分别为①Multi-Head Attention；②Position Embedding；③Linear Projection of Flattened Patches，接下来逐一解读这三个部分。</p>
 <h2 id="2-2-Multi-head-attention"><a href="#2-2-Multi-head-attention" class="headerlink" title="2.2 Multi-head attention"></a>2.2 Multi-head attention</h2><p>​    为了理解Multi-head attention，需要先了解一下Attention的机制。Transformer有两个部分，分别是编码器和解码器，编码器用于将输入的内容编码成“意思”（即该语言所指的东西），解码器用于将“意思”映射为目标语言中对应的表示方式。但是人工在进行翻译时有这样一种直觉：一个翻译只与有限的几个词有关，因此就在Transformer中引入了attention机制，对于需要关注的词，我们给一个更高的权重，不需要关注的词，给的权重则比较低，attention本质上是对token进行加权平均。attention需要考虑的问题是如何得到相应的权重，一般使用相似度计算来解决。</p>
 <p>​    Multi-head attention用到了多个Self Attention。Self Attention的计算用到了Scaled dot product，计算公式为<br>$$<br>Attention(Q,K,V)=softmax(\frac{QK^T}{\sqrt{d_k}})<br>$$<br>​    输入时，我们会将原本的对象进行转换，如将单词转换为词向量，图像转变为序列等。公式中的Q、K、V都是序列或词向量进行不同的矩阵乘法后得到的，其中Q是Query，用于对输入进行查询；Key为键值，通过与查询的值进行<strong>相似度计算</strong>（使用点积）获得相关度最高的关键字；V为价值，根据关键字返回对应的数值。本质是对input进行了线性变换，可以使用nn.Linear实现这些可学习的矩阵。$\sqrt{d_k}$为规模，一般取64，除以该值进行缩放，可以避免出现较大的数值，防止因softmax产生的极端值导致的梯度消失。最后使用softmax计算权值，每一个q与所有k计算得到的相似度之和为1(如q1和k1,k2,…,kn计算得到的相似度之和为1)。Self Attention实际上是在计算每个q和每个k的相似度。得到相似度后，将其作为权重与$k_n$对应的值$v_n$进行相乘并相加，最终得到输入$x$的sum结果$z$，代表了单词意思到句中意思的转化。直接将向量合并为矩阵可以进行并行计算。</p>
 <p>​    MultiHead Attention就是有多层Self Attention Layer，有多个$w_q$,$w_k$,$w_v$，将上述操作重复多次，每多一层Self Attention Layer就会多得到一组$z$，最后将得到的结果concat在一起，经过一层Linear层得到最后的结果。</p>
-<img src="/2023/11/02/VIT/hexotext\source\_posts\VIT\multihead.png" alt="multihead" style="zoom:70%;">
-
+<p><img src="/2023/11/02/VIT/multihead.png"></p>
 <p>​    目的是为了给注意力提供多种可能性。不同头的注意力可以集中到一个事物的不同地方上去。</p>
 <h2 id="2-3-输入端适配"><a href="#2-3-输入端适配" class="headerlink" title="2.3 输入端适配"></a>2.3 输入端适配</h2><p>​    本小节解读图像如何转换成transformer能够接受的输入格式，分为两个部分，第一个部分为图片是如何切分的，第二个部分为position encoding是如何操作的。</p>
 <p>​    Transformer的输入要求是一个序列，对于我们输入的一个原始图像，首先进行切图重排，将原图切分成3*3共9个小块，每一小份叫做一个patch；接着对每一个patch做flatten操作，即将原本3维的张量拉成1维的向量，将每一个拉平的patch称为flatten patch；然后对flatten patch做Linear projection（使用fc），即使向量通过全连接层映射为另一个向量，这样就得到了我们需要的输入向量。</p>
 <p>​    第二个部分为position encoding（位置编码）。由于图像切分重排后失去了位置信息，并且Transformer的内部运算是空间信息无关的，所以需要把位置信息编码重新传进网络。ViT使用了一个可学习的Vector来编码，编码vector和patch vector直接相加组成输入。但是不同的input size和patch size可能会得到不同数量的patch，所以编号的方法需要缩放。</p>
 <p>​    经过position encoding编号的输入，除了我们得到的输入向量编号1-9以外，还会有一个编号为0的patch（本质是dynamic pooling layer）用于整合信息，最后使用position0来进行分类。</p>
-<img src="/2023/11/02/VIT/hexotext\source\_posts\VIT\data flow.png" alt="data flow" style="zoom:80%;">
-
-<h2 id="2-4-实验设置"><a href="#2-4-实验设置" class="headerlink" title="2.4 实验设置"></a>2.4 实验设置</h2><p><img src="/2023/11/02/VIT/hexotext\source_posts\VIT\实验设置.png" alt="实验设置"></p>
+<p>![](data flow.png)</p>
+<h2 id="2-4-实验设置"><a href="#2-4-实验设置" class="headerlink" title="2.4 实验设置"></a>2.4 实验设置</h2><p><img src="/2023/11/02/VIT/%E5%AE%9E%E9%AA%8C%E8%AE%BE%E7%BD%AE.png" alt="实验设置"></p>
 <p>​    论文使用了3个不同规模的模型来进行实验，分别为Base、Large和Huge。其中Layers指标代表有多少个Transformer Encoder，hidden size代表embedding进去时候的channel数，MLP size是Encoder中channel数放大的size，Heads数代表有多少个attention head，Params为模型大小，可以看到ViT模型普遍都比较大。</p>
 <p>​    训练时该模型大规模使用Pre-Train。现在大数据集上预训练，然后到小数据集上Fine Tune。迁移过去后，需要把原本的MLP Head换掉，换成对应类别数的FC层，处理不同尺寸输入的时候需要对Positional Encoding的结果进行插值（缩放编号）。</p>
 <p>​    从原论文p7的图像可以看出，ViT的性能需要大量的数据来保证，否则无法充分发挥性能。</p>
@@ -341,14 +339,103 @@
       </tags>
   </entry>
   <entry>
-    <title>git</title>
+    <title>git基础操作</title>
     <url>/2024/01/10/git/</url>
     <content><![CDATA[<p>git的使用</p>
 <span id="more"></span>
 
-<p>​    github上传文件，先add，后commit(-m加入日志)</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git add helloworld.cpp # 暂存</span><br><span class="line">git commit -m &quot;Add helloworld.cpp&quot; # 提交</span><br><span class="line">git log # 查看日志</span><br><span class="line">git push # 上传到github</span><br></pre></td></tr></table></figure>
+<h1 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h1><h2 id="上传文件"><a href="#上传文件" class="headerlink" title="上传文件"></a>上传文件</h2><p>​    github上传文件，先add，后commit(-m加入日志)</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git add helloworld.cpp <span class="comment"># 暂存</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git commit -m <span class="string">&quot;Add helloworld.cpp&quot;</span> <span class="comment"># 提交并记录log</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">log</span> <span class="comment"># 查看日志</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git push <span class="comment"># 上传到github</span></span></span><br></pre></td></tr></table></figure>
 
+<h2 id="初始化仓库——git-init"><a href="#初始化仓库——git-init" class="headerlink" title="初始化仓库——git init"></a>初始化仓库——git init</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> mkdir git-tutorial</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> git-tutorial</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git init</span></span><br></pre></td></tr></table></figure>
+
+<p>​    初始化成功生成.git目录，存储了管理当前目录内容所需的仓库数据。在Git 中，我们将这个目录的内容称为“附属于该仓库的工作树”。文件的编辑等操作在工作树中进行，然后记录到仓库中，以此管理文件的历史快照。如果想将文件恢复到原先的状态，可以从仓库中调取之前的快照，在工作树中打开。开发者可以通过这种方式获取以往的文件。</p>
+<h2 id="查看仓库状态——git-status"><a href="#查看仓库状态——git-status" class="headerlink" title="查看仓库状态——git status"></a>查看仓库状态——git status</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git status</span></span><br><span class="line">On branch master</span><br><span class="line"></span><br><span class="line">No commits yet</span><br><span class="line"></span><br><span class="line">nothing to commit (create/copy files and use &quot;git add&quot; to track)</span><br></pre></td></tr></table></figure>
+
+<p>​    显示当前处于master分支下，尚没有提交的内容。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> touch README.md</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git status</span></span><br><span class="line">On branch master</span><br><span class="line"></span><br><span class="line">No commits yet</span><br><span class="line"></span><br><span class="line">Untracked files:</span><br><span class="line">  (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)</span><br><span class="line">        README.md</span><br><span class="line"></span><br><span class="line">nothing added to commit but untracked files present (use &quot;git add&quot; to track)</span><br></pre></td></tr></table></figure>
+
+<p>​    我们建立README.md 文件作为管理对象，为第一次提交做前期准备。</p>
+<p>​    可以看到在Untracked files 中显示了README.md 文件。类似地，只要对Git 的工作树或仓库进行操作，git status命令的显示结果就会发生变化。</p>
+<h2 id="暂存区添加文件——git-add"><a href="#暂存区添加文件——git-add" class="headerlink" title="暂存区添加文件——git add"></a>暂存区添加文件——git add</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git add README.md</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git status</span></span><br><span class="line">On branch master</span><br><span class="line"></span><br><span class="line">No commits yet</span><br><span class="line"></span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use &quot;git rm --cached &lt;file&gt;...&quot; to unstage)</span><br><span class="line">        new file:   README.md</span><br></pre></td></tr></table></figure>
+
+<p>​    如果只是用Git 仓库的工作树创建了文件，那么该文件并不会被记入Git 仓库的版本管理对象当中。因此我们用git status命令查看README.md 文件时，它会显示在Untracked files 里。要想让文件成为Git 仓库的管理对象，就需要用git add命令将其加入暂存区（Stage 或者Index）中。暂存区是提交之前的一个临时区域。</p>
+<h2 id="保存仓库历史记录——git-commit"><a href="#保存仓库历史记录——git-commit" class="headerlink" title="保存仓库历史记录——git commit"></a>保存仓库历史记录——git commit</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git commit -m <span class="string">&quot;First commit&quot;</span></span></span><br><span class="line">[master (root-commit) b4e479d] First commit</span><br><span class="line"> 1 file changed, 0 insertions(+), 0 deletions(-)</span><br><span class="line"> create mode 100644 README.md</span><br></pre></td></tr></table></figure>
+
+<p>​    -m 参数后的”First commit”称作提交信息，是对这个提交的概述。</p>
+<p>​    git log可以用于查看提交日志。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">log</span></span></span><br><span class="line">commit b4e479d902e4b23a90b3edd26258366edf611721 (HEAD -&gt; master)</span><br><span class="line">Author: Kome1Satori &lt;740775405@qq.com&gt;</span><br><span class="line">Date:   Thu Jan 11 09:21:49 2024 +0800</span><br><span class="line"></span><br><span class="line">    First commit</span><br></pre></td></tr></table></figure>
+
+<p>​    commit 栏旁边显示的“9f129b……”是指向这个提交的哈希值。Git 的其他命令中，在指向提交时会用到这个哈希值。Author 栏中显示我们给Git 设置的用户名和邮箱地址。Date 栏中显示提交执行的日期和时间。再往下就是该提交的提交信息。</p>
+<p>​    只要在git log命令后加上目录名，便会只显示该目录下的日志。如果加的是文件名，就会只显示与该文件相关的日志。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">log</span> README.md</span></span><br></pre></td></tr></table></figure>
+
+<p>​    -p参数可以显示文件前后的差别。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">log</span> -p README.md</span></span><br><span class="line">commit b4e479d902e4b23a90b3edd26258366edf611721 (HEAD -&gt; master)</span><br><span class="line">Author: Kome1Satori &lt;740775405@qq.com&gt;</span><br><span class="line">Date:   Thu Jan 11 09:21:49 2024 +0800</span><br><span class="line"></span><br><span class="line">    First commit</span><br><span class="line"></span><br><span class="line">diff --git a/README.md b/README.md</span><br><span class="line">new file mode 100644</span><br><span class="line">index 0000000..e69de29</span><br></pre></td></tr></table></figure>
+
+<h2 id="查看文件前后差别——git-diff"><a href="#查看文件前后差别——git-diff" class="headerlink" title="查看文件前后差别——git diff"></a>查看文件前后差别——git diff</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git diff HEAD</span></span><br><span class="line">diff --git a/README.md b/README.md</span><br><span class="line">index e69de29..3b18e51 100644</span><br><span class="line">--- a/README.md</span><br><span class="line">+++ b/README.md</span><br><span class="line">@@ -0,0 +1 @@</span><br><span class="line">+hello world</span><br></pre></td></tr></table></figure>
+
+<p>​    在执行git commit命令之前先执行git diff HEAD命令，查看本次提交与上次提交之间有什么差别，等确认完毕后再进行提交。这里的HEAD 是指向当前分支中最新一次提交<br>的指针。</p>
+<h1 id="分支操作"><a href="#分支操作" class="headerlink" title="分支操作"></a>分支操作</h1><h2 id="显示分支——git-branch"><a href="#显示分支——git-branch" class="headerlink" title="显示分支——git branch"></a>显示分支——git branch</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git branch</span></span><br><span class="line">* master</span><br></pre></td></tr></table></figure>
+
+<p>​    *号表示现在所在的分支。</p>
+<h2 id="创建、切换分支——git-checkout-b"><a href="#创建、切换分支——git-checkout-b" class="headerlink" title="创建、切换分支——git checkout -b"></a>创建、切换分支——git checkout -b</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git checkout -b feature-A</span></span><br><span class="line">Switched to a new branch &#x27;feature-A&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>​    创建并转到分支feature-A，用以下两条指令也能起到一样的效果。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git branch feature-A</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git checkout feature-A</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git branch</span></span><br><span class="line">* feature-A</span><br><span class="line">  master</span><br></pre></td></tr></table></figure>
+
+<p>​    使用branch可以看到当前在feature分支。<code>git checkout -</code>可以返回上一个分支。</p>
+<h2 id="合并分支-——git-merge"><a href="#合并分支-——git-merge" class="headerlink" title="合并分支 ——git merge"></a>合并分支 ——git merge</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git merge --no-ff feature-A</span></span><br><span class="line">Merge made by the &#x27;ort&#x27; strategy.</span><br><span class="line"> README.md | 1 +</span><br><span class="line"> 1 file changed, 1 insertion(+)</span><br></pre></td></tr></table></figure>
+
+<h2 id="图表形式查看分支——git-log-–graph"><a href="#图表形式查看分支——git-log-–graph" class="headerlink" title="图表形式查看分支——git log –graph"></a>图表形式查看分支——git log –graph</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">log</span> --graph</span></span><br><span class="line">*   commit 49aa0dc081235acf968c47e31bf4bd39cd773d25 (HEAD -&gt; master)</span><br><span class="line">|\  Merge: 9091aea a3a48d6</span><br><span class="line">| | Author: Kome1Satori &lt;740775405@qq.com&gt;</span><br><span class="line">| | Date:   Fri Jan 12 09:31:15 2024 +0800</span><br><span class="line">| |</span><br><span class="line">| |     Merge branch &#x27;fix-B&#x27;</span><br><span class="line">| |</span><br><span class="line">| * commit a3a48d693f40d64e30f3f0092ac9a34613c36c35 (fix-B)</span><br><span class="line">| | Author: Kome1Satori &lt;740775405@qq.com&gt;</span><br><span class="line">| | Date:   Fri Jan 12 09:20:09 2024 +0800</span><br><span class="line">| |</span><br><span class="line">| |     Fix B</span><br><span class="line">| |</span><br><span class="line">* |   commit 9091aea176abc84eb935ee47423ac1ab7923b941</span><br><span class="line">|\ \  Merge: d180a2a adfb387</span><br><span class="line">| |/  Author: Kome1Satori &lt;740775405@qq.com&gt;</span><br><span class="line">|/|   Date:   Thu Jan 11 14:54:32 2024 +0800</span><br><span class="line">| |</span><br><span class="line">| |       Merge branch &#x27;feature-A&#x27;</span><br><span class="line">| |</span><br><span class="line">| * commit adfb3875620f03feb307432030fcd4ab124d5c3d (feature-A)</span><br><span class="line">|/  Author: Kome1Satori &lt;740775405@qq.com&gt;</span><br><span class="line">|   Date:   Thu Jan 11 11:25:38 2024 +0800</span><br><span class="line">|</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="回溯工作树——git-reset-–hard"><a href="#回溯工作树——git-reset-–hard" class="headerlink" title="回溯工作树——git reset –hard"></a>回溯工作树——git reset –hard</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git reset --hard d180a2ac38879934bdfe1a6cf6c0804ac67a68d8</span></span><br><span class="line">HEAD is now at d180a2a Add hello world</span><br></pre></td></tr></table></figure>
+
+<p>​    先使用<code>git log</code>查看要还原状态的哈希值，然后用git reset –hard +哈希值即可回溯</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git reflog</span></span><br><span class="line">a3a48d6 (HEAD -&gt; fix-B) HEAD@&#123;0&#125;: commit: Fix B</span><br><span class="line">d180a2a (master) HEAD@&#123;1&#125;: checkout: moving from master to fix-B</span><br><span class="line">d180a2a (master) HEAD@&#123;2&#125;: reset: moving to d180a2ac38879934bdfe1a6cf6c0804ac67a68d8</span><br><span class="line">9091aea HEAD@&#123;3&#125;: merge feature-A: Merge made by the &#x27;ort&#x27; strategy.</span><br><span class="line">d180a2a (master) HEAD@&#123;4&#125;: checkout: moving from feature-A to master</span><br><span class="line">adfb387 (feature-A) HEAD@&#123;5&#125;: checkout: moving from master to feature-A</span><br><span class="line">d180a2a (master) HEAD@&#123;6&#125;: checkout: moving from feature-A to master</span><br><span class="line">adfb387 (feature-A) HEAD@&#123;7&#125;: commit: Add feature-A</span><br><span class="line">d180a2a (master) HEAD@&#123;8&#125;: checkout: moving from master to feature-A</span><br><span class="line">d180a2a (master) HEAD@&#123;9&#125;: checkout: moving from feature-A to master</span><br><span class="line">d180a2a (master) HEAD@&#123;10&#125;: checkout: moving from master to feature-A</span><br><span class="line">d180a2a (master) HEAD@&#123;11&#125;: checkout: moving from feature-A to master</span><br><span class="line">d180a2a (master) HEAD@&#123;12&#125;: checkout: moving from master to feature-A</span><br><span class="line">d180a2a (master) HEAD@&#123;13&#125;: commit: Add hello world</span><br><span class="line">b4e479d HEAD@&#123;14&#125;: commit (initial): First commit</span><br></pre></td></tr></table></figure>
+
+<p>​    <code>git log</code>只能显示到目前节点位置的日志而不会显示回溯之前的，可以用<code>git reflog</code>来显示回溯之前的日志</p>
+<h2 id="修改提交信息——git-commit-–amend"><a href="#修改提交信息——git-commit-–amend" class="headerlink" title="修改提交信息——git commit –amend"></a>修改提交信息——git commit –amend</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git commit --amend</span></span><br><span class="line">[master 49aa0dc] Merge branch &#x27;fix-B&#x27;</span><br><span class="line"> Date: Fri Jan 12 09:31:15 2024 +0800</span><br></pre></td></tr></table></figure>
+
+<p>​    改变原本的提交日志。</p>
+<h2 id="压缩历史——git-rebase-i"><a href="#压缩历史——git-rebase-i" class="headerlink" title="压缩历史——git rebase -i"></a>压缩历史——git rebase -i</h2><p>​    提交一个修改，降修改包含到前一个提交之中，压缩成一个历史记录。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git rebase -i HEAD~2</span></span><br></pre></td></tr></table></figure>
+
+<p>​    用上述方式执行git rebase命令，可以选定当前分支中包含HEAD（最新提交）在内的两个最新历史记录为对象，并在编辑器中打开。</p>
+<p>​    删除第二个日志的pick部分，改写为fixup。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pick e7d071f Add feature-C</span><br><span class="line">fixup ae2fd06 Fix type</span><br></pre></td></tr></table></figure>
+
+<p>​    查看日志，发现提交已经被更改。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">log</span> --graph</span></span><br><span class="line">* commit c57fd21f270e89327210c57bcddc6575b84d77fe (HEAD -&gt; feature-C)</span><br><span class="line">| Author: Kome1Satori &lt;740775405@qq.com&gt;</span><br><span class="line">| Date:   Mon Jan 15 08:51:19 2024 +0800</span><br><span class="line">|</span><br><span class="line">|     Add feature-C</span><br><span class="line">|</span><br><span class="line">*   commit 49aa0dc081235acf968c47e31bf4bd39cd773d25 (master)</span><br><span class="line">|\  Merge: 9091aea a3a48d6</span><br><span class="line">| | Author: Kome1Satori &lt;740775405@qq.com&gt;</span><br><span class="line">| | Date:   Fri Jan 12 09:31:15 2024 +0800</span><br><span class="line">| |</span><br><span class="line">| |     Merge branch &#x27;fix-B&#x27;</span><br><span class="line">| |</span><br><span class="line">| * commit a3a48d693f40d64e30f3f0092ac9a34613c36c35 (fix-B)</span><br><span class="line">| | Author: Kome1Satori &lt;740775405@qq.com&gt;</span><br><span class="line">| | Date:   Fri Jan 12 09:20:09 2024 +0800</span><br><span class="line">| |</span><br><span class="line">| |     Fix B</span><br></pre></td></tr></table></figure>
+
+<p>​    这样一来，Fix typo就从历史中被抹去了。</p>
+<h2 id="添加远程仓库——git-remote-add"><a href="#添加远程仓库——git-remote-add" class="headerlink" title="添加远程仓库——git remote add"></a>添加远程仓库——git remote add</h2><p>​    在GitHub 上创建的仓库路径为“<a href="mailto:&#x67;&#105;&#116;&#x40;&#103;&#x69;&#116;&#104;&#117;&#98;&#x2e;&#x63;&#x6f;&#x6d;">&#x67;&#105;&#116;&#x40;&#103;&#x69;&#116;&#104;&#117;&#98;&#x2e;&#x63;&#x6f;&#x6d;</a>:用户名/git-tutorial.git”。现在我们用git remote add命令将它设置成本地仓库的远程仓库。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git remote add origin git@github.com:Kome1jiSatori/git-tutorial.git</span></span><br></pre></td></tr></table></figure>
+
+<p>​    按照上述格式执行git remote add命令之后，Git 会自动将<a href="mailto:&#x67;&#x69;&#x74;&#64;&#x67;&#105;&#x74;&#104;&#117;&#98;&#x2e;&#99;&#x6f;&#x6d;">&#x67;&#x69;&#x74;&#64;&#x67;&#105;&#x74;&#104;&#117;&#98;&#x2e;&#99;&#x6f;&#x6d;</a>:Kome1jiSatori/git-tutorial.git远程仓库的名称设置为origin（标识符）。</p>
+<h2 id="推送至远程仓库——git-push"><a href="#推送至远程仓库——git-push" class="headerlink" title="推送至远程仓库——git push"></a>推送至远程仓库——git push</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git push -u origin master</span></span><br><span class="line">Enumerating objects: 20, done.</span><br><span class="line">Counting objects: 100% (20/20), done.</span><br><span class="line">Delta compression using up to 20 threads</span><br><span class="line">Compressing objects: 100% (8/8), done.</span><br><span class="line">Writing objects: 100% (20/20), 1.58 KiB | 1.58 MiB/s, done.</span><br><span class="line">Total 20 (delta 2), reused 0 (delta 0), pack-reused 0</span><br><span class="line">remote: Resolving deltas: 100% (2/2), done.</span><br><span class="line">To github.com:Kome1jiSatori/git-tutorial.git</span><br><span class="line"> * [new branch]      master -&gt; master</span><br><span class="line">branch &#x27;master&#x27; set up to track &#x27;origin/master&#x27;.</span><br></pre></td></tr></table></figure>
+
+<p>​    像这样执行git push命令，当前分支的内容就会被推送给远程仓库origin 的master 分支。-u参数可以在推送的同时，将origin 仓库的master 分支设置为本地仓库当前分支的upstream（上游）。添加了这个参数，将来运行git pull命令从远程仓库获取内容时，本地仓库的这个分支就可以直接从origin 的master 分支获取内容，省去了另外添加参数的麻烦。</p>
+<p>​    推送master以外的分支：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git checkout -b feature-D</span></span><br><span class="line">Switched to a new branch &#x27;feature-D&#x27;</span><br><span class="line"><span class="meta">$</span><span class="bash"> git push -u origin feature-D</span></span><br><span class="line">Total 0 (delta 0), reused 0 (delta 0), pack-reused 0</span><br><span class="line">remote:</span><br><span class="line">remote: Create a pull request for &#x27;feature-D&#x27; on GitHub by visiting:</span><br><span class="line">remote:      https://github.com/Kome1jiSatori/git-tutorial/pull/new/feature-D</span><br><span class="line">remote:</span><br><span class="line">To github.com:Kome1jiSatori/git-tutorial.git</span><br><span class="line"> * [new branch]      feature-D -&gt; feature-D</span><br><span class="line">branch &#x27;feature-D&#x27; set up to track &#x27;origin/feature-D&#x27;.</span><br></pre></td></tr></table></figure>
+
+<p>​    创建了一个新的分支并将其上传到了远程仓库的同名分支中，现在在github界面就可以查看feature-D了。</p>
+<h2 id="获取远程仓库——git-clone"><a href="#获取远程仓库——git-clone" class="headerlink" title="获取远程仓库——git clone"></a>获取远程仓库——git clone</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">clone</span> git@github.com:Kome1jiSatori/git-tutorial.git</span></span><br><span class="line">Cloning into &#x27;git-tutorial&#x27;...</span><br><span class="line">remote: Enumerating objects: 20, done.</span><br><span class="line">remote: Counting objects: 100% (20/20), done.</span><br><span class="line">remote: Compressing objects: 100% (6/6), done.</span><br><span class="line">remote: Total 20 (delta 2), reused 20 (delta 2), pack-reused 0</span><br><span class="line">Receiving objects: 100% (20/20), done.</span><br><span class="line">Resolving deltas: 100% (2/2), done.</span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> git-tutorial</span></span><br></pre></td></tr></table></figure>
+
+<p>​    使用<code>git branch -a</code>命令可以查看当前分支的相关信息，添加-a参数可以同时显示本地仓库和远程仓库的分支信息。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git branch -a</span></span><br><span class="line">* master</span><br><span class="line">  remotes/origin/HEAD -&gt; origin/master</span><br><span class="line">  remotes/origin/feature-D</span><br><span class="line">  remotes/origin/master</span><br></pre></td></tr></table></figure>
+
+<p>​    将feature-D分支获取至本地仓库。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git checkout -b feature-D origin/feature-D</span></span><br><span class="line">Switched to a new branch &#x27;feature-D&#x27;</span><br><span class="line">branch &#x27;feature-D&#x27; set up to track &#x27;origin/feature-D&#x27;.</span><br></pre></td></tr></table></figure>
+
+<p>​    -b参数的后面是本地仓库中新建分支的名称。新建分支名称后面是获取来源的分支名称。</p>
+<h2 id="获取最新的远程仓库分支——git-pull"><a href="#获取最新的远程仓库分支——git-pull" class="headerlink" title="获取最新的远程仓库分支——git pull"></a>获取最新的远程仓库分支——git pull</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git pull origin feature-D</span></span><br><span class="line">remote: Enumerating objects: 5, done.</span><br><span class="line">remote: Counting objects: 100% (5/5), done.</span><br><span class="line">remote: Compressing objects: 100% (2/2), done.</span><br><span class="line">remote: Total 3 (delta 0), reused 3 (delta 0), pack-reused 0</span><br><span class="line">Unpacking objects: 100% (3/3), 265 bytes | 53.00 KiB/s, done.</span><br><span class="line">From github.com:Kome1jiSatori/git-tutorial</span><br><span class="line"> * branch            feature-D  -&gt; FETCH_HEAD</span><br><span class="line">   b4439c4..ab5167c  feature-D  -&gt; origin/feature-D</span><br><span class="line">Updating b4439c4..ab5167c</span><br><span class="line">Fast-forward</span><br><span class="line"> README.md | 1 +</span><br><span class="line"> 1 file changed, 1 insertion(+)</span><br></pre></td></tr></table></figure>
+
+<p>​    现在我们放下刚刚操作的目录，回到原先的那个目录下。这边的本地仓库中只创建了feature-D 分支，并没有在feature-D 分支中进行任何提交。然而远程仓库的feature-D 分支中已经有了我们刚刚推送的提交。这时我们就可以使用git pull 命令，将本地的feature-D 分支更新到最新状态。当前分支为feature-D 分支。</p>
 ]]></content>
   </entry>
   <entry>
@@ -1104,7 +1191,7 @@
 <p>&ensp;&ensp;&ensp;&ensp;<strong>1.调度机制</strong>    </p>
 <p>&ensp;&ensp;&ensp;&ensp;（1）系统中设置多个就绪队列，分别赋予不同的优先级，并逐级降低。为不同队列所规定的时间片长度不同，优先权越高的队列分配的时间片越小。依次逐级加倍。<br>&ensp;&ensp;&ensp;&ensp;（2）新进程进入内存后，先投入队列1的末尾，按FCFS算法排队调度；若按队列1的一个时间片未能执行完，则降低投入到队列2的末尾。如果在队列2的时间片内未能完成，则降低投入到队列3……；如此下去，降低到最后的队列，则按“时间片轮转”算法调度直到完成。<br>&ensp;&ensp;&ensp;&ensp;（3）仅当较高优先级的队列为空，才调度较低优先级的队列中的进程执行。如果进程执行时有新进程进入较高优先级的队列，则抢先执行新进程，并把被抢先的进程投入原队列的末尾。 </p>
 <p>&ensp;&ensp;&ensp;&ensp;<strong>2.调度算法的性能</strong>   </p>
-<p>&ensp;&ensp;&ensp;&ensp;（1）终端型作业用户<br>&ensp;&ensp;&ensp;&ensp;提供高的响应时间。<br>&ensp;&ensp;&ensp;&ensp;（2）短批处理作业用户<br>&ensp;&ensp;&ensp;&ensp;在第一个或前2个时间片中即可完成，平均周转时间短。<br>&ensp;&ensp;&ensp;&ensp;（3）长批处理作业用户<br>&ensp;&ensp;&ensp;&ensp;不会饥饿。  </p>
+<p>xxxxxxxxxx 太长不看（明明是不会c</p>
 <h3 id="3-3-6-基于公平原则的调度算法"><a href="#3-3-6-基于公平原则的调度算法" class="headerlink" title="3.3.6 基于公平原则的调度算法"></a>3.3.6 基于公平原则的调度算法</h3><p>&ensp;&ensp;&ensp;&ensp;<strong>1.保证调度算法</strong>   </p>
 <p>&ensp;&ensp;&ensp;&ensp;保证调度算法是另一种类型的调度算法，它向用户所作出的保证并不是优先运行，而是明确的性能保证，该算法可以做到调度的公平性。  </p>
 <p>&ensp;&ensp;&ensp;&ensp;在实施公平调度算法时系统必须具备这样一些功能：<br>&ensp;&ensp;&ensp;&ensp;（1）跟踪计算每个进程自创建以来已经执行的处理时间。<br>&ensp;&ensp;&ensp;&ensp;（2）计算每个进程应获得的处理机时间，即自创建以来的时间除以n<br>&ensp;&ensp;&ensp;&ensp;（3）计算进程获得处理机时间的比率，即进程实际执行的处理时间和应获得的处理机时间之比<br>&ensp;&ensp;&ensp;&ensp;（4）比较各进程获得处理机时间的比率。<br>&ensp;&ensp;&ensp;&ensp;（5）调度程序应选择比率最小的进程将处理机分配给它，并让该进程一直运行，直到超过最接近它的进程比率为止。  </p>
@@ -1195,6 +1282,7 @@
 <p>&ensp;&ensp;&ensp;&ensp;<strong>3. 死锁检测中的数据结构</strong>    </p>
 <p>&ensp;&ensp;&ensp;&ensp;①可利用资源向量Available：表示m类资源中每类资源的可用数目。<br>&ensp;&ensp;&ensp;&ensp;②请求矩阵Request：表示每个进程当前对各类资源的请求数目。<br>&ensp;&ensp;&ensp;&ensp;③分配矩阵Allocation：表示每个进程当前已分配的资源数目。<br>&ensp;&ensp;&ensp;&ensp;④工作向量Work：表示系统当前可提供资源数。<br>&ensp;&ensp;&ensp;&ensp;⑤剩下的进程集合L：记录当前已不占用资源的进程。  </p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line">Work=Available; </span><br><span class="line">L=&#123;Li|Allocationi=<span class="number">0</span>∩Requesti=<span class="number">0</span>&#125;;</span><br><span class="line"><span class="keyword">for</span> all  LiL <span class="keyword">do</span><span class="comment">//若占用资源</span></span><br><span class="line">  &#123;</span><br><span class="line">      <span class="keyword">if</span>（Requesti≤Work）</span><br><span class="line">      &#123;</span><br><span class="line">           Work=Work+Allocationi;</span><br><span class="line">           L=L∪ Li;<span class="comment">//不占用的</span></span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">deadlock=~(L==&#123;p1,p2,…pn&#125;)</span><br></pre></td></tr></table></figure>
+
 <h3 id="3-8-2-死锁的解除"><a href="#3-8-2-死锁的解除" class="headerlink" title="3.8.2 死锁的解除"></a>3.8.2 死锁的解除</h3><p>&ensp;&ensp;&ensp;&ensp;一旦检测出系统中出现了死锁，就应将陷入死锁的进程从死锁状态中解脱出来，常用的死锁解除方法有两种：  </p>
 <p>&ensp;&ensp;&ensp;&ensp;1）抢占资源：从其他进程那里抢占足够数量的资源给死锁进程，以解除死锁状态。  </p>
 <p>&ensp;&ensp;&ensp;&ensp;2）终止进程法：终止系统中的一个或多个死锁进程，直至打破循环环路，使系统从死锁状态解脱出来。  </p>

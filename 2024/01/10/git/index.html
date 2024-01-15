@@ -22,13 +22,13 @@
 
   <meta name="description" content="git的使用">
 <meta property="og:type" content="article">
-<meta property="og:title" content="git">
+<meta property="og:title" content="git基础操作">
 <meta property="og:url" content="http://kome1jisatori.github.io/2024/01/10/git/index.html">
 <meta property="og:site_name" content="KomeijiSatoriのblog">
 <meta property="og:description" content="git的使用">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-01-10T02:11:13.000Z">
-<meta property="article:modified_time" content="2024-01-10T02:26:00.494Z">
+<meta property="article:modified_time" content="2024-01-15T03:12:30.010Z">
 <meta property="article:author" content="Komeiji Satori">
 <meta name="twitter:card" content="summary">
 
@@ -45,7 +45,7 @@
   };
 </script>
 
-  <title>git | KomeijiSatoriのblog</title>
+  <title>git基础操作 | KomeijiSatoriのblog</title>
   
 
 
@@ -169,7 +169,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          git
+          git基础操作
         </h1>
 
         <div class="post-meta">
@@ -178,13 +178,19 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2024-01-10 10:11:13 / 修改时间：10:26:00" itemprop="dateCreated datePublished" datetime="2024-01-10T10:11:13+08:00">2024-01-10</time>
+              <time title="创建时间：2024-01-10 10:11:13" itemprop="dateCreated datePublished" datetime="2024-01-10T10:11:13+08:00">2024-01-10</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-01-15 11:12:30" itemprop="dateModified" datetime="2024-01-15T11:12:30+08:00">2024-01-15</time>
+              </span>
 
           
-            <span id="/2024/01/10/git/" class="post-meta-item leancloud_visitors" data-flag-title="git" title="阅读次数">
+            <span id="/2024/01/10/git/" class="post-meta-item leancloud_visitors" data-flag-title="git基础操作" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -210,14 +216,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>136</span>
+              <span>8.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>8 分钟</span>
             </span>
 
         </div>
@@ -232,9 +238,98 @@
         <p>git的使用</p>
 <span id="more"></span>
 
-<p>​    github上传文件，先add，后commit(-m加入日志)</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git add helloworld.cpp # 暂存</span><br><span class="line">git commit -m &quot;Add helloworld.cpp&quot; # 提交</span><br><span class="line">git log # 查看日志</span><br><span class="line">git push # 上传到github</span><br></pre></td></tr></table></figure>
+<h1 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h1><h2 id="上传文件"><a href="#上传文件" class="headerlink" title="上传文件"></a>上传文件</h2><p>​    github上传文件，先add，后commit(-m加入日志)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git add helloworld.cpp <span class="comment"># 暂存</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git commit -m <span class="string">&quot;Add helloworld.cpp&quot;</span> <span class="comment"># 提交并记录log</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">log</span> <span class="comment"># 查看日志</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git push <span class="comment"># 上传到github</span></span></span><br></pre></td></tr></table></figure>
 
+<h2 id="初始化仓库——git-init"><a href="#初始化仓库——git-init" class="headerlink" title="初始化仓库——git init"></a>初始化仓库——git init</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> mkdir git-tutorial</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> git-tutorial</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git init</span></span><br></pre></td></tr></table></figure>
+
+<p>​    初始化成功生成.git目录，存储了管理当前目录内容所需的仓库数据。在Git 中，我们将这个目录的内容称为“附属于该仓库的工作树”。文件的编辑等操作在工作树中进行，然后记录到仓库中，以此管理文件的历史快照。如果想将文件恢复到原先的状态，可以从仓库中调取之前的快照，在工作树中打开。开发者可以通过这种方式获取以往的文件。</p>
+<h2 id="查看仓库状态——git-status"><a href="#查看仓库状态——git-status" class="headerlink" title="查看仓库状态——git status"></a>查看仓库状态——git status</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git status</span></span><br><span class="line">On branch master</span><br><span class="line"></span><br><span class="line">No commits yet</span><br><span class="line"></span><br><span class="line">nothing to commit (create/copy files and use &quot;git add&quot; to track)</span><br></pre></td></tr></table></figure>
+
+<p>​    显示当前处于master分支下，尚没有提交的内容。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> touch README.md</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git status</span></span><br><span class="line">On branch master</span><br><span class="line"></span><br><span class="line">No commits yet</span><br><span class="line"></span><br><span class="line">Untracked files:</span><br><span class="line">  (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)</span><br><span class="line">        README.md</span><br><span class="line"></span><br><span class="line">nothing added to commit but untracked files present (use &quot;git add&quot; to track)</span><br></pre></td></tr></table></figure>
+
+<p>​    我们建立README.md 文件作为管理对象，为第一次提交做前期准备。</p>
+<p>​    可以看到在Untracked files 中显示了README.md 文件。类似地，只要对Git 的工作树或仓库进行操作，git status命令的显示结果就会发生变化。</p>
+<h2 id="暂存区添加文件——git-add"><a href="#暂存区添加文件——git-add" class="headerlink" title="暂存区添加文件——git add"></a>暂存区添加文件——git add</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git add README.md</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git status</span></span><br><span class="line">On branch master</span><br><span class="line"></span><br><span class="line">No commits yet</span><br><span class="line"></span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use &quot;git rm --cached &lt;file&gt;...&quot; to unstage)</span><br><span class="line">        new file:   README.md</span><br></pre></td></tr></table></figure>
+
+<p>​    如果只是用Git 仓库的工作树创建了文件，那么该文件并不会被记入Git 仓库的版本管理对象当中。因此我们用git status命令查看README.md 文件时，它会显示在Untracked files 里。要想让文件成为Git 仓库的管理对象，就需要用git add命令将其加入暂存区（Stage 或者Index）中。暂存区是提交之前的一个临时区域。</p>
+<h2 id="保存仓库历史记录——git-commit"><a href="#保存仓库历史记录——git-commit" class="headerlink" title="保存仓库历史记录——git commit"></a>保存仓库历史记录——git commit</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git commit -m <span class="string">&quot;First commit&quot;</span></span></span><br><span class="line">[master (root-commit) b4e479d] First commit</span><br><span class="line"> 1 file changed, 0 insertions(+), 0 deletions(-)</span><br><span class="line"> create mode 100644 README.md</span><br></pre></td></tr></table></figure>
+
+<p>​    -m 参数后的”First commit”称作提交信息，是对这个提交的概述。</p>
+<p>​    git log可以用于查看提交日志。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">log</span></span></span><br><span class="line">commit b4e479d902e4b23a90b3edd26258366edf611721 (HEAD -&gt; master)</span><br><span class="line">Author: Kome1Satori &lt;740775405@qq.com&gt;</span><br><span class="line">Date:   Thu Jan 11 09:21:49 2024 +0800</span><br><span class="line"></span><br><span class="line">    First commit</span><br></pre></td></tr></table></figure>
+
+<p>​    commit 栏旁边显示的“9f129b……”是指向这个提交的哈希值。Git 的其他命令中，在指向提交时会用到这个哈希值。Author 栏中显示我们给Git 设置的用户名和邮箱地址。Date 栏中显示提交执行的日期和时间。再往下就是该提交的提交信息。</p>
+<p>​    只要在git log命令后加上目录名，便会只显示该目录下的日志。如果加的是文件名，就会只显示与该文件相关的日志。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">log</span> README.md</span></span><br></pre></td></tr></table></figure>
+
+<p>​    -p参数可以显示文件前后的差别。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">log</span> -p README.md</span></span><br><span class="line">commit b4e479d902e4b23a90b3edd26258366edf611721 (HEAD -&gt; master)</span><br><span class="line">Author: Kome1Satori &lt;740775405@qq.com&gt;</span><br><span class="line">Date:   Thu Jan 11 09:21:49 2024 +0800</span><br><span class="line"></span><br><span class="line">    First commit</span><br><span class="line"></span><br><span class="line">diff --git a/README.md b/README.md</span><br><span class="line">new file mode 100644</span><br><span class="line">index 0000000..e69de29</span><br></pre></td></tr></table></figure>
+
+<h2 id="查看文件前后差别——git-diff"><a href="#查看文件前后差别——git-diff" class="headerlink" title="查看文件前后差别——git diff"></a>查看文件前后差别——git diff</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git diff HEAD</span></span><br><span class="line">diff --git a/README.md b/README.md</span><br><span class="line">index e69de29..3b18e51 100644</span><br><span class="line">--- a/README.md</span><br><span class="line">+++ b/README.md</span><br><span class="line">@@ -0,0 +1 @@</span><br><span class="line">+hello world</span><br></pre></td></tr></table></figure>
+
+<p>​    在执行git commit命令之前先执行git diff HEAD命令，查看本次提交与上次提交之间有什么差别，等确认完毕后再进行提交。这里的HEAD 是指向当前分支中最新一次提交<br>的指针。</p>
+<h1 id="分支操作"><a href="#分支操作" class="headerlink" title="分支操作"></a>分支操作</h1><h2 id="显示分支——git-branch"><a href="#显示分支——git-branch" class="headerlink" title="显示分支——git branch"></a>显示分支——git branch</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git branch</span></span><br><span class="line">* master</span><br></pre></td></tr></table></figure>
+
+<p>​    *号表示现在所在的分支。</p>
+<h2 id="创建、切换分支——git-checkout-b"><a href="#创建、切换分支——git-checkout-b" class="headerlink" title="创建、切换分支——git checkout -b"></a>创建、切换分支——git checkout -b</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git checkout -b feature-A</span></span><br><span class="line">Switched to a new branch &#x27;feature-A&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>​    创建并转到分支feature-A，用以下两条指令也能起到一样的效果。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git branch feature-A</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git checkout feature-A</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git branch</span></span><br><span class="line">* feature-A</span><br><span class="line">  master</span><br></pre></td></tr></table></figure>
+
+<p>​    使用branch可以看到当前在feature分支。<code>git checkout -</code>可以返回上一个分支。</p>
+<h2 id="合并分支-——git-merge"><a href="#合并分支-——git-merge" class="headerlink" title="合并分支 ——git merge"></a>合并分支 ——git merge</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git merge --no-ff feature-A</span></span><br><span class="line">Merge made by the &#x27;ort&#x27; strategy.</span><br><span class="line"> README.md | 1 +</span><br><span class="line"> 1 file changed, 1 insertion(+)</span><br></pre></td></tr></table></figure>
+
+<h2 id="图表形式查看分支——git-log-–graph"><a href="#图表形式查看分支——git-log-–graph" class="headerlink" title="图表形式查看分支——git log –graph"></a>图表形式查看分支——git log –graph</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">log</span> --graph</span></span><br><span class="line">*   commit 49aa0dc081235acf968c47e31bf4bd39cd773d25 (HEAD -&gt; master)</span><br><span class="line">|\  Merge: 9091aea a3a48d6</span><br><span class="line">| | Author: Kome1Satori &lt;740775405@qq.com&gt;</span><br><span class="line">| | Date:   Fri Jan 12 09:31:15 2024 +0800</span><br><span class="line">| |</span><br><span class="line">| |     Merge branch &#x27;fix-B&#x27;</span><br><span class="line">| |</span><br><span class="line">| * commit a3a48d693f40d64e30f3f0092ac9a34613c36c35 (fix-B)</span><br><span class="line">| | Author: Kome1Satori &lt;740775405@qq.com&gt;</span><br><span class="line">| | Date:   Fri Jan 12 09:20:09 2024 +0800</span><br><span class="line">| |</span><br><span class="line">| |     Fix B</span><br><span class="line">| |</span><br><span class="line">* |   commit 9091aea176abc84eb935ee47423ac1ab7923b941</span><br><span class="line">|\ \  Merge: d180a2a adfb387</span><br><span class="line">| |/  Author: Kome1Satori &lt;740775405@qq.com&gt;</span><br><span class="line">|/|   Date:   Thu Jan 11 14:54:32 2024 +0800</span><br><span class="line">| |</span><br><span class="line">| |       Merge branch &#x27;feature-A&#x27;</span><br><span class="line">| |</span><br><span class="line">| * commit adfb3875620f03feb307432030fcd4ab124d5c3d (feature-A)</span><br><span class="line">|/  Author: Kome1Satori &lt;740775405@qq.com&gt;</span><br><span class="line">|   Date:   Thu Jan 11 11:25:38 2024 +0800</span><br><span class="line">|</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="回溯工作树——git-reset-–hard"><a href="#回溯工作树——git-reset-–hard" class="headerlink" title="回溯工作树——git reset –hard"></a>回溯工作树——git reset –hard</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git reset --hard d180a2ac38879934bdfe1a6cf6c0804ac67a68d8</span></span><br><span class="line">HEAD is now at d180a2a Add hello world</span><br></pre></td></tr></table></figure>
+
+<p>​    先使用<code>git log</code>查看要还原状态的哈希值，然后用git reset –hard +哈希值即可回溯</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git reflog</span></span><br><span class="line">a3a48d6 (HEAD -&gt; fix-B) HEAD@&#123;0&#125;: commit: Fix B</span><br><span class="line">d180a2a (master) HEAD@&#123;1&#125;: checkout: moving from master to fix-B</span><br><span class="line">d180a2a (master) HEAD@&#123;2&#125;: reset: moving to d180a2ac38879934bdfe1a6cf6c0804ac67a68d8</span><br><span class="line">9091aea HEAD@&#123;3&#125;: merge feature-A: Merge made by the &#x27;ort&#x27; strategy.</span><br><span class="line">d180a2a (master) HEAD@&#123;4&#125;: checkout: moving from feature-A to master</span><br><span class="line">adfb387 (feature-A) HEAD@&#123;5&#125;: checkout: moving from master to feature-A</span><br><span class="line">d180a2a (master) HEAD@&#123;6&#125;: checkout: moving from feature-A to master</span><br><span class="line">adfb387 (feature-A) HEAD@&#123;7&#125;: commit: Add feature-A</span><br><span class="line">d180a2a (master) HEAD@&#123;8&#125;: checkout: moving from master to feature-A</span><br><span class="line">d180a2a (master) HEAD@&#123;9&#125;: checkout: moving from feature-A to master</span><br><span class="line">d180a2a (master) HEAD@&#123;10&#125;: checkout: moving from master to feature-A</span><br><span class="line">d180a2a (master) HEAD@&#123;11&#125;: checkout: moving from feature-A to master</span><br><span class="line">d180a2a (master) HEAD@&#123;12&#125;: checkout: moving from master to feature-A</span><br><span class="line">d180a2a (master) HEAD@&#123;13&#125;: commit: Add hello world</span><br><span class="line">b4e479d HEAD@&#123;14&#125;: commit (initial): First commit</span><br></pre></td></tr></table></figure>
+
+<p>​    <code>git log</code>只能显示到目前节点位置的日志而不会显示回溯之前的，可以用<code>git reflog</code>来显示回溯之前的日志</p>
+<h2 id="修改提交信息——git-commit-–amend"><a href="#修改提交信息——git-commit-–amend" class="headerlink" title="修改提交信息——git commit –amend"></a>修改提交信息——git commit –amend</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git commit --amend</span></span><br><span class="line">[master 49aa0dc] Merge branch &#x27;fix-B&#x27;</span><br><span class="line"> Date: Fri Jan 12 09:31:15 2024 +0800</span><br></pre></td></tr></table></figure>
+
+<p>​    改变原本的提交日志。</p>
+<h2 id="压缩历史——git-rebase-i"><a href="#压缩历史——git-rebase-i" class="headerlink" title="压缩历史——git rebase -i"></a>压缩历史——git rebase -i</h2><p>​    提交一个修改，降修改包含到前一个提交之中，压缩成一个历史记录。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git rebase -i HEAD~2</span></span><br></pre></td></tr></table></figure>
+
+<p>​    用上述方式执行git rebase命令，可以选定当前分支中包含HEAD（最新提交）在内的两个最新历史记录为对象，并在编辑器中打开。</p>
+<p>​    删除第二个日志的pick部分，改写为fixup。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pick e7d071f Add feature-C</span><br><span class="line">fixup ae2fd06 Fix type</span><br></pre></td></tr></table></figure>
+
+<p>​    查看日志，发现提交已经被更改。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">log</span> --graph</span></span><br><span class="line">* commit c57fd21f270e89327210c57bcddc6575b84d77fe (HEAD -&gt; feature-C)</span><br><span class="line">| Author: Kome1Satori &lt;740775405@qq.com&gt;</span><br><span class="line">| Date:   Mon Jan 15 08:51:19 2024 +0800</span><br><span class="line">|</span><br><span class="line">|     Add feature-C</span><br><span class="line">|</span><br><span class="line">*   commit 49aa0dc081235acf968c47e31bf4bd39cd773d25 (master)</span><br><span class="line">|\  Merge: 9091aea a3a48d6</span><br><span class="line">| | Author: Kome1Satori &lt;740775405@qq.com&gt;</span><br><span class="line">| | Date:   Fri Jan 12 09:31:15 2024 +0800</span><br><span class="line">| |</span><br><span class="line">| |     Merge branch &#x27;fix-B&#x27;</span><br><span class="line">| |</span><br><span class="line">| * commit a3a48d693f40d64e30f3f0092ac9a34613c36c35 (fix-B)</span><br><span class="line">| | Author: Kome1Satori &lt;740775405@qq.com&gt;</span><br><span class="line">| | Date:   Fri Jan 12 09:20:09 2024 +0800</span><br><span class="line">| |</span><br><span class="line">| |     Fix B</span><br></pre></td></tr></table></figure>
+
+<p>​    这样一来，Fix typo就从历史中被抹去了。</p>
+<h2 id="添加远程仓库——git-remote-add"><a href="#添加远程仓库——git-remote-add" class="headerlink" title="添加远程仓库——git remote add"></a>添加远程仓库——git remote add</h2><p>​    在GitHub 上创建的仓库路径为“<a href="mailto:&#x67;&#105;&#116;&#x40;&#103;&#x69;&#116;&#104;&#117;&#98;&#x2e;&#x63;&#x6f;&#x6d;">&#x67;&#105;&#116;&#x40;&#103;&#x69;&#116;&#104;&#117;&#98;&#x2e;&#x63;&#x6f;&#x6d;</a>:用户名/git-tutorial.git”。现在我们用git remote add命令将它设置成本地仓库的远程仓库。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git remote add origin git@github.com:Kome1jiSatori/git-tutorial.git</span></span><br></pre></td></tr></table></figure>
+
+<p>​    按照上述格式执行git remote add命令之后，Git 会自动将<a href="mailto:&#x67;&#x69;&#x74;&#64;&#x67;&#105;&#x74;&#104;&#117;&#98;&#x2e;&#99;&#x6f;&#x6d;">&#x67;&#x69;&#x74;&#64;&#x67;&#105;&#x74;&#104;&#117;&#98;&#x2e;&#99;&#x6f;&#x6d;</a>:Kome1jiSatori/git-tutorial.git远程仓库的名称设置为origin（标识符）。</p>
+<h2 id="推送至远程仓库——git-push"><a href="#推送至远程仓库——git-push" class="headerlink" title="推送至远程仓库——git push"></a>推送至远程仓库——git push</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git push -u origin master</span></span><br><span class="line">Enumerating objects: 20, done.</span><br><span class="line">Counting objects: 100% (20/20), done.</span><br><span class="line">Delta compression using up to 20 threads</span><br><span class="line">Compressing objects: 100% (8/8), done.</span><br><span class="line">Writing objects: 100% (20/20), 1.58 KiB | 1.58 MiB/s, done.</span><br><span class="line">Total 20 (delta 2), reused 0 (delta 0), pack-reused 0</span><br><span class="line">remote: Resolving deltas: 100% (2/2), done.</span><br><span class="line">To github.com:Kome1jiSatori/git-tutorial.git</span><br><span class="line"> * [new branch]      master -&gt; master</span><br><span class="line">branch &#x27;master&#x27; set up to track &#x27;origin/master&#x27;.</span><br></pre></td></tr></table></figure>
+
+<p>​    像这样执行git push命令，当前分支的内容就会被推送给远程仓库origin 的master 分支。-u参数可以在推送的同时，将origin 仓库的master 分支设置为本地仓库当前分支的upstream（上游）。添加了这个参数，将来运行git pull命令从远程仓库获取内容时，本地仓库的这个分支就可以直接从origin 的master 分支获取内容，省去了另外添加参数的麻烦。</p>
+<p>​    推送master以外的分支：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git checkout -b feature-D</span></span><br><span class="line">Switched to a new branch &#x27;feature-D&#x27;</span><br><span class="line"><span class="meta">$</span><span class="bash"> git push -u origin feature-D</span></span><br><span class="line">Total 0 (delta 0), reused 0 (delta 0), pack-reused 0</span><br><span class="line">remote:</span><br><span class="line">remote: Create a pull request for &#x27;feature-D&#x27; on GitHub by visiting:</span><br><span class="line">remote:      https://github.com/Kome1jiSatori/git-tutorial/pull/new/feature-D</span><br><span class="line">remote:</span><br><span class="line">To github.com:Kome1jiSatori/git-tutorial.git</span><br><span class="line"> * [new branch]      feature-D -&gt; feature-D</span><br><span class="line">branch &#x27;feature-D&#x27; set up to track &#x27;origin/feature-D&#x27;.</span><br></pre></td></tr></table></figure>
+
+<p>​    创建了一个新的分支并将其上传到了远程仓库的同名分支中，现在在github界面就可以查看feature-D了。</p>
+<h2 id="获取远程仓库——git-clone"><a href="#获取远程仓库——git-clone" class="headerlink" title="获取远程仓库——git clone"></a>获取远程仓库——git clone</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">clone</span> git@github.com:Kome1jiSatori/git-tutorial.git</span></span><br><span class="line">Cloning into &#x27;git-tutorial&#x27;...</span><br><span class="line">remote: Enumerating objects: 20, done.</span><br><span class="line">remote: Counting objects: 100% (20/20), done.</span><br><span class="line">remote: Compressing objects: 100% (6/6), done.</span><br><span class="line">remote: Total 20 (delta 2), reused 20 (delta 2), pack-reused 0</span><br><span class="line">Receiving objects: 100% (20/20), done.</span><br><span class="line">Resolving deltas: 100% (2/2), done.</span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> git-tutorial</span></span><br></pre></td></tr></table></figure>
+
+<p>​    使用<code>git branch -a</code>命令可以查看当前分支的相关信息，添加-a参数可以同时显示本地仓库和远程仓库的分支信息。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git branch -a</span></span><br><span class="line">* master</span><br><span class="line">  remotes/origin/HEAD -&gt; origin/master</span><br><span class="line">  remotes/origin/feature-D</span><br><span class="line">  remotes/origin/master</span><br></pre></td></tr></table></figure>
+
+<p>​    将feature-D分支获取至本地仓库。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git checkout -b feature-D origin/feature-D</span></span><br><span class="line">Switched to a new branch &#x27;feature-D&#x27;</span><br><span class="line">branch &#x27;feature-D&#x27; set up to track &#x27;origin/feature-D&#x27;.</span><br></pre></td></tr></table></figure>
+
+<p>​    -b参数的后面是本地仓库中新建分支的名称。新建分支名称后面是获取来源的分支名称。</p>
+<h2 id="获取最新的远程仓库分支——git-pull"><a href="#获取最新的远程仓库分支——git-pull" class="headerlink" title="获取最新的远程仓库分支——git pull"></a>获取最新的远程仓库分支——git pull</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git pull origin feature-D</span></span><br><span class="line">remote: Enumerating objects: 5, done.</span><br><span class="line">remote: Counting objects: 100% (5/5), done.</span><br><span class="line">remote: Compressing objects: 100% (2/2), done.</span><br><span class="line">remote: Total 3 (delta 0), reused 3 (delta 0), pack-reused 0</span><br><span class="line">Unpacking objects: 100% (3/3), 265 bytes | 53.00 KiB/s, done.</span><br><span class="line">From github.com:Kome1jiSatori/git-tutorial</span><br><span class="line"> * branch            feature-D  -&gt; FETCH_HEAD</span><br><span class="line">   b4439c4..ab5167c  feature-D  -&gt; origin/feature-D</span><br><span class="line">Updating b4439c4..ab5167c</span><br><span class="line">Fast-forward</span><br><span class="line"> README.md | 1 +</span><br><span class="line"> 1 file changed, 1 insertion(+)</span><br></pre></td></tr></table></figure>
+
+<p>​    现在我们放下刚刚操作的目录，回到原先的那个目录下。这边的本地仓库中只创建了feature-D 分支，并没有在feature-D 分支中进行任何提交。然而远程仓库的feature-D 分支中已经有了我们刚刚推送的提交。这时我们就可以使用git pull 命令，将本地的feature-D 分支更新到最新状态。当前分支为feature-D 分支。</p>
 
     </div>
 
@@ -260,7 +355,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://kome1jisatori.github.io/2024/01/10/git/" title="git">http://kome1jisatori.github.io/2024/01/10/git/</a>
+    <a href="http://kome1jisatori.github.io/2024/01/10/git/" title="git基础操作">http://kome1jisatori.github.io/2024/01/10/git/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -340,6 +435,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="nav-text">基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6"><span class="nav-text">上传文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E4%BB%93%E5%BA%93%E2%80%94%E2%80%94git-init"><span class="nav-text">初始化仓库——git init</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E4%BB%93%E5%BA%93%E7%8A%B6%E6%80%81%E2%80%94%E2%80%94git-status"><span class="nav-text">查看仓库状态——git status</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9A%82%E5%AD%98%E5%8C%BA%E6%B7%BB%E5%8A%A0%E6%96%87%E4%BB%B6%E2%80%94%E2%80%94git-add"><span class="nav-text">暂存区添加文件——git add</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%9D%E5%AD%98%E4%BB%93%E5%BA%93%E5%8E%86%E5%8F%B2%E8%AE%B0%E5%BD%95%E2%80%94%E2%80%94git-commit"><span class="nav-text">保存仓库历史记录——git commit</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E5%89%8D%E5%90%8E%E5%B7%AE%E5%88%AB%E2%80%94%E2%80%94git-diff"><span class="nav-text">查看文件前后差别——git diff</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C"><span class="nav-text">分支操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%98%BE%E7%A4%BA%E5%88%86%E6%94%AF%E2%80%94%E2%80%94git-branch"><span class="nav-text">显示分支——git branch</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E3%80%81%E5%88%87%E6%8D%A2%E5%88%86%E6%94%AF%E2%80%94%E2%80%94git-checkout-b"><span class="nav-text">创建、切换分支——git checkout -b</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%88%E5%B9%B6%E5%88%86%E6%94%AF-%E2%80%94%E2%80%94git-merge"><span class="nav-text">合并分支 ——git merge</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%BE%E8%A1%A8%E5%BD%A2%E5%BC%8F%E6%9F%A5%E7%9C%8B%E5%88%86%E6%94%AF%E2%80%94%E2%80%94git-log-%E2%80%93graph"><span class="nav-text">图表形式查看分支——git log –graph</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9E%E6%BA%AF%E5%B7%A5%E4%BD%9C%E6%A0%91%E2%80%94%E2%80%94git-reset-%E2%80%93hard"><span class="nav-text">回溯工作树——git reset –hard</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E6%8F%90%E4%BA%A4%E4%BF%A1%E6%81%AF%E2%80%94%E2%80%94git-commit-%E2%80%93amend"><span class="nav-text">修改提交信息——git commit –amend</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%8B%E7%BC%A9%E5%8E%86%E5%8F%B2%E2%80%94%E2%80%94git-rebase-i"><span class="nav-text">压缩历史——git rebase -i</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E2%80%94%E2%80%94git-remote-add"><span class="nav-text">添加远程仓库——git remote add</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A8%E9%80%81%E8%87%B3%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E2%80%94%E2%80%94git-push"><span class="nav-text">推送至远程仓库——git push</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E2%80%94%E2%80%94git-clone"><span class="nav-text">获取远程仓库——git clone</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E6%9C%80%E6%96%B0%E7%9A%84%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E5%88%86%E6%94%AF%E2%80%94%E2%80%94git-pull"><span class="nav-text">获取最新的远程仓库分支——git pull</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -430,13 +526,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">324k</span>
+    <span title="站点总字数">332k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:55</span>
+    <span title="站点阅读时长">5:02</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
